@@ -15,12 +15,12 @@ test('absolute posture distinguishes table, upright and left/right including scr
   near(normalizedTilt(36,16,{beta:30,gamma:10},0,12).x,.5);
 });
 
-test('upright folds lower edge backward and flat restores the whole sheet without accumulation',()=>{
+test('upright folds upper edge downward and backward and flat restores the whole sheet without accumulation',()=>{
   const {sheet,fold}=fixture();fold.setGravity(screenGravity(90,0));settle(fold);
   const bottom=sheet.rows*(sheet.columns+1)*3;
-  assert.ok(sheet.positions[bottom+1]>sheet.rest[bottom+1]+1);
-  assert.ok(sheet.positions[bottom+2]<sheet.rest[bottom+2]-.3);
-  near(sheet.positions[1],sheet.rest[1]);
+  assert.ok(sheet.positions[1]<sheet.rest[1]-1);
+  assert.ok(sheet.positions[2]<sheet.rest[2]-.3);
+  near(sheet.positions[bottom+1],sheet.rest[bottom+1]);
   const held=sheet.positions.slice();settle(fold);
   held.forEach((v,i)=>near(sheet.positions[i],v));
   fold.setGravity(screenGravity(0,0));settle(fold);

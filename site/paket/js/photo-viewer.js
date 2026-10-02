@@ -49,7 +49,7 @@ export function createPhotoViewer(){
     source?.classList.remove('is-viewing');source?.focus({preventScroll:true});
     document.dispatchEvent(new CustomEvent('photo-viewer-change',{detail:{open:false}}));closing=false;
   }
-  card.addEventListener('click',()=>{if(closing)return;interacted=true;clearAuto();setFace(!flipped);});
+  card.addEventListener('click',()=>{if(closing)return;interacted=true;clearAuto();setFace(!flipped);window.siteAnalytics?.track('photo_flip',{photo:source.dataset.photoId,face:flipped?'back':'front'});});
   closeButton.addEventListener('click',close);
   dialog.addEventListener('click',event=>{if(event.target===dialog)close();});
   dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
@@ -61,7 +61,7 @@ export function createPhotoViewer(){
     const image=front.querySelector('img');if(image){image.src=photo.src;image.removeAttribute('srcset');image.removeAttribute('sizes');image.loading='eager';}
     heading.textContent=photo.place||photo.label||'В пути';note.textContent=photo.caption ?? '';
     oldOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';
-    dialog.showModal();tilt.reset();tilt.sync();setFace(false,false);source.classList.add('is-viewing');
+    dialog.showModal();window.siteAnalytics?.track('photo_open',{photo:photo.id});tilt.reset();tilt.sync();setFace(false,false);source.classList.add('is-viewing');
     document.dispatchEvent(new CustomEvent('photo-viewer-change',{detail:{open:true}}));
     card.focus({preventScroll:true});
     if(!motion.matches){

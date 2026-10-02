@@ -4,11 +4,12 @@ import { Environments } from './environments.js?v=20261002-relax';
 import { SceneBoundary, EDGE_RISE } from './scene-boundary.js?v=20260930-fullscreen';
 import { PlasticSheet } from './plastic.js?v=20261002-relax';
 import { FoldIntro } from './fold-intro.js';
-import { MotionFold } from './motion-fold.js?v=20261002-relax';
+import { MotionFold } from './motion-fold.js?v=20261002-metrika';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261002-relax';
+import { renderSections } from './content.js?v=20261002-metrika';
 
 renderSections();
+window.dispatchEvent(new Event('site-sections-ready'));
 const canvas=document.querySelector('#bag-canvas');
 const hitArea=document.querySelector('#bag-hit-area');
 const stage=document.querySelector('#bag-stage');
@@ -178,7 +179,7 @@ async function init(){
     }
   }
   window.addEventListener('scroll',onScroll,{passive:true});
-  function markTouched(){hero.dataset.interacted='true';endScroll();}
+  function markTouched(){hero.dataset.interacted='true';endScroll();window.siteAnalytics?.track('bag_interact',{environment:environments.mode});}
   hitArea.addEventListener('pointerdown',event=>{
     hitArea.classList.remove('keyboard-focus');if(event.button!==0)return;
     if(scrollPull.apply())syncGeometry();
@@ -234,6 +235,7 @@ async function init(){
     contactMaterial.uniforms.strength.value=mode==='plain'?.10:mode==='space'?0:mode==='rocks'?.35:.13;
     contactMaterial.uniforms.onStone.value=mode==='rocks'?1:0;
     ambient.intensity=mode==='rocks'?1.35:compact?2.1:1.35;key.intensity=mode==='rocks'?1.65:compact?1.2:1.7;
+    if(hero.dataset.environment&&hero.dataset.environment!==mode)window.siteAnalytics?.track('environment_change',{environment:mode});
     hero.dataset.environment=mode;hero.dataset.scrollCompression='0';
     stage.setAttribute('aria-label',mode==='rocks'?'Пакет на камнях':mode==='sea'?'Пакет в воде':mode==='space'?'Пакет в космосе':'Пакет на светлом фоне');pendingShape=true;dirty=true;
   }});

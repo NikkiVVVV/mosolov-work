@@ -20,12 +20,12 @@ export class MotionFold {
     let changed=relaxed;this.moving=false;
     for(let i=0;i<sheet.positions.length;i+=3){
       const rx=sheet.rest[i],ry=sheet.rest[i+1],rz=sheet.rest[i+2];
-      // Tilting left folds the right edge inward; upright folds the bottom upward.
+      // Tilting left folds the right edge inward; upright folds the top downward.
       const u=rx/sheet.width+.5,v=.5-ry/sheet.height;
-      const edge=x<0?u:1-u,lower=y>=0?v:1-v;
+      const edge=x<0?u:1-u,lower=y>=0?1-v:v;
       const sideFold=side*edge*edge,verticalFold=lift*lower*lower;
       const tx=rx+Math.sign(x)*sheet.width*.30*sideFold;
-      const ty=ry+Math.sign(y)*sheet.height*.32*verticalFold;
+      const ty=ry-Math.sign(y)*sheet.height*.32*verticalFold;
       const tz=rz-.40*verticalFold-.25*sideFold
         +.14*side*Math.sin(edge*Math.PI*3)*edge
         +.18*lift*Math.sin(lower*Math.PI*4)*lower;
