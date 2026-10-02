@@ -5,7 +5,7 @@ import { SceneBoundary, EDGE_RISE } from './scene-boundary.js?v=20260930-fullscr
 import { PlasticSheet } from './plastic.js?v=20260930-cosmos-final';
 import { FoldIntro } from './fold-intro.js';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261002-motion';
+import { renderSections } from './content.js?v=20261002-captions';
 
 renderSections();
 const canvas=document.querySelector('#bag-canvas');

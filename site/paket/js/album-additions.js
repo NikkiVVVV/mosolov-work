@@ -14,7 +14,7 @@ export const albumAdditions = [
     "src": "./assets/album/06-travel.webp",
     "thumbnail": "./assets/album/06-travel-thumb.webp",
     "label": "Красная Поляна",
-    "caption": "В хостеле спали на нарах. Пакет не жаловался: ему вообще-то привычнее в шкафу.",
+    "caption": "В хостеле спали на нарах. В пакете вёз кроссовки.",
     "alt": "Компания с пакетом за столами в кафе",
     "position": "50% 45%"
   },
@@ -23,7 +23,7 @@ export const albumAdditions = [
     "src": "./assets/album/07-travel.webp",
     "thumbnail": "./assets/album/07-travel-thumb.webp",
     "label": "Абхазия",
-    "caption": "Море, балкон и полный пакет отпускного настроения. Обратно пока не хочется.",
+    "caption": "Очень понравилось местное производство японских автомобилей.",
     "alt": "Пакет на балконе над морем",
     "position": "100% 100%"
   },
@@ -32,7 +32,7 @@ export const albumAdditions = [
     "src": "./assets/album/08-travel.webp",
     "thumbnail": "./assets/album/08-travel-thumb.webp",
     "label": "Севкабель Порт",
-    "caption": "Сходили на концерт. Пакет был в составе компании, хотя по звуку больше подходит в перкуссию.",
+    "caption": "Вместе с пакетом были на концерте Севида Антонова.",
     "alt": "Компания с пакетом у воды на фоне моста",
     "position": "50% 55%"
   },
@@ -41,7 +41,7 @@ export const albumAdditions = [
     "src": "./assets/album/09-travel.webp",
     "thumbnail": "./assets/album/09-travel-thumb.webp",
     "label": "Дагестан",
-    "caption": "Поход по горам. Ноги устали у всех, кроме пакета. Удобно устроился.",
+    "caption": "21 векк",
     "alt": "Путешественники с пакетом в зелёной горной долине",
     "position": "50% 65%"
   },
@@ -59,7 +59,7 @@ export const albumAdditions = [
     "src": "./assets/album/11-travel.webp",
     "thumbnail": "./assets/album/11-travel-thumb.webp",
     "label": "Стамбул",
-    "caption": "Чайки орали, пахло так себе. Пакет всё выдержал: у него нет носа.",
+    "caption": "В пакете везли обратно носки и трусы из Зары.",
     "alt": "Трое с пакетом на фоне турецкого флага",
     "position": "50% 70%"
   },
@@ -104,7 +104,7 @@ export const albumAdditions = [
     "src": "./assets/album/16-travel.webp",
     "thumbnail": "./assets/album/16-travel-thumb.webp",
     "label": "Озеро Буссе",
-    "caption": "Сапоги, вода и корзины. Пакет впервые переживает, что его заменят тарой поудобнее.",
+    "caption": "Чуть не сломал зуб о найденную в раковине жемчужину.",
     "alt": "Двое с пакетом и корзинами в воде",
     "position": "50% 55%"
   },
@@ -113,7 +113,7 @@ export const albumAdditions = [
     "src": "./assets/album/17-travel.webp",
     "thumbnail": "./assets/album/17-travel-thumb.webp",
     "label": "Остров Шкота",
-    "caption": "Туман, скалы и ветер. Пакет держали крепче, чем планы на хорошую погоду.",
+    "caption": "Активая",
     "alt": "Двое с пакетом на туманных скалах",
     "position": "50% 70%"
   },
@@ -122,7 +122,7 @@ export const albumAdditions = [
     "src": "./assets/album/18-travel.webp",
     "thumbnail": "./assets/album/18-travel-thumb.webp",
     "label": "Кипр",
-    "caption": "Море и личная пещера на пару минут. Пакет снова отдыхает лучше многих.",
+    "caption": "Встретили несколько земляков из Эртиля.",
     "alt": "Путешественник с пакетом в морской пещере",
     "position": "50% 45%"
   },
@@ -131,7 +131,7 @@ export const albumAdditions = [
     "src": "./assets/album/19-travel.webp",
     "thumbnail": "./assets/album/19-travel-thumb.webp",
     "label": "Бали",
-    "caption": "Нашёл много друзей-обезьян. Хорошо, что до обмена сувенирами не дошло.",
+    "caption": "Нашёл много новых друзей-обезьян. Теперь путаю со старыми.",
     "alt": "Двое с пакетом рядом с обезьяной",
     "position": "50% 65%"
   },
@@ -158,7 +158,7 @@ export const albumAdditions = [
     "src": "./assets/album/22-travel.webp",
     "thumbnail": "./assets/album/22-travel-thumb.webp",
     "label": "Египет",
-    "caption": "Зазывала заманил на фото с верблюдом. Чуть не остались без пакета — вот тебе и сувенир на память.",
+    "caption": "Фото сделано за пять минут до верблюжьего скама.",
     "alt": "Компания с пакетом и верблюдом ночью",
     "position": "50% 55%"
   },

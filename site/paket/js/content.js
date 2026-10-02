@@ -1,4 +1,4 @@
-import { albumAdditions } from './album-additions.js?v=20261001-bag-surprise-final';
+import { albumAdditions } from './album-additions.js?v=20261002-captions';
 import { renderGallery } from './gallery.js?v=20261002-motion';
 // Dates and travel count supplied by the owner. Bag age intentionally omitted by agreement.
 export const content = {
@@ -23,9 +23,9 @@ export const content = {
   ],
   // Photo order is stable; places and stories supplied by the owner.
   album: [
-    {id:'summit',src:'./assets/album/01-summit.webp',thumbnail:'./assets/album/01-summit-thumb.webp',label:"Шерегеш",alt:'Путешественник с пакетом у заснеженного креста на вершине',caption:"Январь 2021-го. Было холодно, но весело. Пакет держался — ручки не отморозил.",position:'50% 64%'},
-    {id:'hike',src:'./assets/album/02-hike.webp',thumbnail:'./assets/album/02-hike-thumb.webp',label:"Архыз",alt:'Пятеро путешественников с пакетом на фоне гор',caption:"Шли три дня. Было очень красиво. Но алкоголь в стекле больше с собой не берём.",position:'50% 60%'},
-    {id:'together',src:'./assets/album/03-together.webp',thumbnail:'./assets/album/03-together-thumb.webp',label:"Пицунда",alt:'Четверо друзей с белым пакетом в помещении',caption:"Абхазия, друзья и пакет. Для хорошего отпуска этого уже достаточно.",position:'50% 72%'},
+    {id:'summit',src:'./assets/album/01-summit.webp',thumbnail:'./assets/album/01-summit-thumb.webp',label:"Шерегеш",alt:'Путешественник с пакетом у заснеженного креста на вершине',caption:"Было очень холодно, но лыжники всё равно гетеросексуалы.",position:'50% 64%'},
+    {id:'hike',src:'./assets/album/02-hike.webp',thumbnail:'./assets/album/02-hike-thumb.webp',label:"Архыз",alt:'Пятеро путешественников с пакетом на фоне гор',caption:"Главный урок похода — не брать с собой алкоголь в стекле в горы.",position:'50% 60%'},
+    {id:'together',src:'./assets/album/03-together.webp',thumbnail:'./assets/album/03-together-thumb.webp',label:"Пицунда",alt:'Четверо друзей с белым пакетом в помещении',caption:"Повезли туда пакет только из-за названия.",position:'50% 72%'},
     {id:'underwater',src:'./assets/album/04-underwater.webp',thumbnail:'./assets/album/04-underwater-thumb.webp',label:"Мальдивы",alt:'Двое в масках под водой держат пакет «Эртильские новости»',caption:"Плавал с акулами. Кажется, они тоже не ожидали встретить районную газету под водой.",position:'50% 65%'},
     ...albumAdditions
   ],
