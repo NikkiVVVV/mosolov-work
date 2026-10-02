@@ -235,7 +235,7 @@ async function init(){
     contactMaterial.uniforms.strength.value=mode==='plain'?.10:mode==='space'?0:mode==='rocks'?.35:.13;
     contactMaterial.uniforms.onStone.value=mode==='rocks'?1:0;
     ambient.intensity=mode==='rocks'?1.35:compact?2.1:1.35;key.intensity=mode==='rocks'?1.65:compact?1.2:1.7;
-    if(hero.dataset.environment&&hero.dataset.environment!==mode)window.siteAnalytics?.track('environment_change',{environment:mode});
+    if((hero.dataset.environment||'plain')!==mode)window.siteAnalytics?.track('environment_change',{environment:mode});
     hero.dataset.environment=mode;hero.dataset.scrollCompression='0';
     stage.setAttribute('aria-label',mode==='rocks'?'Пакет на камнях':mode==='sea'?'Пакет в воде':mode==='space'?'Пакет в космосе':'Пакет на светлом фоне');pendingShape=true;dirty=true;
   }});
