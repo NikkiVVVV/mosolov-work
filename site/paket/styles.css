@@ -212,6 +212,6 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 .album-bag-slot.is-fallback-open .album-bag-fallback{transform:translateX(-12%) scaleX(.65)}
 
 /* Equal gaps between the sticker and the differently sized footer links. */
-.footer-sticker{display:block;width:clamp(72px,23vw,100px);height:auto;flex-shrink:0;position:relative;left:-2px}
+.footer-sticker{display:block;width:clamp(72px,23vw,100px);height:auto;flex-shrink:0;position:relative;left:-5px}
 .site-footer a:first-child{justify-self:start;white-space:nowrap}
 .site-footer a:last-child{justify-self:end;white-space:nowrap}

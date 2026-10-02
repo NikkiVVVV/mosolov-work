@@ -236,7 +236,7 @@ export class PlasticSheet {
     if(falling){
       for(let i=0;i<p.length;i++)movement=Math.max(movement,Math.abs(p[i]-before[i]));
       if(!this.grabs.size&&this.surfaceAge>.8&&(movement<.0008||this.surfaceAge>3.95)){
-        this.surfaceSettling=false;this.relaxing=false;this.previous.set(p);this.pose.set(p);
+        this.surfaceSettling=false;this.relaxing=true;this.previous.set(p);this.pose.set(p);
       }
     }
     return true;

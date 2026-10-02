@@ -1,12 +1,12 @@
 import {createTiltInput} from './tilt-input.js?v=20261002-gravity';
 import * as THREE from '../vendor/three.module.js';
-import { Environments } from './environments.js?v=20261002-gravity';
+import { Environments } from './environments.js?v=20261002-relax';
 import { SceneBoundary, EDGE_RISE } from './scene-boundary.js?v=20260930-fullscreen';
-import { PlasticSheet } from './plastic.js?v=20260930-cosmos-final';
+import { PlasticSheet } from './plastic.js?v=20261002-relax';
 import { FoldIntro } from './fold-intro.js';
-import { MotionFold } from './motion-fold.js?v=20261002-gravity';
+import { MotionFold } from './motion-fold.js?v=20261002-relax';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261002-gravity';
+import { renderSections } from './content.js?v=20261002-relax';
 
 renderSections();
 const canvas=document.querySelector('#bag-canvas');
@@ -172,6 +172,7 @@ async function init(){
     const next=Math.max(0,scrollY),delta=next-lastScroll;lastScroll=next;dirty=true;wake();
     if(environments.mode!=='plain'||intro.active||reducedMotion.matches||!delta||active.size||sheet.grabs.has('keyboard'))return;
     if(scrollPull.active||hitArea.style.visibility==='visible'){
+      if(!scrollPull.active)motionFold.bake();
       scrollPull.setScroll(next,delta,pixelsPerUnit*environments.scale);
       hero.dataset.scrollCompression=scrollPull.progress.toFixed(3);
     }
@@ -207,12 +208,12 @@ async function init(){
     wake();
   }
   ['pointerup','pointercancel','lostpointercapture'].forEach(type=>hitArea.addEventListener(type,release));
-  hitArea.addEventListener('dblclick',()=>{scrollPull.reset();sheet.reset();pendingShape=true;dirty=true;wake();});
+  hitArea.addEventListener('dblclick',()=>{scrollPull.reset();motionFold.bake();sheet.reset();pendingShape=true;dirty=true;wake();});
   document.addEventListener('keydown',event=>{if(event.key==='Tab')hitArea.classList.add('keyboard-focus');});
   let keyTarget;
   hitArea.addEventListener('keydown',event=>{
     hitArea.classList.add('keyboard-focus');
-    if(event.key==='Escape'){scrollPull.reset();sheet.reset();pendingShape=true;dirty=true;wake();return;}
+    if(event.key==='Escape'){scrollPull.reset();motionFold.bake();sheet.reset();pendingShape=true;dirty=true;wake();return;}
     if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;
     event.preventDefault();markTouched();
     const center=Math.floor(sheet.rows/2)*(sheet.columns+1)+Math.floor(sheet.columns/2);
@@ -224,12 +225,12 @@ async function init(){
   });
   hitArea.addEventListener('keyup',()=>{sheet.release('keyboard');wake();});
   hitArea.addEventListener('blur',()=>{sheet.releaseAll();environments.cancelDrag();wake();});
-  reducedMotion.addEventListener('change',event=>{sheet.reducedMotion=event.matches;if(event.matches){endScroll();if(intro.active){intro.finish();pendingShape=true;revealPage();}}wake();});
+  reducedMotion.addEventListener('change',event=>{sheet.reducedMotion=event.matches;if(event.matches){motionFold.bake();endScroll();if(intro.active){intro.finish();pendingShape=true;revealPage();}}wake();});
   const sceneResize=new ResizeObserver(()=>{layoutDirty=true;wake();});sceneResize.observe(stage);sceneResize.observe(hero);sceneResize.observe(sceneFrame);
   window.addEventListener('resize',()=>{layoutDirty=true;wake();},{passive:true});
   let previous=performance.now(),accumulator=0,raf=0,frame=0,timer=0,contextLost=false,viewerOpen=false;
   const environments=new Environments({renderer,scene,sheet,stage,compact,reducedMotion,wake,onChange(mode){
-    endScroll();sheet.releaseAll();active.clear();hitArea.classList.remove('is-dragging');
+    motionFold.bake();endScroll();sheet.releaseAll();active.clear();hitArea.classList.remove('is-dragging');
     contactMaterial.uniforms.strength.value=mode==='plain'?.10:mode==='space'?0:mode==='rocks'?.35:.13;
     contactMaterial.uniforms.onStone.value=mode==='rocks'?1:0;
     ambient.intensity=mode==='rocks'?1.35:compact?2.1:1.35;key.intensity=mode==='rocks'?1.65:compact?1.2:1.7;
@@ -268,14 +269,14 @@ async function init(){
     if(intro.active){
       changed=intro.advance(elapsed);canvas.dataset.introPhase=intro.phase;
       if(!intro.active)revealPage();
-    }else if(scrollPull.active){changed=scrollPull.apply();accumulator=0;}
+    }else if(scrollPull.active){changed=scrollPull.apply();accumulator=0;if(scrollPull.progress===0)endScroll();}
     else if(sheet.grabs.size){
       if(compact){changed=sheet.step()||changed;}
       else{
         accumulator+=Math.min(elapsed,.05);
         while(accumulator>=1/60){changed=sheet.step()||changed;accumulator-=1/60;}
       }
-    }else if(environments.mode==='plain'&&motionFold.active){
+    }else if(environments.mode==='plain'&&motionFold.active&&!sheet.returnPose){
       accumulator=0;changed=motionFold.apply(elapsed);
     }else{accumulator=0;changed=sheet.relax(elapsed)||changed;}
     changed=sheet.enforceBoundary()||changed;
