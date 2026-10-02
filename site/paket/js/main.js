@@ -1,11 +1,12 @@
-import {createTiltInput} from './tilt-input.js?v=20261002-motion';
+import {createTiltInput} from './tilt-input.js?v=20261002-gravity';
 import * as THREE from '../vendor/three.module.js';
-import { Environments } from './environments.js?v=20261002-motion';
+import { Environments } from './environments.js?v=20261002-gravity';
 import { SceneBoundary, EDGE_RISE } from './scene-boundary.js?v=20260930-fullscreen';
 import { PlasticSheet } from './plastic.js?v=20260930-cosmos-final';
 import { FoldIntro } from './fold-intro.js';
+import { MotionFold } from './motion-fold.js?v=20261002-gravity';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261002-captions';
+import { renderSections } from './content.js?v=20261002-gravity';
 
 renderSections();
 const canvas=document.querySelector('#bag-canvas');
@@ -33,6 +34,7 @@ async function init(){
   const sheet=new PlasticSheet(3.15,4.2,compact?18:32,compact?24:44,compact?12:18);
   const boundary=new SceneBoundary();sheet.boundary=boundary;
   const scrollPull=new ScrollPull(sheet);
+  const motionFold=new MotionFold(sheet);
   const intro=new FoldIntro(sheet,document.documentElement.dataset.intro==='pending');
   if(intro.active)document.documentElement.dataset.intro='unfolding';
   let stageLeft=0,stageTop=0,stageWidth=0,stageHeight=0,stageFrameOffset=0,stageBottomExtension=0;
@@ -70,7 +72,7 @@ async function init(){
   const front=new THREE.Mesh(geometry,material),back=new THREE.Mesh(geometry,backMaterial);
   front.frustumCulled=back.frustumCulled=false;root.add(front,back);
   const contactMaterial=new THREE.ShaderMaterial({
-    uniforms:{bagMap:{value:texture},strength:{value:0},onStone:{value:0},sceneBottom:{value:0},sceneSlope:{value:0},sceneCenter:{value:new THREE.Vector2()}},transparent:true,depthWrite:false,side:THREE.DoubleSide,
+    uniforms:{bagMap:{value:texture},strength:{value:.10},onStone:{value:0},sceneBottom:{value:0},sceneSlope:{value:0},sceneCenter:{value:new THREE.Vector2()}},transparent:true,depthWrite:false,side:THREE.DoubleSide,
     vertexShader:`attribute float surfaceZ;uniform float onStone;varying float contact;varying vec2 shadowUv;varying vec2 shadowWorld;void main(){shadowUv=uv;vec3 local=position;local.xy+=vec2(.025,-.045);local.z=mix(-1.85,surfaceZ,onStone);contact=mix(1.,exp(-max(0.,position.z-surfaceZ)*3.),onStone);vec4 p=modelMatrix*vec4(local,1.);shadowWorld=p.xy;gl_Position=projectionMatrix*viewMatrix*p;}`,
     fragmentShader:`uniform sampler2D bagMap;uniform float strength;uniform float sceneBottom;uniform float sceneSlope;uniform vec2 sceneCenter;varying float contact;varying vec2 shadowUv;varying vec2 shadowWorld;void main(){vec2 q=shadowWorld-sceneCenter;if(abs(q.x)>2.||q.y<sceneBottom+sceneSlope*q.x)discard;vec2 d=vec2(.009);float a=texture2D(bagMap,shadowUv).a*.4;a+=(texture2D(bagMap,shadowUv+d).a+texture2D(bagMap,shadowUv-d).a+texture2D(bagMap,shadowUv+vec2(d.x,-d.y)).a+texture2D(bagMap,shadowUv+vec2(-d.x,d.y)).a)*.15;gl_FragColor=vec4(.15,.15,.13,a*strength*contact);}`
   });
@@ -154,11 +156,7 @@ async function init(){
     const w=Math.max(0,r-x).toFixed(2)+'px',h=Math.max(0,d-y).toFixed(2)+'px';
     if(hitArea.style.width!==w)hitArea.style.width=w;
     if(hitArea.style.height!==h)hitArea.style.height=h;
-    const shadowHeight=Math.min(32,frameHeight-bottom-7);
-    const shadowInside=shadowHeight>=8&&bottom+7>=0;
-    shadow.style.visibility=visible&&shadowInside&&environments.mode==='plain'?'visible':'hidden';
-    shadow.style.transform=`translate3d(${((left+right)/2-120).toFixed(2)}px,${(bottom+7+(shadowHeight-32)/2).toFixed(2)}px,0) scale(${Math.max(.2,(right-left)*.8/240).toFixed(3)},${Math.max(0,shadowHeight/32).toFixed(3)})`;
-    shadow.style.opacity=visible?(environments.mode==='plain'?'.8':'.35'):'0';
+    shadow.style.visibility='hidden'; // Plain shadow follows the mesh silhouette instead.
     return visible||sceneryVisible;
   }
   let lastScroll=Math.max(0,scrollY);
@@ -232,14 +230,14 @@ async function init(){
   let previous=performance.now(),accumulator=0,raf=0,frame=0,timer=0,contextLost=false,viewerOpen=false;
   const environments=new Environments({renderer,scene,sheet,stage,compact,reducedMotion,wake,onChange(mode){
     endScroll();sheet.releaseAll();active.clear();hitArea.classList.remove('is-dragging');
-    contactMaterial.uniforms.strength.value=(mode==='plain'||mode==='space')?0:mode==='rocks'?.35:.13;
+    contactMaterial.uniforms.strength.value=mode==='plain'?.10:mode==='space'?0:mode==='rocks'?.35:.13;
     contactMaterial.uniforms.onStone.value=mode==='rocks'?1:0;
     ambient.intensity=mode==='rocks'?1.35:compact?2.1:1.35;key.intensity=mode==='rocks'?1.65:compact?1.2:1.7;
     hero.dataset.environment=mode;hero.dataset.scrollCompression='0';
     stage.setAttribute('aria-label',mode==='rocks'?'Пакет на камнях':mode==='sea'?'Пакет в воде':mode==='space'?'Пакет в космосе':'Пакет на светлом фоне');pendingShape=true;dirty=true;
   }});
   let targetTiltX=0,targetTiltY=0,tiltX=0,tiltY=0;
-  const tilt=createTiltInput(sceneFrame,(x,y)=>{targetTiltX=x;targetTiltY=y;dirty=true;wake();},{active:()=>!viewerOpen&&!intro.active});
+  const tilt=createTiltInput(sceneFrame,(x,y,gravity)=>{targetTiltX=x;targetTiltY=y;motionFold.setGravity(gravity);dirty=true;wake();},{active:()=>!viewerOpen&&!intro.active});
   function cancelLoop(){cancelAnimationFrame(raf);clearTimeout(timer);raf=timer=0;}
   function wake(){
     if(document.hidden||contextLost||viewerOpen||raf)return;
@@ -277,6 +275,8 @@ async function init(){
         accumulator+=Math.min(elapsed,.05);
         while(accumulator>=1/60){changed=sheet.step()||changed;accumulator-=1/60;}
       }
+    }else if(environments.mode==='plain'&&motionFold.active){
+      accumulator=0;changed=motionFold.apply(elapsed);
     }else{accumulator=0;changed=sheet.relax(elapsed)||changed;}
     changed=sheet.enforceBoundary()||changed;
     if(changed){

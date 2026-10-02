@@ -1,5 +1,5 @@
 import { albumAdditions } from './album-additions.js?v=20261002-captions';
-import { renderGallery } from './gallery.js?v=20261002-motion';
+import { renderGallery } from './gallery.js?v=20261002-gravity';
 // Dates and travel count supplied by the owner. Bag age intentionally omitted by agreement.
 export const content = {
   showMerch: false, // Keep the assortment for a later return.

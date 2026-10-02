@@ -38,11 +38,14 @@ test('one permission activates all visible consumers; touch leave preserves cali
   try{
     const roots=[new Element(),new Element(),new Element()];
     const values=roots.map(()=>[]);
-    roots.forEach((root,i)=>createTiltInput(root,(x,y)=>values[i].push({x,y})));
+    const postures=[];
+    roots.forEach((root,i)=>createTiltInput(root,(x,y,gravity)=>{values[i].push({x,y});postures.push(gravity);}));
     observers.forEach(observer=>observer.callback([{isIntersecting:true}]));
     roots[0].children[0].dispatchEvent(event('click'));
     await new Promise(resolve=>setImmediate(resolve));
     win.dispatchEvent(event('deviceorientation',{beta:30,gamma:10}));
+    assert.equal(postures.length,3); // First absolute sample must arrive even at relative neutral.
+    assert.ok(postures[0].y>.49);
     win.dispatchEvent(event('deviceorientation',{beta:42,gamma:22}));
     assert.equal(requests,1);
     values.forEach(v=>assert.deepEqual(v.at(-1),{x:.5,y:.5}));
