@@ -1,0 +1,6 @@
+NKDuy Mono — NKDuy
+Catalog: https://www.typedump.com/font/nkduy-mono
+Font: https://www.typedump.com/fonts/NKDuyMono%5Bwght%5D.woff2
+Catalog license: SIL Open Font License 1.1, https://scripts.sil.org/OFL
+Variable upright weights 100–800; Cyrillic, Latin, Greek, Vietnamese.
+TypeDump MCP 0.2.1 get_font/search_fonts returned not found; same requested font retrieved from TypeDump's own public catalog.

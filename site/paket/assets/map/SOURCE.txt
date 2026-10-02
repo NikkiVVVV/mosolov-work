@@ -1,0 +1,16 @@
+Natural Earth, 1:110m land polygons, public domain.
+https://www.naturalearthdata.com/about/terms-of-use/
+https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson
+Equirectangular projection, longitude -180..180, latitude 80..-60. Location markers are approximate regional/city centres, not exact photo coordinates.
+
+Place names supplied by the owner, 2026-10-01. Coordinates are approximate city/region centres. No photo-to-location assignments are implied.
+Small-location coordinate references:
+https://commons.wikimedia.org/wiki/File:Озеро_Буссе_7.jpg
+https://www.plantarium.ru/page/landscape/id/77011.html
+https://geographic.org/geographic_names/name.php?c=russia&fid=5555&uni=6876710
+
+View cropped to 70N–15S on 2026-10-01; initial longitude85E. Stepantsminda approximate42.66N44.64E; https://ru.wikipedia.org/wiki/Степанцминда
+
+2026-10-01 world-admin.svg: public domain Natural Earth. Cropped66N–12S, equirectangular projection, simplified region paths.
+https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson
+https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_1_states_provinces_lines.geojson

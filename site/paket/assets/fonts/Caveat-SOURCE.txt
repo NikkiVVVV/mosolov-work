@@ -1,0 +1,5 @@
+Caveat Medium, Google Fonts
+https://fonts.google.com/specimen/Caveat
+https://github.com/googlefonts/caveat
+Source TTF: https://fonts.gstatic.com/s/caveat/v23/WnznHAc5bAfYB2QRah7pcpNvOx-pjcB9SII.ttf
+Locally converted to WOFF2 with fontTools; Cyrillic coverage verified. License: OFL-Caveat.txt.
