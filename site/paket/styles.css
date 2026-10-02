@@ -170,11 +170,11 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 /* Full-bleed hero trial. Previous layout is saved in work/versions. */
 .mobile-page{width:min(100%,600px)}
 .mobile-page>section:not(.hero){max-width:440px;margin-inline:auto}
-.hero{height:100svh;min-height:480px;padding:0;overflow:hidden}
+.hero{height:100vh;height:var(--hero-viewport-height,100dvh);min-height:0;padding:0;overflow:hidden}
 .scene-frame{position:absolute;inset:0;display:block;margin:0;border-radius:0}
 .bag-stage{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;margin:0}
 .scene-controls{position:absolute;left:16px;right:16px;bottom:max(16px,env(safe-area-inset-bottom));margin:0;padding:12px;background:#fff;border-radius:20px;box-shadow:0 4px 24px #14253612}
-.bag-fallback{top:46%;width:calc(100% - 32px);max-height:calc(100% - 176px);transform:translate(-50%,-50%) scale(.85)}
+.bag-fallback{top:46%;width:calc(100% - 32px);max-height:calc(100% - 176px);transform:translate(-50%,-50%) scale(.98)}
 @media(min-width:601px){.hero{max-height:900px}}
 @media(max-width:360px){.scene-controls{left:12px;right:12px;padding:8px}.scene-controls .scene-option{width:36px}.scene-controls .album-link{padding-inline:10px}}
 
@@ -197,7 +197,7 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 .site-footer a{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:none;text-underline-offset:4px}
 .site-footer a:hover{text-decoration:underline}
 .site-footer a:focus-visible{outline:2px solid #245e90;outline-offset:4px;border-radius:2px}
-@media(min-width:601px){.mobile-page{padding-top:32px}.hero{height:calc(100svh - 32px);scroll-margin-top:32px}}
+@media(min-width:601px){.mobile-page{padding-top:32px}.hero{height:calc(var(--hero-viewport-height,100dvh) - 32px);scroll-margin-top:32px}}
 @media(max-width:600px){.album-map{margin-inline:var(--gutter)}}
 
 /* Static surprise beneath an opaque, deformable WebGL bag. */

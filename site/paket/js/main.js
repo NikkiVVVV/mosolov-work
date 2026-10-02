@@ -113,7 +113,7 @@ async function init(){
     const desiredScale=2*1.08*1.15*.9*Math.min(1,previousFit);
     const widthFit=(stageWidth-32)/pixelsPerUnit/sheet.width;
     const heightFit=(stageHeight-176)/pixelsPerUnit/sheet.height;
-    environments.scale=.85*Math.max(.18,Math.min(desiredScale,widthFit,heightFit));
+    environments.scale=.98*Math.max(.18,Math.min(desiredScale,widthFit,heightFit));
     environments.lift=stageHeight*.04/pixelsPerUnit;
     stageBottomExtension=(frameRect.bottom-rect.bottom)/pixelsPerUnit+EDGE_RISE;
     const pixelRatio=Math.min(devicePixelRatio,2,Math.sqrt(1600000/(width*height)));
