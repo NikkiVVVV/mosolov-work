@@ -7,7 +7,7 @@
 
 Для локального просмотра: `python3 -m http.server 4187 --bind 127.0.0.1 --directory site`, затем открыть `http://127.0.0.1:4187/paket/`.
 
-План публикации: GitHub Pages публикует каталог `site/` через GitHub Actions после push в main. Домен задаётся отдельно в Settings → Pages после проверки временного адреса. DNS управляется в Porkbun. HTTPS включается после выпуска сертификата GitHub.
+Опубликовано на GitHub Pages: https://github.com/NikkiVVVV/mosolov-work. Каталог `site/` автоматически публикуется через GitHub Actions после push в main. Свой домен `mosolov.work` задан в Settings → Pages; DNS управляется в Porkbun. Корневой ALIAS и CNAME для www направлены на `nikkivvvv.github.io`. Сертификат HTTPS выпускает GitHub.
 
 Лицензии сторонних библиотек и шрифтов сохранены рядом с файлами. Приватные документы, доступы, история чатов и данные регистратора в этот репозиторий не включаются.
 
