@@ -1,4 +1,4 @@
-import { createAlbumBag } from './album-bag.js?v=20261001-bag-surprise-final';
+import { createAlbumBag } from './album-bag.js?v=20261002-bag-hint';
 import { createTravelMap } from './travel-map.js?v=20261001-bag-surprise-final';
 import { createPhotoViewer } from './photo-viewer.js?v=20261002-metrika';
 import { createTiltInput } from './tilt-input.js?v=20261002-gravity';

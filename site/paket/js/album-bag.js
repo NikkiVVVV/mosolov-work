@@ -4,12 +4,27 @@ import { SceneBoundary } from './scene-boundary.js?v=20260930-fullscreen';
 
 // The picture stays fixed behind a separate, locally deformable plastic sheet.
 export function createAlbumBag(){
-  const slot=document.createElement('div');slot.className='album-bag-slot';
+  const slot=document.createElement('div');slot.className='album-bag-slot';slot.id='album-surprise';
   const surprise=document.createElement('img');surprise.className='album-bag-surprise';surprise.src='./assets/album/surprise.webp';surprise.alt='Горилла с неожиданным жестом';surprise.loading='lazy';surprise.draggable=false;
   const bag=document.createElement('button');bag.type='button';bag.className='album-bag';
   bag.setAttribute('aria-label','Пакет с сюрпризом. Потяните или нажмите, чтобы смять. Стрелки сминают, Escape расправляет.');
   const fallback=document.createElement('img');fallback.className='album-bag-fallback';fallback.src='./assets/bag-mobile.webp';fallback.alt='';fallback.draggable=false;fallback.loading='lazy';
   const canvas=document.createElement('canvas');canvas.setAttribute('aria-hidden','true');bag.append(fallback,canvas);slot.append(surprise,bag);
+  const hint=document.createElement('div');hint.className='album-bag-hint';hint.setAttribute('aria-hidden','true');
+  hint.innerHTML=`<svg viewBox="0 0 240 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="hint-line" pathLength="1" d="M125 102 Q137 88 151 81"/>
+    <path class="hint-head" pathLength="1" d="M139 82 L153 79 L150 93"/>
+    <text class="hint-word" x="12" y="148" transform="rotate(-8 12 148)">Разверни</text>
+  </svg>`;
+  slot.append(hint);
+  function dismissHint(){slot.dataset.hint='used';}
+  const hintObserver=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)){
+      if(slot.dataset.hint!=='used')slot.dataset.hint='shown';
+      hintObserver.disconnect();
+    }
+  },{threshold:.05});
+  hintObserver.observe(slot);
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   let visible=false,started=false,renderer=null,sheet=null,geometry=null,scene=null,camera=null,mesh=null,alpha=null;
   let raf=0,timer=0,last=0,dirty=true,drag=null,keyTarget=null,worldWidth=3.6;
@@ -67,6 +82,7 @@ export function createAlbumBag(){
     return ray.intersectObject(mesh).find(h=>{const x=Math.min(191,Math.max(0,Math.floor(h.uv.x*192))),y=Math.min(255,Math.max(0,Math.floor((1-h.uv.y)*256)));return alpha[(y*192+x)*4+3]>90;});
   }
   function crumple(){
+    dismissHint();
     if(!sheet){slot.classList.toggle('is-fallback-open');return;}
     const vertex=sheet.columns+Math.round(sheet.rows*.3)*(sheet.columns+1),p=Array.from(sheet.positions.slice(vertex*3,vertex*3+3));
     sheet.grab('tap',vertex,p);sheet.move('tap',[p[0]-1.8,p[1]-.8,0]);
@@ -74,8 +90,8 @@ export function createAlbumBag(){
   }
   bag.addEventListener('pointerdown',event=>{
     if(event.button!==0||drag)return;
-    if(!sheet){drag={id:event.pointerId,start:point(event),moved:false};bag.setPointerCapture(event.pointerId);return;}
-    const found=hit(event);if(!found)return;
+    if(!sheet){dismissHint();drag={id:event.pointerId,start:point(event),moved:false};bag.setPointerCapture(event.pointerId);return;}
+    const found=hit(event);if(!found)return;dismissHint();
     const candidates=[found.face.a,found.face.b,found.face.c];candidates.sort((a,b)=>new THREE.Vector3().fromArray(sheet.positions,a*3).distanceToSquared(found.point)-new THREE.Vector3().fromArray(sheet.positions,b*3).distanceToSquared(found.point));
     const p=point(event);sheet.grab(event.pointerId,candidates[0],p);drag={id:event.pointerId,start:p,moved:false};
     bag.setPointerCapture(event.pointerId);bag.classList.add('is-dragging');
@@ -97,7 +113,7 @@ export function createAlbumBag(){
   bag.addEventListener('dblclick',reset);
   bag.addEventListener('keydown',event=>{
     if(event.key==='Escape'){reset();return;}
-    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)||!sheet)return;event.preventDefault();
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)||!sheet)return;event.preventDefault();dismissHint();
     const vertex=Math.round(sheet.rows*.35)*(sheet.columns+1)+sheet.columns;
     if(!sheet.grabs.has('keyboard')){keyTarget=Array.from(sheet.positions.slice(vertex*3,vertex*3+3));sheet.grab('keyboard',vertex,keyTarget);}
     keyTarget[0]+=(event.key==='ArrowRight'?.35:0)-(event.key==='ArrowLeft'?.35:0);keyTarget[1]+=(event.key==='ArrowUp'?.35:0)-(event.key==='ArrowDown'?.35:0);

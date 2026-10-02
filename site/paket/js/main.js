@@ -6,7 +6,7 @@ import { PlasticSheet } from './plastic.js?v=20261002-relax';
 import { FoldIntro } from './fold-intro.js';
 import { MotionFold } from './motion-fold.js?v=20261002-metrika';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261002-metrika';
+import { renderSections } from './content.js?v=20261002-bag-hint';
 
 renderSections();
 window.dispatchEvent(new Event('site-sections-ready'));

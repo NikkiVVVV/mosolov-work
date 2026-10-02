@@ -215,3 +215,18 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 .footer-sticker{display:block;width:clamp(72px,23vw,100px);height:auto;flex-shrink:0;position:relative;left:-5px}
 .site-footer a:first-child{justify-self:start;white-space:nowrap}
 .site-footer a:last-child{justify-self:end;white-space:nowrap}
+
+/* Red pen hint for the final interactive album bag. */
+@font-face{font-family:'Bag handwriting';src:url('./assets/fonts/Caveat-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+.album-bag-slot{overflow:visible;z-index:5}
+.album-bag-hint{position:absolute;z-index:5;left:-24%;top:24%;width:124%;pointer-events:none;user-select:none;color:#e33632;opacity:0;transition:opacity .3s ease}
+.album-bag-hint svg{display:block;width:100%;height:auto;overflow:visible}
+.album-bag-hint path{stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.album-bag-hint text{font:500 39px 'Bag handwriting',cursive;fill:currentColor;opacity:0}
+.album-bag-slot[data-hint="shown"] .album-bag-hint{opacity:1}
+.album-bag-slot[data-hint="shown"] .hint-line{animation:hint-draw .75s cubic-bezier(.4,0,.3,1) .15s forwards}
+.album-bag-slot[data-hint="shown"] .hint-head{animation:hint-draw .22s ease-out .84s forwards}
+.album-bag-slot[data-hint="shown"] .hint-word{animation:hint-word .45s ease-out .9s forwards}
+@keyframes hint-draw{to{stroke-dashoffset:0}}
+@keyframes hint-word{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0)}}
+@media(prefers-reduced-motion:reduce){.album-bag-hint{transition:none}.album-bag-slot[data-hint="shown"] .album-bag-hint path{animation:none;stroke-dashoffset:0}.album-bag-slot[data-hint="shown"] .hint-word{animation:none;opacity:1}}
