@@ -1,4 +1,4 @@
-import {createTiltInput} from './tilt-input.js?v=20261001-bag-surprise-final';
+import {createTiltInput} from './tilt-input.js?v=20261002-motion';
 // A single native dialog: FLIP entrance, a brief front view, then a paper-card turn.
 export function createPhotoViewer(){
   const dialog=document.createElement('dialog');dialog.className='photo-viewer';
@@ -15,7 +15,7 @@ export function createPhotoViewer(){
   back.append(heading,note);card.append(front,back);tiltLayer.append(card);stage.append(tiltLayer);dialog.append(closeButton,stage);document.body.append(dialog);
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   let source=null,flipped=false,closing=false,interacted=false,autoFlip=0,entrance=null,turn=null,exit=null,oldOverflow='';
-  const tilt=createTiltInput(dialog,(x,y)=>{tiltLayer.style.transform=`rotateX(${-y*2.2}deg) rotateY(${x*2.2}deg)`;},{active:()=>dialog.open&&!closing});
+  const tilt=createTiltInput(dialog,(x,y)=>{tiltLayer.style.transform=`translate3d(${x*4}px,${y*3}px,0) rotateX(${-y*6}deg) rotateY(${x*7}deg)`;},{active:()=>dialog.open&&!closing});
   function clearAuto(){clearTimeout(autoFlip);autoFlip=0;}
   function setFace(value,animate=true){
     flipped=value;

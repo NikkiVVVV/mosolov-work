@@ -155,7 +155,7 @@ html[data-intro="pending"] .mobile-page>section:not(.hero),html[data-intro="unfo
 .map-selection{position:absolute;z-index:8;left:12px;right:12px;bottom:16px;display:flex;flex-wrap:wrap;gap:7px 14px;padding:12px 14px;border-radius:10px;background:#f5f8fcf5;box-shadow:0 3px 18px #324b6415;font:13px/1.4 Commissioner,sans-serif;max-height:35%;overflow-y:auto}
 .map-selection[hidden]{display:none}
 
-.photo-viewer-tilt{width:100%;height:100%;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.2,.65,.3,1)}
+.photo-viewer-tilt{width:100%;height:100%;transform-style:preserve-3d;transition:transform .22s ease-out}
 .motion-enable{position:absolute;z-index:7;top:8px;right:8px;display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:#ffffffc7;color:#344553;cursor:pointer}
 .motion-enable[hidden]{display:none}
 .motion-enable:focus-visible{outline:2px solid #245e90;outline-offset:2px}
@@ -179,10 +179,10 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 @media(max-width:360px){.scene-controls{left:12px;right:12px;padding:8px}.scene-controls .scene-option{width:36px}.scene-controls .album-link{padding-inline:10px}}
 
 /* Desktop lift and the final, playful album cell. */
-.album-grid>.photo-card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease,opacity .18s}
+.album-grid>.photo-card{transform:perspective(700px) rotateX(var(--album-tilt-x,0deg)) rotateY(var(--album-tilt-y,0deg)) rotateZ(var(--album-tilt-z,0deg));transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease,opacity .18s}
 @media(hover:hover) and (pointer:fine){
-  .album-grid>.photo-card:hover{transform:translateY(-5px) rotate(-.8deg);box-shadow:0 8px 20px #30271a24}
-  .album-grid>.photo-card:nth-child(even):hover{transform:translateY(-5px) rotate(.8deg)}
+  .album-grid>.photo-card:hover{transform:perspective(700px) translateY(-5px) rotateX(var(--album-tilt-x,0deg)) rotateY(var(--album-tilt-y,0deg)) rotateZ(calc(var(--album-tilt-z,0deg) - .8deg));box-shadow:0 8px 20px #30271a24}
+  .album-grid>.photo-card:nth-child(even):hover{transform:perspective(700px) translateY(-5px) rotateX(var(--album-tilt-x,0deg)) rotateY(var(--album-tilt-y,0deg)) rotateZ(calc(var(--album-tilt-z,0deg) + .8deg))}
   .album-grid>.photo-card.is-viewing{transform:none}
 }
 .album-bag-slot{position:relative;aspect-ratio:.82;display:grid;place-items:center;overflow:visible}
@@ -191,7 +191,7 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 .album-bag.is-dragging{cursor:grabbing}
 .album-bag:focus-visible{outline:2px solid #245e90;outline-offset:6px;border-radius:6px}
 @media(min-width:601px){.hero,.scene-frame{border-radius:28px}.scene-controls{bottom:32px}}
-@media(prefers-reduced-motion:reduce){.album-grid>.photo-card{transition:opacity .18s}.album-grid>.photo-card:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.album-grid>.photo-card{transition:opacity .18s;transform:none!important}}
 
 .site-footer{display:flex;justify-content:space-between;gap:8px;align-items:center;max-width:440px;margin:0 auto;padding:16px var(--gutter) 32px;font:14px/1.4 Commissioner,sans-serif;color:#757b83}
 .site-footer a{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:none;text-underline-offset:4px}
@@ -212,6 +212,6 @@ html[data-intro="pending"] .scene-frame>.motion-enable,html[data-intro="unfoldin
 .album-bag-slot.is-fallback-open .album-bag-fallback{transform:translateX(-12%) scaleX(.65)}
 
 /* Equal gaps between the sticker and the differently sized footer links. */
-.footer-sticker{display:block;width:clamp(72px,23vw,100px);height:auto;flex-shrink:0}
+.footer-sticker{display:block;width:clamp(72px,23vw,100px);height:auto;flex-shrink:0;position:relative;left:-2px}
 .site-footer a:first-child{justify-self:start;white-space:nowrap}
 .site-footer a:last-child{justify-self:end;white-space:nowrap}

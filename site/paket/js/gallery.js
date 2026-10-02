@@ -1,6 +1,7 @@
 import { createAlbumBag } from './album-bag.js?v=20261001-bag-surprise-final';
 import { createTravelMap } from './travel-map.js?v=20261001-bag-surprise-final';
-import { createPhotoViewer } from './photo-viewer.js?v=20261001-bag-surprise-final';
+import { createPhotoViewer } from './photo-viewer.js?v=20261002-motion';
+import { createTiltInput } from './tilt-input.js?v=20261002-motion';
 function photoSurface(photo,index){
   const media=document.createElement('div');media.className='photo-surface';
   if(photo.src){
@@ -33,6 +34,15 @@ export function renderGallery(photos){
   const galleryPanel=document.createElement('div');galleryPanel.id='album-gallery';galleryPanel.append(grid);
   const mapPanel=document.createElement('div');mapPanel.id='album-map';mapPanel.className='album-map';
   section.replaceChildren(galleryPanel,mapPanel);
+  let viewerOpen=false;
+  const tilt=createTiltInput(grid,(x,y)=>{
+    grid.style.setProperty('--album-tilt-x',`${-y*1.5}deg`);
+    grid.style.setProperty('--album-tilt-y',`${x*2}deg`);
+    grid.style.setProperty('--album-tilt-z',`${x*.6}deg`);
+  },{active:()=>!viewerOpen,buttonHost:section});
+  document.addEventListener('photo-viewer-change',event=>{
+    viewerOpen=event.detail.open;tilt.reset();tilt.sync();
+  });
   const travelMap=createTravelMap(mapPanel);
   travelMap.show();
 }

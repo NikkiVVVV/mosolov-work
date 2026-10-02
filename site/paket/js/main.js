@@ -1,11 +1,11 @@
-import {createTiltInput} from './tilt-input.js?v=20261001-bag-surprise-final';
+import {createTiltInput} from './tilt-input.js?v=20261002-motion';
 import * as THREE from '../vendor/three.module.js';
-import { Environments } from './environments.js?v=20261001-bag-surprise-final';
+import { Environments } from './environments.js?v=20261002-motion';
 import { SceneBoundary, EDGE_RISE } from './scene-boundary.js?v=20260930-fullscreen';
 import { PlasticSheet } from './plastic.js?v=20260930-cosmos-final';
 import { FoldIntro } from './fold-intro.js';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261001-bag-surprise-final';
+import { renderSections } from './content.js?v=20261002-motion';
 
 renderSections();
 const canvas=document.querySelector('#bag-canvas');

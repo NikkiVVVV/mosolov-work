@@ -43,7 +43,7 @@ export function createTiltInput(root,onChange,{active=()=>true,buttonHost=root}=
     if(event.pointerType!=='mouse'||!usable()||event.buttons)return;
     const r=root.getBoundingClientRect();emit(clampTilt((event.clientX-r.left)/r.width*2-1),clampTilt((event.clientY-r.top)/r.height*2-1));
   },{passive:true});
-  root.addEventListener('pointerleave',reset,{passive:true});
+  root.addEventListener('pointerleave',event=>{if(event.pointerType==='mouse')reset();},{passive:true});
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:0}).observe(root);
   document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);
   window.addEventListener('tilt-permission',sync);window.addEventListener('bag-ready',sync);window.addEventListener('orientationchange',reset);

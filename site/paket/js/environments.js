@@ -93,7 +93,9 @@ export class Environments{
     stage.addEventListener('pointermove',event=>{if(event.buttons)this.touch(event);},{passive:true});
   }
   get animated(){return (this.mode==='plain'||this.mode==='sea'||this.mode==='space')&&!this.reducedMotion.matches;}
-  get transitioning(){return this.appear<1||Math.abs(this.floatMix-(this.mode==='sea'&&!this.reducedMotion.matches?1:0))>.001||Math.abs(this.spaceMix-(this.mode==='space'&&!this.reducedMotion.matches?1:0))>.001||(!this.animated&&(Math.abs(this.roll)>.001||Math.abs(this.offsetX)+Math.abs(this.offsetY)>.001))||this.landing>0;}
+  get transitioning(){return this.appear<1||Math.abs(this.floatMix-(this.mode==='sea'&&!this.reducedMotion.matches?1:0))>.001||Math.abs(this.spaceMix-(this.mode==='space'&&!this.reducedMotion.matches?1:0))>.001||(!this.animated&&(Math.abs(this.roll)>.001||Math.abs(this.offsetX-this.motionSlideX)+Math.abs(this.offsetY-this.motionSlideY)>.001))||this.landing>0;}
+  get motionSlideX(){return this.reducedMotion.matches?0:this.tiltX*(this.mode==='rocks'?.1:.16);}
+  get motionSlideY(){return this.reducedMotion.matches?0:-this.tiltY*(this.mode==='rocks'?.06:.1);}
   decorateBag(shader){
     Object.assign(shader.uniforms,this.bagUniforms);
     const waterVaryings='varying vec2 vWaterUv;varying float vWaterDepth;';
@@ -209,8 +211,8 @@ export class Environments{
     const breeze=this.mode==='plain'&&!this.reducedMotion.matches?1:0;
     const windX=breeze*(.023*Math.sin(this.clock*.65)+.008*Math.sin(this.clock*1.1));
     const windY=breeze*.014*Math.sin(this.clock*.82);
-    const swayX=windX+this.floatMix*(this.tiltX*.035+.085*Math.sin(this.clock*.47)+.022*Math.sin(this.clock*.9));
-    const swayY=windY+this.floatMix*(-this.tiltY*.025+.065*Math.sin(this.clock*.7)+.025*Math.cos(this.clock*.37));
+    const swayX=this.motionSlideX+windX+this.floatMix*(.085*Math.sin(this.clock*.47)+.022*Math.sin(this.clock*.9));
+    const swayY=this.motionSlideY+windY+this.floatMix*(.065*Math.sin(this.clock*.7)+.025*Math.cos(this.clock*.37));
     if(free){
       const targetRoll=spaceTarget?this.spaceAngle:this.floatMix*.035*Math.sin(this.clock*.53)+breeze*.012*Math.sin(this.clock*.72);
       const angle=Math.atan2(Math.sin(targetRoll-this.roll),Math.cos(targetRoll-this.roll));
@@ -246,7 +248,7 @@ export class Environments{
   setTilt(x,y,dx,dy){
     this.tiltX=x;this.tiltY=y;this.uniforms.tilt.value.set(x,y);
     if(this.reducedMotion.matches||this.sheet.grabs.size)return;
-    if(this.mode==='space'){this.flight.vx+=dx*.035;this.flight.vy-=dy*.035;}
+    if(this.mode==='space'){this.flight.vx+=dx*.16;this.flight.vy-=dy*.1;}
     if(this.mode==='sea'&&this.water&&performance.now()-this.tiltRipple>180&&Math.abs(dx)+Math.abs(dy)>.003){
       this.water.disturb(.5+x*.13,.53-y*.1,.0025);this.tiltRipple=performance.now();
     }
