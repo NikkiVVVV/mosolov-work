@@ -1,4 +1,4 @@
-import {createTiltInput} from './tilt-input.js?v=20261002-gravity';
+import {createTiltInput} from './tilt-input.js?v=20261003-hero-permission';
 import * as THREE from '../vendor/three.module.js';
 import { Environments } from './environments.js?v=20261002-relax';
 import { SceneBoundary, EDGE_RISE } from './scene-boundary.js?v=20260930-fullscreen';
@@ -6,7 +6,7 @@ import { PlasticSheet } from './plastic.js?v=20261002-relax';
 import { FoldIntro } from './fold-intro.js';
 import { MotionFold } from './motion-fold.js?v=20261002-metrika';
 import { ScrollPull } from './scroll-pull.js';
-import { renderSections } from './content.js?v=20261003-uzbekistan';
+import { renderSections } from './content.js?v=20261003-hero-permission';
 
 renderSections();
 window.dispatchEvent(new Event('site-sections-ready'));
@@ -240,7 +240,7 @@ async function init(){
     stage.setAttribute('aria-label',mode==='rocks'?'Пакет на камнях':mode==='sea'?'Пакет в воде':mode==='space'?'Пакет в космосе':'Пакет на светлом фоне');pendingShape=true;dirty=true;
   }});
   let targetTiltX=0,targetTiltY=0,tiltX=0,tiltY=0;
-  const tilt=createTiltInput(sceneFrame,(x,y,gravity)=>{targetTiltX=x;targetTiltY=y;motionFold.setGravity(gravity);dirty=true;wake();},{active:()=>!viewerOpen&&!intro.active});
+  const tilt=createTiltInput(sceneFrame,(x,y,gravity)=>{targetTiltX=x;targetTiltY=y;motionFold.setGravity(gravity);dirty=true;wake();},{active:()=>!viewerOpen&&!intro.active,requestPermission:true});
   function cancelLoop(){cancelAnimationFrame(raf);clearTimeout(timer);raf=timer=0;}
   function wake(){
     if(document.hidden||contextLost||viewerOpen||raf)return;

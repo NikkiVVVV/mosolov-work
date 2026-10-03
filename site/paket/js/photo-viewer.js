@@ -1,4 +1,4 @@
-import {createTiltInput} from './tilt-input.js?v=20261002-gravity';
+import {createTiltInput} from './tilt-input.js?v=20261003-hero-permission';
 // A single native dialog: FLIP entrance, a brief front view, then a paper-card turn.
 export function createPhotoViewer(){
   const dialog=document.createElement('dialog');dialog.className='photo-viewer';

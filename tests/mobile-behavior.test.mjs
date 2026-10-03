@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
-import {normalizedTilt, createTiltInput} from '../site/paket/js/tilt-input.js';
+import {normalizedTilt} from '../site/paket/js/tilt-input.js';
 
 const event=(type,props={})=>Object.assign(new Event(type),props);
 
@@ -16,7 +16,8 @@ test('tilt is bounded and follows screen rotation',()=>{
   assert.equal(large.x,1);assert.equal(large.y,1);
 });
 
-test('one permission activates all visible consumers; touch leave preserves calibration',async()=>{
+for(const permission of ['granted','denied'])test(`only hero asks once (${permission}); consumers share the result`,async()=>{
+  const {createTiltInput}=await import(`../site/paket/js/tilt-input.js?test=${permission}`);
   class Element extends EventTarget {
     children=[];
     append(child){this.children.push(child);}
@@ -26,7 +27,7 @@ test('one permission activates all visible consumers; touch leave preserves cali
   let requests=0;
   reduced.matches=false;doc.hidden=false;doc.createElement=()=>new Element();
   win.isSecureContext=true;
-  win.DeviceOrientationEvent={requestPermission:async()=>{requests++;return 'granted';}};
+  win.DeviceOrientationEvent={requestPermission:async()=>{requests++;return permission;}};
   const observers=[];
   const globals={window:win,document:doc,screen:{orientation:{angle:0}},matchMedia:()=>reduced,
     navigator:{maxTouchPoints:1},IntersectionObserver:class{
@@ -39,11 +40,23 @@ test('one permission activates all visible consumers; touch leave preserves cali
     const roots=[new Element(),new Element(),new Element()];
     const values=roots.map(()=>[]);
     const postures=[];
-    roots.forEach((root,i)=>createTiltInput(root,(x,y,gravity)=>{values[i].push({x,y});postures.push(gravity);}));
+    roots.forEach((root,i)=>createTiltInput(root,(x,y,gravity)=>{values[i].push({x,y});postures.push(gravity);},{requestPermission:i===0}));
     observers.forEach(observer=>observer.callback([{isIntersecting:true}]));
+    assert.deepEqual(roots.map(r=>r.children.length),[1,0,0]);
+    win.dispatchEvent(event('deviceorientation',{beta:30,gamma:10}));
+    assert.equal(postures.length,0);
     roots[0].children[0].dispatchEvent(event('click'));
     await new Promise(resolve=>setImmediate(resolve));
+    assert.equal(roots[0].children[0].hidden,true);
+    roots[0].children[0].dispatchEvent(event('click'));
+    assert.equal(requests,1);
     win.dispatchEvent(event('deviceorientation',{beta:30,gamma:10}));
+    if(permission==='denied'){
+      assert.equal(postures.length,0);
+      const later=new Element();createTiltInput(later,()=>{});
+      assert.equal(later.children.length,0);
+      return;
+    }
     assert.equal(postures.length,3); // First absolute sample must arrive even at relative neutral.
     assert.ok(postures[0].y>.49);
     win.dispatchEvent(event('deviceorientation',{beta:42,gamma:22}));

@@ -11,8 +11,8 @@ export function screenGravity(beta,gamma,angle=0){
   const x=Math.cos(b)*Math.sin(g),y=Math.sin(b);
   return {x:clampTilt(x*Math.cos(a)+y*Math.sin(a)),y:clampTilt(y*Math.cos(a)-x*Math.sin(a))};
 }
-let granted=false;
-export function createTiltInput(root,onChange,{active=()=>true,buttonHost=root,range=24}={}){
+let granted=false,permissionAttempted=false;
+export function createTiltInput(root,onChange,{active=()=>true,buttonHost=root,range=24,requestPermission=false}={}){
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const Device=window.DeviceOrientationEvent;
   const secure=window.isSecureContext;
@@ -38,16 +38,17 @@ export function createTiltInput(root,onChange,{active=()=>true,buttonHost=root,r
     if(!next&&listening)window.removeEventListener('deviceorientation',orientation);
     listening=next;
     if(!usable())reset();
-    if(button)button.hidden=reduced.matches||granted;
+    if(button)button.hidden=reduced.matches||granted||permissionAttempted;
   }
   let button;
-  if(asks&&(navigator.maxTouchPoints>0||matchMedia('(pointer: coarse)').matches)){
+  if(requestPermission&&asks&&(navigator.maxTouchPoints>0||matchMedia('(pointer: coarse)').matches)){
     button=document.createElement('button');button.type='button';button.className='motion-enable';button.setAttribute('aria-label','Включить наклон от движения телефона');button.title='Включить наклон телефона';
     button.innerHTML='<svg viewBox="0 0 24 24" width="19" height="19" fill="none" aria-hidden="true"><rect x="8" y="4" width="8" height="16" rx="2" stroke="currentColor" stroke-width="1.5" transform="rotate(12 12 12)"/><path d="M4 8 2 12l3 3m15-7 2 4-3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     button.addEventListener('click',async()=>{
+      if(permissionAttempted||granted)return;
+      permissionAttempted=true;sync();
       try{granted=(await Device.requestPermission())==='granted';}catch{granted=false;}
-      if(granted)window.dispatchEvent(new Event('tilt-permission'));
-      else{button.title='Доступ к движению не разрешён';button.setAttribute('aria-label',button.title);}
+      window.dispatchEvent(new Event('tilt-permission'));
       sync();
     });buttonHost.append(button);
   }
