@@ -1,0 +1,386 @@
+import * as THREE from './vendor/three.module.js';
+import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
+import { BraidedCord } from './pendant-cord.js?v=config9';
+import { PendantOverlay } from './pendant-overlay.js';
+import { PendantEntrance } from './pendant-entrance.js?v=alive17';
+import { PendantCharacter } from './pendant-character.js?v=alive17';
+
+function outline(w, h, r) {
+  const p = new THREE.Shape(), x = -w / 2, y = -h / 2;
+  p.moveTo(x + r, y); p.lineTo(x + w - r, y);
+  p.quadraticCurveTo(x + w, y, x + w, y + r); p.lineTo(x + w, y + h - r);
+  p.quadraticCurveTo(x + w, y + h, x + w - r, y + h); p.lineTo(x + r, y + h);
+  p.quadraticCurveTo(x, y + h, x, y + h - r); p.lineTo(x, y + r);
+  p.quadraticCurveTo(x, y, x + r, y);
+  return p;
+}
+function solid(shape, depth, bevel) {
+  return new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3, steps: 1, curveSegments: 20 });
+}
+
+class Pendant {
+  constructor(block) {
+    this.block = block; this.host = block.querySelector('[data-pendant]');
+    this.note = block.querySelector('.pendant-note'); this.tools = block.querySelector('.pendant-tools');
+    this.home = this.host.parentNode; this.returnAnchor = document.createComment('pendant-home');
+    this.host.before(this.returnAnchor);
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    this.motion = createSpatialMotion(); this.state = this.motion.swing; this.yaw = 0; this.yawTarget = 0;
+    this.lean = 0; this.sensorTarget = 0; this.sensorDepth = 0;
+    this.arrival={offset:0,velocity:0}; this.elapsed=0;
+    this.visible = true; this.paused = false; this.ready = false; this.frame = 0;
+    this.intro=new PendantEntrance(this);
+    try { this.init(); } catch (error) { this.fallback('3D недоступно — показан статичный вариант.'); console.warn('Pendant unavailable:', error); }
+  }
+  fallback(message) {
+    this.failed = true; this.resizeObserver?.disconnect(); this.intersection?.disconnect();
+    if(this.orientation)this.disableTilt();
+    cancelAnimationFrame(this.frame); this.frame = 0; this.ready = false;
+    this.host.dataset.ready = 'false'; this.overlay?.layer.remove(); this.renderer?.domElement.remove(); this.renderer?.dispose();
+    for (const b of this.tools.querySelectorAll('button')) b.disabled = true;
+    this.note.textContent = message;
+    this.intro?.finish();
+  }
+  init() {
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    this.renderer.setClearColor(0xffffff, 0); this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 1.3;
+    const canvas = this.renderer.domElement;
+    this.overlay = new PendantOverlay(this.renderer);this.hitSurface=this.overlay.hit;
+    this.overlay.layer.style.visibility="hidden";
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(32, 1, .1, 50);
+    this.camera.position.set(0, .55, 11); this.camera.lookAt(0, .55, 0);
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0x525259, 3));
+    const key = new THREE.DirectionalLight(0xfff9f1, 4); key.position.set(-3, 5, 7); this.scene.add(key);
+    const rim = new THREE.DirectionalLight(0xe5eeff, 3); rim.position.set(4, 2, -2); this.scene.add(rim);
+    // A small baked studio environment gives metal highlights without external HDR files.
+    const studio = new THREE.Scene(); studio.background = new THREE.Color('#686b70');
+    for (const [x,y,z,sx,sy,sz] of [[-4,2,2,.1,7,4],[4,1,0,.1,5,3],[0,5,0,6,.1,4]]) {
+      const panel = new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+      panel.position.set(x,y,z); studio.add(panel);
+    }
+    const pmrem = new THREE.PMREMGenerator(this.renderer);
+    this.environment = pmrem.fromScene(studio, .1); this.scene.environment = this.environment.texture;
+    pmrem.dispose(); studio.traverse(o => { o.geometry?.dispose(); o.material?.dispose(); });
+    this.pivot = new THREE.Group(); this.pivot.position.y = 3.6; this.scene.add(this.pivot);
+    this.body = new THREE.Group(); this.body.position.y = -3.7; this.pivot.add(this.body);
+    this.bodyCentre = new THREE.Vector3();
+    const graphite = new THREE.MeshStandardMaterial({ color: 0x27282b, metalness: .8, roughness: .27 });
+    this.caseMaterial=graphite;
+    const silver = new THREE.MeshStandardMaterial({ color: 0x777b80, metalness: .96, roughness: .2 });
+    this.bezelMaterial=silver;
+    const black = new THREE.MeshStandardMaterial({ color: 0x060607, roughness: .9, metalness: .05 });
+    const back = new THREE.Mesh(solid(outline(2.88,3.04,.85), .32, .1), graphite);
+    back.position.z = -.39; this.body.add(back); this.hitMesh = back;
+    const rimShape = outline(2.87,3.03,.84);
+    const hole = outline(2.58,2.75,.74);
+    rimShape.holes.push(new THREE.Path(hole.getPoints(64).reverse()));
+    const bezel = new THREE.Mesh(solid(rimShape, .22, .035), silver);
+    bezel.position.z = -.02; this.body.add(bezel);
+    const lining = new THREE.Mesh(new THREE.ShapeGeometry(outline(2.65,2.81,.78), 28), black);
+    lining.position.z = .04; this.body.add(lining);
+    this.lining=lining;this.darkLining=black;this.lightLining=new THREE.MeshBasicMaterial({color:0xd9dad3});
+    this.character=new PendantCharacter(this.body,()=>{
+      this.ready=true;this.host.dataset.ready='true';
+      if(!this.intro.active&&!this.reduced.matches){this.arrival.offset=8;this.state.angle=.12;this.motion.twist.angle=-.15;}
+      this.overlay.layer.style.visibility='';this.wake();
+    },()=>this.fallback('Не удалось загрузить персонажа — показан статичный вариант.'));
+    const eye = new THREE.Mesh(new THREE.TorusGeometry(.13,.055,8,24), graphite);
+    eye.position.set(0,1.64,-.08); this.body.add(eye);this.attachmentEye=eye;
+    const cordCanvas = document.createElement('canvas'); cordCanvas.width=32; cordCanvas.height=128;
+    const ctx = cordCanvas.getContext('2d'); ctx.fillStyle='#171719'; ctx.fillRect(0,0,32,128);
+    ctx.strokeStyle='#414144'; ctx.lineWidth=2;
+    for(let y=-32;y<160;y+=12){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(32,y+25);ctx.moveTo(32,y);ctx.lineTo(0,y+25);ctx.stroke();}
+    const cordMap = new THREE.CanvasTexture(cordCanvas); cordMap.colorSpace=THREE.SRGBColorSpace;
+    this.cordMaterial = new THREE.MeshStandardMaterial({map:cordMap,roughness:.94,color:0xcccccc});
+    this.cord = new BraidedCord(this.scene,this.body,this.cordMaterial);
+    this.applyTheme();
+    document.addEventListener('portfolio:theme',()=>this.applyTheme());
+    this.intro.mount();
+    this.bind(); this.resize();
+    this.resizeObserver = new ResizeObserver(()=>this.resize()); this.resizeObserver.observe(this.host);
+    this.intersection = new IntersectionObserver(entries=>{this.visible=entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'600px'});
+    this.intersection.observe(this.host);
+    window.addEventListener('resize',()=>this.resize(),{passive:true});
+    window.addEventListener('scroll',()=>this.resize(),{passive:true});
+    this.host.addEventListener('focusin',()=>this.wake());
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;}else this.wake();});
+    this.reduced.addEventListener('change',()=>this.reset());
+    canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.fallback('3D приостановлено — показан статичный вариант. Обнови страницу, чтобы повторить.');});
+    this.wake();
+  }
+  applyTheme(){
+    if(this.failed||!this.lining)return;
+    this.lining.material=document.documentElement.dataset.theme==='dark'?this.darkLining:this.lightLining;
+    this.host.dataset.interior=document.documentElement.dataset.theme==='dark'?'dark':'light';
+    this.renderer.render(this.scene,this.camera);this.wake();
+  }
+  resize(){
+    if(this.failed)return;
+    const {width,height,left,top}=this.host.getBoundingClientRect(); if(!width||!height)return;
+    this.renderer.setSize(innerWidth,innerHeight,false);
+    this.camera.clearViewOffset();this.camera.aspect=width/height;
+    const inProfile=Boolean(this.home.closest('.profile'))&&!this.dialog?.open&&!this.intro.active;
+    const mobile=inProfile&&matchMedia('(max-width:640px)').matches;
+    this.camera.zoom=this.intro.active?1.45:this.dialog?.open?1.35:inProfile?1.17:1;
+    // Expand the view to the whole viewport while preserving the original anchor and scale.
+    this.camera.position.z=Math.max(10.8,3.85/(2*Math.tan(16*Math.PI/180)*this.camera.aspect));
+    let shiftX=0,shiftY=0;
+    if(mobile){
+      const desiredWidth=Math.min(330,width*.95,(height-80)*3.08/3.24);
+      this.camera.zoom=desiredWidth/(height*3.08/(2*Math.tan(16*Math.PI/180)*this.camera.position.z));
+    }
+    this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld();
+    if(inProfile){
+      if(mobile){
+        const bottom=new THREE.Vector3(0,-1.72,.1).project(this.camera);
+        shiftY=height-16-(.5-bottom.y*.5)*height;
+      }else{
+        const edge=new THREE.Vector3(-1.54,-.1,.1).project(this.camera);
+        shiftX=-(edge.x*.5+.5)*width;
+      }
+    }
+    this.camera.setViewOffset(width,height,-left-shiftX,-top-shiftY,innerWidth,innerHeight);
+    this.wake();
+  }
+  wake(){if(!this.failed&&!this.frame&&this.visible&&!document.hidden){this.last=performance.now();this.frame=requestAnimationFrame(t=>this.tick(t));}}
+  tick(time){
+    this.frame=0; const dt=Math.min((time-this.last)/1000,.05);this.last=time;
+    const reduced=this.reduced.matches;
+    if(this.intro.active){this.intro.tick(dt,reduced);return;}
+    if(this.dialog?.open){this.tickConfigurator(dt,reduced);return;}
+    if(this.ready&&!reduced){this.elapsed+=dt;if(!this.drag)stepArrival(this.arrival,dt);}
+    const ambient=ambientTargets(this.elapsed);
+    if(this.drag&&!this.drag.spin)this.solveGrab();
+    const targets=this.drag&&!this.drag.spin?this.drag.targets:{swing:this.sensorTarget+(reduced?0:ambient.swing),depth:this.sensorDepth+(reduced?0:ambient.depth)};
+    if(reduced||(this.drag&&!this.drag.spin)){
+      for(const [key,axis] of Object.entries(this.motion)){axis.angle=targets[key]||0;axis.velocity=0;}
+      this.yaw=this.yawTarget;this.lean=0;
+    }else{
+      stepSpatialMotion(this.motion,dt,targets,Boolean(this.drag));
+      this.yaw+=clamp((this.yawTarget-this.yaw)*(1-Math.exp(-8*dt)),-3.8*dt,3.8*dt);
+      this.lean+=(-this.state.velocity*.035-this.lean)*(1-Math.exp(-12*dt));
+    }
+    this.pivot.position.y=3.6+this.arrival.offset;
+    this.pivot.rotation.set(this.motion.depth.angle,0,this.state.angle,'YXZ');
+    this.body.position.y=-3.7-this.motion.stretch.angle;
+    this.body.rotation.set(-this.motion.depth.angle*.18,this.yaw+this.motion.twist.angle,-this.state.velocity*.012);
+    const characterPose=this.character.update(dt,this.elapsed,{swing:this.state.angle,swingSpeed:this.state.velocity,
+      busy:Boolean(this.drag),stretch:this.motion.stretch.angle,spinSpeed:this.motion.twist.velocity+(this.yaw-this.previousYaw||0)/Math.max(dt,.001),reduced});
+    this.host.dataset.stretch=this.motion.stretch.angle.toFixed(3);this.host.dataset.exasperation=characterPose.exasperation.toFixed(3);
+    this.host.dataset.headHits=String(this.character.state.hits);
+    this.host.dataset.headX=characterPose.headX.toFixed(3);
+    this.previousYaw=this.yaw;
+    this.host.dataset.idleReaction=characterPose.idleKind;this.host.dataset.idleAmount=characterPose.idleAmount.toFixed(2);
+    this.host.dataset.expression=characterPose.face;this.host.dataset.grip=characterPose.grip.toFixed(2);
+    this.host.dataset.shrug=characterPose.shrug.toFixed(2);this.host.dataset.lookX=this.character.look.x.toFixed(2);
+    this.scene.updateMatrixWorld();
+    const ropeSpeed=this.cord.update(dt,Boolean(this.drag),this.body.rotation.y,reduced||this.snapCord,this.arrival.offset);
+    this.snapCord=false;
+    this.renderer.render(this.scene,this.camera);
+    this.overlay.update(this.body,this.camera);
+    this.host.dataset.angle=this.state.angle.toFixed(3);this.host.dataset.yaw=this.body.rotation.y.toFixed(3);
+    this.host.dataset.depth=this.motion.depth.angle.toFixed(3);this.host.dataset.twist=this.motion.twist.angle.toFixed(3);
+    this.host.dataset.ropeSpeed=ropeSpeed.toFixed(3);
+    this.host.dataset.held=String(Boolean(this.drag));this.host.dataset.arrival=this.arrival.offset.toFixed(3);
+    const axesMoving=Object.entries(this.motion).some(([key,axis])=>{
+      const error=axis.angle-(targets[key]||0);
+      return Math.abs(axis.velocity)>.001||Math.abs(key==='twist'?Math.atan2(Math.sin(error),Math.cos(error)):error)>.001;
+    });
+    const moving=(this.ready&&!reduced)||axesMoving||Math.abs(this.yaw-this.yawTarget)>.0005||Math.abs(this.lean)>.0005||ropeSpeed>.018;
+    this.host.dataset.rendering=moving&&!reduced?'active':'idle';
+    if(moving&&!reduced&&this.visible&&!document.hidden)this.frame=requestAnimationFrame(t=>this.tick(t));
+  }
+  hit(e){
+    const r=this.renderer.domElement.getBoundingClientRect();
+    const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),this.camera);
+    return ray.intersectObject(this.hitMesh)[0]||null;
+  }
+  solveGrab(){
+    const d=this.drag,r=this.renderer.domElement.getBoundingClientRect();
+    const ray=new THREE.Raycaster();
+    ray.setFromCamera(new THREE.Vector2((d.cursorX-r.left)/r.width*2-1,-(d.cursorY-r.top)/r.height*2+1),this.camera);
+    const point=ray.ray.intersectPlane(d.plane,new THREE.Vector3());if(!point)return;
+    // Solve the grabbed local point, not the centre. Hold the camera steady during drag.
+    // Repeating the inverse compensates for the changing orientation of an edge grip.
+    let t={...d.targets};
+    for(let i=0;i<5;i++){
+      const pivot=new THREE.Quaternion().setFromEuler(new THREE.Euler(t.depth,0,t.swing,'YXZ'));
+      const body=new THREE.Quaternion().setFromEuler(new THREE.Euler(-t.depth*.18,this.yaw+t.twist,0));
+      const offset=d.localGrip.clone().applyQuaternion(pivot.multiply(body));
+      const centre=point.clone().sub(offset);
+      t=positionToDragTargets(centre.x,centre.y-this.arrival.offset,centre.z,t.twist);
+    }
+    d.targets=t;
+  }
+  bind(){
+    const canvas=this.hitSurface;
+    window.addEventListener('pointermove',e=>{
+      
+      if(e.pointerType==='touch')return;
+      const r=this.hitSurface.getBoundingClientRect();
+      this.character.pointer.x=clamp((e.clientX-r.left-r.width/2)/Math.max(160,innerWidth*.28),-1,1);
+      this.character.pointer.y=clamp((e.clientY-r.top-r.height/2)/Math.max(160,innerHeight*.28),-1,1);
+      this.wake();
+    },{passive:true});
+    document.documentElement.addEventListener('pointerleave',()=>{this.character.pointer={x:0,y:0};});
+    canvas.addEventListener('pointerdown',e=>{
+      if(e.button!==0||this.drag||this.configDrag)return;
+      
+      const hit=this.hit(e);if(!hit)return;
+      const grip=this.body.worldToLocal(hit.point.clone());
+      if(!e.shiftKey)this.yawTarget=this.yaw;
+      canvas.setPointerCapture(e.pointerId);canvas.style.touchAction='none';
+      if(this.dialog?.open){this.configDrag={id:e.pointerId,x:e.clientX,angle:this.configAngle};this.configResume=performance.now()+2500;this.wake();return;}
+      this.drag={id:e.pointerId,x:e.clientX,y:e.clientY,angle:this.state.angle,depth:this.motion.depth.angle,
+        twist:this.motion.twist.angle,yaw:this.yawTarget,grip:grip.x/1.5,localGrip:grip,
+        cursorX:e.clientX,cursorY:e.clientY,zoom:this.camera.zoom,plane:new THREE.Plane(new THREE.Vector3(0,0,1),-hit.point.z),
+        targets:{swing:this.state.angle,depth:this.motion.depth.angle,twist:this.motion.twist.angle,stretch:this.motion.stretch.angle},
+        spin:e.shiftKey,moved:false,time:performance.now(),lastTime:performance.now(),lastX:e.clientX,lastY:e.clientY,vx:0,vy:0};
+      this.wake();
+    });
+    canvas.addEventListener('pointermove',e=>{
+      if(this.configDrag&&e.pointerId===this.configDrag.id){
+        this.configAngle=this.configDrag.angle+(e.clientX-this.configDrag.x)/this.host.clientWidth*Math.PI*2;
+        this.configResume=performance.now()+2500;this.wake();return;
+      }
+      if(!this.drag||e.pointerId!==this.drag.id)return;
+      const d=this.drag,dx=e.clientX-d.x,dy=e.clientY-d.y,w=this.host.clientWidth;
+      const now=performance.now(),delta=Math.max((now-d.lastTime)/1000,.008);
+      d.vx=clamp((e.clientX-d.lastX)/w/delta,-3,3);d.vy=clamp((e.clientY-d.lastY)/w/delta,-3,3);
+      d.lastX=e.clientX;d.lastY=e.clientY;d.lastTime=now;d.cursorX=e.clientX;d.cursorY=e.clientY;
+      if(Math.hypot(dx,dy)>6)d.moved=true;
+      if(d.spin)this.yawTarget=d.yaw+dx/w*Math.PI*2;
+      else d.targets.twist=d.twist+clamp(dx/w*(.55+Math.abs(d.grip)*.65)+dy/w*d.grip*.3,-.4,.4);
+      this.wake();
+    });
+    const release=(e,cancelled=false)=>{
+      if(this.configDrag&&e.pointerId===this.configDrag.id){
+        this.configDrag=null;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);this.wake();return;
+      }
+      if(!this.drag||this.drag.id!==e.pointerId)return;
+      const d=this.drag,click=!cancelled&&!d.moved&&performance.now()-d.time<320;
+      if(!cancelled&&d.moved&&!d.spin){
+        d.cursorX=e.clientX;d.cursorY=e.clientY;this.solveGrab();
+        for(const [key,axis] of Object.entries(this.motion))axis.angle=d.targets[key]||0;
+        this.host.dataset.releaseStretch=this.motion.stretch.angle.toFixed(3);
+      }
+      const recent=performance.now()-d.lastTime<100;
+      if(!cancelled&&d.moved&&!d.spin&&!this.reduced.matches)releaseSpatialMotion(this.motion,recent?d.vx:0,recent?d.vy:0,d.grip);
+      this.drag=null;canvas.style.touchAction='none';
+      if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
+      if(cancelled)for(const axis of Object.values(this.motion))axis.velocity=0;
+      if(click)this.zoom();this.wake();
+    };
+    canvas.addEventListener('pointerup',e=>release(e));canvas.addEventListener('pointercancel',e=>release(e,true));
+    canvas.addEventListener('lostpointercapture',e=>release(e,true));
+    canvas.addEventListener('keydown',e=>{
+      if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter',' ','r','R'].includes(e.key))e.preventDefault();
+      if(this.dialog?.open){
+        if(e.key==='ArrowLeft'||e.key==='ArrowRight'){this.configAngle+=(e.key==='ArrowLeft'?-.2:.2);this.configResume=performance.now()+2500;}
+        this.wake();return;
+      }
+      if(e.key==='ArrowLeft'||e.key==='ArrowRight')this.nudge(e.key==='ArrowLeft'?-1:1);
+      if(e.key==='ArrowUp'||e.key==='ArrowDown'){this.motion.depth.velocity=e.key==='ArrowUp'?.18:-.18;this.wake();}
+      if(e.key==='Enter'||e.key===' ')this.zoom();if(e.key.toLowerCase()==='r')this.spin();
+    });
+    this.tools.addEventListener('click',e=>{
+      const action=e.target.closest('button')?.dataset.action;
+      if(action==='nudge'){if(this.reduced.matches){this.note.textContent='Уменьшение движения включено в системе.';return;}this.nudge();}
+      if(action==='spin')this.spin();if(action==='zoom')this.zoom();if(action==='reset')this.reset();if(action==='tilt')this.toggleTilt();
+    });
+    this.orientation=e=>{
+      if(!Number.isFinite(e.gamma)||!Number.isFinite(e.beta))return;
+      clearTimeout(this.sensorTimer);
+      if(this.sensorZero===null){this.sensorZero={gamma:e.gamma,beta:e.beta};this.note.textContent='Наклон включён · исходное положение запомнено';}
+      const rotation=(screen.orientation?.angle||0)*Math.PI/180;
+      const lateral=(e.gamma-this.sensorZero.gamma)*Math.cos(rotation)+(e.beta-this.sensorZero.beta)*Math.sin(rotation);
+      this.sensorTarget=clamp(-lateral*Math.PI/180*.55,-.4,.4);
+      const forward=(e.beta-this.sensorZero.beta)*Math.cos(rotation)-(e.gamma-this.sensorZero.gamma)*Math.sin(rotation);
+      this.sensorDepth=clamp(forward*Math.PI/180*.1,-.06,.06);this.wake();
+    };
+  }
+  nudge(direction=1){
+    if(this.reduced.matches)return;
+    this.state.velocity=1.3*direction;this.motion.depth.velocity=.08;this.motion.twist.velocity=.55*direction;this.wake();
+  }
+  spin(){
+    if(this.reduced.matches){this.note.textContent='Уменьшение движения включено в системе.';return;}
+    this.yawTarget=Math.round(this.yawTarget/(Math.PI*2))*Math.PI*2+Math.PI*2;this.wake();
+  }
+  disableTilt(){
+    window.removeEventListener('deviceorientation',this.orientation);clearTimeout(this.sensorTimer);
+    this.tilt=false;this.sensorTarget=0;this.sensorDepth=0;this.sensorZero=null;
+    this.tools.querySelector('[data-action=tilt]').setAttribute('aria-pressed','false');
+  }
+  async toggleTilt(){
+    if(this.tilt){this.disableTilt();this.note.textContent='Наклон выключен';this.wake();return;}
+    if(this.reduced.matches){this.note.textContent='Датчик отключён при уменьшении движения.';return;}
+    if(!isSecureContext||!window.DeviceOrientationEvent){this.note.textContent='Для наклона нужен телефон и HTTPS. Перетаскивание доступно сейчас.';return;}
+    const button=this.tools.querySelector('[data-action=tilt]');button.disabled=true;
+    try{
+      if(typeof DeviceOrientationEvent.requestPermission==='function'&&await DeviceOrientationEvent.requestPermission()!=='granted'){this.note.textContent='Доступ не разрешён. Можно перетаскивать вручную.';return;}
+      this.tilt=true;this.sensorZero=null;button.setAttribute('aria-pressed','true');
+      window.addEventListener('deviceorientation',this.orientation,{passive:true});
+      this.note.textContent='Ожидаю датчик — слегка наклони телефон';
+      this.sensorTimer=setTimeout(()=>{if(this.sensorZero===null){this.disableTilt();this.note.textContent='Датчик не передаёт данные. Можно перетаскивать вручную.';}},4000);
+    }catch{this.note.textContent='Датчик недоступен. Можно перетаскивать вручную.';}
+    finally{button.disabled=false;}
+  }
+  reset(){this.arrival={offset:0,velocity:0};this.disableTilt();this.motion=createSpatialMotion();this.state=this.motion.swing;this.yawTarget=0;this.yaw=0;this.lean=0;this.snapCord=true;this.note.textContent='';this.wake();}
+  tickConfigurator(dt,reduced){
+    if(!reduced&&!this.configDrag&&this.configAuto&&performance.now()>this.configResume)this.configAngle+=dt*.18;
+    this.pivot.position.y=0;this.pivot.rotation.set(0,0,0);
+    this.body.position.y=.4;this.body.rotation.set(0,this.configAngle,0);
+    this.character.update(dt,this.elapsed,{swingSpeed:0,spinSpeed:0,busy:true,reduced});
+    this.scene.updateMatrixWorld();this.renderer.render(this.scene,this.camera);this.overlay.update(this.body,this.camera);
+    this.host.dataset.mode='configurator';this.host.dataset.yaw=this.configAngle.toFixed(3);this.host.dataset.depth='0.000';
+    if(!reduced&&this.visible&&!document.hidden)this.frame=requestAnimationFrame(t=>this.tick(t));
+  }
+  zoom(){
+    if(this.dialog?.open)return;
+    
+    if(!this.dialog){
+      this.dialog=document.createElement('dialog');this.dialog.className='pendant-dialog pendant-config';
+      this.dialog.setAttribute('aria-label','Настройка тамагочи');
+      this.dialog.innerHTML=`<header><span>Тамагочи</span><button type="button" data-close aria-label="Закрыть настройки">Закрыть ×</button></header>
+        <div class="config-content"><div class="config-preview"><div data-preview-slot></div><div class="config-rotation"><button type="button" data-turn="-1" aria-label="Повернуть влево">←</button><button type="button" data-auto aria-pressed="true">Пауза</button><button type="button" data-turn="1" aria-label="Повернуть вправо">→</button></div></div>
+        <div class="config-controls"><fieldset class="config-field"><legend>Цвет корпуса</legend><div class="config-colors">
+          <button type="button" class="config-swatch" style="--swatch:#27282b" data-color="#27282b" aria-label="Графит" aria-pressed="true"></button>
+          <button type="button" class="config-swatch" style="--swatch:#afb3b8" data-color="#afb3b8" aria-label="Серебро" aria-pressed="false"></button>
+          <button type="button" class="config-swatch" style="--swatch:#788365" data-color="#788365" aria-label="Олива" aria-pressed="false"></button>
+          <button type="button" class="config-swatch" style="--swatch:#9183ad" data-color="#9183ad" aria-label="Лаванда" aria-pressed="false"></button>
+        </div></fieldset><fieldset class="config-field"><legend>Маскот</legend><button type="button" class="config-mascot" aria-pressed="true">Никита <span>✓</span></button><button type="button" class="config-mascot" disabled>Загрузить своего <small>Позже</small></button><p class="config-future">Фото → маскот в пластилиновом стиле.</p></fieldset></div></div>`;
+      this.dialog.querySelector('[data-close]').addEventListener('click',()=>this.dialog.close());
+      this.dialog.querySelectorAll('[data-color]').forEach(button=>button.addEventListener('click',()=>{
+        this.caseMaterial.color.set(button.dataset.color);
+        this.bezelMaterial.color.set(button.dataset.color==='#27282b'?'#777b80':button.dataset.color);
+        this.dialog.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));this.wake();
+      }));
+      this.dialog.querySelectorAll('[data-turn]').forEach(button=>button.addEventListener('click',()=>{
+        this.configAngle+=Number(button.dataset.turn)*.35;this.configResume=performance.now()+2500;this.wake();
+      }));
+      this.dialog.querySelector('[data-auto]').addEventListener('click',e=>{
+        this.configAuto=!this.configAuto;e.currentTarget.textContent=this.configAuto?'Пауза':'Вращать';e.currentTarget.setAttribute('aria-pressed',String(this.configAuto));this.wake();
+      });
+      document.body.append(this.dialog);
+      this.dialog.addEventListener('scroll',()=>this.resize(),{passive:true});
+      this.dialog.addEventListener('close',()=>{
+        this.configDrag=null;this.returnAnchor.after(this.host);this.overlay.attach();
+        for(const part of [this.cord.mesh,this.cord.knot,this.cord.tail,this.attachmentEye])part.visible=true;
+        this.host.dataset.mode='pendant';this.snapCord=true;document.body.style.overflow=this.oldOverflow;this.resize();this.hitSurface.focus({preventScroll:true});
+      });
+      this.dialog.addEventListener('click',e=>{if(e.target===this.dialog){const r=this.dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)this.dialog.close();}});
+    }
+    this.oldOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+    this.configAngle=-.15;this.configAuto=true;this.configResume=performance.now()+1200;
+    const auto=this.dialog.querySelector('[data-auto]');auto.textContent='Пауза';auto.setAttribute('aria-pressed','true');
+    for(const part of [this.cord.mesh,this.cord.knot,this.cord.tail,this.attachmentEye])part.visible=false;
+    this.dialog.querySelector('[data-preview-slot]').append(this.host);this.overlay.attach(this.dialog);
+    this.dialog.showModal();this.visible=true;this.resize();
+  }
+
+}
+for(const block of document.querySelectorAll('[data-pendant-block]'))new Pendant(block);
