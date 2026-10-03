@@ -36,7 +36,10 @@ export const places=[
   {name:'Оман',lat:21.00,lon:57.00,flag:'🇴🇲',country:'Оман'},
   {name:'Владивосток',lat:43.12,lon:131.89,flag:'🇷🇺',country:'Россия'},
   // Approximate island centre: https://www.wikidata.org/wiki/Q847281
-  {name:'Уруп',lat:45.96,lon:150.03,flag:'🇷🇺',country:'Россия'}
+  {name:'Уруп',lat:45.96,lon:150.03,flag:'🇷🇺',country:'Россия'},
+  {name:'Самарканд',lat:39.65,lon:66.96,flag:'🇺🇿',country:'Узбекистан'},
+  {name:'Ташкент',lat:41.30,lon:69.24,flag:'🇺🇿',country:'Узбекистан'},
+  {name:'Бухара',lat:39.77,lon:64.42,flag:'🇺🇿',country:'Узбекистан'}
 ];
 export function createTravelMap(panel){
   panel.className='album-map';
