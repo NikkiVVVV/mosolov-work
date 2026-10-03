@@ -7,9 +7,53 @@ const grid = document.querySelector('#grid');
 const panel = document.querySelector('#sphere-panel');
 const dialog = document.querySelector('#project-preview');
 const contactDialog=document.querySelector('#contact-dialog');
-document.querySelector('#open-contact').addEventListener('click',()=>contactDialog.showModal());
-document.querySelector('#close-contact').addEventListener('click',()=>contactDialog.close());
-contactDialog.addEventListener('click',e=>{const r=contactDialog.getBoundingClientRect();if(e.target===contactDialog&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))contactDialog.close();});
+const contactMobile=()=>matchMedia('(max-width:640px)').matches;
+const contactReduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+let contactClosing=false,contactDrag=null,contactOverflow=null;
+function closeContact(){
+  if(!contactDialog.open||contactClosing)return;
+  contactClosing=true;
+  const from=getComputedStyle(contactDialog).transform;
+  contactDialog.getAnimations().forEach(animation=>animation.cancel());
+  if(contactMobile()&&!contactReduced()){
+    contactDialog.animate([{transform:from==='none'?'translateY(0)':from},{transform:'translateY(100%)'}],{duration:220,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}).finished.then(()=>contactDialog.close()).catch(()=>{});
+  }else contactDialog.close();
+}
+document.querySelector('#open-contact').addEventListener('click',()=>{
+  contactClosing=false;contactDialog.style.transform='';
+  contactOverflow=[document.documentElement.style.overflow,document.body.style.overflow];
+  document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
+  contactDialog.showModal();
+});
+document.querySelector('#close-contact').addEventListener('click',closeContact);
+contactDialog.addEventListener('cancel',e=>{e.preventDefault();closeContact();});
+contactDialog.addEventListener('close',()=>{
+  contactDialog.getAnimations().forEach(animation=>animation.cancel());
+  contactDialog.style.transform='';contactDrag=null;contactClosing=false;
+  if(contactOverflow){[document.documentElement.style.overflow,document.body.style.overflow]=contactOverflow;contactOverflow=null;}
+});
+contactDialog.addEventListener('click',e=>{const r=contactDialog.getBoundingClientRect();if(e.target===contactDialog&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))closeContact();});
+contactDialog.addEventListener('pointerdown',e=>{
+  if(!contactMobile()||contactClosing||e.button!==0||e.target.closest('button,a')||!e.target.closest('.contact-grabber,.dialog-header'))return;
+  contactDialog.getAnimations().forEach(animation=>animation.cancel());
+  contactDrag={id:e.pointerId,y:e.clientY,offset:0};contactDialog.setPointerCapture(e.pointerId);
+});
+contactDialog.addEventListener('pointermove',e=>{
+  if(!contactDrag||e.pointerId!==contactDrag.id)return;
+  contactDrag.offset=Math.max(0,e.clientY-contactDrag.y);
+  contactDialog.style.transform=`translateY(${contactDrag.offset}px)`;
+});
+function releaseContact(e){
+  if(!contactDrag||e.pointerId!==contactDrag.id)return;
+  const offset=contactDrag.offset;contactDrag=null;
+  if(contactDialog.hasPointerCapture(e.pointerId))contactDialog.releasePointerCapture(e.pointerId);
+  if(e.type==='pointerup'&&offset>64){closeContact();return;}
+  contactDialog.style.transform='';
+  if(!contactReduced())contactDialog.animate([{transform:`translateY(${offset}px)`},{transform:'translateY(0)'}],{duration:180,easing:'ease-out'});
+}
+contactDialog.addEventListener('pointerup',releaseContact);
+contactDialog.addEventListener('pointercancel',releaseContact);
+contactDialog.addEventListener('lostpointercapture',releaseContact);
 const motion = document.querySelector('#motion-toggle');
 const status = document.querySelector('#result-status');
 let category = 'all';
