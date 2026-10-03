@@ -1,5 +1,6 @@
 import * as THREE from './vendor/three.module.js';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
+import { orientationTargets } from './pendant-sensors.js';
 import { BraidedCord } from './pendant-cord.js?v=config9';
 import { PendantOverlay } from './pendant-overlay.js';
 import { PendantEntrance } from './pendant-entrance.js?v=alive17';
@@ -100,6 +101,11 @@ class Pendant {
     document.addEventListener('portfolio:theme',()=>this.applyTheme());
     this.intro.mount();
     this.bind(); this.resize();
+    // Android can start directly; iOS needs a real touch before requesting permission.
+    if(matchMedia('(max-width:640px) and (pointer:coarse)').matches &&
+      isSecureContext && window.DeviceOrientationEvent &&
+      typeof DeviceOrientationEvent.requestPermission!=='function')this.enableMobileTilt();
+    window.addEventListener('orientationchange',()=>{this.sensorZero=null;this.sensorTarget=0;this.sensorDepth=0;},{passive:true});
     this.resizeObserver = new ResizeObserver(()=>this.resize()); this.resizeObserver.observe(this.host);
     this.intersection = new IntersectionObserver(entries=>{this.visible=entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'600px'});
     this.intersection.observe(this.host);
@@ -129,7 +135,7 @@ class Pendant {
     this.camera.position.z=Math.max(10.8,3.85/(2*Math.tan(16*Math.PI/180)*this.camera.aspect));
     let shiftX=0,shiftY=0;
     if(mobile){
-      const desiredWidth=Math.min(300,width*.86,(height-96)*3.08/3.24);
+      const desiredWidth=.85*Math.min(300,width*.86,(height-96)*3.08/3.24);
       this.camera.zoom=desiredWidth/(height*3.08/(2*Math.tan(16*Math.PI/180)*this.camera.position.z));
     }
     this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld();
@@ -272,6 +278,7 @@ class Pendant {
       this.drag=null;canvas.style.touchAction='none';
       if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
       if(cancelled)for(const axis of Object.values(this.motion))axis.velocity=0;
+      if(!cancelled&&e.pointerType==='touch')this.enableMobileTilt();
       if(click)this.zoom();this.wake();
     };
     canvas.addEventListener('pointerup',e=>release(e));canvas.addEventListener('pointercancel',e=>release(e,true));
@@ -292,16 +299,20 @@ class Pendant {
       if(action==='spin')this.spin();if(action==='zoom')this.zoom();if(action==='reset')this.reset();if(action==='tilt')this.toggleTilt();
     });
     this.orientation=e=>{
+      if(!this.tilt||document.hidden||this.dialog?.open||this.drag)return;
       if(!Number.isFinite(e.gamma)||!Number.isFinite(e.beta))return;
       clearTimeout(this.sensorTimer);
-      if(this.sensorZero===null){this.sensorZero={gamma:e.gamma,beta:e.beta};this.note.textContent='Наклон включён · исходное положение запомнено';}
-      const rotation=(screen.orientation?.angle||0)*Math.PI/180;
-      const lateral=(e.gamma-this.sensorZero.gamma)*Math.cos(rotation)+(e.beta-this.sensorZero.beta)*Math.sin(rotation);
-      this.sensorTarget=clamp(-lateral*Math.PI/180*.55,-.4,.4);
-      const forward=(e.beta-this.sensorZero.beta)*Math.cos(rotation)-(e.gamma-this.sensorZero.gamma)*Math.sin(rotation);
-      this.sensorDepth=clamp(forward*Math.PI/180*.1,-.06,.06);this.wake();
+      if(this.sensorZero===null){this.sensorZero={gamma:e.gamma,beta:e.beta};this.note.textContent='Наклон включён';}
+      const targets=orientationTargets(e,this.sensorZero,screen.orientation?.angle??window.orientation??0);
+      this.sensorTarget=targets.swing;this.sensorDepth=targets.depth;this.wake();
     };
   }
+  enableMobileTilt(){
+    if(this.mobileTiltAttempted||this.tilt||this.tiltPending||!matchMedia('(max-width:640px)').matches)return;
+    this.mobileTiltAttempted=true;
+    void this.toggleTilt();
+  }
+
   nudge(direction=1){
     if(this.reduced.matches)return;
     this.state.velocity=1.3*direction;this.motion.depth.velocity=.08;this.motion.twist.velocity=.55*direction;this.wake();
@@ -316,18 +327,20 @@ class Pendant {
     this.tools.querySelector('[data-action=tilt]').setAttribute('aria-pressed','false');
   }
   async toggleTilt(){
+    if(this.tiltPending)return;
     if(this.tilt){this.disableTilt();this.note.textContent='Наклон выключен';this.wake();return;}
     if(this.reduced.matches){this.note.textContent='Датчик отключён при уменьшении движения.';return;}
     if(!isSecureContext||!window.DeviceOrientationEvent){this.note.textContent='Для наклона нужен телефон и HTTPS. Перетаскивание доступно сейчас.';return;}
-    const button=this.tools.querySelector('[data-action=tilt]');button.disabled=true;
+    const button=this.tools.querySelector('[data-action=tilt]');button.disabled=true;this.tiltPending=true;
     try{
       if(typeof DeviceOrientationEvent.requestPermission==='function'&&await DeviceOrientationEvent.requestPermission()!=='granted'){this.note.textContent='Доступ не разрешён. Можно перетаскивать вручную.';return;}
+      if(this.failed||this.reduced.matches)return;
       this.tilt=true;this.sensorZero=null;button.setAttribute('aria-pressed','true');
       window.addEventListener('deviceorientation',this.orientation,{passive:true});
       this.note.textContent='Ожидаю датчик — слегка наклони телефон';
       this.sensorTimer=setTimeout(()=>{if(this.sensorZero===null){this.disableTilt();this.note.textContent='Датчик не передаёт данные. Можно перетаскивать вручную.';}},4000);
     }catch{this.note.textContent='Датчик недоступен. Можно перетаскивать вручную.';}
-    finally{button.disabled=false;}
+    finally{button.disabled=false;this.tiltPending=false;}
   }
   reset(){this.arrival={offset:0,velocity:0};this.disableTilt();this.motion=createSpatialMotion();this.state=this.motion.swing;this.yawTarget=0;this.yaw=0;this.lean=0;this.snapCord=true;this.note.textContent='';this.wake();}
   tickConfigurator(dt,reduced){
