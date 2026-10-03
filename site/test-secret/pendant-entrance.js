@@ -53,25 +53,16 @@ export class PendantEntrance {
     this.permissionPending=true;
     // Loading is complete. User choice must not be bypassed by a boot watchdog.
     clearTimeout(this.watchdog);clearTimeout(window.portfolioBootTimeout);
-    const panel=this.el.querySelector('.loader-permission');
-    const enable=panel.querySelector('[data-enable-tilt]'),skip=panel.querySelector('[data-skip-tilt]');
-    this.el.removeAttribute('role');this.el.setAttribute('aria-label','Настройка наклона');
-    panel.hidden=false;this.el.querySelector('.loader-progress').hidden=true;
-    const complete=()=>{
+    // Try the native prompt directly. Safari may require the next real touch;
+    // in that case reveal the page and arm one gesture, with no custom prompt UI.
+    this.p.requestTiltOnEntry().finally(()=>{
       if(!this.active)return;
-      panel.hidden=true;this.permissionPending=false;
+      this.permissionPending=false;
       this.readyAt=(performance.now()-this.started)/1000;
-      this.p.resize();this.p.wake();
-    };
-    enable.addEventListener('click',async()=>{
-      enable.disabled=true;skip.disabled=true;enable.textContent='Ожидаем разрешение…';
-      // Call synchronously from this click: Safari requires transient activation.
-      try{await this.p.toggleTilt();}finally{complete();}
-    },{once:true});
-    skip.addEventListener('click',complete,{once:true});
-    enable.focus({preventScroll:true});
-    this.p.resize();
+      this.p.wake();
+    });
   }
+
   finish(){
     if(!this.active)return;
     this.active=false;clearTimeout(this.watchdog);clearTimeout(window.portfolioBootTimeout);

@@ -1,9 +1,9 @@
 import * as THREE from './vendor/three.module.js';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
-import { orientationTargets } from './pendant-sensors.js';
+import { orientationTargets, screenRoll, requestOrientationAccess } from './pendant-sensors.js?v=roll27';
 import { BraidedCord } from './pendant-cord.js?v=config9';
 import { PendantOverlay } from './pendant-overlay.js';
-import { PendantEntrance } from './pendant-entrance.js?v=permission26';
+import { PendantEntrance } from './pendant-entrance.js?v=roll27';
 import { PendantCharacter } from './pendant-character.js?v=alive17';
 
 function outline(w, h, r) {
@@ -297,8 +297,9 @@ class Pendant {
       if(!this.tilt||document.hidden||this.dialog?.open||this.drag)return;
       if(!Number.isFinite(e.gamma)||!Number.isFinite(e.beta))return;
       clearTimeout(this.sensorTimer);
-      if(this.sensorZero===null){this.sensorZero={gamma:e.gamma,beta:e.beta};this.note.textContent='Наклон включён';}
-      const targets=orientationTargets(e,this.sensorZero,screen.orientation?.angle??window.orientation??0);
+      const screenAngle=screen.orientation?.angle??window.orientation??0;
+      if(this.sensorZero===null&&screenRoll(e,screenAngle)!==null){this.sensorZero={gamma:e.gamma,beta:e.beta};this.note.textContent='Наклон включён';}
+      const targets=orientationTargets(e,this.sensorZero,screenAngle);
       this.sensorTarget=targets.swing;this.sensorDepth=targets.depth;this.wake();
     };
   }
@@ -311,18 +312,29 @@ class Pendant {
     this.yawTarget=Math.round(this.yawTarget/(Math.PI*2))*Math.PI*2+Math.PI*2;this.wake();
   }
   disableTilt(){
+    if(this.tiltGesture){document.removeEventListener('pointerup',this.tiltGesture,true);this.tiltGesture=null;}
     window.removeEventListener('deviceorientation',this.orientation);clearTimeout(this.sensorTimer);
     this.tilt=false;this.sensorTarget=0;this.sensorDepth=0;this.sensorZero=null;
     this.tools.querySelector('[data-action=tilt]').setAttribute('aria-pressed','false');
   }
-  async toggleTilt(){
+  async requestTiltOnEntry(){
+    const result=await this.toggleTilt();
+    if(result!=='gesture-required'||this.failed||this.reduced.matches)return;
+    this.tiltGesture=()=>{
+      document.removeEventListener('pointerup',this.tiltGesture,true);this.tiltGesture=null;
+      void this.toggleTilt({hasGesture:true});
+    };
+    document.addEventListener('pointerup',this.tiltGesture,true);
+  }
+  async toggleTilt({hasGesture=Boolean(navigator.userActivation?.isActive)}={}){
     if(this.tiltPending)return;
     if(this.tilt){this.disableTilt();this.note.textContent='Наклон выключен';this.wake();return;}
     if(this.reduced.matches){this.note.textContent='Датчик отключён при уменьшении движения.';return;}
     if(!isSecureContext||!window.DeviceOrientationEvent){this.note.textContent='Для наклона нужен телефон и HTTPS. Перетаскивание доступно сейчас.';return;}
     const button=this.tools.querySelector('[data-action=tilt]');button.disabled=true;this.tiltPending=true;
     try{
-      if(typeof DeviceOrientationEvent.requestPermission==='function'&&await DeviceOrientationEvent.requestPermission()!=='granted'){this.note.textContent='Доступ не разрешён. Можно перетаскивать вручную.';return;}
+      const permission=await requestOrientationAccess(DeviceOrientationEvent,hasGesture);
+      if(permission!=='granted'){this.note.textContent='';return permission;}
       if(this.failed||this.reduced.matches)return;
       this.tilt=true;this.sensorZero=null;button.setAttribute('aria-pressed','true');
       window.addEventListener('deviceorientation',this.orientation,{passive:true});

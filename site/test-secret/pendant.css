@@ -66,13 +66,3 @@
 
 html:not([data-theme=dark]) .loader-progress i{border-color:#777d78}
 html:not([data-theme=dark]) .loader-progress i.filled{background:#555e57;border-color:#555e57}
-
-.site-loader[data-phase=permission]{align-content:center;gap:16px}
-.site-loader[data-phase=permission] [data-loader-slot]{height:min(360px,48svh)}
-.loader-permission{position:relative;z-index:2;width:calc(100% - 40px);max-width:320px;text-align:center}
-.loader-permission h2{font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
-.loader-permission p{margin-top:8px;color:var(--muted);font-size:14px;line-height:20px}
-.loader-permission-actions{display:flex;justify-content:center;gap:8px;margin-top:16px}
-.loader-permission-actions button{border:0;border-radius:4px;padding:12px 16px;min-height:44px;background:var(--subtle);color:var(--ink)}
-.loader-permission-actions [data-skip-tilt]{background:transparent;color:var(--muted)}
-.loader-permission-actions button:disabled{opacity:.6;cursor:wait}
