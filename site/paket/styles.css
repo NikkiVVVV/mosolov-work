@@ -13,10 +13,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:Commissioner,
 .hero-title.is-rendered{opacity:0}
 .scene-frame{position:relative;display:flex;flex-direction:column;flex:none;margin:20px 16px 16px;border-radius:24px;overflow:hidden}
 .scene-controls{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 16px}
-.album-link{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 14px;border-radius:9px;background:#232323;color:#fff;text-decoration:none;font-size:14px;white-space:nowrap}
-.album-link svg{flex:none;transform:translateY(2px)}
+.album-link{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 14px 2px;border-radius:9px;background:#232323;color:#fff;text-decoration:none;font-size:14px;white-space:nowrap}
+.album-link svg{flex:none;transform:translateY(1px)}
 .album-link:focus-visible{outline:2px solid #245e90;outline-offset:4px}
-@media(max-width:360px){.scene-controls .scene-picker{gap:0}.scene-controls .scene-option{width:40px}.album-link{padding:0 10px;gap:6px;font-size:13px}}
+@media(max-width:360px){.scene-controls .scene-picker{gap:0}.scene-controls .scene-option{width:40px}.album-link{padding:0 10px 2px;gap:6px;font-size:13px}}
 .scene-picker{position:relative;z-index:5;display:flex;flex:none;align-self:center;gap:4px;min-width:0;margin:0;padding:0;border:0}
 .scene-option{width:44px;height:44px;display:grid;place-items:center;cursor:pointer}
 .scene-option input{appearance:none;-webkit-appearance:none;width:28px;height:28px;margin:0;border:1px solid #9ca7b43d;border-radius:50%;background:var(--paper);cursor:pointer;box-shadow:0 1px 3px #00000015;transition:outline-color .15s;outline:2px solid transparent;outline-offset:3px}
