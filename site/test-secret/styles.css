@@ -39,7 +39,7 @@
 @media(max-width:380px){.filters button{padding:12px 8px;font-size:12px}}
 
 .project-caption{display:flex;flex-direction:column;gap:4px;width:100%}
-.project-title{font:14px/20px Werkzeug,monospace;color:var(--ink)}
+.project-title{font:16px/24px Werkzeug,monospace;color:var(--ink)}
 .project-description{font-size:14px;line-height:20px;color:var(--muted);margin-top:4px}
 #preview-description{margin-top:12px;font-size:14px;line-height:20px}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
@@ -50,7 +50,7 @@ html[data-theme-wave=active]::view-transition-new(root){clip-path:circle(0 at va
 
 .project-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
 .project-title{min-width:0}
-.project-date{flex:none;font:12px/16px Werkzeug,monospace;color:var(--muted);background:var(--subtle);padding:4px 8px;border-radius:4px}
+.project-date{flex:none;font:10px/16px Werkzeug,monospace;color:var(--muted);background:var(--subtle);padding:4px 8px;border-radius:4px}
 .project-description{font-family:Werkzeug,monospace;font-size:14px;line-height:20px;margin-top:4px}
 .project-title,.project-date,.project-description{font-variation-settings:'wdth' 1000}
 .contact-button{flex:none;border:0;border-radius:4px;padding:12px;min-height:44px;background:#101111;color:#fff;font:14px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000;white-space:nowrap;margin-left:auto}
@@ -83,3 +83,29 @@ html[data-theme=dark] .filters button[aria-selected=true]{color:#fff}
 .theme-switch button[aria-pressed=true]{background:var(--subtle);color:#101111}
 html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
 .theme-switch svg{width:20px;height:20px}
+.mobile-topbar{display:none}
+@media(max-width:640px){
+  .mobile-topbar{position:absolute;z-index:45;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;width:calc(100% - 40px);max-width:390px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+  .mobile-topbar .mobile-theme-slot{margin:0;justify-content:flex-start}
+  .mobile-topbar .theme-switch button{width:36px;height:36px;padding:8px}
+  .mobile-topbar .contact-button{min-height:36px;height:36px;padding:8px 16px;font-size:12px;line-height:20px}
+  .is-loading .mobile-topbar{visibility:hidden}
+  .layout{margin-top:48px}
+  .profile{text-align:center;align-items:center}
+  .profile .identity:has(.pendant-block){align-items:center;width:100%}
+  .profile-heading{display:block;text-align:center}
+  .profile>p{margin:0 auto}
+  .profile-links{justify-content:center;width:100%}
+  .toolbar{justify-content:center}
+}
+#contact-dialog{width:400px;padding:16px;border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 64px #00000020}
+#contact-dialog .dialog-header{margin:0 0 8px;padding:4px 8px;min-height:44px}
+#contact-title{font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
+#close-contact{display:grid;place-items:center;width:36px;height:36px;padding:8px;border-radius:50%;background:var(--subtle)}
+#close-contact svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+#contact-dialog .contact-links{display:flex;gap:4px;align-items:stretch}
+.contact-links a{display:flex;flex-direction:column;gap:4px;padding:12px;border-radius:8px;text-decoration:none;transition:background 160ms}
+.contact-links a:hover{background:var(--subtle);text-decoration:none}
+.contact-label{font:12px/16px 'IBM Plex Sans',sans-serif;color:var(--muted)}
+.contact-value{font:16px/24px 'IBM Plex Sans',sans-serif;color:var(--ink);overflow-wrap:anywhere}
+#contact-dialog::backdrop{background:#10111166;backdrop-filter:blur(4px)}

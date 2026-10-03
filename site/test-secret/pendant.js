@@ -129,7 +129,7 @@ class Pendant {
     this.camera.position.z=Math.max(10.8,3.85/(2*Math.tan(16*Math.PI/180)*this.camera.aspect));
     let shiftX=0,shiftY=0;
     if(mobile){
-      const desiredWidth=Math.min(330,width*.95,(height-80)*3.08/3.24);
+      const desiredWidth=Math.min(300,width*.86,(height-96)*3.08/3.24);
       this.camera.zoom=desiredWidth/(height*3.08/(2*Math.tan(16*Math.PI/180)*this.camera.position.z));
     }
     this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld();

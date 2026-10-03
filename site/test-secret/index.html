@@ -14,16 +14,17 @@
   <style>.site-loader{display:none}.is-loading .site-loader{display:grid;position:fixed;inset:0;z-index:100;background:#fcfcfc;place-items:center}.is-loading .layout{visibility:hidden}html[data-theme=dark] .site-loader{background:#191a1b}</style>
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=mobile20">
-  <link rel="stylesheet" href="pendant.css?v=mobile20">
-  <script type="module" src="app.js?v=mobile20"></script>
-  <script type="module" src="pendant.js?v=mobile20"></script>
+  <link rel="stylesheet" href="styles.css?v=contact23">
+  <link rel="stylesheet" href="pendant.css?v=mobile22">
+  <script type="module" src="app.js?v=mobile22"></script>
+  <script type="module" src="pendant.js?v=mobile22"></script>
 </head>
 <body>
   <div class="site-loader" role="status" aria-label="Загрузка портфолио" data-phase="loading">
     <div data-loader-slot><div class="loader-shell" aria-hidden="true"></div><div class="loader-progress" role="progressbar" aria-label="Загрузка" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i><i></i><i></i><i></i><i></i></div></div>
   </div>
   <a class="skip-link" href="#portfolio">К работам</a>
+  <header class="mobile-topbar" aria-label="Тема и связь"><div class="mobile-theme-slot"></div><div class="mobile-contact-slot"></div></header>
   <main class="layout">
     <aside class="profile" aria-label="Обо мне">
       <div class="identity">
@@ -32,7 +33,7 @@
           <div class="pendant-tools"><button data-action="nudge" title="Качнуть подвеску">Качнуть</button><button data-action="spin">Оборот</button><button data-action="zoom">Ближе</button><button data-action="tilt" aria-pressed="false">Наклон телефона</button><button data-action="reset">Сбросить</button></div>
           <p class="pendant-note" role="status"></p>
         </div>
-        <div class="profile-heading"><div><h1>Никита Мосолов</h1><p>Product Engineer</p></div><div class="mobile-contact-slot"></div></div>
+        <div class="profile-heading"><div><h1>Никита Мосолов</h1><p>Product Engineer</p></div></div>
       </div>
       <p>Проектирую и создаю цифровые продукты — от идеи до запуска. Работаю в Авито Авто.</p>
       <div class="profile-links"><nav class="contacts" aria-label="Контакты"><a href="https://t.me/nikir_public" target="_blank" rel="noopener">Telegram ↗</a><a href="https://github.com/NikkiVVVV" target="_blank" rel="noopener">GitHub ↗</a></nav>
@@ -40,7 +41,6 @@
       </div>
     </aside>
     <section id="portfolio" class="portfolio" aria-label="Работы">
-      <div class="mobile-theme-slot"></div>
       <div class="toolbar">
         <div class="filters" role="tablist" aria-label="Категория работ">
           <button type="button" data-filter="all" role="tab" id="tab-all" aria-controls="work-panel" tabindex="0" aria-selected="true">Все</button>
@@ -65,7 +65,14 @@
     </section>
   </main>
   <dialog id="project-preview" aria-labelledby="preview-title"><div class="dialog-header"><h2 id="preview-title">Работа</h2><button type="button" id="close-preview" aria-label="Закрыть">Закрыть ×</button></div><div class="preview-cover"><span id="preview-index"></span></div><p class="meta" id="preview-meta"></p><p id="preview-description"></p></dialog>
-  <dialog id="contact-dialog" aria-labelledby="contact-title"><div class="dialog-header"><h2 id="contact-title">Связь</h2><button type="button" id="close-contact" aria-label="Закрыть контакты">Закрыть ×</button></div><nav class="contact-links" aria-label="Написать Никите"><a href="https://t.me/nikir_public" target="_blank" rel="noopener">Telegram ↗</a><a href="mailto:nikkiuxi@gmail.com">nikkiuxi@gmail.com ↗</a></nav></dialog>
+  <dialog id="contact-dialog" aria-labelledby="contact-title">
+    <div class="dialog-header"><h2 id="contact-title">Связь</h2><button type="button" id="close-contact" aria-label="Закрыть контакты"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+    <nav class="contact-links" aria-label="Написать Никите">
+      <a href="mailto:nikkiuxi@gmail.com"><span class="contact-label">Email</span><span class="contact-value">nikkiuxi@gmail.com</span></a>
+      <a href="https://t.me/nikir_public" target="_blank" rel="noopener"><span class="contact-label">Telegram</span><span class="contact-value">@nikir_public</span></a>
+      <a href="https://github.com/NikkiVVVV" target="_blank" rel="noopener"><span class="contact-label">GitHub</span><span class="contact-value">NikkiVVVV</span></a>
+    </nav>
+  </dialog>
   <div class="theme-switch" role="group" aria-label="Тема оформления">
     <button type="button" data-theme-choice="light" aria-label="Светлая тема" title="Светлая тема" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
     <button type="button" data-theme-choice="dark" aria-label="Тёмная тема" title="Тёмная тема" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg></button>
