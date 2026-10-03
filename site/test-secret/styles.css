@@ -40,7 +40,7 @@
 
 .project-caption{display:flex;flex-direction:column;gap:4px;width:100%}
 .project-title{font:16px/24px Werkzeug,monospace;color:var(--ink)}
-.project-description{font-size:14px;line-height:20px;color:var(--muted);margin-top:4px}
+.project-description{font-size:14px;line-height:18px;color:var(--muted);margin-top:0}
 #preview-description{margin-top:12px;font-size:14px;line-height:20px}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 ::view-transition-old(root){z-index:1}
@@ -48,10 +48,10 @@
 html[data-theme-wave=active]::view-transition-new(root){clip-path:circle(0 at var(--wave-x) var(--wave-y))}
 ::view-transition-group(root){animation-duration:480ms}
 
-.project-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.project-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .project-title{min-width:0}
 .project-date{flex:none;font:10px/16px Werkzeug,monospace;color:var(--muted);background:var(--subtle);padding:4px 8px;border-radius:4px}
-.project-description{font-family:Werkzeug,monospace;font-size:14px;line-height:20px;margin-top:4px}
+.project-description{font-family:Werkzeug,monospace;font-size:14px;line-height:18px;margin-top:0}
 .project-title,.project-date,.project-description{font-variation-settings:'wdth' 1000}
 .contact-button{flex:none;border:0;border-radius:4px;padding:12px;min-height:44px;background:#101111;color:#fff;font:14px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000;white-space:nowrap;margin-left:auto}
 html[data-theme=dark] .contact-button{background:#f5f5f3;color:#101111}
