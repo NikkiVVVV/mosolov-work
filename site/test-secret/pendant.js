@@ -3,7 +3,7 @@ import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, po
 import { orientationTargets } from './pendant-sensors.js';
 import { BraidedCord } from './pendant-cord.js?v=config9';
 import { PendantOverlay } from './pendant-overlay.js';
-import { PendantEntrance } from './pendant-entrance.js?v=alive17';
+import { PendantEntrance } from './pendant-entrance.js?v=permission26';
 import { PendantCharacter } from './pendant-character.js?v=alive17';
 
 function outline(w, h, r) {
@@ -101,10 +101,6 @@ class Pendant {
     document.addEventListener('portfolio:theme',()=>this.applyTheme());
     this.intro.mount();
     this.bind(); this.resize();
-    // Android can start directly; iOS needs a real touch before requesting permission.
-    if(matchMedia('(max-width:640px) and (pointer:coarse)').matches &&
-      isSecureContext && window.DeviceOrientationEvent &&
-      typeof DeviceOrientationEvent.requestPermission!=='function')this.enableMobileTilt();
     window.addEventListener('orientationchange',()=>{this.sensorZero=null;this.sensorTarget=0;this.sensorDepth=0;},{passive:true});
     this.resizeObserver = new ResizeObserver(()=>this.resize()); this.resizeObserver.observe(this.host);
     this.intersection = new IntersectionObserver(entries=>{this.visible=entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'600px'});
@@ -278,7 +274,6 @@ class Pendant {
       this.drag=null;canvas.style.touchAction='none';
       if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
       if(cancelled)for(const axis of Object.values(this.motion))axis.velocity=0;
-      if(!cancelled&&e.pointerType==='touch')this.enableMobileTilt();
       if(click)this.zoom();this.wake();
     };
     canvas.addEventListener('pointerup',e=>release(e));canvas.addEventListener('pointercancel',e=>release(e,true));
@@ -307,12 +302,6 @@ class Pendant {
       this.sensorTarget=targets.swing;this.sensorDepth=targets.depth;this.wake();
     };
   }
-  enableMobileTilt(){
-    if(this.mobileTiltAttempted||this.tilt||this.tiltPending||!matchMedia('(max-width:640px)').matches)return;
-    this.mobileTiltAttempted=true;
-    void this.toggleTilt();
-  }
-
   nudge(direction=1){
     if(this.reduced.matches)return;
     this.state.velocity=1.3*direction;this.motion.depth.velocity=.08;this.motion.twist.velocity=.55*direction;this.wake();

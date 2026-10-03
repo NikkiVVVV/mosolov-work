@@ -1,4 +1,4 @@
-import {entranceFrame} from './entrance-motion.js?v=intro13';
+import {entranceFrame} from './entrance-motion.js?v=permission26';
 
 export class PendantEntrance {
   constructor(pendant){
@@ -33,14 +33,44 @@ export class PendantEntrance {
     bar.setAttribute('aria-valuenow',String(Math.round(targets.reduce((sum,x)=>sum+x,0)/3*100)));
     bar.querySelectorAll('i').forEach((segment,i)=>segment.classList.toggle('filled',progress>=(i+1)/5-.001));
     if(p.ready&&this.pageReady&&this.fontProgress===1&&this.displayed.every(x=>x>=1)&&this.readyAt===null)this.readyAt=elapsed;
-    const f=entranceFrame(elapsed,this.readyAt,reduced);
+    let f=entranceFrame(elapsed,this.readyAt,reduced,this.permissionPending);
+    if(f.phase==='exit'&&!this.permissionHandled){
+      this.permissionHandled=true;
+      if(!reduced&&matchMedia('(max-width:640px)').matches&&isSecureContext&&window.DeviceOrientationEvent){
+        this.askTiltPermission();
+        f=entranceFrame(elapsed,this.readyAt,reduced,true);
+      }
+    }
     this.el.dataset.phase=f.phase;this.el.style.opacity=f.opacity;
     p.pivot.position.y=0;p.pivot.rotation.set(0,0,0);
     p.body.position.y=.55;p.body.rotation.set(0,0,0);
     p.character.root.visible=false;
     p.scene.updateMatrixWorld();p.renderer.render(p.scene,p.camera);
     if(f.done){this.finish();return;}
-    if(!document.hidden)p.frame=requestAnimationFrame(t=>p.tick(t));
+    if(!document.hidden&&!this.permissionPending)p.frame=requestAnimationFrame(t=>p.tick(t));
+  }
+  askTiltPermission(){
+    this.permissionPending=true;
+    // Loading is complete. User choice must not be bypassed by a boot watchdog.
+    clearTimeout(this.watchdog);clearTimeout(window.portfolioBootTimeout);
+    const panel=this.el.querySelector('.loader-permission');
+    const enable=panel.querySelector('[data-enable-tilt]'),skip=panel.querySelector('[data-skip-tilt]');
+    this.el.removeAttribute('role');this.el.setAttribute('aria-label','Настройка наклона');
+    panel.hidden=false;this.el.querySelector('.loader-progress').hidden=true;
+    const complete=()=>{
+      if(!this.active)return;
+      panel.hidden=true;this.permissionPending=false;
+      this.readyAt=(performance.now()-this.started)/1000;
+      this.p.resize();this.p.wake();
+    };
+    enable.addEventListener('click',async()=>{
+      enable.disabled=true;skip.disabled=true;enable.textContent='Ожидаем разрешение…';
+      // Call synchronously from this click: Safari requires transient activation.
+      try{await this.p.toggleTilt();}finally{complete();}
+    },{once:true});
+    skip.addEventListener('click',complete,{once:true});
+    enable.focus({preventScroll:true});
+    this.p.resize();
   }
   finish(){
     if(!this.active)return;
