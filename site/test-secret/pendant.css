@@ -29,25 +29,41 @@
 @media(max-width:640px){.pendant-block .pendant{height:50svh;min-height:340px;max-width:none;width:100%;margin:0}}
 
 .pendant[data-ready=false] .pendant-poster{visibility:visible}
-.pendant-config{width:min(760px,calc(100% - 24px));background:var(--surface);padding:20px 24px 24px;border-radius:16px}
-.pendant-config header{font-size:16px;line-height:24px}
-.pendant-config .config-content{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:24px;align-items:center}
-.pendant-config .pendant{height:400px;min-height:0;max-width:none;margin:0}
-.config-controls{display:flex;flex-direction:column;gap:28px;position:relative;z-index:41}
-.config-field{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;min-width:0}
-.config-field legend{font-size:12px;color:var(--muted);padding:0;margin-bottom:12px}
-.config-colors{display:flex;gap:12px}
-.config-swatch{width:36px;height:36px;border-radius:50%;border:4px solid var(--surface);outline:1px solid var(--line);background:var(--swatch);padding:0}
-.config-swatch[aria-pressed=true]{outline:2px solid var(--ink)}
-.config-mascot{padding:12px 16px;border-radius:8px;border:1px solid var(--line);background:var(--raised);text-align:left;display:flex;justify-content:space-between;gap:8px}
-.config-mascot[aria-pressed=true]{border-color:var(--ink)}
-.config-mascot:disabled{color:var(--muted);cursor:default;background:transparent}
-.config-mascot small{font-size:12px;color:var(--muted)}
-.config-future{font-size:12px;line-height:16px;color:var(--muted)}
-.config-preview{min-width:0}
-.config-rotation{display:flex;justify-content:center;gap:16px;position:relative;z-index:41;margin-top:-16px}
-.config-rotation button{border:0;background:transparent;padding:8px;min-height:40px;font-size:12px}
-@media(max-width:640px){.pendant-config{padding:16px 20px 20px}.pendant-config .config-content{grid-template-columns:1fr;gap:16px}.pendant-config .pendant{height:300px}.config-controls{gap:20px}.config-field{gap:8px}.config-field legend{margin-bottom:8px}}
+.pendant-config{--config-surface:#f8f8f6;--config-secondary:#e8e9e5;width:min(376px,calc(100% - 32px));max-height:calc(100dvh - 32px);padding:24px;border:0;border-radius:24px;background:var(--config-surface);color:var(--ink);box-shadow:0 24px 96px #00000040}
+html[data-theme=dark] .pendant-config{--config-surface:#2b2e31;--config-secondary:#3c4044}
+.pendant-config::backdrop{background:#10121485;backdrop-filter:blur(4px)}
+.pendant-config[open]{display:flex;flex-direction:column}
+.pendant-config .config-content{display:flex;flex-direction:column;gap:20px;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0;margin:0}
+.config-header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;z-index:41}
+.config-dismiss{display:grid;place-items:center;flex:none;width:36px;height:36px;padding:8px;border:0;border-radius:8px;background:transparent;color:var(--muted)}
+.config-dismiss:hover{background:var(--config-secondary);color:var(--ink)}
+.config-dismiss svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.config-title{font:400 20px/28px 'IBM Plex Sans',sans-serif;margin:0}
+.pendant-config .pendant{height:324px;min-height:0;max-width:none;margin:0}
+.config-preview{min-width:0;background:radial-gradient(ellipse at center,#a7b4c212,transparent 70%)}
+.config-controls{display:flex;flex-direction:column;flex:none;gap:24px;position:relative;z-index:41}
+.config-row{display:grid;grid-template-columns:56px minmax(0,1fr);align-items:center;gap:24px}
+.config-label{min-width:0;color:var(--muted);font:inherit}
+.config-shapes,.config-colors{display:grid;grid-template-columns:repeat(4,52px);grid-auto-rows:52px;gap:8px}
+/* One geometry and selection treatment for both rows; indicators stay inside. */
+.config-shape,.config-swatch{box-sizing:border-box;display:grid;place-items:center;width:52px;height:52px;min-width:52px;min-height:52px;margin:0;padding:0;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--muted);outline:0;transition:border-color 160ms,color 160ms,background-color 160ms}
+.config-shape svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+.config-swatch{background:var(--swatch)}
+.config-shape[aria-pressed=true]{background:var(--config-secondary);color:var(--ink)}
+.config-shape[aria-pressed=true],.config-swatch[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.config-shape:hover,.config-swatch:hover{border-color:var(--muted)}
+.config-shape:focus-visible,.config-swatch:focus-visible{outline:2px solid var(--ink);outline-offset:-4px}
+.config-swatch.acid-green{background:linear-gradient(135deg,#b5ff34,#40ff00 40%,#14dc64 75%,#91ff20)}
+.config-swatch.pink-cheetah{background:radial-gradient(ellipse at 25% 20%,#462536 0 2px,transparent 3px),radial-gradient(ellipse at 70% 55%,#462536 0 3px,transparent 4px),radial-gradient(ellipse at 25% 85%,#843b5b 0 2px,transparent 3px),#d577a5;background-size:16px 16px}
+.config-swatch.frosted-glass{background:linear-gradient(135deg,#141414,#383838 48%,#494949 51%,#202020)}
+.config-actions{display:flex;flex:none;justify-content:flex-end;gap:8px;padding-top:24px;position:relative;z-index:41;background:var(--config-surface)}
+.config-actions button{flex:1;min-width:0;width:0;min-height:40px;padding:8px 16px;border:0;border-radius:8px;font:inherit}
+.config-apply{background:var(--ink);color:var(--surface)}
+.config-close{background:var(--config-secondary);color:var(--ink)}
+.config-actions button:hover{filter:brightness(.94)}
+@media(max-width:640px){.pendant-config{width:100%;max-width:none;max-height:calc(100dvh - 24px);margin:auto 0 0;padding:20px 20px calc(16px + env(safe-area-inset-bottom,0px));border-radius:24px 24px 0 0}.pendant-config .config-content{gap:16px}.pendant-config .pendant{height:clamp(204px,35dvh,324px)}.config-controls{gap:24px}.config-row{gap:16px}.config-actions{padding-top:24px}.config-actions button{min-height:44px}}
+
+@media(prefers-reduced-motion:reduce){.config-swatch{transition:none}}
 
 .site-loader{color:var(--ink);pointer-events:auto}
 .site-loader [data-loader-slot]{position:relative;width:min(340px,90vw);height:360px;display:grid;place-items:center}
@@ -66,3 +82,5 @@
 
 html:not([data-theme=dark]) .loader-progress i{border-color:#777d78}
 html:not([data-theme=dark]) .loader-progress i.filled{background:#555e57;border-color:#555e57}
+
+@media(max-width:360px){.config-row{grid-template-columns:1fr;gap:12px}}

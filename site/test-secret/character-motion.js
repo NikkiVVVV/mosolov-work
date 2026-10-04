@@ -1,13 +1,10 @@
 export const limit=(x,a,b)=>Math.max(a,Math.min(b,x));
 
-export function createCharacterState(){return {clicks:0,reaction:'idle',remaining:0,gripHold:0,grip:0,shrug:0,headX:0,headVelocity:0,previousSpeed:0,impact:0,hits:0};}
-export function reactCharacter(state){
-  state.clicks++;state.reaction=state.clicks%2?'question':'shrug';state.remaining=3.8;
-}
+export function createCharacterState(){return {shakeHold:0,headX:0,headVelocity:0,previousSpeed:0,impact:0,hits:0};}
 export function stepCharacter(state,dt,{spinSpeed=0,swingSpeed=0,reduced=false}={}){
   dt=limit(dt,0,.05);
-  if(Math.abs(spinSpeed)>2.2||Math.abs(swingSpeed)>2)state.gripHold=.7;
-  else state.gripHold=Math.max(0,state.gripHold-dt);
+  if(Math.abs(spinSpeed)>2.2||Math.abs(swingSpeed)>2)state.shakeHold=.7;
+  else state.shakeHold=Math.max(0,state.shakeHold-dt);
   // Head lags behind sharp movement, touches the padded edge, then rebounds.
   const speed=swingSpeed+spinSpeed*.65;
   if(reduced){state.headX=0;state.headVelocity=0;state.impact=0;}
@@ -31,12 +28,5 @@ export function stepCharacter(state,dt,{spinSpeed=0,swingSpeed=0,reduced=false}=
     state.impact*=Math.exp(-10*dt);
   }
   state.previousSpeed=speed;
-  state.remaining=Math.max(0,state.remaining-dt);
-  if(!state.remaining)state.reaction='idle';
-  const gripping=state.gripHold>0;
-  const blend=reduced?1:1-Math.exp(-12*dt);
-  state.grip+=(Number(gripping)-state.grip)*blend;
-  state.shrug+=((!gripping&&state.reaction==='shrug'?1:0)-state.shrug)*blend;
-  return {face:gripping||state.impact>.15?'question':state.reaction,headX:state.headX,impact:state.impact,grip:state.grip,shrug:state.shrug};
+  return {face:state.shakeHold>0||state.impact>.15?'shake':'idle',headX:state.headX,impact:state.impact};
 }
-

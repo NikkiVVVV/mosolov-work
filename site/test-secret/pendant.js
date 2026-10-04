@@ -1,23 +1,12 @@
 import * as THREE from './vendor/three.module.js';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
 import { orientationTargets, screenRoll, requestOrientationAccess } from './pendant-sensors.js?v=roll27';
-import { BraidedCord } from './pendant-cord.js?v=config9';
+import { BraidedCord } from './pendant-cord.js?v=shape51';
+import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
+import { createCaseFinishes, finishes } from './pendant-finishes.js?v=59';
 import { PendantOverlay } from './pendant-overlay.js';
 import { PendantEntrance } from './pendant-entrance.js?v=roll27';
-import { PendantCharacter } from './pendant-character.js?v=once29';
-
-function outline(w, h, r) {
-  const p = new THREE.Shape(), x = -w / 2, y = -h / 2;
-  p.moveTo(x + r, y); p.lineTo(x + w - r, y);
-  p.quadraticCurveTo(x + w, y, x + w, y + r); p.lineTo(x + w, y + h - r);
-  p.quadraticCurveTo(x + w, y + h, x + w - r, y + h); p.lineTo(x + r, y + h);
-  p.quadraticCurveTo(x, y + h, x, y + h - r); p.lineTo(x, y + r);
-  p.quadraticCurveTo(x, y, x + r, y);
-  return p;
-}
-function solid(shape, depth, bevel) {
-  return new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3, steps: 1, curveSegments: 20 });
-}
+import { PendantCharacter } from './pendant-character.js?v=55';
 
 class Pendant {
   constructor(block) {
@@ -68,19 +57,20 @@ class Pendant {
     this.pivot = new THREE.Group(); this.pivot.position.y = 3.6; this.scene.add(this.pivot);
     this.body = new THREE.Group(); this.body.position.y = -3.7; this.pivot.add(this.body);
     this.bodyCentre = new THREE.Vector3();
-    const graphite = new THREE.MeshStandardMaterial({ color: 0x27282b, metalness: .8, roughness: .27 });
+    const graphite = new THREE.MeshPhysicalMaterial({ color: 0x27282b, metalness: .8, roughness: .27 });
     this.caseMaterial=graphite;
-    const silver = new THREE.MeshStandardMaterial({ color: 0x777b80, metalness: .96, roughness: .2 });
+    const silver = new THREE.MeshPhysicalMaterial({ color: 0x777b80, metalness: .96, roughness: .2 });
     this.bezelMaterial=silver;
+    this.savedCaseColor='frosted-glass';
+    this.caseFinishes=createCaseFinishes(this.body);
+    this.setCaseColor(this.savedCaseColor);
     const black = new THREE.MeshStandardMaterial({ color: 0x060607, roughness: .9, metalness: .05 });
-    const back = new THREE.Mesh(solid(outline(2.88,3.04,.85), .32, .1), graphite);
-    back.position.z = -.39; this.body.add(back); this.hitMesh = back;
-    const rimShape = outline(2.87,3.03,.84);
-    const hole = outline(2.58,2.75,.74);
-    rimShape.holes.push(new THREE.Path(hole.getPoints(64).reverse()));
-    const bezel = new THREE.Mesh(solid(rimShape, .22, .035), silver);
-    bezel.position.z = -.02; this.body.add(bezel);
-    const lining = new THREE.Mesh(new THREE.ShapeGeometry(outline(2.65,2.81,.78), 28), black);
+    const geometry=caseGeometry('classic');this.savedShape='classic';
+    const back = new THREE.Mesh(geometry.back,graphite);
+    back.position.z=-.39;this.body.add(back);this.hitMesh=back;this.backMesh=back;
+    const bezel=new THREE.Mesh(geometry.bezel,silver);
+    bezel.position.z=-.02;this.body.add(bezel);this.bezelMesh=bezel;
+    const lining = new THREE.Mesh(geometry.lining, black);
     lining.position.z = .04; this.body.add(lining);
     this.lining=lining;this.darkLining=black;this.lightLining=new THREE.MeshBasicMaterial({color:0xd9dad3});
     this.character=new PendantCharacter(this.body,()=>{
@@ -122,11 +112,12 @@ class Pendant {
   resize(){
     if(this.failed)return;
     const {width,height,left,top}=this.host.getBoundingClientRect(); if(!width||!height)return;
+    this.renderer.transmissionResolutionScale=matchMedia('(max-width:640px)').matches?.5:1;
     this.renderer.setSize(innerWidth,innerHeight,false);
     this.camera.clearViewOffset();this.camera.aspect=width/height;
     const inProfile=Boolean(this.home.closest('.profile'))&&!this.dialog?.open&&!this.intro.active;
     const mobile=inProfile&&matchMedia('(max-width:640px)').matches;
-    this.camera.zoom=this.intro.active?1.45:this.dialog?.open?1.35:inProfile?1.17:1;
+    this.camera.zoom=this.intro.active?1.45:this.dialog?.open?1.55:inProfile?1.17:1;
     // Expand the view to the whole viewport while preserving the original anchor and scale.
     this.camera.position.z=Math.max(10.8,3.85/(2*Math.tan(16*Math.PI/180)*this.camera.aspect));
     let shiftX=0,shiftY=0;
@@ -149,7 +140,12 @@ class Pendant {
   }
   wake(){if(!this.failed&&!this.frame&&this.visible&&!document.hidden){this.last=performance.now();this.frame=requestAnimationFrame(t=>this.tick(t));}}
   tick(time){
-    this.frame=0; const dt=Math.min((time-this.last)/1000,.05);this.last=time;
+    this.frame=0;
+    // Cap GPU work on phones at 30 fps; physics still uses elapsed time.
+    if(matchMedia('(max-width:640px)').matches&&time-this.last<32){
+      this.frame=requestAnimationFrame(t=>this.tick(t));return;
+    }
+    const dt=Math.min((time-this.last)/1000,.05);this.last=time;
     const reduced=this.reduced.matches;
     if(this.intro.active){this.intro.tick(dt,reduced);return;}
     if(this.dialog?.open){this.tickConfigurator(dt,reduced);return;}
@@ -176,8 +172,8 @@ class Pendant {
     this.host.dataset.headX=characterPose.headX.toFixed(3);
     this.previousYaw=this.yaw;
     this.host.dataset.idleReaction=characterPose.idleKind;this.host.dataset.idleAmount=characterPose.idleAmount.toFixed(2);
-    this.host.dataset.expression=characterPose.face;this.host.dataset.grip=characterPose.grip.toFixed(2);
-    this.host.dataset.shrug=characterPose.shrug.toFixed(2);this.host.dataset.lookX=this.character.look.x.toFixed(2);
+    this.host.dataset.expression=characterPose.face;
+    this.host.dataset.lookX=this.character.look.x.toFixed(2);
     this.scene.updateMatrixWorld();
     const ropeSpeed=this.cord.update(dt,Boolean(this.drag),this.body.rotation.y,reduced||this.snapCord,this.arrival.offset);
     this.snapCord=false;
@@ -235,7 +231,7 @@ class Pendant {
       const grip=this.body.worldToLocal(hit.point.clone());
       if(!e.shiftKey)this.yawTarget=this.yaw;
       canvas.setPointerCapture(e.pointerId);canvas.style.touchAction='none';
-      if(this.dialog?.open){this.configDrag={id:e.pointerId,x:e.clientX,angle:this.configAngle};this.configResume=performance.now()+2500;this.wake();return;}
+      if(this.dialog?.open){this.configDrag={id:e.pointerId,x:e.clientX,angle:this.configAngle};this.wake();return;}
       this.drag={id:e.pointerId,x:e.clientX,y:e.clientY,angle:this.state.angle,depth:this.motion.depth.angle,
         twist:this.motion.twist.angle,yaw:this.yawTarget,grip:grip.x/1.5,localGrip:grip,
         cursorX:e.clientX,cursorY:e.clientY,zoom:this.camera.zoom,plane:new THREE.Plane(new THREE.Vector3(0,0,1),-hit.point.z),
@@ -246,7 +242,7 @@ class Pendant {
     canvas.addEventListener('pointermove',e=>{
       if(this.configDrag&&e.pointerId===this.configDrag.id){
         this.configAngle=this.configDrag.angle+(e.clientX-this.configDrag.x)/this.host.clientWidth*Math.PI*2;
-        this.configResume=performance.now()+2500;this.wake();return;
+        this.wake();return;
       }
       if(!this.drag||e.pointerId!==this.drag.id)return;
       const d=this.drag,dx=e.clientX-d.x,dy=e.clientY-d.y,w=this.host.clientWidth;
@@ -281,7 +277,7 @@ class Pendant {
     canvas.addEventListener('keydown',e=>{
       if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter',' ','r','R'].includes(e.key))e.preventDefault();
       if(this.dialog?.open){
-        if(e.key==='ArrowLeft'||e.key==='ArrowRight'){this.configAngle+=(e.key==='ArrowLeft'?-.2:.2);this.configResume=performance.now()+2500;}
+        if(e.key==='ArrowLeft'||e.key==='ArrowRight'){this.configAngle+=(e.key==='ArrowLeft'?-.2:.2);}
         this.wake();return;
       }
       if(e.key==='ArrowLeft'||e.key==='ArrowRight')this.nudge(e.key==='ArrowLeft'?-1:1);
@@ -344,10 +340,28 @@ class Pendant {
     finally{button.disabled=false;this.tiltPending=false;}
   }
   reset(){this.arrival={offset:0,velocity:0};this.disableTilt();this.motion=createSpatialMotion();this.state=this.motion.swing;this.yawTarget=0;this.yaw=0;this.lean=0;this.snapCord=true;this.note.textContent='';this.wake();}
+  setCaseShape(id){
+    const geometry=caseGeometry(id);
+    this.backMesh.geometry=geometry.back;this.bezelMesh.geometry=geometry.bezel;
+    const scale=geometry.screenScale;
+    this.lining.geometry=geometry.lining;
+    this.character.uniforms.windowMask.value=screenMask(id);
+    this.attachmentEye.position.y=geometry.eyeY;
+    this.cord.attachmentOffset=geometry.eyeY-1.64;
+    this.cord.knot.position.y=1.98+this.cord.attachmentOffset;
+    this.cord.tail.position.y=1.73+this.cord.attachmentOffset;
+    this.snapCord=true;
+    this.caseFinishes.setShape(id,scale);this.host.dataset.caseShape=id;
+    this.wake();
+  }
+  setCaseColor(color){
+    this.caseFinishes.apply(color,this.caseMaterial,this.bezelMaterial);
+    this.host.dataset.caseColor=color;
+  }
   tickConfigurator(dt,reduced){
-    if(!reduced&&!this.configDrag&&this.configAuto&&performance.now()>this.configResume)this.configAngle+=dt*.18;
+    if(!reduced&&!this.configDrag)this.configAngle+=dt*.3;
     this.pivot.position.y=0;this.pivot.rotation.set(0,0,0);
-    this.body.position.y=.4;this.body.rotation.set(0,this.configAngle,0);
+    this.body.position.y=.6;this.body.rotation.set(0,this.configAngle,0);
     this.character.update(dt,this.elapsed,{swingSpeed:0,spinSpeed:0,busy:true,reduced});
     this.scene.updateMatrixWorld();this.renderer.render(this.scene,this.camera);this.overlay.update(this.body,this.camera);
     this.host.dataset.mode='configurator';this.host.dataset.yaw=this.configAngle.toFixed(3);this.host.dataset.depth='0.000';
@@ -358,30 +372,35 @@ class Pendant {
     
     if(!this.dialog){
       this.dialog=document.createElement('dialog');this.dialog.className='pendant-dialog pendant-config';
-      this.dialog.setAttribute('aria-label','Настройка тамагочи');
-      this.dialog.innerHTML=`<header><span>Тамагочи</span><button type="button" data-close aria-label="Закрыть настройки">Закрыть ×</button></header>
-        <div class="config-content"><div class="config-preview"><div data-preview-slot></div><div class="config-rotation"><button type="button" data-turn="-1" aria-label="Повернуть влево">←</button><button type="button" data-auto aria-pressed="true">Пауза</button><button type="button" data-turn="1" aria-label="Повернуть вправо">→</button></div></div>
-        <div class="config-controls"><fieldset class="config-field"><legend>Цвет корпуса</legend><div class="config-colors">
-          <button type="button" class="config-swatch" style="--swatch:#27282b" data-color="#27282b" aria-label="Графит" aria-pressed="true"></button>
-          <button type="button" class="config-swatch" style="--swatch:#afb3b8" data-color="#afb3b8" aria-label="Серебро" aria-pressed="false"></button>
-          <button type="button" class="config-swatch" style="--swatch:#788365" data-color="#788365" aria-label="Олива" aria-pressed="false"></button>
-          <button type="button" class="config-swatch" style="--swatch:#9183ad" data-color="#9183ad" aria-label="Лаванда" aria-pressed="false"></button>
-        </div></fieldset><fieldset class="config-field"><legend>Маскот</legend><button type="button" class="config-mascot" aria-pressed="true">Никита <span>✓</span></button><button type="button" class="config-mascot" disabled>Загрузить своего <small>Позже</small></button><p class="config-future">Фото → маскот в пластилиновом стиле.</p></fieldset></div></div>`;
-      this.dialog.querySelector('[data-close]').addEventListener('click',()=>this.dialog.close());
+      this.dialog.setAttribute('aria-labelledby','config-title');
+      this.dialog.innerHTML=`<div class="config-content"><div class="config-header"><h2 class="config-title" id="config-title">HUMAN INSIDE</h2><button type="button" class="config-dismiss" data-dismiss aria-label="Закрыть настройки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div class="config-preview"><div data-preview-slot></div></div>
+        <div class="config-controls">
+          <div class="config-row"><span class="config-label" id="shape-label">Форма</span><div class="config-shapes" role="group" aria-labelledby="shape-label">
+            ${shapes.map(s=>`<button type="button" class="config-shape" data-shape="${s.id}" aria-label="${s.ru}" title="${s.ru}" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg></button>`).join('')}
+          </div></div>
+          <div class="config-row"><span class="config-label" id="color-label">Цвет</span><div class="config-colors" role="group" aria-labelledby="color-label">
+            ${finishes.map(f=>`<button type="button" class="config-swatch ${f.id.startsWith('#')?'':f.id}" style="--swatch:${f.id.startsWith('#')?f.id:'#d9a1b6'}" data-color="${f.id}" aria-label="${f.ru}" title="${f.ru}" aria-pressed="false"></button>`).join('')}
+          </div></div>
+        </div></div>
+        <div class="config-actions"><button type="button" class="config-close" data-close>Закрыть</button><button type="button" class="config-apply" data-apply>Применить</button></div>`;
+      this.dialog.querySelectorAll('[data-close],[data-dismiss]').forEach(button=>button.addEventListener('click',()=>this.dialog.close()));
+      this.dialog.querySelector('[data-apply]').addEventListener('click',()=>{
+        this.savedCaseColor=this.previewCaseColor;this.savedShape=this.previewShape;
+        this.dialog.close();
+      });
       this.dialog.querySelectorAll('[data-color]').forEach(button=>button.addEventListener('click',()=>{
-        this.caseMaterial.color.set(button.dataset.color);
-        this.bezelMaterial.color.set(button.dataset.color==='#27282b'?'#777b80':button.dataset.color);
+        this.previewCaseColor=button.dataset.color;this.setCaseColor(this.previewCaseColor);
         this.dialog.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));this.wake();
       }));
-      this.dialog.querySelectorAll('[data-turn]').forEach(button=>button.addEventListener('click',()=>{
-        this.configAngle+=Number(button.dataset.turn)*.35;this.configResume=performance.now()+2500;this.wake();
+      this.dialog.querySelectorAll('[data-shape]').forEach(button=>button.addEventListener('click',()=>{
+        this.previewShape=button.dataset.shape;this.setCaseShape(this.previewShape);
+        this.dialog.querySelectorAll('[data-shape]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
       }));
-      this.dialog.querySelector('[data-auto]').addEventListener('click',e=>{
-        this.configAuto=!this.configAuto;e.currentTarget.textContent=this.configAuto?'Пауза':'Вращать';e.currentTarget.setAttribute('aria-pressed',String(this.configAuto));this.wake();
-      });
       document.body.append(this.dialog);
       this.dialog.addEventListener('scroll',()=>this.resize(),{passive:true});
+      this.dialog.querySelector('.config-content').addEventListener('scroll',()=>this.resize(),{passive:true});
       this.dialog.addEventListener('close',()=>{
+        this.setCaseColor(this.savedCaseColor);this.setCaseShape(this.savedShape);
         this.configDrag=null;this.returnAnchor.after(this.host);this.overlay.attach();
         for(const part of [this.cord.mesh,this.cord.knot,this.cord.tail,this.attachmentEye])part.visible=true;
         this.host.dataset.mode='pendant';this.snapCord=true;document.body.style.overflow=this.oldOverflow;this.resize();this.hitSurface.focus({preventScroll:true});
@@ -389,11 +408,22 @@ class Pendant {
       this.dialog.addEventListener('click',e=>{if(e.target===this.dialog){const r=this.dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)this.dialog.close();}});
     }
     this.oldOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
-    this.configAngle=-.15;this.configAuto=true;this.configResume=performance.now()+1200;
-    const auto=this.dialog.querySelector('[data-auto]');auto.textContent='Пауза';auto.setAttribute('aria-pressed','true');
+    this.configAngle=-.15;this.previewCaseColor=this.savedCaseColor;this.previewShape=this.savedShape;
+    this.dialog.querySelectorAll('[data-shape]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.shape===this.savedShape)));
+    this.dialog.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===this.savedCaseColor)));
+    const english=document.documentElement.lang==='en';
+    this.dialog.querySelector('.config-title').textContent='HUMAN INSIDE';
+    this.dialog.querySelector('[data-dismiss]').setAttribute('aria-label',english?'Close settings':'Закрыть настройки');
+    this.dialog.querySelector('#shape-label').textContent=english?'Shape':'Форма';
+    this.dialog.querySelector('#color-label').textContent=english?'Color':'Цвет';
+    this.dialog.querySelectorAll('[data-shape]').forEach((b,i)=>{b.setAttribute('aria-label',shapes[i][english?'en':'ru']);b.title=shapes[i][english?'en':'ru'];});
+    this.dialog.querySelector('[data-apply]').textContent=english?'Apply':'Применить';
+    this.dialog.querySelector('[data-close]').textContent=english?'Close':'Закрыть';
+    this.dialog.querySelectorAll('[data-color]').forEach((b,i)=>{b.setAttribute('aria-label',finishes[i][english?'en':'ru']);b.title=finishes[i][english?'en':'ru'];});
+    this.setCaseColor(this.previewCaseColor);
     for(const part of [this.cord.mesh,this.cord.knot,this.cord.tail,this.attachmentEye])part.visible=false;
     this.dialog.querySelector('[data-preview-slot]').append(this.host);this.overlay.attach(this.dialog);
-    this.dialog.showModal();this.visible=true;this.resize();
+    this.dialog.showModal();this.dialog.querySelector('[data-color][aria-pressed=true]').focus({preventScroll:true});this.visible=true;this.resize();
   }
 
 }

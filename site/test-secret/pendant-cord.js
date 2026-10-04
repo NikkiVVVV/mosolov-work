@@ -3,8 +3,8 @@ import { createRope, stepRope } from './pendant-motion.js?v=gravity5';
 
 export class BraidedCord {
   constructor(scene,body,material){
-    this.body=body;this.anchor=[0,3.6,0];this.endpoint=new THREE.Vector3();
-    body.updateWorldMatrix(true,false);body.localToWorld(this.endpoint.set(0,2.12,-.08));
+    this.body=body;this.attachmentOffset=0;this.anchor=[0,3.6,0];this.endpoint=new THREE.Vector3();
+    body.updateWorldMatrix(true,false);body.localToWorld(this.endpoint.set(0,2.12+this.attachmentOffset,-.08));
     this.rope=createRope(this.anchor,this.endpoint.toArray());
     this.points=[new THREE.Vector3(0,6,0),new THREE.Vector3(0,4.5,0),...this.rope.nodes.map(n=>new THREE.Vector3(...n.p))];
     this.curve=new THREE.CatmullRomCurve3(this.points,false,'centripetal');
@@ -32,7 +32,7 @@ export class BraidedCord {
   }
   update(dt,held,twist,snap=false,arrival=0){
     this.anchor[1]=3.6+arrival;this.points[0].y=6+arrival;this.points[1].y=4.5+arrival;
-    this.body.localToWorld(this.endpoint.set(0,2.12,-.08));
+    this.body.localToWorld(this.endpoint.set(0,2.12+this.attachmentOffset,-.08));
     const end=this.endpoint.toArray();
     if(snap){
       this.rope=createRope(this.anchor,end);this.rope.length=1.582;

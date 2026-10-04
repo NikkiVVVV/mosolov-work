@@ -1,12 +1,11 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta name="robots" content="noindex, nofollow">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Никита Мосолов — Product Engineer</title>
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem('portfolio-theme')==='dark'?'dark':'light'}catch{}</script>
+  <title>Никита Мосолов — Design Engineer</title>
   <script>
     document.documentElement.classList.add('is-loading');
     window.portfolioBootTimeout=setTimeout(()=>{document.documentElement.classList.remove('is-loading');document.querySelector('.layout')?.removeAttribute('inert');document.querySelector('.site-loader')?.remove();document.body.style.overflow='';},12000);
@@ -14,10 +13,10 @@
   <style>.site-loader{display:none}.is-loading .site-loader{display:grid;position:fixed;inset:0;z-index:100;background:#fcfcfc;place-items:center}.is-loading .layout{visibility:hidden}html[data-theme=dark] .site-loader{background:#191a1b}</style>
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=projects29">
-  <link rel="stylesheet" href="pendant.css?v=roll27">
-  <script type="module" src="app.js?v=projects29"></script>
-  <script type="module" src="pendant.js?v=projects29"></script>
+  <link rel="stylesheet" href="styles.css?v=59">
+  <link rel="stylesheet" href="pendant.css?v=config59">
+  <script type="module" src="app.js?v=feed60"></script>
+  <script type="module" src="pendant.js?v=config59"></script>
 </head>
 <body>
   <div class="site-loader" role="status" aria-label="Загрузка портфолио" data-phase="loading">
@@ -33,18 +32,32 @@
           <div class="pendant-tools"><button data-action="nudge" title="Качнуть подвеску">Качнуть</button><button data-action="spin">Оборот</button><button data-action="zoom">Ближе</button><button data-action="tilt" aria-pressed="false">Наклон телефона</button><button data-action="reset">Сбросить</button></div>
           <p class="pendant-note" role="status"></p>
         </div>
-        <div class="profile-heading"><div><h1>Никита Мосолов</h1><p>Product Engineer</p></div></div>
+        <div class="profile-heading"><div><h1>Никита Мосолов</h1><p>Design Engineer</p></div></div>
       </div>
-      <p>Проектирую и создаю цифровые продукты — от идеи до запуска. Работаю в Авито Авто.</p>
+      <p>Создаю эмоциональные цифровые продукты.</p>
+      <section class="current-projects" aria-label="Текущие проекты">
+        <ul>
+          <li><span id="current-avito">Авито</span><span class="current-project-team" id="current-avito-team">[auto]</span><a class="current-project-link" id="current-avito-link" href="https://www.avito.ru/comtrans/top-models" target="_blank" rel="noopener noreferrer" aria-label="Перейти к проекту Авито"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></li>
+          <li><span id="current-mazik">Мазик</span><span class="current-project-team" id="current-mazik-type">[mini app]</span><a class="current-project-link" id="current-mazik-link" href="http://mazik.mosolov.work/" target="_blank" rel="noopener noreferrer" aria-label="Перейти в Мазик"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></li>
+          <li><span id="current-radar">Idea Radar</span><span class="current-project-team" id="current-radar-type">[service]</span><a class="current-project-link" id="current-radar-link" href="https://idearadar.ru/" target="_blank" rel="noopener noreferrer" aria-label="Перейти в idea radar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></li>
+        </ul>
+      </section>
+      <details class="experience">
+        <summary><span id="experience-title">Опыт</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7"/></svg></summary>
       <section class="workplaces" aria-labelledby="workplaces-title">
         <h2 id="workplaces-title" class="sr-only">Места работы</h2>
         <ol>
-          <li><span>avito</span><span class="workplace-team">[auto]</span><span class="workplace-period workplace-current">now<i aria-hidden="true"></i></span></li>
-          <li><span>сбер</span><span class="workplace-team">[онлайн]</span><span class="workplace-period">22→23</span></li>
-          <li><span>сбер</span><span class="workplace-team">[usersoft]</span><span class="workplace-period">21→22</span></li>
-          <li><span>сбер</span><span class="workplace-team">[друг]</span><span class="workplace-period">20→21</span></li>
+          <li><span>Авито</span><span class="workplace-team">[auto]</span><span class="workplace-period workplace-current">now<i aria-hidden="true"></i></span></li>
+          <li><span>Сбер</span><span class="workplace-team">[Онлайн]</span><span class="workplace-period">24→25</span></li>
+          <li><span>Сбер</span><span class="workplace-team">[UserSoft]</span><span class="workplace-period">22→23</span></li>
+          <li><span>Сбер</span><span class="workplace-team">[Друг]</span><span class="workplace-period">19→23</span></li>
         </ol>
       </section>
+      <div class="resume-downloads">
+        <a class="resume-download" href="assets/resume/nikita-mosolov-resume.pdf?v=40" download="nikita-mosolov-resume.pdf"><span id="resume-pdf-label">Резюме PDF</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v4h14v-4"/></svg></a>
+        <a class="resume-download" href="assets/resume/nikita-mosolov-resume.md?v=40" download="nikita-mosolov-resume.md"><span id="resume-md-label">Резюме MD</span><span class="resume-app-icons" aria-hidden="true"><span class="resume-app-icon icon-codex"></span><span class="resume-app-icon icon-claude"></span><span class="resume-app-icon icon-vscode"></span></span></a>
+      </div>
+      </details>
     </aside>
     <section id="portfolio" class="portfolio" aria-label="Работы">
       <div class="toolbar">
@@ -80,9 +93,12 @@
       <a href="https://github.com/NikkiVVVV" target="_blank" rel="noopener"><span class="contact-label">GitHub</span><span class="contact-value">NikkiVVVV</span></a>
     </nav>
   </dialog>
-  <div class="theme-switch" role="group" aria-label="Тема оформления">
-    <button type="button" data-theme-choice="light" aria-label="Светлая тема" title="Светлая тема" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
-    <button type="button" data-theme-choice="dark" aria-label="Тёмная тема" title="Тёмная тема" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg></button>
+  <div class="theme-switch" role="group" aria-label="Тема и язык">
+    <button type="button" id="theme-toggle" aria-label="Включить тёмную тему" title="Включить тёмную тему">
+      <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+      <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+    </button>
+    <button type="button" id="language-toggle" aria-label="Switch to English" title="Switch to English"><span>RU</span></button>
   </div>
   <noscript><p>Для переключения режимов включите JavaScript.</p></noscript>
 </body>

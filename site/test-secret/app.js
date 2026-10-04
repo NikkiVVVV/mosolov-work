@@ -1,9 +1,15 @@
-import { projects } from './projects.js?v=projects29';
+import { createProjectMasonry } from './project-masonry.js?v=48';
+import { projects } from './projects.js?v=feed44';
+import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
+import { createProjectVideos } from './project-videos.js?v=feed44';
+
+const projectVideos = createProjectVideos();
 
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
 
 const grid = document.querySelector('#grid');
+const masonry = createProjectMasonry(grid);
 const panel = document.querySelector('#sphere-panel');
 const dialog = document.querySelector('#project-preview');
 const contactDialog=document.querySelector('#contact-dialog');
@@ -87,27 +93,43 @@ dialog.addEventListener('click', e => {
 dialog.addEventListener('close', () => sphere?.setActive(view === 'sphere'));
 
 function renderProjects() {
-  const selected = projects.filter(p => category === 'all' || p.category === category);
+  const selected = projects.filter(p => category === 'all' || p.category === category).map(p=>language==='en'?{...p,...englishProjects[p.id]}:p);
   grid.replaceChildren(...selected.map(project => {
-    const card = document.createElement('button');
-    card.type = 'button'; card.className = 'project-card';
+    const card = document.createElement('article');
+    card.className = 'project-card';
     card.setAttribute('aria-label', project.title);
-    const cover = document.createElement('span');
-    cover.className = 'project-cover'; cover.setAttribute('aria-hidden','true');
-    cover.style.aspectRatio=project.coverRatio||'4/3';
-    const caption = document.createElement('span');
-    caption.className='project-caption';
-    const title=document.createElement('span');title.className='project-title';title.textContent=project.title;
-    const heading=document.createElement('span');heading.className='project-heading';heading.append(title);
-    if(project.year){const date=document.createElement('span');date.className='project-date';date.textContent=project.year;heading.append(date);}
-    const description=document.createElement('span');description.className='project-description';description.textContent=project.description;
-    caption.append(heading,description);
-    card.append(cover, caption); card.addEventListener('click', () => openProject(project));
+    const cover = document.createElement('div');
+    cover.className = 'project-cover';
+    if(!project.video)cover.style.aspectRatio=project.coverRatio||'4/3';
+    if(project.video){
+      cover.classList.add('has-video');
+      cover.append(projectVideos.attach(project,card));
+    }else if(project.image){
+      const image=document.createElement('img');
+      image.src=project.image;image.alt=project.imageAlt||project.title;image.loading='lazy';
+      cover.append(image);
+    }
+    if(project.href){
+      const link=document.createElement('a');
+      link.className='project-link';link.href=project.href;link.target='_blank';link.rel='noopener noreferrer';
+      link.setAttribute('aria-label',language==='en'?`Open ${project.title}`:`Открыть «${project.title}»`);
+      link.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>';
+      cover.append(link);
+    }
+    card.append(cover);
+    // A caption is optional: omit it for an image-only card.
+    if(project.description && project.showDescription!==false){
+      const description=document.createElement('p');
+      description.className='project-description';description.textContent=project.description;
+      card.append(description);
+    }
     return card;
   }));
-  if(!selected.length){const empty=document.createElement('p');empty.className='meta';empty.textContent='Публикации появятся здесь.';grid.append(empty);}
+  masonry.refresh();
+  projectVideos.sync();
+  if(!selected.length){const empty=document.createElement('p');empty.className='meta';empty.textContent=language==='en'?'Publications will appear here.':'Публикации появятся здесь.';grid.append(empty);}
   sphere?.setProjects(selected);
-  status.textContent = `Карточек: ${selected.length}. Режим: ${view === 'grid' ? 'сетка' : 'панорама'}.`;
+  status.textContent = language==='en'?`Projects: ${selected.length}.`:`Карточек: ${selected.length}.`;
 }
 
 function setView(next, updateURL = true) {
@@ -144,23 +166,26 @@ document.querySelectorAll('[data-filter]').forEach(button => button.addEventList
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)filterAnimation=grid.animate([{opacity:.35,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:220,easing:'cubic-bezier(.2,.7,.2,1)'});
 }));
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view)));
-renderProjects(); updateMotion(); setView(view, !features.panorama);
+updateMotion(); setView(view, !features.panorama);
 
-const themeChoices=document.querySelectorAll('[data-theme-choice]');
+const themeButton=document.querySelector('#theme-toggle');
+const languageButton=document.querySelector('#language-toggle');
+let language='ru';
+try{language=localStorage.getItem('portfolio-language')==='en'?'en':'ru';}catch{}
 function updateThemeButtons(){
-  const theme=document.documentElement.dataset.theme||'light';
-  themeChoices.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.themeChoice===theme)));
+  const dark=document.documentElement.dataset.theme==='dark';
+  const label=language==='en'?(dark?'Switch to light theme':'Switch to dark theme'):(dark?'Включить светлую тему':'Включить тёмную тему');
+  themeButton.setAttribute('aria-label',label);themeButton.title=label;
 }
 let themeTransition,themeSequence=0;
 function applyTheme(next){
   document.documentElement.dataset.theme=next;
-  try{localStorage.setItem('portfolio-theme',next);}catch{}
   updateThemeButtons();
   document.dispatchEvent(new Event('portfolio:theme'));
 }
-themeChoices.forEach(button=>button.addEventListener('click',async()=>{
-  const next=button.dataset.themeChoice;
-  if(next===(document.documentElement.dataset.theme||'light'))return;
+themeButton.addEventListener('click',async()=>{
+  const button=themeButton;
+  const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
   const sequence=++themeSequence;
   themeTransition?.skipTransition();
   if(!document.startViewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches){applyTheme(next);return;}
@@ -177,8 +202,49 @@ themeChoices.forEach(button=>button.addEventListener('click',async()=>{
     await themeTransition.finished;
   }catch{if(sequence===themeSequence)applyTheme(next);}
   finally{if(sequence===themeSequence){delete root.dataset.themeWave;themeTransition=null;}}
-}));
+});
 updateThemeButtons();
+
+
+const translatedNodes=[
+  ['h1','Nikita Mosolov'],
+  ['.profile>p','I create digital products that evoke emotion.'],
+  ['#current-avito','Avito'],
+  ['#current-avito-team','[auto]'],['#current-mazik','Mazik'],['#current-radar','Idea Radar'],
+  ['#current-mazik-type','[mini app]'],['#current-radar-type','[service]'],
+  ['#experience-title','Experience'],['#resume-pdf-label','Resume PDF'],['#resume-md-label','Resume MD'],
+  ['.skip-link','View projects'],
+  ['#workplaces-title','Workplaces'],
+  ['#tab-all','All'],['#tab-work','Work'],['#tab-pet','Side projects'],['#tab-publication','Publications'],
+  ['#open-contact','Contact'],['#contact-title','Contact'],['#close-preview','Close ×'],
+].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.textContent};});
+const translatedLabels=[
+  ['#current-mazik-link','Visit Mazik'],['#current-avito-link','Visit the Avito project'],['#current-radar-link','Visit idea radar'],
+  ['.current-projects','Current projects'],['.profile','About me'],['#portfolio','Projects'],['.filters','Project category'],
+  ['.theme-switch','Theme and language'],['.mobile-topbar','Theme, language and contact'],
+  ['#close-contact','Close contacts'],['#close-preview','Close'],['.contact-links','Contact Nikita'],
+].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.getAttribute('aria-label')};});
+const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>({element,ru:element.textContent,en:({'[Онлайн]':'[Online]','[Друг]':'[Drug]'})[element.textContent]||element.textContent}));
+const companyNames=[...document.querySelectorAll('.workplaces li>span:first-child')].map(element=>({element,ru:element.textContent,en:({'Сбер':'Sber','Авито':'Avito'})[element.textContent]||element.textContent}));
+function applyLanguage(){
+  document.documentElement.lang=language;
+  document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
+  [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
+  translatedLabels.forEach(item=>item.element.setAttribute('aria-label',item[language]));
+  languageButton.querySelector('span').textContent=language.toUpperCase();
+  languageButton.title=language==='ru'?'Switch to English':'Переключить на русский';
+  languageButton.setAttribute('aria-label',languageButton.title);
+  updateThemeButtons();renderProjects();positionFilterIndicator();
+}
+languageButton.addEventListener('click',()=>{
+  language=language==='ru'?'en':'ru';
+  try{localStorage.setItem('portfolio-language',language);}catch{}
+  applyLanguage();
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+    languageButton.querySelector('span').animate([{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:180,easing:'ease-out'});
+  }
+});
+applyLanguage();
 
 // Move the same controls across the breakpoint, preserving focus, state and handlers.
 const mobileLayout=matchMedia('(max-width:640px)');
