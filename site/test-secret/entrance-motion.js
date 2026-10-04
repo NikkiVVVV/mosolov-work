@@ -8,5 +8,8 @@ export function entranceFrame(elapsed,readyAt,reduced=false,permissionPending=fa
   return {phase:elapsed<exitAt?'loading':'exit',show:false,opacity:1-smooth((elapsed-exitAt)/fade),done:elapsed>=exitAt+fade};
 }
 
-// The device must visibly remain off before any boot content or progress appears.
-export function bootFrame(elapsed){return {powered:elapsed>=.8,progressing:elapsed>=1.15};}
+// 450 ms closed → 950 ms slide → 400 ms black display → power → progress.
+// Reduced motion shows an already-open tray, keeping the screen-on sequence short.
+export function bootFrame(elapsed,reduced=false){
+  return {lidOpening:elapsed>=(reduced?0:.45),powered:elapsed>=(reduced?.2:1.8),progressing:elapsed>=(reduced?.35:2.15)};
+}

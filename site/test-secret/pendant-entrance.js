@@ -1,5 +1,5 @@
 import { landingImpulse } from './pendant-motion.js?v=67';
-import {entranceFrame,bootFrame} from './entrance-motion.js?v=66';
+import {entranceFrame,bootFrame} from './entrance-motion.js?v=68';
 
 export class PendantEntrance {
   constructor(pendant){
@@ -43,7 +43,8 @@ export class PendantEntrance {
   tick(dt,reduced){
     const p=this.p,elapsed=(performance.now()-this.started)/1000;
     if(this.assetReady&&this.presentedAt===null){this.presentedAt=elapsed;this.el.dataset.present='true';this.boxLayoutDirty=true;}
-    const boot=bootFrame(this.presentedAt===null?-1:elapsed-this.presentedAt);
+    const boot=bootFrame(this.presentedAt===null?-1:elapsed-this.presentedAt,reduced);
+    this.el.dataset.lid=boot.lidOpening?'open':'closed';
     this.el.dataset.boot=boot.powered?'on':'off';
     if(this.boxLayoutDirty)this.renderDevice();
     const targets=[this.fontProgress,(p.character.loaded||0)/p.character.totalTextures,this.pageProgress];
