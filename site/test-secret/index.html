@@ -10,17 +10,22 @@
     document.documentElement.classList.add('is-loading');
     window.portfolioBootTimeout=setTimeout(()=>{document.documentElement.classList.remove('is-loading');document.querySelector('.layout')?.removeAttribute('inert');document.querySelector('.site-loader')?.remove();document.body.style.overflow='';},12000);
   </script>
-  <style>.site-loader{display:none}.is-loading .site-loader{display:grid;position:fixed;inset:0;z-index:100;background:#fcfcfc;place-items:center}.is-loading .layout{visibility:hidden}html[data-theme=dark] .site-loader{background:#191a1b}</style>
+  <style>.site-loader{display:none}.is-loading .site-loader{display:grid;position:fixed;inset:0;z-index:100;background:#171819;place-items:center}.is-loading .layout{visibility:hidden}html[data-theme=dark] .site-loader{background:#171819}</style>
+  <link rel="preload" href="assets/loading/human-inside-box-v66.png" as="image" fetchpriority="high">
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=63">
-  <link rel="stylesheet" href="pendant.css?v=config63">
+  <link rel="stylesheet" href="pendant.css?v=config66">
   <script type="module" src="app.js?v=feed63"></script>
-  <script type="module" src="pendant.js?v=config65"></script>
+  <script type="module" src="pendant.js?v=config66"></script>
 </head>
 <body>
   <div class="site-loader" role="status" aria-label="Загрузка портфолио" data-phase="loading">
-    <div data-loader-slot><div class="loader-shell" aria-hidden="true"></div><div class="loader-display"><span class="loader-brand">HUMAN INSIDE</span><div class="loader-progress" role="progressbar" aria-label="Загрузка" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="loader-package" data-loader-slot>
+      <img class="loader-box" src="assets/loading/human-inside-box-v66.png" width="941" height="1672" alt="" fetchpriority="high" decoding="async">
+      <div class="loader-device" aria-hidden="true"></div>
+      <div class="loader-screen"><div class="loader-screen-content"><span class="loader-brand">HUMAN INSIDE</span><div class="loader-progress" role="progressbar" aria-label="Загрузка" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    </div>
   </div>
   <a class="skip-link" href="#portfolio">К работам</a>
   <header class="mobile-topbar" aria-label="Тема и связь"><div class="mobile-theme-slot"></div><div class="mobile-contact-slot"></div></header>

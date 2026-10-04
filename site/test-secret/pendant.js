@@ -7,7 +7,7 @@ import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=61';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=65';
-import { PendantEntrance } from './pendant-entrance.js?v=64';
+import { PendantEntrance } from './pendant-entrance.js?v=66';
 import { PendantCharacter } from './pendant-character.js?v=55';
 
 class Pendant {
@@ -121,6 +121,7 @@ class Pendant {
   resize(schedule=true){
     if(this.failed)return;
     this.viewportDirty=false;
+    if(this.intro.active&&this.intro.mounted){this.intro.renderDevice();if(schedule)this.wake();return;}
     const rect=this.host.getBoundingClientRect(),{width,height}=rect; if(!width||!height)return;
     this.renderer.transmissionResolutionScale=this.mobile.matches?.5:1;
     const view=this.viewport.sync({width:innerWidth,height:innerHeight,screenHeight:Math.max(screen.height,screen.width),mobile:this.mobile.matches,dialog:Boolean(this.dialog?.open),scrollX,scrollY},rect);

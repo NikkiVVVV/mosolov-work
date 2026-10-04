@@ -65,19 +65,26 @@ html[data-theme=dark] .pendant-config{--config-surface:#2b2e31;--config-secondar
 
 @media(prefers-reduced-motion:reduce){.config-swatch{transition:none}}
 
-.site-loader{color:var(--ink);pointer-events:auto}
-.site-loader [data-loader-slot]{position:relative;width:min(340px,90vw);height:360px;display:grid;place-items:center;animation:loader-screen-in 700ms 350ms ease-out both}
-.site-loader .pendant{width:100%;height:100%;min-height:0;max-width:none;margin:0}
-.site-loader .pendant-overlay{z-index:0}
-.loader-shell{position:absolute;width:248px;height:264px;border:12px solid #222324;border-radius:64px;background:#111;box-shadow:inset 0 0 0 1px #414244,0 0 0 1px #343536}
+/* The box is a transparent PNG; the device, screen and solid backdrop are live layers. */
+.site-loader{color:#e1e1e1;pointer-events:auto;overflow:hidden}
+.loader-package{position:relative;width:min(calc(100vw - 24px),calc((100svh - 24px)*9/16),520px);aspect-ratio:9/16;opacity:0;transition:opacity 300ms ease-out}
+.site-loader[data-present=true] .loader-package{opacity:1}
+.loader-box{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+.loader-device{position:absolute;left:19%;top:53.2%;width:33.8%;height:19%}
+.loader-screen{position:absolute;left:21.8%;top:54.6%;width:28.2%;height:16.1%;z-index:3;display:grid;place-items:center;overflow:hidden;border-radius:24%;background:#050607;box-shadow:inset 0 0 2px #000;transition:background 350ms ease}
+.loader-screen-content{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;transition:opacity 350ms ease}
+.site-loader[data-boot=on] .loader-screen{background:#101214}
+.site-loader[data-boot=on] .loader-screen-content{opacity:1}
+.loader-brand{font:400 clamp(6px,min(2vw,1.1svh),11px)/1.2 monospace;letter-spacing:.02em;white-space:nowrap}
+.loader-progress{display:flex;gap:2px}
+.loader-progress i{width:clamp(3px,.6svh,6px);height:2px;background:#e1e1e125}
+.loader-progress i.filled{background:#e1e1e1}
+.site-loader .pendant-overlay{z-index:2;pointer-events:none}
 .is-loading body>.pendant-overlay{opacity:0;visibility:hidden!important;pointer-events:none}
-@keyframes loader-screen-in{from{opacity:0}to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.site-loader [data-loader-slot]{animation:none}}
-/* A quiet powered screen: one title and five small, discrete loading steps. */
-.loader-display{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;width:184px;height:192px;border-radius:40px;background:radial-gradient(ellipse at 50% 35%,#292929,#141414 85%);box-shadow:inset 0 0 16px #0008;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;color:#e1e1e1}
-.loader-brand{font:400 16px/24px monospace;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 12px #e1e1e128}
-.loader-progress{display:flex;gap:4px}
-.loader-progress i{width:12px;height:4px;border:0;border-radius:0;background:#e1e1e124}
-.loader-progress i.filled{background:#e1e1e1;box-shadow:0 0 4px #e1e1e130}
+.site-loader[data-asset-failed=true] .loader-package{width:240px;aspect-ratio:1}
+.site-loader[data-asset-failed=true] .loader-box{display:none}
+.site-loader[data-asset-failed=true] .loader-device{left:0;top:0;width:100%;height:100%}
+.site-loader[data-asset-failed=true] .loader-screen{left:8%;top:7.5%;width:84%;height:85%}
+@media(prefers-reduced-motion:reduce){.loader-package,.loader-screen,.loader-screen-content{transition:none}}
 
 @media(max-width:360px){.config-row{grid-template-columns:1fr;gap:12px}}

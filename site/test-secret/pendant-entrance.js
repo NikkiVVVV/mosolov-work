@@ -1,9 +1,12 @@
-import {entranceFrame} from './entrance-motion.js?v=permission26';
+import {entranceFrame,bootFrame} from './entrance-motion.js?v=66';
 
 export class PendantEntrance {
   constructor(pendant){
     this.p=pendant;this.el=document.querySelector('.site-loader');this.active=Boolean(this.el&&document.documentElement.classList.contains('is-loading'));
     if(!this.active)return;
+    this.assetReady=false;this.presentedAt=null;this.boxLayoutDirty=true;
+    this.package=this.el.querySelector('.loader-package');this.deviceSlot=this.el.querySelector('.loader-device');
+    this.el.querySelector('.loader-box').decode().catch(()=>{this.el.dataset.assetFailed='true';}).finally(()=>{this.assetReady=true;pendant.wake();});
     this.started=performance.now();this.readyAt=null;this.pageReady=false;this.fontProgress=0;this.pageProgress=0;this.displayed=[0,0,0];
     Promise.all([document.fonts.load('16px Werkzeug'),document.fonts.load('14px "IBM Plex Sans"')].map(task=>task.then(()=>{this.fontProgress+=.5;}))).then(()=>document.fonts.ready).then(()=>{this.fontProgress=1;});
     const appReady=document.documentElement.dataset.appReady==='true'?Promise.resolve():new Promise(resolve=>document.addEventListener('portfolio:ready',resolve,{once:true}));
@@ -19,21 +22,36 @@ export class PendantEntrance {
     const p=this.p;
     this.previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
     document.querySelector('.layout').inert=true;
-    // Keep WebGL at its final anchor. The loader is a stable, independent 2D screen.
-    p.hitSurface.hidden=true;p.overlay.layer.style.opacity='0';
+    this.mounted=true;this.bootCamera=p.camera.clone();
+    p.hitSurface.hidden=true;p.overlay.attach(this.package);p.overlay.layer.style.opacity='1';p.overlay.layer.style.visibility='';
+    this.renderDevice();
+  }
+  renderDevice(){
+    const p=this.p,rect=this.deviceSlot.getBoundingClientRect();if(!rect.width||!rect.height)return;
+    const view=p.viewport.sync({width:innerWidth,height:innerHeight,screenHeight:innerHeight,mobile:p.mobile.matches,dialog:true},rect);
+    const camera=this.bootCamera;camera.clearViewOffset();camera.aspect=rect.width/rect.height;
+    camera.position.set(0,0,11);camera.lookAt(0,0,0);
+    camera.zoom=2*Math.tan(16*Math.PI/180)*11/Math.max(3.24,3.1/camera.aspect);
+    camera.updateProjectionMatrix();camera.updateMatrixWorld();
+    camera.setViewOffset(rect.width,rect.height,-rect.left,-rect.top,view.width,view.height);
+    p.pivot.position.set(0,0,0);p.pivot.rotation.set(0,0,0);p.body.position.set(0,0,0);p.body.rotation.set(0,0,0);
+    p.character.root.visible=false;
+    for(const part of [p.cord.mesh,p.cord.knot,p.cord.tail])part.visible=false;
+    p.scene.updateMatrixWorld();p.renderer.render(p.scene,camera);this.boxLayoutDirty=false;
   }
   tick(dt,reduced){
     const p=this.p,elapsed=(performance.now()-this.started)/1000;
+    if(this.assetReady&&this.presentedAt===null){this.presentedAt=elapsed;this.el.dataset.present='true';this.boxLayoutDirty=true;}
+    const boot=bootFrame(this.presentedAt===null?-1:elapsed-this.presentedAt);
+    this.el.dataset.boot=boot.powered?'on':'off';
+    if(this.boxLayoutDirty)this.renderDevice();
     const targets=[this.fontProgress,(p.character.loaded||0)/p.character.totalTextures,this.pageProgress];
-    targets.forEach((target,i)=>{this.displayed[i]=Math.min(target,this.displayed[i]+dt*.6);});
+    targets.forEach((target,i)=>{this.displayed[i]=Math.min(target,this.displayed[i]+(boot.progressing?dt*.8:0));});
     const progress=this.displayed.reduce((sum,x)=>sum+x,0)/3;
     const bar=this.el.querySelector('.loader-progress');
-    bar.setAttribute('aria-valuenow',String(Math.round(targets.reduce((sum,x)=>sum+x,0)/3*100)));
+    bar.setAttribute('aria-valuenow',String(Math.round(progress*100)));
     bar.querySelectorAll('i').forEach((segment,i)=>segment.classList.toggle('filled',progress>=(i+1)/5-.001));
-    if(p.ready&&this.pageReady&&this.fontProgress===1&&this.displayed.every(x=>x>=1)&&this.readyAt===null){
-      // Warm the actual home pose before revealing it, including the first GPU upload.
-      p.resize();cancelAnimationFrame(p.frame);p.frame=0;p.cord.update(1/30,false,0,true,0);
-      p.scene.updateMatrixWorld();p.renderer.render(p.scene,p.camera);
+    if(this.assetReady&&p.ready&&this.pageReady&&this.fontProgress===1&&this.displayed.every(x=>x>=1)&&this.readyAt===null){
       this.readyAt=elapsed;
     }
     let f=entranceFrame(elapsed,this.readyAt,reduced,this.permissionPending);
@@ -73,10 +91,15 @@ export class PendantEntrance {
     if(p.hitSurface)p.hitSurface.hidden=true;
     document.querySelector('.layout').inert=false;
     document.body.style.overflow=this.previousOverflow||'';
+    if(this.mounted)p.overlay?.attach();
     document.documentElement.classList.remove('is-loading');this.el.remove();
     if(!p.failed){
       p.arrival={offset:0,velocity:0};p.state.angle=0;p.state.velocity=0;
       p.motion.twist.angle=0;p.motion.twist.velocity=0;p.snapCord=true;p.resize();
+      if(this.mounted){
+        p.pivot.position.set(0,3.6,0);p.pivot.rotation.set(0,0,0);p.body.position.set(0,-3.7,0);p.body.rotation.set(0,0,0);
+        p.scene.updateMatrixWorld();p.cord.update(1/60,false,0,true,0);p.renderer.render(p.scene,p.camera);
+      }
       // Reveal the page first, then lower the whole device and cord from above the viewport.
       // Animate the composited layer so the warmed camera/physics cannot jump on entry.
       const frames=p.reduced.matches?[{opacity:0},{opacity:1}]:[

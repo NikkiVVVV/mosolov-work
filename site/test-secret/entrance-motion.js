@@ -7,3 +7,6 @@ export function entranceFrame(elapsed,readyAt,reduced=false,permissionPending=fa
   const fade=reduced?.2:.45;
   return {phase:elapsed<exitAt?'loading':'exit',show:false,opacity:1-smooth((elapsed-exitAt)/fade),done:elapsed>=exitAt+fade};
 }
+
+// The device must visibly remain off before any boot content or progress appears.
+export function bootFrame(elapsed){return {powered:elapsed>=.8,progressing:elapsed>=1.15};}
