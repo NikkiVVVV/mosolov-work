@@ -1,11 +1,11 @@
 import { createProfileFit } from './profile-fit.js?v=71';
-import { createProjectMasonry } from './project-masonry.js?v=62';
+import { createProjectMasonry } from './project-masonry.js?v=73';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed69';
+import { projects } from './projects.js?v=feed73';
 import { createSpaceGame } from './space-game.js?v=63';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed70';
+import { createProjectVideos } from './project-videos.js?v=feed73';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -107,7 +107,7 @@ function renderProjects() {
     card.setAttribute('aria-label', project.title);
     const cover = document.createElement('div');
     cover.className = 'project-cover';
-    if(!project.video)cover.style.aspectRatio=project.coverRatio||'4/3';
+    cover.style.aspectRatio=project.video?`${project.videoWidth}/${project.videoHeight}`:project.coverRatio||'4/3';
     if(project.game){
       cover.classList.add('space-game-cover');cover.append(spaceGame.element);
     }else if(project.video){

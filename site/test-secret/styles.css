@@ -178,8 +178,8 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .project-card{cursor:default}
 .project-cover{position:relative;overflow:hidden;border-radius:12px}
 .project-cover img,.project-cover video{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.grid .project-cover.has-video{display:block;aspect-ratio:auto;height:auto}
-.project-cover.has-video video{position:static;width:100%;height:auto;object-fit:contain}
+.grid .project-cover.has-video{display:block;height:auto;overflow:hidden}
+.project-cover.has-video video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
 .project-card:hover .project-cover{transform:none;background:var(--subtle)}
 .project-card .project-description{font:16px/22px 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0;text-align:left}
 .project-link{position:absolute;bottom:12px;right:12px;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity 180ms,transform 180ms,background 180ms}
