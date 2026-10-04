@@ -1,6 +1,6 @@
 import { createProjectMasonry } from './project-masonry.js?v=62';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed62';
+import { projects } from './projects.js?v=feed69';
 import { createSpaceGame } from './space-game.js?v=63';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
