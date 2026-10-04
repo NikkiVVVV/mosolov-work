@@ -6,7 +6,7 @@ export function createProjectMasonry(grid) {
   function layout(){
     frame=0;
     if(!grid.clientWidth)return;
-    const columns=matchMedia('(max-width:640px)').matches?1:2;
+    const columns=matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches?1:2;
     const rows=Array(columns).fill(0);
     for(const card of grid.querySelectorAll('.project-card')){
       const column=rows.indexOf(Math.min(...rows));

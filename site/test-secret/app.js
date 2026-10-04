@@ -1,10 +1,12 @@
-import { createProjectMasonry } from './project-masonry.js?v=48';
-import { projects } from './projects.js?v=feed44';
+import { createProjectMasonry } from './project-masonry.js?v=62';
+import { projects } from './projects.js?v=feed62';
+import { createSpaceGame } from './space-game.js?v=62';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed44';
+import { createProjectVideos } from './project-videos.js?v=feed62';
 
 const projectVideos = createProjectVideos();
+const spaceGame = createSpaceGame();
 
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
 
@@ -13,7 +15,7 @@ const masonry = createProjectMasonry(grid);
 const panel = document.querySelector('#sphere-panel');
 const dialog = document.querySelector('#project-preview');
 const contactDialog=document.querySelector('#contact-dialog');
-const contactMobile=()=>matchMedia('(max-width:640px)').matches;
+const contactMobile=()=>matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches;
 const contactReduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 let contactClosing=false,contactDrag=null,contactOverflow=null;
 function closeContact(){
@@ -93,7 +95,8 @@ dialog.addEventListener('click', e => {
 dialog.addEventListener('close', () => sphere?.setActive(view === 'sphere'));
 
 function renderProjects() {
-  const selected = projects.filter(p => category === 'all' || p.category === category).map(p=>language==='en'?{...p,...englishProjects[p.id]}:p);
+  spaceGame.pause();spaceGame.setLanguage(language);
+  const selected = projects.filter(p => p.alwaysVisible || category === 'all' || p.category === category).map(p=>language==='en'?{...p,...(p.game?{title:'Space game'}:englishProjects[p.id])}:p);
   grid.replaceChildren(...selected.map(project => {
     const card = document.createElement('article');
     card.className = 'project-card';
@@ -101,7 +104,9 @@ function renderProjects() {
     const cover = document.createElement('div');
     cover.className = 'project-cover';
     if(!project.video)cover.style.aspectRatio=project.coverRatio||'4/3';
-    if(project.video){
+    if(project.game){
+      cover.classList.add('space-game-cover');cover.append(spaceGame.element);
+    }else if(project.video){
       cover.classList.add('has-video');
       cover.append(projectVideos.attach(project,card));
     }else if(project.image){
@@ -127,7 +132,6 @@ function renderProjects() {
   }));
   masonry.refresh();
   projectVideos.sync();
-  if(!selected.length){const empty=document.createElement('p');empty.className='meta';empty.textContent=language==='en'?'Publications will appear here.':'Публикации появятся здесь.';grid.append(empty);}
   sphere?.setProjects(selected);
   status.textContent = language==='en'?`Projects: ${selected.length}.`:`Карточек: ${selected.length}.`;
 }
@@ -208,7 +212,6 @@ updateThemeButtons();
 
 const translatedNodes=[
   ['h1','Nikita Mosolov'],
-  ['.profile-heading p','Design Engineer. I create digital products that evoke emotion.'],
   ['#current-avito','Avito'],
   ['#current-avito-team','[Auto]'],['#current-mazik','Mazik'],['#current-radar','Idea Radar'],
   ['#current-mazik-type','[mini app]'],['#current-radar-type','[service]'],
@@ -230,6 +233,11 @@ function applyLanguage(){
   document.documentElement.lang=language;
   document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
+  const intro=document.querySelector('.profile-heading p');
+  if(language==='ru'){
+    const lineBreak=document.createElement('br');lineBreak.className='mobile-copy-break';
+    intro.replaceChildren('Design Engineer. Создаю эмоциональные',lineBreak,' цифровые продукты.');
+  }else intro.textContent='Design Engineer. I create digital products that evoke emotion.';
   translatedLabels.forEach(item=>item.element.setAttribute('aria-label',item[language]));
   languageButton.querySelector('span').textContent=language.toUpperCase();
   languageButton.title=language==='ru'?'Switch to English':'Переключить на русский';
@@ -247,7 +255,7 @@ languageButton.addEventListener('click',()=>{
 applyLanguage();
 
 // Move the same controls across the breakpoint, preserving focus, state and handlers.
-const mobileLayout=matchMedia('(max-width:640px)');
+const mobileLayout=matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)');
 const contactButton=document.querySelector('#open-contact');
 const contactAnchor=document.createComment('desktop contact position');
 contactButton.before(contactAnchor);

@@ -3,9 +3,19 @@ import { createVideoShuttle } from './video-shuttle.js?v=44';
 // Keep the same media element across filtering and language changes.
 export function createProjectVideos(root = document.documentElement) {
   const entries = new Map();
+  const byVideo = new WeakMap();
+  const visibility = new IntersectionObserver(changes => {
+    for (const change of changes) {
+      const entry = byVideo.get(change.target);
+      if (!entry) continue;
+      entry.visible = change.isIntersecting && change.intersectionRatio >= .2;
+      if (entry.visible) play(entry);
+      else entry.video.pause();
+    }
+  }, {threshold:[0,.2]});
   let ready = !root.classList.contains('is-loading');
   function play(entry, restart = false) {
-    if (!ready || document.hidden || !entry.video.isConnected) return;
+    if (!ready || !entry.visible || document.hidden || !entry.video.isConnected) return;
     if (restart && !entry.video.paused && !entry.video.ended) return;
     if (entry.shuttle) {
       if (restart && entry.shuttle.held) entry.shuttle.advance();
@@ -15,7 +25,7 @@ export function createProjectVideos(root = document.documentElement) {
   }
   function sync() {
     for (const entry of entries.values()) {
-      if (!entry.video.isConnected || document.hidden) entry.video.pause();
+      if (!entry.video.isConnected || !entry.visible || document.hidden) entry.video.pause();
       else if (!entry.video.ended) play(entry);
     }
   }
@@ -42,12 +52,16 @@ export function createProjectVideos(root = document.documentElement) {
         video.muted = true;
         video.defaultMuted = true;
         video.playsInline = true;
+        video.setAttribute('muted','');
+        video.setAttribute('playsinline','');
         video.preload = 'auto';
         video.controls = false;
         video.loop = false;
         video.setAttribute('aria-hidden', 'true');
-        entry = { video, shuttle: project.shuttle ? createVideoShuttle(video, project.shuttle) : null };
+        entry = { video, visible:false, shuttle: project.shuttle ? createVideoShuttle(video, project.shuttle) : null };
         entries.set(project.id, entry);
+        byVideo.set(video,entry);visibility.observe(video);
+        video.addEventListener('loadeddata',()=>play(entry));
       }
       // Each new mouse entry replays once; leaving does not interrupt the clip.
       card.addEventListener('pointerenter', event => {

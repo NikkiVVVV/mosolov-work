@@ -19,10 +19,8 @@ export class PendantEntrance {
     const p=this.p;
     this.previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
     document.querySelector('.layout').inert=true;
-    this.el.querySelector('[data-loader-slot]').append(p.host);p.overlay.attach(this.el);
-    p.hitSurface.hidden=true;p.overlay.layer.style.visibility='';
-    for(const part of [p.cord.mesh,p.cord.knot,p.cord.tail,p.attachmentEye])part.visible=false;
-    this.el.dataset.webgl='true';
+    // Keep WebGL at its final anchor. The loader is a stable, independent 2D screen.
+    p.hitSurface.hidden=true;p.overlay.layer.style.opacity='0';
   }
   tick(dt,reduced){
     const p=this.p,elapsed=(performance.now()-this.started)/1000;
@@ -32,20 +30,21 @@ export class PendantEntrance {
     const bar=this.el.querySelector('.loader-progress');
     bar.setAttribute('aria-valuenow',String(Math.round(targets.reduce((sum,x)=>sum+x,0)/3*100)));
     bar.querySelectorAll('i').forEach((segment,i)=>segment.classList.toggle('filled',progress>=(i+1)/5-.001));
-    if(p.ready&&this.pageReady&&this.fontProgress===1&&this.displayed.every(x=>x>=1)&&this.readyAt===null)this.readyAt=elapsed;
+    if(p.ready&&this.pageReady&&this.fontProgress===1&&this.displayed.every(x=>x>=1)&&this.readyAt===null){
+      // Warm the actual home pose before revealing it, including the first GPU upload.
+      p.resize();cancelAnimationFrame(p.frame);p.frame=0;p.cord.update(1/30,false,0,true,0);
+      p.scene.updateMatrixWorld();p.renderer.render(p.scene,p.camera);
+      this.readyAt=elapsed;
+    }
     let f=entranceFrame(elapsed,this.readyAt,reduced,this.permissionPending);
     if(f.phase==='exit'&&!this.permissionHandled){
       this.permissionHandled=true;
-      if(!reduced&&matchMedia('(max-width:640px)').matches&&isSecureContext&&window.DeviceOrientationEvent){
+      if(!reduced&&matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches&&isSecureContext&&window.DeviceOrientationEvent){
         this.askTiltPermission();
         f=entranceFrame(elapsed,this.readyAt,reduced,true);
       }
     }
     this.el.dataset.phase=f.phase;this.el.style.opacity=f.opacity;
-    p.pivot.position.y=0;p.pivot.rotation.set(0,0,0);
-    p.body.position.y=.55;p.body.rotation.set(0,0,0);
-    p.character.root.visible=false;
-    p.scene.updateMatrixWorld();p.renderer.render(p.scene,p.camera);
     if(f.done){this.finish();return;}
     if(!document.hidden&&!this.permissionPending)p.frame=requestAnimationFrame(t=>p.tick(t));
   }
@@ -67,7 +66,6 @@ export class PendantEntrance {
     if(!this.active)return;
     this.active=false;clearTimeout(this.watchdog);clearTimeout(window.portfolioBootTimeout);
     const p=this.p;
-    p.returnAnchor.after(p.host);p.overlay?.attach();
     if(p.character){p.character.root.visible=p.ready;p.character.interruptIdle();}
     for(const part of [p.cord?.mesh,p.cord?.knot,p.cord?.tail,p.attachmentEye])if(part)part.visible=true;
     if(p.hitSurface)p.hitSurface.hidden=false;
@@ -77,11 +75,11 @@ export class PendantEntrance {
     if(!p.failed){
       p.arrival={offset:0,velocity:0};p.state.angle=0;p.state.velocity=0;
       p.motion.twist.angle=0;p.motion.twist.velocity=0;p.snapCord=true;p.resize();
-      // Render the settled home pose before fading it in; no second drop after boot.
-      p.overlay.layer.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:600,easing:'ease-out'});
+      const reveal=p.overlay.layer.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:800,easing:'ease-out',fill:'both'});
+      reveal.finished.then(()=>{p.overlay.layer.style.removeProperty('opacity');reveal.cancel();}).catch(()=>{});
     }
     for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar')){
-      element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:600,easing:'ease-out'});
+      element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:800,easing:'ease-out'});
     }
   }
 }

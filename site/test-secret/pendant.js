@@ -5,7 +5,7 @@ import { BraidedCord } from './pendant-cord.js?v=shape51';
 import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=61';
 import { PendantOverlay } from './pendant-overlay.js';
-import { PendantEntrance } from './pendant-entrance.js?v=61';
+import { PendantEntrance } from './pendant-entrance.js?v=62';
 import { PendantCharacter } from './pendant-character.js?v=55';
 
 class Pendant {
@@ -93,7 +93,7 @@ class Pendant {
     this.bind(); this.resize();
     window.addEventListener('orientationchange',()=>{this.sensorZero=null;this.sensorTarget=0;this.sensorDepth=0;},{passive:true});
     this.resizeObserver = new ResizeObserver(()=>this.resize()); this.resizeObserver.observe(this.host);
-    this.intersection = new IntersectionObserver(entries=>{this.visible=entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'600px'});
+    this.intersection = new IntersectionObserver(entries=>{this.visible=this.intro.active||entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'600px'});
     this.intersection.observe(this.host);
     window.addEventListener('resize',()=>this.resize(),{passive:true});
     window.addEventListener('scroll',()=>this.resize(),{passive:true});
@@ -112,12 +112,12 @@ class Pendant {
   resize(){
     if(this.failed)return;
     const {width,height,left,top}=this.host.getBoundingClientRect(); if(!width||!height)return;
-    this.renderer.transmissionResolutionScale=matchMedia('(max-width:640px)').matches?.5:1;
+    this.renderer.transmissionResolutionScale=matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches?.5:1;
     this.renderer.setSize(innerWidth,innerHeight,false);
     this.camera.clearViewOffset();this.camera.aspect=width/height;
-    const inProfile=Boolean(this.home.closest('.profile'))&&!this.dialog?.open&&!this.intro.active;
-    const mobile=inProfile&&matchMedia('(max-width:640px)').matches;
-    this.camera.zoom=this.intro.active?1.45:this.dialog?.open?1.55:inProfile?1.17:1;
+    const inProfile=Boolean(this.home.closest('.profile'))&&!this.dialog?.open;
+    const mobile=inProfile&&matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches;
+    this.camera.zoom=this.dialog?.open?1.55:inProfile?1.17:1;
     // Expand the view to the whole viewport while preserving the original anchor and scale.
     this.camera.position.z=Math.max(10.8,3.85/(2*Math.tan(16*Math.PI/180)*this.camera.aspect));
     let shiftX=0,shiftY=0;
@@ -142,7 +142,7 @@ class Pendant {
   tick(time){
     this.frame=0;
     // Cap GPU work on phones at 30 fps; physics still uses elapsed time.
-    if(matchMedia('(max-width:640px)').matches&&time-this.last<32){
+    if(matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches&&time-this.last<32){
       this.frame=requestAnimationFrame(t=>this.tick(t));return;
     }
     const dt=Math.min((time-this.last)/1000,.05);this.last=time;
