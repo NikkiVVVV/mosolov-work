@@ -21,7 +21,7 @@ export class PendantOverlay {
     this.projected=this.corners.map(()=>new THREE.Vector3());
   }
   update(body,camera){
-    const width=innerWidth,height=innerHeight;
+    const width=parseFloat(this.layer.style.width)||innerWidth,height=parseFloat(this.layer.style.height)||innerHeight;
     const points=this.corners.map((corner,i)=>{
       const p=this.projected[i].copy(corner);body.localToWorld(p);p.project(camera);
       return {x:(p.x*.5+.5)*width,y:(.5-p.y*.5)*height};

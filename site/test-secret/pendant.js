@@ -2,10 +2,11 @@ import * as THREE from './vendor/three.module.js';
 import { track } from './portfolio-analytics.js?v=63';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
 import { orientationTargets, screenRoll, requestOrientationAccess } from './pendant-sensors.js?v=roll27';
-import { BraidedCord } from './pendant-cord.js?v=shape51';
+import { BraidedCord } from './pendant-cord.js?v=65';
 import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=61';
-import { PendantOverlay } from './pendant-overlay.js';
+import { PendantOverlay } from './pendant-overlay.js?v=65';
+import { PendantViewport, touchIntent } from './pendant-viewport.js?v=65';
 import { PendantEntrance } from './pendant-entrance.js?v=64';
 import { PendantCharacter } from './pendant-character.js?v=55';
 
@@ -15,6 +16,7 @@ class Pendant {
     this.note = block.querySelector('.pendant-note'); this.tools = block.querySelector('.pendant-tools');
     this.home = this.host.parentNode; this.returnAnchor = document.createComment('pendant-home');
     this.host.before(this.returnAnchor);
+    this.mobile = matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)');
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)');
     this.motion = createSpatialMotion(); this.state = this.motion.swing; this.yaw = 0; this.yawTarget = 0;
     this.lean = 0; this.sensorTarget = 0; this.sensorDepth = 0;
@@ -34,12 +36,13 @@ class Pendant {
   }
   init() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, this.mobile.matches?1.25:1.5));
     this.renderer.setClearColor(0xffffff, 0); this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.3;
     const canvas = this.renderer.domElement;
     this.overlay = new PendantOverlay(this.renderer);this.hitSurface=this.overlay.hit;
     this.overlay.layer.style.visibility="hidden";
+    this.viewport=new PendantViewport(this.renderer,this.overlay.layer);
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(32, 1, .1, 50);
     this.camera.position.set(0, .55, 11); this.camera.lookAt(0, .55, 0);
@@ -87,17 +90,21 @@ class Pendant {
     for(let y=-32;y<160;y+=12){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(32,y+25);ctx.moveTo(32,y);ctx.lineTo(0,y+25);ctx.stroke();}
     const cordMap = new THREE.CanvasTexture(cordCanvas); cordMap.colorSpace=THREE.SRGBColorSpace;
     this.cordMaterial = new THREE.MeshStandardMaterial({map:cordMap,roughness:.94,color:0xcccccc});
-    this.cord = new BraidedCord(this.scene,this.body,this.cordMaterial);
+    this.cord = new BraidedCord(this.scene,this.body,this.cordMaterial,{compact:this.mobile.matches});
     this.applyTheme();
     document.addEventListener('portfolio:theme',()=>this.applyTheme());
     this.intro.mount();
     this.bind(); this.resize();
     window.addEventListener('orientationchange',()=>{this.sensorZero=null;this.sensorTarget=0;this.sensorDepth=0;},{passive:true});
-    this.resizeObserver = new ResizeObserver(()=>this.resize()); this.resizeObserver.observe(this.host);
-    this.intersection = new IntersectionObserver(entries=>{this.visible=this.intro.active||entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'600px'});
+    this.resizeObserver = new ResizeObserver(()=>this.queueResize()); this.resizeObserver.observe(this.host);
+    this.intersection = new IntersectionObserver(entries=>{this.visible=this.intro.active||entries[0].isIntersecting||Boolean(this.drag);this.overlay.layer.hidden=!this.visible;if(this.visible)this.wake();else{cancelAnimationFrame(this.frame);this.frame=0;}},{rootMargin:'64px'});
     this.intersection.observe(this.host);
-    window.addEventListener('resize',()=>this.resize(),{passive:true});
-    window.addEventListener('scroll',()=>this.resize(),{passive:true});
+    window.addEventListener('resize',()=>this.queueResize(),{passive:true});
+    window.addEventListener('scroll',()=>{
+      // Mobile layer scrolls natively with its profile; desktop sticky anchors need a camera update.
+      if(!this.viewport.mobile)this.queueResize();
+    },{passive:true});
+    this.mobile.addEventListener('change',()=>this.queueResize());
     this.host.addEventListener('focusin',()=>this.wake());
     document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;}else this.wake();});
     this.reduced.addEventListener('change',()=>this.reset());
@@ -110,14 +117,18 @@ class Pendant {
     this.host.dataset.interior=document.documentElement.dataset.theme==='dark'?'dark':'light';
     this.renderer.render(this.scene,this.camera);this.wake();
   }
-  resize(){
+  queueResize(){this.viewportDirty=true;this.wake();}
+  resize(schedule=true){
     if(this.failed)return;
-    const {width,height,left,top}=this.host.getBoundingClientRect(); if(!width||!height)return;
-    this.renderer.transmissionResolutionScale=matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches?.5:1;
-    this.renderer.setSize(innerWidth,innerHeight,false);
+    this.viewportDirty=false;
+    const rect=this.host.getBoundingClientRect(),{width,height}=rect; if(!width||!height)return;
+    this.renderer.transmissionResolutionScale=this.mobile.matches?.5:1;
+    const view=this.viewport.sync({width:innerWidth,height:innerHeight,screenHeight:Math.max(screen.height,screen.width),mobile:this.mobile.matches,dialog:Boolean(this.dialog?.open),scrollX,scrollY},rect);
+    const {left,top}=view;
+    this.hitSurface.style.touchAction=view.documentSpace?'pan-y pinch-zoom':'none';
     this.camera.clearViewOffset();this.camera.aspect=width/height;
     const inProfile=Boolean(this.home.closest('.profile'))&&!this.dialog?.open;
-    const mobile=inProfile&&matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches;
+    const mobile=inProfile&&this.mobile.matches;
     this.camera.zoom=this.dialog?.open?1.55:inProfile?1.17:1;
     // Expand the view to the whole viewport while preserving the original anchor and scale.
     this.camera.position.z=Math.max(10.8,3.85/(2*Math.tan(16*Math.PI/180)*this.camera.aspect));
@@ -136,18 +147,19 @@ class Pendant {
         shiftX=-(edge.x*.5+.5)*width;
       }
     }
-    this.camera.setViewOffset(width,height,-left-shiftX,-top-shiftY,innerWidth,innerHeight);
-    this.wake();
+    this.camera.setViewOffset(width,height,-left-shiftX,-top-shiftY,view.width,view.height);
+    if(schedule)this.wake();
   }
   wake(){if(!this.failed&&!this.frame&&this.visible&&!document.hidden){this.last=performance.now();this.frame=requestAnimationFrame(t=>this.tick(t));}}
   tick(time){
     this.frame=0;
-    // Cap GPU work on phones at 30 fps; physics still uses elapsed time.
-    if(matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches&&time-this.last<32){
+    // Up to 60 fps with the smaller mobile buffer; avoid redundant frames on 120 Hz screens.
+    if(this.mobile.matches&&time-this.last<1000/60-.5){
       this.frame=requestAnimationFrame(t=>this.tick(t));return;
     }
     const dt=Math.min((time-this.last)/1000,.05);this.last=time;
     const reduced=this.reduced.matches;
+    if(this.viewportDirty)this.resize(false);
     if(this.intro.active){this.intro.tick(dt,reduced);return;}
     if(this.dialog?.open){this.tickConfigurator(dt,reduced);return;}
     if(this.ready&&!reduced){this.elapsed+=dt;if(!this.drag)stepArrival(this.arrival,dt);}
@@ -212,6 +224,7 @@ class Pendant {
       const centre=point.clone().sub(offset);
       t=positionToDragTargets(centre.x,centre.y-this.arrival.offset,centre.z,t.twist);
     }
+    if(d.touch)t.stretch=clamp(t.stretch,-1.2,.4);
     d.targets=t;
   }
   bind(){
@@ -226,21 +239,29 @@ class Pendant {
     },{passive:true});
     document.documentElement.addEventListener('pointerleave',()=>{this.character.pointer={x:0,y:0};});
     canvas.addEventListener('pointerdown',e=>{
-      if(e.button!==0||this.drag||this.configDrag)return;
+      if(e.button!==0||this.drag||this.configDrag||this.touchCandidate)return;
       
       const hit=this.hit(e);if(!hit)return;
       const grip=this.body.worldToLocal(hit.point.clone());
       if(!e.shiftKey)this.yawTarget=this.yaw;
-      canvas.setPointerCapture(e.pointerId);canvas.style.touchAction='none';
-      if(this.dialog?.open){this.configDrag={id:e.pointerId,x:e.clientX,angle:this.configAngle};this.wake();return;}
-      this.drag={id:e.pointerId,x:e.clientX,y:e.clientY,angle:this.state.angle,depth:this.motion.depth.angle,
+      if(this.dialog?.open){canvas.setPointerCapture(e.pointerId);this.configDrag={id:e.pointerId,x:e.clientX,angle:this.configAngle};this.wake();return;}
+      const gesture={touch:e.pointerType==='touch',id:e.pointerId,x:e.clientX,y:e.clientY,angle:this.state.angle,depth:this.motion.depth.angle,
         twist:this.motion.twist.angle,yaw:this.yawTarget,grip:grip.x/1.5,localGrip:grip,
         cursorX:e.clientX,cursorY:e.clientY,zoom:this.camera.zoom,plane:new THREE.Plane(new THREE.Vector3(0,0,1),-hit.point.z),
         targets:{swing:this.state.angle,depth:this.motion.depth.angle,twist:this.motion.twist.angle,stretch:this.motion.stretch.angle},
         spin:e.shiftKey,moved:false,time:performance.now(),lastTime:performance.now(),lastX:e.clientX,lastY:e.clientY,vx:0,vy:0};
+      if(gesture.touch)this.touchCandidate=gesture;
+      else{this.drag=gesture;canvas.setPointerCapture(e.pointerId);}
       this.wake();
     });
     canvas.addEventListener('pointermove',e=>{
+      if(this.touchCandidate?.id===e.pointerId){
+        const candidate=this.touchCandidate,intent=touchIntent(e.clientX-candidate.x,e.clientY-candidate.y);
+        if(intent==='pending')return;
+        this.touchCandidate=null;
+        if(intent==='scroll')return;
+        this.drag=candidate;canvas.setPointerCapture(e.pointerId);
+      }
       if(this.configDrag&&e.pointerId===this.configDrag.id){
         this.configAngle=this.configDrag.angle+(e.clientX-this.configDrag.x)/this.host.clientWidth*Math.PI*2;
         this.wake();return;
@@ -249,13 +270,18 @@ class Pendant {
       const d=this.drag,dx=e.clientX-d.x,dy=e.clientY-d.y,w=this.host.clientWidth;
       const now=performance.now(),delta=Math.max((now-d.lastTime)/1000,.008);
       d.vx=clamp((e.clientX-d.lastX)/w/delta,-3,3);d.vy=clamp((e.clientY-d.lastY)/w/delta,-3,3);
-      d.lastX=e.clientX;d.lastY=e.clientY;d.lastTime=now;d.cursorX=e.clientX;d.cursorY=e.clientY;
+      d.lastX=e.clientX;d.lastY=e.clientY;d.lastTime=now;d.cursorX=e.clientX;d.cursorY=d.touch?d.y:e.clientY;
       if(Math.hypot(dx,dy)>6)d.moved=true;
       if(d.spin)this.yawTarget=d.yaw+dx/w*Math.PI*2;
       else d.targets.twist=d.twist+clamp(dx/w*(.55+Math.abs(d.grip)*.65)+dy/w*d.grip*.3,-.4,.4);
       this.wake();
     });
     const release=(e,cancelled=false)=>{
+      if(this.touchCandidate?.id===e.pointerId){
+        const candidate=this.touchCandidate;this.touchCandidate=null;
+        if(!cancelled&&touchIntent(e.clientX-candidate.x,e.clientY-candidate.y)==='pending'&&performance.now()-candidate.time<320)this.zoom();
+        return;
+      }
       if(this.configDrag&&e.pointerId===this.configDrag.id){
         this.configDrag=null;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);this.wake();return;
       }
@@ -263,13 +289,13 @@ class Pendant {
       const d=this.drag,click=!cancelled&&!d.moved&&performance.now()-d.time<320;
       if(!cancelled&&d.moved)track('pendant_drag');
       if(!cancelled&&d.moved&&!d.spin){
-        d.cursorX=e.clientX;d.cursorY=e.clientY;this.solveGrab();
+        d.cursorX=e.clientX;d.cursorY=d.touch?d.y:e.clientY;this.solveGrab();
         for(const [key,axis] of Object.entries(this.motion))axis.angle=d.targets[key]||0;
         this.host.dataset.releaseStretch=this.motion.stretch.angle.toFixed(3);
       }
       const recent=performance.now()-d.lastTime<100;
-      if(!cancelled&&d.moved&&!d.spin&&!this.reduced.matches)releaseSpatialMotion(this.motion,recent?d.vx:0,recent?d.vy:0,d.grip);
-      this.drag=null;canvas.style.touchAction='none';
+      if(!cancelled&&d.moved&&!d.spin&&!this.reduced.matches)releaseSpatialMotion(this.motion,recent?d.vx:0,recent&&!d.touch?d.vy:0,d.grip);
+      this.drag=null;
       if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
       if(cancelled)for(const axis of Object.values(this.motion))axis.velocity=0;
       if(click)this.zoom();this.wake();
@@ -399,8 +425,8 @@ class Pendant {
         this.dialog.querySelectorAll('[data-shape]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
       }));
       document.body.append(this.dialog);
-      this.dialog.addEventListener('scroll',()=>this.resize(),{passive:true});
-      this.dialog.querySelector('.config-content').addEventListener('scroll',()=>this.resize(),{passive:true});
+      this.dialog.addEventListener('scroll',()=>this.queueResize(),{passive:true});
+      this.dialog.querySelector('.config-content').addEventListener('scroll',()=>this.queueResize(),{passive:true});
       this.dialog.addEventListener('close',()=>{
         this.setCaseColor(this.savedCaseColor);this.setCaseShape(this.savedShape);
         this.configDrag=null;this.returnAnchor.after(this.host);this.overlay.attach();
