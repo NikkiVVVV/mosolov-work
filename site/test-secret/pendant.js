@@ -1,11 +1,12 @@
 import * as THREE from './vendor/three.module.js';
+import { track } from './portfolio-analytics.js?v=63';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
 import { orientationTargets, screenRoll, requestOrientationAccess } from './pendant-sensors.js?v=roll27';
 import { BraidedCord } from './pendant-cord.js?v=shape51';
 import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=61';
 import { PendantOverlay } from './pendant-overlay.js';
-import { PendantEntrance } from './pendant-entrance.js?v=62';
+import { PendantEntrance } from './pendant-entrance.js?v=63';
 import { PendantCharacter } from './pendant-character.js?v=55';
 
 class Pendant {
@@ -260,6 +261,7 @@ class Pendant {
       }
       if(!this.drag||this.drag.id!==e.pointerId)return;
       const d=this.drag,click=!cancelled&&!d.moved&&performance.now()-d.time<320;
+      if(!cancelled&&d.moved)track('pendant_drag');
       if(!cancelled&&d.moved&&!d.spin){
         d.cursorX=e.clientX;d.cursorY=e.clientY;this.solveGrab();
         for(const [key,axis] of Object.entries(this.motion))axis.angle=d.targets[key]||0;
@@ -423,7 +425,7 @@ class Pendant {
     this.setCaseColor(this.previewCaseColor);
     for(const part of [this.cord.mesh,this.cord.knot,this.cord.tail,this.attachmentEye])part.visible=false;
     this.dialog.querySelector('[data-preview-slot]').append(this.host);this.overlay.attach(this.dialog);
-    this.dialog.showModal();this.dialog.querySelector('[data-color][aria-pressed=true]').focus({preventScroll:true});this.visible=true;this.resize();
+    this.dialog.showModal();track('pendant_open');this.dialog.querySelector('[data-color][aria-pressed=true]').focus({preventScroll:true});this.visible=true;this.resize();
   }
 
 }

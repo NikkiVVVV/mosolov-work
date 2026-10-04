@@ -68,16 +68,19 @@ export class PendantEntrance {
     const p=this.p;
     if(p.character){p.character.root.visible=p.ready;p.character.interruptIdle();}
     for(const part of [p.cord?.mesh,p.cord?.knot,p.cord?.tail,p.attachmentEye])if(part)part.visible=true;
-    if(p.hitSurface)p.hitSurface.hidden=false;
+    // Hold the device invisible across the loader's final painted frame.
+    if(p.overlay)p.overlay.layer.style.opacity='0';
+    if(p.hitSurface)p.hitSurface.hidden=true;
     document.querySelector('.layout').inert=false;
     document.body.style.overflow=this.previousOverflow||'';
     document.documentElement.classList.remove('is-loading');this.el.remove();
     if(!p.failed){
       p.arrival={offset:0,velocity:0};p.state.angle=0;p.state.velocity=0;
       p.motion.twist.angle=0;p.motion.twist.velocity=0;p.snapCord=true;p.resize();
-      const reveal=p.overlay.layer.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:800,easing:'ease-out',fill:'both'});
-      reveal.finished.then(()=>{p.overlay.layer.style.removeProperty('opacity');reveal.cancel();}).catch(()=>{});
-    }
+      // A short empty interval makes exit and entry two distinct, non-overlapping stages.
+      const reveal=p.overlay.layer.animate([{opacity:0},{opacity:1}],{delay:200,duration:p.reduced.matches?0:800,easing:'ease-in-out',fill:'both'});
+      reveal.finished.then(()=>{p.overlay.layer.style.removeProperty('opacity');reveal.cancel();p.hitSurface.hidden=false;}).catch(()=>{});
+    }else if(p.hitSurface)p.hitSurface.hidden=false;
     for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar')){
       element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:800,easing:'ease-out'});
     }

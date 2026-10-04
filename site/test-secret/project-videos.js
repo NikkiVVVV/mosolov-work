@@ -1,4 +1,5 @@
 import { createVideoShuttle } from './video-shuttle.js?v=44';
+import { track } from './portfolio-analytics.js?v=63';
 
 // Keep the same media element across filtering and language changes.
 export function createProjectVideos(root = document.documentElement) {
@@ -62,6 +63,17 @@ export function createProjectVideos(root = document.documentElement) {
         entries.set(project.id, entry);
         byVideo.set(video,entry);visibility.observe(video);
         video.addEventListener('loadeddata',()=>play(entry));
+        let passStarted=false,completed=false;
+        video.addEventListener('play',()=>{
+          if(!passStarted){passStarted=true;completed=false;track('video_play',{project_id:project.id,direction:video.dataset.direction||'forward'});}
+        });
+        const complete=()=>{
+          if(!completed&&(entry.shuttle?.held||video.ended)){
+            completed=true;passStarted=false;track('video_complete',{project_id:project.id,direction:video.dataset.direction||'forward'});
+          }
+        };
+        video.addEventListener('timeupdate',complete);video.addEventListener('ended',complete);
+        video.addEventListener('pause',()=>queueMicrotask(complete));
       }
       // Each new mouse entry replays once; leaving does not interrupt the clip.
       card.addEventListener('pointerenter', event => {

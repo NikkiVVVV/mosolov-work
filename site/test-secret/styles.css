@@ -188,6 +188,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 @media(hover:none){.project-link{opacity:1;transform:none}}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
   .current-projects,.experience{width:100%;max-width:none;text-align:left}
+  .current-projects li{grid-template-columns:96px minmax(0,1fr) 24px}
   .experience summary{width:100%;margin:0;justify-content:space-between;color:var(--ink);font:inherit}
   .experience summary svg{flex:none;margin-right:4px}
   html[data-theme=dark] .experience summary{color:#fff}

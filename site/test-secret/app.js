@@ -1,12 +1,14 @@
 import { createProjectMasonry } from './project-masonry.js?v=62';
+import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
 import { projects } from './projects.js?v=feed62';
-import { createSpaceGame } from './space-game.js?v=62';
+import { createSpaceGame } from './space-game.js?v=63';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed62';
+import { createProjectVideos } from './project-videos.js?v=feed63';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
+bindAnalytics();
 
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
 
@@ -100,6 +102,7 @@ function renderProjects() {
   grid.replaceChildren(...selected.map(project => {
     const card = document.createElement('article');
     card.className = 'project-card';
+    card.dataset.projectId=project.id;
     card.setAttribute('aria-label', project.title);
     const cover = document.createElement('div');
     cover.className = 'project-cover';
@@ -162,6 +165,7 @@ let filterAnimation;
 document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
   if(category===button.dataset.filter)return;
   category = button.dataset.filter;
+  track('filter_change',{filter:category});
   document.querySelectorAll('[data-filter]').forEach(b => {b.setAttribute('aria-selected',String(b===button));b.tabIndex=b===button?0:-1;});
   document.querySelector('#work-panel').setAttribute('aria-labelledby',button.id);
   positionFilterIndicator();
@@ -190,6 +194,7 @@ function applyTheme(next){
 themeButton.addEventListener('click',async()=>{
   const button=themeButton;
   const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
+  track('theme_change',{theme:next});
   const sequence=++themeSequence;
   themeTransition?.skipTransition();
   if(!document.startViewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches){applyTheme(next);return;}
@@ -246,6 +251,7 @@ function applyLanguage(){
 }
 languageButton.addEventListener('click',()=>{
   language=language==='ru'?'en':'ru';
+  track('language_change',{language});
   try{localStorage.setItem('portfolio-language',language);}catch{}
   applyLanguage();
   if(!matchMedia('(prefers-reduced-motion:reduce)').matches){

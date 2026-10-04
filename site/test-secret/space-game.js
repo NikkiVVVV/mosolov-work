@@ -1,11 +1,12 @@
 // One bounded Canvas 2D scene shared across filters; no assets or game engine.
+import { track } from './portfolio-analytics.js?v=63';
 export function createSpaceGame(){
 const root=document.createElement('div');root.className='space-game';
 root.innerHTML='<canvas tabindex="0"></canvas><div class="space-score">SCORE <span>0000</span></div><div class="space-message"><span>YOU LOSE</span></div><span class="sr-only" role="status" aria-live="polite"></span>';
 const canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');
 const scoreEl=root.querySelector('.space-score span'),message=root.querySelector('.space-message'),status=root.querySelector('[role=status]');
 let width=320,height=400,ship=.5,target=.5,score=0,bullets=[],enemies=[],enemyShots=[],running=false,lost=false,visible=true,frame=0,last=0,shotClock=0,spawnClock=0,enemyClock=0,time=0;
-let ink='',muted='',lang='ru';
+let ink='',muted='',lang='ru',roundStarted=false;
 const shipPixels=['0001000','0011100','0011100','1111111','1101011'];
 const alienPixels=['0100010','0011100','0111110','1101011','1011101'];
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -23,7 +24,7 @@ function draw(){
 }
 function reset(){score=0;scoreEl.textContent='0000';ship=target=.5;bullets=[];enemyShots=[];enemies=Array.from({length:6},(_,i)=>({x:.2+(i%3)*.3,y:65+Math.floor(i/3)*40,phase:i}));shotClock=spawnClock=enemyClock=time=0;lost=false;message.classList.remove('visible');status.textContent=lang==='en'?'New game':'Новая игра';}
 function stop(){running=false;root.dataset.running='false';cancelAnimationFrame(frame);frame=0;last=0;}
-function lose(){stop();lost=true;message.classList.add('visible');status.textContent=(lang==='en'?'Game over. Score ':'Игра окончена. Счёт ')+score;draw();}
+function lose(){stop();lost=true;roundStarted=false;track('game_over',{score});message.classList.add('visible');status.textContent=(lang==='en'?'Game over. Score ':'Игра окончена. Счёт ')+score;draw();}
 function tick(now){
  if(!running||!visible||document.hidden){stop();return;}
  frame=requestAnimationFrame(tick);
@@ -40,7 +41,7 @@ function tick(now){
  if(enemies.some(e=>e.y>height-58)||enemyShots.some(b=>Math.abs((b.x-ship)*width)<12&&b.y>height-40&&b.y<height-18)){lose();return;}
  draw();
 }
-function start(){if(lost)reset();if(!running&&visible&&!document.hidden){running=true;root.dataset.running='true';last=0;frame=requestAnimationFrame(tick);}}
+function start(){if(lost)reset();if(!running&&visible&&!document.hidden){if(!roundStarted){roundStarted=true;track('game_start');}running=true;root.dataset.running='true';last=0;frame=requestAnimationFrame(tick);}}
 function move(e){const r=canvas.getBoundingClientRect();target=clamp((e.clientX-r.left)/r.width,14/width,1-14/width);}
 canvas.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){move(e);start();}});
 canvas.addEventListener('pointermove',move);
