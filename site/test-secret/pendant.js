@@ -4,7 +4,7 @@ import { orientationTargets, screenRoll, requestOrientationAccess } from './pend
 import { BraidedCord } from './pendant-cord.js?v=config9';
 import { PendantOverlay } from './pendant-overlay.js';
 import { PendantEntrance } from './pendant-entrance.js?v=roll27';
-import { PendantCharacter } from './pendant-character.js?v=alive17';
+import { PendantCharacter } from './pendant-character.js?v=once29';
 
 function outline(w, h, r) {
   const p = new THREE.Shape(), x = -w / 2, y = -h / 2;

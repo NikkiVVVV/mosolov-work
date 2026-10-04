@@ -1,4 +1,4 @@
-import { projects } from './projects.js?v=alive17';
+import { projects } from './projects.js?v=projects29';
 import { features } from './features.js';
 
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
@@ -94,6 +94,7 @@ function renderProjects() {
     card.setAttribute('aria-label', project.title);
     const cover = document.createElement('span');
     cover.className = 'project-cover'; cover.setAttribute('aria-hidden','true');
+    cover.style.aspectRatio=project.coverRatio||'4/3';
     const caption = document.createElement('span');
     caption.className='project-caption';
     const title=document.createElement('span');title.className='project-title';title.textContent=project.title;

@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three.module.js';
-import {createIdleReactions,interruptIdle,stepIdle} from './idle-reactions.js?v=alive17';
+import {createIdleReactions,interruptIdle,stepIdle} from './idle-reactions.js?v=once29';
 import {createCharacterState,reactCharacter,stepCharacter} from './character-motion.js?v=theme10';
 
 // Original approved portrait poses, with a deformable head region and short pose blends.

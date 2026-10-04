@@ -123,3 +123,18 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
 }
 @keyframes contact-sheet-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes contact-backdrop-in{from{background:#10111100;backdrop-filter:blur(0)}to{background:#10111166;backdrop-filter:blur(4px)}}
+
+/* Three aligned columns: company, team, period. Dates are provisional. */
+.workplaces{width:100%}
+.workplaces ol{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
+.workplaces li{font:14px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000;display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:8px}
+.workplace-team{color:var(--muted)}
+.workplace-period{white-space:nowrap;text-align:right}
+.workplace-current{display:flex;align-items:center;gap:8px}
+.workplace-current i{width:4px;height:4px;border-radius:50%;background:#4eaa75;animation:workplace-pulse 2.8s ease-in-out infinite}
+@keyframes workplace-pulse{0%,100%{opacity:.45}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.workplace-current i{animation:none}}
+.grid{display:block;columns:2;column-gap:24px}
+.grid .project-card{display:inline-flex;width:100%;break-inside:avoid;margin:0 0 28px;vertical-align:top}
+.grid .project-cover{height:auto;aspect-ratio:4/3}
+@media(max-width:640px){.workplaces{display:none}.grid{columns:1}}
