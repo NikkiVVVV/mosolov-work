@@ -1,3 +1,4 @@
+import { landingImpulse } from './pendant-motion.js?v=67';
 import {entranceFrame,bootFrame} from './entrance-motion.js?v=66';
 
 export class PendantEntrance {
@@ -103,12 +104,16 @@ export class PendantEntrance {
       // Reveal the page first, then lower the whole device and cord from above the viewport.
       // Animate the composited layer so the warmed camera/physics cannot jump on entry.
       const frames=p.reduced.matches?[{opacity:0},{opacity:1}]:[
-        {opacity:1,transform:'translateY(-100%)',offset:0,easing:'cubic-bezier(.4,0,.25,1)'},
-        {opacity:1,transform:'translateY(8px)',offset:.82,easing:'ease-out'},
+        {opacity:1,transform:'translateY(-100%)',offset:0,easing:'cubic-bezier(.42,0,.9,.65)'},
         {opacity:1,transform:'translateY(0)',offset:1}
       ];
-      const reveal=p.overlay.layer.animate(frames,{delay:400,duration:p.reduced.matches?120:1000,fill:'both'});
-      reveal.finished.then(()=>{p.overlay.layer.style.removeProperty('opacity');reveal.cancel();p.hitSurface.hidden=false;}).catch(()=>{});
+      const reveal=p.overlay.layer.animate(frames,{delay:400,duration:p.reduced.matches?120:780,fill:'both'});
+      reveal.finished.then(()=>{
+        p.overlay.layer.style.removeProperty('opacity');reveal.cancel();
+        // Transfer the fall into the existing rope spring instead of ending motion at rest.
+        if(!p.reduced.matches)landingImpulse(p.motion);
+        p.hitSurface.hidden=false;p.wake();
+      }).catch(()=>{});
     }else if(p.hitSurface)p.hitSurface.hidden=false;
     for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar')){
       element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:300,easing:'ease-out'});

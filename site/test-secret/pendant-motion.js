@@ -128,3 +128,10 @@ export function stepArrival(state, elapsed) {
 export function ambientTargets(seconds) {
   return {swing:.018*Math.sin(seconds*1.45)+.007*Math.sin(seconds*.71),depth:.004*Math.sin(seconds*1.1)};
 }
+
+// A short downward pull and lateral impulse when the falling cord catches.
+export function landingImpulse(m){
+  m.stretch.velocity+=5;
+  m.swing.velocity+=.7;
+  m.twist.velocity-=.4;
+}

@@ -22,5 +22,5 @@ export class PendantViewport {
 
 export function touchIntent(dx,dy){
   if(Math.hypot(dx,dy)<8)return 'pending';
-  return Math.abs(dx)>Math.abs(dy)*1.2?'drag':'scroll';
+  return 'drag';
 }

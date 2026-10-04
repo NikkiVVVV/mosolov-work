@@ -1,13 +1,13 @@
 import * as THREE from './vendor/three.module.js';
 import { track } from './portfolio-analytics.js?v=63';
-import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=elastic17';
+import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=67';
 import { orientationTargets, screenRoll, requestOrientationAccess } from './pendant-sensors.js?v=roll27';
 import { BraidedCord } from './pendant-cord.js?v=65';
 import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=61';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
-import { PendantViewport, touchIntent } from './pendant-viewport.js?v=65';
-import { PendantEntrance } from './pendant-entrance.js?v=66';
+import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
+import { PendantEntrance } from './pendant-entrance.js?v=67';
 import { PendantCharacter } from './pendant-character.js?v=55';
 
 class Pendant {
@@ -126,7 +126,8 @@ class Pendant {
     this.renderer.transmissionResolutionScale=this.mobile.matches?.5:1;
     const view=this.viewport.sync({width:innerWidth,height:innerHeight,screenHeight:Math.max(screen.height,screen.width),mobile:this.mobile.matches,dialog:Boolean(this.dialog?.open),scrollX,scrollY},rect);
     const {left,top}=view;
-    this.hitSurface.style.touchAction=view.documentSpace?'pan-y pinch-zoom':'none';
+    // Only the device captures touch; the surrounding page still scrolls normally.
+    this.hitSurface.style.touchAction='none';
     this.camera.clearViewOffset();this.camera.aspect=width/height;
     const inProfile=Boolean(this.home.closest('.profile'))&&!this.dialog?.open;
     const mobile=inProfile&&this.mobile.matches;
@@ -225,7 +226,6 @@ class Pendant {
       const centre=point.clone().sub(offset);
       t=positionToDragTargets(centre.x,centre.y-this.arrival.offset,centre.z,t.twist);
     }
-    if(d.touch)t.stretch=clamp(t.stretch,-1.2,.4);
     d.targets=t;
   }
   bind(){
@@ -260,7 +260,6 @@ class Pendant {
         const candidate=this.touchCandidate,intent=touchIntent(e.clientX-candidate.x,e.clientY-candidate.y);
         if(intent==='pending')return;
         this.touchCandidate=null;
-        if(intent==='scroll')return;
         this.drag=candidate;canvas.setPointerCapture(e.pointerId);
       }
       if(this.configDrag&&e.pointerId===this.configDrag.id){
@@ -271,7 +270,7 @@ class Pendant {
       const d=this.drag,dx=e.clientX-d.x,dy=e.clientY-d.y,w=this.host.clientWidth;
       const now=performance.now(),delta=Math.max((now-d.lastTime)/1000,.008);
       d.vx=clamp((e.clientX-d.lastX)/w/delta,-3,3);d.vy=clamp((e.clientY-d.lastY)/w/delta,-3,3);
-      d.lastX=e.clientX;d.lastY=e.clientY;d.lastTime=now;d.cursorX=e.clientX;d.cursorY=d.touch?d.y:e.clientY;
+      d.lastX=e.clientX;d.lastY=e.clientY;d.lastTime=now;d.cursorX=e.clientX;d.cursorY=e.clientY;
       if(Math.hypot(dx,dy)>6)d.moved=true;
       if(d.spin)this.yawTarget=d.yaw+dx/w*Math.PI*2;
       else d.targets.twist=d.twist+clamp(dx/w*(.55+Math.abs(d.grip)*.65)+dy/w*d.grip*.3,-.4,.4);
@@ -290,12 +289,12 @@ class Pendant {
       const d=this.drag,click=!cancelled&&!d.moved&&performance.now()-d.time<320;
       if(!cancelled&&d.moved)track('pendant_drag');
       if(!cancelled&&d.moved&&!d.spin){
-        d.cursorX=e.clientX;d.cursorY=d.touch?d.y:e.clientY;this.solveGrab();
+        d.cursorX=e.clientX;d.cursorY=e.clientY;this.solveGrab();
         for(const [key,axis] of Object.entries(this.motion))axis.angle=d.targets[key]||0;
         this.host.dataset.releaseStretch=this.motion.stretch.angle.toFixed(3);
       }
       const recent=performance.now()-d.lastTime<100;
-      if(!cancelled&&d.moved&&!d.spin&&!this.reduced.matches)releaseSpatialMotion(this.motion,recent?d.vx:0,recent&&!d.touch?d.vy:0,d.grip);
+      if(!cancelled&&d.moved&&!d.spin&&!this.reduced.matches)releaseSpatialMotion(this.motion,recent?d.vx:0,recent?d.vy:0,d.grip);
       this.drag=null;
       if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
       if(cancelled)for(const axis of Object.values(this.motion))axis.velocity=0;
