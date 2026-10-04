@@ -77,12 +77,18 @@ export class PendantEntrance {
     if(!p.failed){
       p.arrival={offset:0,velocity:0};p.state.angle=0;p.state.velocity=0;
       p.motion.twist.angle=0;p.motion.twist.velocity=0;p.snapCord=true;p.resize();
-      // A short empty interval makes exit and entry two distinct, non-overlapping stages.
-      const reveal=p.overlay.layer.animate([{opacity:0},{opacity:1}],{delay:200,duration:p.reduced.matches?0:800,easing:'ease-in-out',fill:'both'});
+      // Reveal the page first, then lower the whole device and cord from above the viewport.
+      // Animate the composited layer so the warmed camera/physics cannot jump on entry.
+      const frames=p.reduced.matches?[{opacity:0},{opacity:1}]:[
+        {opacity:1,transform:'translateY(-100%)',offset:0,easing:'cubic-bezier(.4,0,.25,1)'},
+        {opacity:1,transform:'translateY(8px)',offset:.82,easing:'ease-out'},
+        {opacity:1,transform:'translateY(0)',offset:1}
+      ];
+      const reveal=p.overlay.layer.animate(frames,{delay:400,duration:p.reduced.matches?120:1000,fill:'both'});
       reveal.finished.then(()=>{p.overlay.layer.style.removeProperty('opacity');reveal.cancel();p.hitSurface.hidden=false;}).catch(()=>{});
     }else if(p.hitSurface)p.hitSurface.hidden=false;
     for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar')){
-      element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:800,easing:'ease-out'});
+      element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:300,easing:'ease-out'});
     }
   }
 }
