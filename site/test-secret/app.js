@@ -210,7 +210,7 @@ const translatedNodes=[
   ['h1','Nikita Mosolov'],
   ['.profile-heading p','Design Engineer. I create digital products that evoke emotion.'],
   ['#current-avito','Avito'],
-  ['#current-avito-team','[auto]'],['#current-mazik','Mazik'],['#current-radar','Idea Radar'],
+  ['#current-avito-team','[Auto]'],['#current-mazik','Mazik'],['#current-radar','Idea Radar'],
   ['#current-mazik-type','[mini app]'],['#current-radar-type','[service]'],
   ['#experience-title','Experience'],['#resume-pdf-label','Resume PDF'],['#resume-md-label','Resume MD'],
   ['.skip-link','View projects'],
