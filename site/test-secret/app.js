@@ -4,7 +4,7 @@ import { projects } from './projects.js?v=feed69';
 import { createSpaceGame } from './space-game.js?v=63';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed63';
+import { createProjectVideos } from './project-videos.js?v=feed70';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -266,17 +266,21 @@ const contactButton=document.querySelector('#open-contact');
 const contactAnchor=document.createComment('desktop contact position');
 contactButton.before(contactAnchor);
 const themeSwitch=document.querySelector('.theme-switch');
-const themeAnchor=document.createComment('desktop theme position');
-themeSwitch.before(themeAnchor);
 function placeResponsiveControls(){
   if(mobileLayout.matches){
     document.querySelector('.mobile-contact-slot').append(contactButton);
     document.querySelector('.mobile-theme-slot').append(themeSwitch);
   }else{
-    contactAnchor.after(contactButton);themeAnchor.after(themeSwitch);
+    contactAnchor.after(contactButton);document.querySelector('.profile').append(themeSwitch);
   }
-  positionFilterIndicator();
+  syncProfileHeight();positionFilterIndicator();
 }
+const profile=document.querySelector('.profile');
+function syncProfileHeight(){
+  profile.toggleAttribute('data-scroll',!mobileLayout.matches&&profile.offsetHeight>innerHeight-92);
+}
+new ResizeObserver(syncProfileHeight).observe(profile);
+window.addEventListener('resize',syncProfileHeight,{passive:true});
 mobileLayout.addEventListener('change',placeResponsiveControls);
 placeResponsiveControls();
 

@@ -9,11 +9,11 @@ export function createProjectVideos(root = document.documentElement) {
     for (const change of changes) {
       const entry = byVideo.get(change.target);
       if (!entry) continue;
-      entry.visible = change.isIntersecting && change.intersectionRatio >= .2;
+      entry.visible = change.isIntersecting && change.intersectionRatio > 0;
       if (entry.visible) play(entry);
-      else entry.video.pause();
+      else {entry.video.autoplay=false;entry.video.pause();}
     }
-  }, {threshold:[0,.2]});
+  }, {threshold:[0,.01]});
   let ready = !root.classList.contains('is-loading');
   function play(entry, restart = false) {
     if (!ready || !entry.visible || document.hidden || !entry.video.isConnected) return;
@@ -22,11 +22,15 @@ export function createProjectVideos(root = document.documentElement) {
       if (restart && entry.shuttle.held) entry.shuttle.advance();
       else if (entry.shuttle.held) return;
     } else if (restart) entry.video.currentTime = 0;
-    entry.video.play().catch(() => {}); // Autoplay can be blocked by device settings.
+    entry.video.muted=true;entry.video.autoplay=true;
+    entry.video.play().then(()=>{entry.video.dataset.autoplayState='playing';}).catch(error=>{
+      // Keep failures observable; canplay/pageshow retry when the browser becomes ready.
+      entry.video.dataset.autoplayState=error.name||'blocked';
+    });
   }
   function sync() {
     for (const entry of entries.values()) {
-      if (!entry.video.isConnected || !entry.visible || document.hidden) entry.video.pause();
+      if (!entry.video.isConnected || !entry.visible || document.hidden) {entry.video.autoplay=false;entry.video.pause();}
       else if (!entry.video.ended) play(entry);
     }
   }
@@ -39,12 +43,12 @@ export function createProjectVideos(root = document.documentElement) {
   });
   if (!ready) observer.observe(root, { attributes: true, attributeFilter: ['class'] });
   document.addEventListener('visibilitychange', sync);
+  globalThis.window?.addEventListener?.('pageshow',sync);
   return {
     attach(project, card) {
       let entry = entries.get(project.id);
       if (!entry) {
         const video = document.createElement('video');
-        video.src = project.video;
         video.poster = project.poster || '';
         if (project.videoWidth && project.videoHeight) {
           video.width = project.videoWidth;
@@ -55,6 +59,7 @@ export function createProjectVideos(root = document.documentElement) {
         video.playsInline = true;
         video.setAttribute('muted','');
         video.setAttribute('playsinline','');
+        video.setAttribute('webkit-playsinline','');
         video.preload = 'auto';
         video.controls = false;
         video.loop = false;
@@ -62,18 +67,19 @@ export function createProjectVideos(root = document.documentElement) {
         entry = { video, visible:false, shuttle: project.shuttle ? createVideoShuttle(video, project.shuttle) : null };
         entries.set(project.id, entry);
         byVideo.set(video,entry);visibility.observe(video);
-        video.addEventListener('loadeddata',()=>play(entry));
+        for(const event of ['loadedmetadata','loadeddata','canplay'])video.addEventListener(event,()=>play(entry));
         let passStarted=false,completed=false;
         video.addEventListener('play',()=>{
           if(!passStarted){passStarted=true;completed=false;track('video_play',{project_id:project.id,direction:video.dataset.direction||'forward'});}
         });
         const complete=()=>{
           if(!completed&&(entry.shuttle?.held||video.ended)){
-            completed=true;passStarted=false;track('video_complete',{project_id:project.id,direction:video.dataset.direction||'forward'});
+            video.autoplay=false;completed=true;passStarted=false;track('video_complete',{project_id:project.id,direction:video.dataset.direction||'forward'});
           }
         };
         video.addEventListener('timeupdate',complete);video.addEventListener('ended',complete);
         video.addEventListener('pause',()=>queueMicrotask(complete));
+        video.src=project.video;
       }
       // Each new mouse entry replays once; leaving does not interrupt the clip.
       card.addEventListener('pointerenter', event => {

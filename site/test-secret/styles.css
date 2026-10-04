@@ -236,3 +236,11 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .space-score{position:absolute;top:16px;left:16px;pointer-events:none;letter-spacing:.08em;font-variant-numeric:tabular-nums}
 .space-message{position:absolute;inset:0;display:none;align-items:center;justify-content:center;pointer-events:none;letter-spacing:.16em;background:color-mix(in srgb,var(--subtle) 90%,transparent)}
 .space-message.visible{display:flex}
+
+/* Controls reserve space in the sidebar; tall profiles scroll instead of overlapping. */
+@media(min-width:641px){
+ .profile{min-height:calc(100svh - 92px)}
+ .profile[data-scroll]{position:relative;top:auto}
+ .profile>.theme-switch{position:static;left:auto;bottom:auto;align-self:flex-start;margin-top:auto;flex-shrink:0}
+}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.profile{min-height:0}}
