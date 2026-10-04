@@ -105,6 +105,10 @@ class Pendant {
       if(!this.viewport.mobile)this.queueResize();
     },{passive:true});
     this.mobile.addEventListener('change',()=>this.queueResize());
+    document.addEventListener('portfolio:profile-layout',e=>{
+      if(this.mobile.matches||this.dialog?.open||this.intro.active)return;
+      this.profileMovingUntil=performance.now()+(e.detail?.duration||0);this.queueResize();
+    });
     this.host.addEventListener('focusin',()=>this.wake());
     document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;}else this.wake();});
     this.reduced.addEventListener('change',()=>this.reset());
@@ -161,7 +165,7 @@ class Pendant {
     }
     const dt=Math.min((time-this.last)/1000,.05);this.last=time;
     const reduced=this.reduced.matches;
-    if(this.viewportDirty)this.resize(false);
+    if(this.viewportDirty||time<this.profileMovingUntil)this.resize(false);
     if(this.intro.active){this.intro.tick(dt,reduced);return;}
     if(this.dialog?.open){this.tickConfigurator(dt,reduced);return;}
     if(this.ready&&!reduced){this.elapsed+=dt;if(!this.drag)stepArrival(this.arrival,dt);}

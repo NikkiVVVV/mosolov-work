@@ -1,3 +1,4 @@
+import { createProfileFit } from './profile-fit.js?v=71';
 import { createProjectMasonry } from './project-masonry.js?v=62';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
 import { projects } from './projects.js?v=feed69';
@@ -248,6 +249,7 @@ function applyLanguage(){
   languageButton.title=language==='ru'?'Switch to English':'Переключить на русский';
   languageButton.setAttribute('aria-label',languageButton.title);
   updateThemeButtons();renderProjects();positionFilterIndicator();
+  document.dispatchEvent(new Event('portfolio:language'));
 }
 languageButton.addEventListener('click',()=>{
   language=language==='ru'?'en':'ru';
@@ -276,11 +278,7 @@ function placeResponsiveControls(){
   syncProfileHeight();positionFilterIndicator();
 }
 const profile=document.querySelector('.profile');
-function syncProfileHeight(){
-  profile.toggleAttribute('data-scroll',!mobileLayout.matches&&profile.offsetHeight>innerHeight-92);
-}
-new ResizeObserver(syncProfileHeight).observe(profile);
-window.addEventListener('resize',syncProfileHeight,{passive:true});
+const syncProfileHeight=createProfileFit(profile,mobileLayout);
 mobileLayout.addEventListener('change',placeResponsiveControls);
 placeResponsiveControls();
 
