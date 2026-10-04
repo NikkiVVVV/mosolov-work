@@ -71,16 +71,11 @@ html[data-theme=dark] .pendant-config{--config-surface:#2b2e31;--config-secondar
 .site-loader .pendant-overlay{z-index:0}
 .loader-shell{position:absolute;width:248px;height:264px;border:12px solid #3b3e43;border-radius:72px;background:#19191a;box-shadow:inset 0 0 0 2px #777b80,0 1px 0 #aaa}
 .site-loader[data-webgl=true] .loader-shell{display:none}
-.loader-spinner{position:absolute;left:calc(50% - 12px);top:calc(50% - 12px);z-index:1;width:24px;height:24px;border:2px solid #ffffff26;border-top-color:#b6b8bc;border-radius:50%;animation:loader-turn .85s linear infinite}
-.site-loader:not([data-phase=loading]) .loader-spinner{display:none}
-@keyframes loader-turn{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.loader-spinner{animation:none;border-color:#b6b8bc}}
-
-.loader-progress{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;display:flex;gap:8px}
-.loader-progress i{width:24px;height:44px;border:2px solid #777d86;border-radius:4px;background:transparent}
-.loader-progress i.filled{background:#b6bdc6;border-color:#b6bdc6}
-
-html:not([data-theme=dark]) .loader-progress i{border-color:#777d78}
-html:not([data-theme=dark]) .loader-progress i.filled{background:#555e57;border-color:#555e57}
+/* A quiet powered screen: one title and five small, discrete loading steps. */
+.loader-display{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;width:184px;height:192px;border-radius:40px;background:radial-gradient(ellipse at 50% 35%,#292929,#141414 85%);box-shadow:inset 0 0 16px #0008;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;color:#e1e1e1}
+.loader-brand{font:400 16px/24px Werkzeug,monospace;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 12px #e1e1e128}
+.loader-progress{display:flex;gap:4px}
+.loader-progress i{width:12px;height:4px;border:0;border-radius:0;background:#e1e1e124}
+.loader-progress i.filled{background:#e1e1e1;box-shadow:0 0 4px #e1e1e130}
 
 @media(max-width:360px){.config-row{grid-template-columns:1fr;gap:12px}}

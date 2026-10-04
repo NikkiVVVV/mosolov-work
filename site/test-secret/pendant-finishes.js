@@ -55,8 +55,8 @@ export function createCaseFinishes(body) {
   body.add(marking);
 
   const internals=new THREE.Group();internals.visible=false;body.add(internals);
-  const board=new THREE.MeshStandardMaterial({color:'#687b78',roughness:.65,metalness:.25});
-  const chip=new THREE.MeshStandardMaterial({color:'#252a2b',roughness:.6,metalness:.2});
+  const board=new THREE.MeshStandardMaterial({color:'#717171',roughness:.65,metalness:.25});
+  const chip=new THREE.MeshStandardMaterial({color:'#252525',roughness:.6,metalness:.2});
   const metal=new THREE.MeshStandardMaterial({color:'#c6cdcc',roughness:.4,metalness:.8});
   const gold=new THREE.MeshStandardMaterial({color:'#c9b98b',roughness:.5,metalness:.7});
   const box=(w,h,d,x,y,z,material)=>{
@@ -91,19 +91,21 @@ export function createCaseFinishes(body) {
       markingMaterial.color.set(glass?'#c4c7c9':pattern?'#331c29':'#42494c');
       for(const material of [caseMaterial,bezelMaterial]){
         material.map=pattern?spots:null;
-        material.color.set(glass?'#242424':pattern?'#ffffff':acid?'#40ff00':id);
+        material.color.set(glass?'#151515':pattern?'#ffffff':acid?'#40ff00':id);
+        // Smoked shell reveals the opaque electronics without a milky refraction pass.
+        material.transparent=glass;material.opacity=glass?.42:1;material.depthWrite=!glass;
         material.metalness=glass?0:pattern?.12:acid?.65:.8;
-        material.roughness=glass?.32:pattern?.48:acid?.22:.27;
+        material.roughness=glass?.18:pattern?.48:acid?.22:.27;
         material.iridescence=acid?.5:0;
         material.iridescenceIOR=1.3;
         material.iridescenceThicknessRange=[160,300];
         material.emissive.set(acid?'#69a800':'#000000');
         material.emissiveIntensity=acid?.08:0;
-        material.transmission=glass?.88:0;
-        material.thickness=glass?.22:0;
-        material.attenuationColor.set(glass?'#555555':'#ffffff');
-        material.attenuationDistance=glass?.65:Infinity;
-        material.ior=1.4;material.envMapIntensity=glass?.65:acid?.7:1;
+        material.transmission=0;
+        material.thickness=glass?.08:0;
+        material.attenuationColor.set(glass?'#707070':'#ffffff');
+        material.attenuationDistance=glass?3:Infinity;
+        material.ior=1.4;material.envMapIntensity=glass?.3:acid?.7:1;
         material.needsUpdate=true;
       }
     },

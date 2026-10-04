@@ -74,6 +74,14 @@ export class PendantEntrance {
     document.querySelector('.layout').inert=false;
     document.body.style.overflow=this.previousOverflow||'';
     document.documentElement.classList.remove('is-loading');this.el.remove();
-    if(!p.failed){p.arrival.offset=p.reduced.matches?0:8;p.state.angle=.12;p.motion.twist.angle=-.15;p.snapCord=true;p.resize();}
+    if(!p.failed){
+      p.arrival={offset:0,velocity:0};p.state.angle=0;p.state.velocity=0;
+      p.motion.twist.angle=0;p.motion.twist.velocity=0;p.snapCord=true;p.resize();
+      // Render the settled home pose before fading it in; no second drop after boot.
+      p.overlay.layer.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:600,easing:'ease-out'});
+    }
+    for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar')){
+      element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:600,easing:'ease-out'});
+    }
   }
 }
