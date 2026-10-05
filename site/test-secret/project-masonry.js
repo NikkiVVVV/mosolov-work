@@ -10,12 +10,14 @@ export function createProjectMasonry(grid) {
     const rows=Array(columns).fill(0);
     const cards=[...grid.querySelectorAll('.project-card')].map(card=>({card,height:card.offsetHeight}));
     for(const {card,height} of cards){
-      const column=rows.indexOf(Math.min(...rows));
+      const wide=card.classList.contains("project-card-wide");
+      const column=wide?0:rows.indexOf(Math.min(...rows));
+      const row=wide?Math.max(...rows):rows[column];
       const span=Math.ceil((height+28)/4);
-      const columnValue=String(column+1),rowValue=`${rows[column]+1} / span ${span}`;
+      const columnValue=wide?"1 / -1":String(column+1),rowValue=`${row+1} / span ${span}`;
       if(card.style.gridColumn!==columnValue)card.style.gridColumn=columnValue;
       if(card.style.gridRow!==rowValue)card.style.gridRow=rowValue;
-      rows[column]+=span;
+      if(wide)rows.fill(row+span);else rows[column]+=span;
     }
   }
   document.fonts.ready.then(schedule);

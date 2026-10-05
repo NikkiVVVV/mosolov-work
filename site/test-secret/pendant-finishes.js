@@ -1,10 +1,10 @@
 import * as THREE from './vendor/three.module.js';
 
 export const finishes = [
+  {id:'frosted-glass',ru:'Чёрное матовое стекло',en:'Matte black glass'},
   {id:'acid-green',ru:'Кислотный зелёный',en:'Acid green'},
   {id:'#afb3b8',ru:'Серебро',en:'Silver'},
   {id:'pink-cheetah',ru:'Розовый гепард',en:'Pink cheetah'},
-  {id:'frosted-glass',ru:'Чёрное матовое стекло',en:'Matte black glass'},
 ];
 
 export function createCaseFinishes(body) {

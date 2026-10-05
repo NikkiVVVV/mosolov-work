@@ -134,7 +134,7 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
 .workplace-team{color:var(--muted);text-align:left}
 .workplace-period{white-space:nowrap;text-align:right;justify-self:end}
 .workplace-current{display:flex;align-items:center;gap:8px}
-.workplace-current i{order:-1;width:4px;height:4px;border-radius:50%;background:#4eaa75;animation:workplace-pulse 2.8s ease-in-out infinite}
+.workplace-current i{order:-1;flex:none;transform:translateY(2px);width:4px;height:4px;border-radius:50%;background:#4eaa75;animation:workplace-pulse 2.8s ease-in-out infinite}
 @keyframes workplace-pulse{0%,100%{opacity:.45}50%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.workplace-current i{animation:none}}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:4px;gap:0 24px;align-items:start}
@@ -263,3 +263,21 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .current-work-link:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 
 #experience-title{font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
+
+/* v81: token heatmap spans both desktop masonry columns. */
+.project-card-wide{grid-column:1 / -1}
+.grid .project-card-wide .project-cover{aspect-ratio:auto;height:420px}
+.space-game{--token-gray:#3b3d3e}
+html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
+.space-score{right:24px;left:24px;top:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:14px;line-height:20px;letter-spacing:.04em}
+.space-score-value{font-size:16px;white-space:nowrap}
+
+/* v83: transparent result cat, centered inside the game rather than the page. */
+.space-score{z-index:2}
+.space-message{flex-direction:column;gap:8px;padding:52px 20px 20px;letter-spacing:.08em}
+.space-result-cat{position:static!important;inset:auto!important;width:auto!important;height:260px!important;max-width:100%;object-fit:contain!important;flex:none}
+.space-result-title{font-size:16px;line-height:24px;text-align:center}
+
+.space-result-cat{opacity:1;transition:opacity 500ms ease-out}
+.space-result-cat[data-phase=fading]{opacity:0}
+@media(prefers-reduced-motion:reduce){.space-result-cat{transition:none}}

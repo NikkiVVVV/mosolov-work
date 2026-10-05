@@ -1,8 +1,8 @@
 import { createProfileFit } from './profile-fit.js?v=71';
-import { createProjectMasonry } from './project-masonry.js?v=73';
+import { createProjectMasonry } from './project-masonry.js?v=81';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed73';
-import { createSpaceGame } from './space-game.js?v=63';
+import { projects } from './projects.js?v=feed81';
+import { createSpaceGame } from './space-game.js?v=84';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
 import { createProjectVideos } from './project-videos.js?v=feed73';
@@ -99,7 +99,7 @@ dialog.addEventListener('close', () => sphere?.setActive(view === 'sphere'));
 
 function renderProjects() {
   spaceGame.pause();spaceGame.setLanguage(language);
-  const selected = projects.filter(p => p.alwaysVisible || category === 'all' || p.category === category).map(p=>language==='en'?{...p,...(p.game?{title:'Space game'}:englishProjects[p.id])}:p);
+  const selected = projects.filter(p => p.alwaysVisible || category === 'all' || p.category === category).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
   grid.replaceChildren(...selected.map(project => {
     const card = document.createElement('article');
     card.className = 'project-card';
@@ -109,6 +109,7 @@ function renderProjects() {
     cover.className = 'project-cover';
     cover.style.aspectRatio=project.video?`${project.videoWidth}/${project.videoHeight}`:project.coverRatio||'4/3';
     if(project.game){
+      card.classList.add('project-card-wide');cover.style.removeProperty('aspect-ratio');
       cover.classList.add('space-game-cover');cover.append(spaceGame.element);
     }else if(project.video){
       cover.classList.add('has-video');

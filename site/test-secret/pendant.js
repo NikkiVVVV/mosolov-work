@@ -4,7 +4,7 @@ import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, po
 import { orientationTargets, screenRoll, requestOrientationAccess } from './pendant-sensors.js?v=roll27';
 import { BraidedCord } from './pendant-cord.js?v=65';
 import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
-import { createCaseFinishes, finishes } from './pendant-finishes.js?v=61';
+import { createCaseFinishes, finishes } from './pendant-finishes.js?v=80';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
 import { PendantEntrance } from './pendant-entrance.js?v=76';
