@@ -5,12 +5,16 @@ import { createProjectVideos } from '../site/test-secret/project-videos.js';
 class FakeVideo extends EventTarget {
   constructor() { super(); this.dataset={}; this.currentTime=0; this.paused=true; this.ended=false; this.isConnected=true; }
   setAttribute() {}
+  removeAttribute(name) {delete this[name];}
+  load() {this.currentTime=0;}
   play() { this.paused=false; this.ended=false; this.dispatchEvent(new Event('play')); return Promise.resolve(); }
   pause() { this.paused=true; this.dispatchEvent(new Event('pause')); }
 }
 const fire = (target, type, props={}) => target.dispatchEvent(Object.assign(new Event(type),props));
-async function fixture(shuttle,initiallyVisible=true,extra={},initialStagger=false) {
+async function fixture(shuttle,initiallyVisible=true,extra={},initialStagger=false,mobileView=false) {
   globalThis.document=Object.assign(new EventTarget(),{hidden:false,createElement:()=>new FakeVideo()});
+  const media=Object.assign(new EventTarget(),{matches:mobileView});
+  globalThis.window={matchMedia:()=>media};
   globalThis.MutationObserver=class { observe() {} disconnect() {} };
   let onVisibility,onProximity;
   globalThis.IntersectionObserver=class { constructor(callback,options){if(options?.rootMargin)onProximity=callback;else onVisibility=callback;} observe() {} };
@@ -22,7 +26,7 @@ async function fixture(shuttle,initiallyVisible=true,extra={},initialStagger=fal
   manager.sync();
   await new Promise(resolve=>setImmediate(resolve));
   const setNear=value=>onProximity([{target:video,isIntersecting:value}]);
-  return {manager,card,video,setVisible,setNear};
+  return {manager,card,video,setVisible,setNear,media};
 }
 test('offscreen clips wait for visibility, then pause and resume without restarting',async()=>{
   const {video,setVisible}=await fixture({forwardEnd:4,reverseStart:109/24},false);
@@ -152,4 +156,30 @@ test('initial entrance starts left first, calories at 4.5s, then other visible v
   calories.video.currentTime=2;calories.setVisible(false);t.mock.timers.tick(200);
   assert.equal(calories.video.paused,true);calories.setVisible(true);
   assert.equal(calories.video.paused,false);assert.equal(calories.video.currentTime,2);
+});
+
+test('mobile shuttle runs through both directions without holding and pauses offscreen',async()=>{
+ const {video,setVisible}=await fixture({forwardEnd:4,reverseStart:4.5},true,{},false,true);
+ assert.equal(video.loop,true);
+ video.currentTime=4;fire(video,'timeupdate');
+ assert.equal(video.currentTime,4.5);assert.equal(video.paused,false);
+ assert.equal(video.dataset.held,'false');assert.equal(video.dataset.direction,'reverse');
+ video.currentTime=.1;fire(video,'timeupdate');assert.equal(video.dataset.direction,'forward');
+ setVisible(false);await new Promise(resolve=>setTimeout(resolve,200));assert.equal(video.paused,true);
+ setVisible(true);assert.equal(video.paused,false);assert.equal(video.currentTime,.1);
+});
+test('mobile alternate uses the palindrome while desktop keeps the original source and hold',async()=>{
+ const {video,media}=await fixture(undefined,true,{mobileVideo:{video:'mobile.mp4'}},false,true);
+ assert.equal(video.src,'mobile.mp4');assert.equal(video.loop,true);
+ media.matches=false;fire(media,'change');await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(video.src,'test.mp4');assert.equal(video.loop,false);
+ media.matches=true;fire(media,'change');await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(video.src,'mobile.mp4');assert.equal(video.loop,true);
+});
+test('changing to mobile releases an already held shuttle endpoint',async()=>{
+ const {video,media}=await fixture({forwardEnd:4,reverseStart:4.5});
+ video.currentTime=4;fire(video,'timeupdate');assert.equal(video.paused,true);
+ media.matches=true;fire(media,'change');await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(video.currentTime,4.5);assert.equal(video.paused,false);assert.equal(video.loop,true);
+ media.matches=false;fire(media,'change');assert.equal(video.loop,false);
 });

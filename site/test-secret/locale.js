@@ -1,13 +1,13 @@
 // English copy mirrors the existing Russian project content; no new claims.
 export const englishProjects = {
   '22':{title:'Idea Radar'},
-  '21':{title:'Tea Meow'},
+  '21':{title:'Tea Meow',mobileDescription:'A promo video for Tea Meow, a shop for everyday teas.'},
   '18':{title:'Equipment selection'},
   '19':{title:'New equipment'},
-  '20':{title:'Avito Pro'},
+  '20':{title:'Avito Pro',mobileDescription:'Redesign of the “Contact Avito” section in the seller dashboard.'},
   '17':{title:'Avito Rewriter — Figma plugin',description:'Avito Rewriter for Figma checks copy against the tone of voice and suggests new versions.'},
-  '16':{title:'Stop being designers — become creators',description:'2026 · “Stop being designers — become creators”. My talk at the Prosto Slozhno conference.'},
-  '15':{title:'Plan or burn out',description:'',meta:'Talk at Design Dvizh'},
+  '16':{title:'Stop being just designers — become creators',description:'2026 · Talk at the Prosto Slozhno conference. “Stop being just designers — become creators”.'},
+  '15':{title:'Plan or burn out',mobileDescription:'My “Plan or burn out” talk at the Design Dvizh conference.',description:'',meta:'Talk at Design Dvizh'},
   '14':{title:'My home',imageAlt:'Home app in a phone mockup on a graphite background'},
   '13':{title:'Yandex — indoor search'},
   '12':{title:'Launching a tea shop on Ozon',imageAlt:'A cat holding a cup beside a shu pu-erh tea package',description:'Sharing the story of launching a tea shop on Ozon.',meta:'Article on vc.ru'},

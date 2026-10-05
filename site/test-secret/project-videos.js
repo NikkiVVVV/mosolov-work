@@ -1,10 +1,17 @@
 import { chooseVideoSource } from './video-source.js?v=73';
-import { createVideoShuttle } from './video-shuttle.js?v=44';
+import { createVideoShuttle } from './video-shuttle.js?v=116';
 import { track } from './portfolio-analytics.js?v=63';
 
 // Keep the same media element across filtering and language changes.
 export function createProjectVideos(root = document.documentElement, {initialStagger = true} = {}) {
   const entries = new Map();
+  const mobile = globalThis.window?.matchMedia?.('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)');
+  const sourceProject = entry => mobile?.matches && entry.project.mobileVideo
+    ? {...entry.project,...entry.project.mobileVideo,videoWebm:null} : entry.project;
+  function configure(entry) {
+    entry.shuttle?.setContinuous(!!mobile?.matches);
+    if (!entry.shuttle) entry.video.loop=entry.project.videoLoop===true || !!mobile?.matches;
+  }
   const byVideo = new WeakMap();
   const visibility = new IntersectionObserver(changes => {
     for (const change of changes) {
@@ -37,7 +44,9 @@ export function createProjectVideos(root = document.documentElement, {initialSta
   function load(entry) {
     if (!ready || entry.loading || (!entry.near&&!entry.visible) || !entry.video.isConnected) return;
     entry.loading=true;
-    chooseVideoSource(entry.project,entry.video).then(source=>{
+    const generation=entry.generation;
+    chooseVideoSource(sourceProject(entry),entry.video).then(source=>{
+      if (generation!==entry.generation) return;
       entry.video.dataset.codec=source.codec;
       entry.video.preload='auto';
       entry.video.src=source.src;entry.loaded=true;
@@ -70,7 +79,7 @@ export function createProjectVideos(root = document.documentElement, {initialSta
     for (const entry of entries.values()) {
       load(entry);
       if (!entry.video.isConnected || !entry.visible || document.hidden) {entry.video.autoplay=false;entry.video.pause();}
-      else if (!entry.video.ended) play(entry);
+      else if (!entry.video.ended || mobile?.matches) play(entry);
     }
   }
   const observer = new MutationObserver(() => {
@@ -84,6 +93,16 @@ export function createProjectVideos(root = document.documentElement, {initialSta
   if (!ready) observer.observe(root, { attributes: true, attributeFilter: ['class'] });
   document.addEventListener('visibilitychange', sync);
   globalThis.window?.addEventListener?.('pageshow',sync);
+  mobile?.addEventListener('change',()=>{
+    for (const entry of entries.values()) {
+      configure(entry);
+      if (entry.project.mobileVideo) {
+        entry.generation++;entry.loading=false;entry.loaded=false;
+        entry.video.pause();entry.video.removeAttribute('src');entry.video.load();
+      }
+    }
+    sync();
+  });
   return {
     attach(project, card) {
       let entry = entries.get(project.id);
@@ -104,7 +123,8 @@ export function createProjectVideos(root = document.documentElement, {initialSta
         video.controls = false;
         video.loop = project.videoLoop === true;
         video.setAttribute('aria-hidden', 'true');
-        entry = { video, project, near:false, loading:false, loaded:false, playPending:false, pauseTimer:null, visible:false, shuttle: project.shuttle ? createVideoShuttle(video, project.shuttle) : null };
+        entry = { video, project, generation:0, near:false, loading:false, loaded:false, playPending:false, pauseTimer:null, visible:false, shuttle: project.shuttle ? createVideoShuttle(video, project.shuttle) : null };
+        configure(entry);
         entries.set(project.id, entry);
         byVideo.set(video,entry);visibility.observe(video);proximity.observe(video);
         for(const event of ['loadedmetadata','loadeddata','canplay'])video.addEventListener(event,()=>play(entry));
@@ -121,7 +141,7 @@ export function createProjectVideos(root = document.documentElement, {initialSta
         video.addEventListener('pause',()=>queueMicrotask(complete));
         video.addEventListener('error',()=>{
           if(video.dataset.codec!=='vp9')return;
-          video.dataset.codec='h264';video.src=project.video;
+          video.dataset.codec='h264';video.src=sourceProject(entry).video;
         });
       }
       // Each new mouse entry replays once; leaving does not interrupt the clip.

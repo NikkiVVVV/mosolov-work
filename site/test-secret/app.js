@@ -1,16 +1,21 @@
 import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=115';
+import { createProjectBento } from './project-bento.js?v=120';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed115';
+import { projects } from './projects.js?v=feed120';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed115';
+import { englishProjects } from './locale.js?v=feed120';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed115';
+import { createProjectVideos } from './project-videos.js?v=feed120';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
 bindAnalytics();
+document.querySelector('#back-to-top').addEventListener('click',()=>{
+  const heading=document.querySelector('.profile-heading h1');
+  heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});
+  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+});
 
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
 
@@ -135,6 +140,11 @@ function renderProjects() {
       description.className='project-description';description.textContent=project.description;
       card.append(description);
     }
+    if(project.mobileDescription){
+      const description=document.createElement('p');
+      description.className='project-description project-description-mobile';
+      description.textContent=project.mobileDescription;card.append(description);
+    }
     return card;
   }));
   bento.refresh();
@@ -240,6 +250,8 @@ const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>(
 const companyNames=[...document.querySelectorAll('.workplaces li>span:first-child')].map(element=>({element,ru:element.textContent,en:({'Сбер':'Sber','Авито':'Avito'})[element.textContent]||element.textContent}));
 function applyLanguage(){
   document.documentElement.lang=language;
+  document.querySelector('#footer-channel-label').textContent=language==='en'?'Telegram channel':'Telegram-канал';
+  document.querySelector('#footer-top-label').textContent=language==='en'?'Back to top':'Наверх';
   document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
   const intro=document.querySelector('.profile-heading p');

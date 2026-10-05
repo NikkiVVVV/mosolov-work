@@ -362,3 +362,23 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
  [data-project-id="16"] .project-description{margin-bottom:4px}
 }
+
+.project-description-mobile{display:none}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .project-description-mobile{display:block}
+}
+
+/* At the page end, the footer aligns with the desktop theme controls. */
+.portfolio-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:32px 0 0;padding:0;border:0;font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
+.portfolio-footer a,.portfolio-footer button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;white-space:nowrap}
+.footer-channel{color:var(--muted)}
+.footer-channel:hover{color:var(--ink);text-decoration:none}
+.footer-top{font:inherit;font-variation-settings:inherit;border:0;border-radius:4px;padding:8px 12px;background:var(--subtle);color:var(--ink);transition:background 180ms}
+.footer-top:hover{background:var(--hover)}
+.portfolio-footer svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.layout{margin-bottom:24px}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .layout{margin-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+}
+.is-loading .portfolio-footer{visibility:hidden}
