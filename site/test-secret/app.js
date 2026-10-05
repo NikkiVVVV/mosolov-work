@@ -221,7 +221,7 @@ const translatedNodes=[
   ['#current-avito','Avito'],
   ['#current-avito-team','[Auto]'],['#current-mazik','Mazik'],['#current-radar','Idea Radar'],
   ['#current-mazik-type','[mini app]'],['#current-radar-type','[service]'],
-  ['#experience-title','Experience'],['#resume-pdf-label','Resume PDF'],['#resume-md-label','Resume MD'],
+  ['#experience-title','Experience & projects'],['#resume-pdf-label','Resume PDF'],['#resume-md-label','Resume MD'],
   ['.skip-link','View projects'],
   ['#workplaces-title','Workplaces'],
   ['#tab-all','All'],['#tab-work','Work'],['#tab-pet','Side projects'],['#tab-publication','Publications'],

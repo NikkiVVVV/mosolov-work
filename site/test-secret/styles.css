@@ -156,7 +156,7 @@ html[data-theme=dark] .theme-moon{opacity:0;transform:rotate(40deg) scale(.6)}
 #language-toggle{font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
 @media(prefers-reduced-motion:reduce){#theme-toggle svg{transition:none}}
 
-/* Current projects lead the profile; career history is available on demand. */
+/* Projects and career history share one collapsed disclosure. */
 .profile-links{--profile-name-width:80px;display:flex;flex-direction:column;gap:12px;width:100%}
 .current-projects,.experience{width:100%}
 .current-projects ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
@@ -173,6 +173,8 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .experience summary svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform 180ms}
 .experience[open] summary svg{transform:rotate(180deg)}
 .experience .workplaces{display:block;padding-top:12px}
+.experience .current-projects{padding-top:12px}
+.experience summary svg{flex-shrink:0}
 
 /* Gallery cards: optional caption, with a real outbound action when available. */
 .project-card{cursor:default}
@@ -181,7 +183,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .grid .project-cover.has-video{display:block;height:auto;overflow:hidden}
 .project-cover.has-video video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
 .project-card:hover .project-cover{transform:none;background:var(--subtle)}
-.project-card .project-description{font:16px/22px 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0;text-align:left}
+.project-card .project-description{font:14px/20px 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0;text-align:left}
 .project-link{position:absolute;bottom:12px;right:12px;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity 180ms,transform 180ms,background 180ms}
 .project-link svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .project-card:hover .project-link,.project-card:focus-within .project-link{opacity:1;transform:translateY(0)}
@@ -228,6 +230,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 
 /* The last card is playable in every filter. */
 .profile-heading h1{font-size:20px;line-height:28px}
+.profile-heading p{font-size:14px;line-height:20px}
 .mobile-copy-break{display:none}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.mobile-copy-break{display:initial}}
 .project-cover.space-game-cover,.project-card:hover .space-game-cover{transform:none;background:var(--subtle);overflow:hidden}
@@ -244,7 +247,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
  .profile>.theme-switch{position:static;left:auto;bottom:auto;align-self:flex-start;margin-top:auto;flex-shrink:0}
  .profile .pendant{height:calc(310px - 60px * var(--profile-compression));transition:height 360ms ease}
  .profile .current-projects ul,.profile .profile-links,.profile .workplaces ol{gap:calc(12px - 4px * var(--profile-compression));transition:gap 360ms ease}
- .profile .experience .workplaces{padding-top:calc(12px - 4px * var(--profile-compression));transition:padding-top 360ms ease}
+ .profile .experience .current-projects,.profile .experience .workplaces{padding-top:calc(12px - 4px * var(--profile-compression));transition:padding-top 360ms ease}
  .profile .resume-downloads{margin-top:calc(20px - 8px * var(--profile-compression));transition:margin-top 360ms ease}
  .profile .resume-download{min-height:36px;padding-block:calc(8px - 2px * var(--profile-compression));transition:padding 360ms ease}
  .profile-measure,.profile-measure *{transition:none!important}
