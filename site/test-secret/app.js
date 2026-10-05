@@ -2,9 +2,9 @@ import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectMasonry } from './project-masonry.js?v=81';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed81';
+import { projects } from './projects.js?v=feed91';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed44';
+import { englishProjects } from './locale.js?v=feed91';
 import { features } from './features.js';
 import { createProjectVideos } from './project-videos.js?v=feed73';
 

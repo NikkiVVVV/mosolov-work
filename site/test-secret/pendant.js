@@ -1,3 +1,4 @@
+import { showPendantFallback } from './pendant-fallback.js?v=91';
 import * as THREE from './vendor/three.module.js';
 import { track } from './portfolio-analytics.js?v=63';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=67';
@@ -23,7 +24,7 @@ class Pendant {
     this.arrival={offset:0,velocity:0}; this.elapsed=0;
     this.visible = true; this.paused = false; this.ready = false; this.frame = 0;
     this.intro=new PendantEntrance(this);
-    try { this.init(); } catch (error) { this.fallback('3D недоступно. Портфолио доступно ниже.'); console.warn('Pendant unavailable:', error); }
+    try { this.init(); } catch (error) { this.fallback('3D недоступно — показана статичная подвеска.'); console.warn('Pendant unavailable:', error); }
   }
   fallback(message) {
     this.failed = true; this.resizeObserver?.disconnect(); this.intersection?.disconnect();
@@ -34,9 +35,7 @@ class Pendant {
     this.note.textContent = message;
     this.intro?.finish();
     this.overlay?.layer.remove(); this.renderer?.domElement.remove(); this.renderer?.dispose();
-    // Without WebGL show the portfolio directly, with no stale image or empty device slot.
-    this.block.hidden = true;
-    document.dispatchEvent(new CustomEvent('portfolio:pendant-unavailable'));
+    showPendantFallback(this.block,{reduced:this.reduced.matches});
   }
   init() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
@@ -86,7 +85,7 @@ class Pendant {
       this.ready=true;this.host.dataset.ready='true';
       if(!this.intro.active&&!this.reduced.matches){this.arrival.offset=8;this.state.angle=.12;this.motion.twist.angle=-.15;}
       this.overlay.layer.style.visibility='';this.wake();
-    },()=>this.fallback('Не удалось загрузить персонажа. Портфолио доступно ниже.'));
+    },()=>this.fallback('Не удалось загрузить 3D — показана статичная подвеска.'));
     const eye = new THREE.Mesh(new THREE.TorusGeometry(.13,.055,8,24), graphite);
     eye.position.set(0,1.64,-.08); this.body.add(eye);this.attachmentEye=eye;
     const cordCanvas = document.createElement('canvas'); cordCanvas.width=32; cordCanvas.height=128;
@@ -117,7 +116,7 @@ class Pendant {
     this.host.addEventListener('focusin',()=>this.wake());
     document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;}else this.wake();});
     this.reduced.addEventListener('change',()=>this.reset());
-    canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.fallback('3D приостановлено. Обнови страницу, чтобы повторить.');});
+    canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.fallback('3D приостановлено — показана статичная подвеска.');});
     this.wake();
   }
   applyTheme(){

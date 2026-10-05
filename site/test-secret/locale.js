@@ -1,5 +1,6 @@
 // English copy mirrors the existing Russian project content; no new claims.
 export const englishProjects = {
+  '11':{title:'Mayonez — Telegram bot',description:'',meta:'Telegram bot'},
   '10': {title:'Mayonnaise'},
   '09': {title:'Equipment leasing',description:'Equipment leasing for business.',meta:'Avito Auto · Leasing',detail:''},
   '01': {title:'Piece by piece',description:'An exploded view of an excavator for top special-equipment models.',meta:'Avito Auto · Special equipment',detail:''},
