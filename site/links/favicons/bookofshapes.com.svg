@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .cube {
+      fill: none;
+      stroke: #111;
+      stroke-width: 2.4;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    @media (prefers-color-scheme: dark) {
+      .cube { stroke: #ccc; }
+    }
+  </style>
+  <g class="cube">
+    <path d="M16 1.5 L28.56 8.75 L28.56 23.25 L16 30.5 L3.44 23.25 L3.44 8.75 Z" />
+    <path d="M16 16 L16 1.5 M16 16 L3.44 23.25 M16 16 L28.56 23.25" />
+  </g>
+</svg>

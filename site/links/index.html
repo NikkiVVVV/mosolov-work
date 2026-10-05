@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru" data-catalog="./bookmarks.json">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191a1b">
+  <title>Закладки</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="search-section" aria-label="Поиск по закладкам">
+      <canvas id="search-wave" aria-hidden="true"></canvas>
+      <h1>Найди тот<br>самый сайт.</h1>
+      <button id="back-to-library" type="button" hidden>← Все закладки</button>
+      <div id="chat" class="chat" role="log" aria-label="История поиска" aria-live="polite" hidden></div>
+      <form class="search-form" role="search" id="search-form">
+        <svg class="search-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1c1.5 8 3 9.5 11 11-8 1.5-9.5 3-11 11C10.5 15 9 13.5 1 12 9 10.5 10.5 9 12 1Z"/></svg>
+        <label class="sr-only" for="search">Опишите сайт, который ищете</label>
+        <input id="search" name="q" type="text" autocomplete="off" spellcheck="false" placeholder="Сайты с необычной типографикой" aria-controls="chat" maxlength="1000">
+        <div class="search-actions">
+          <button type="button" class="clear-search" id="clear-search" aria-label="Очистить поиск" hidden>×</button>
+          <button class="submit-search" type="submit" aria-label="Найти сайты"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 15V5m-4.5 4.5L10 5l4.5 4.5"/></svg></button>
+        </div>
+      </form>
+    </section>
+    <section id="catalog" aria-label="Сохранённые сайты">
+      <div id="filters" class="filters" role="group" aria-label="Фильтры"></div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Закладки, таблица с горизонтальной прокруткой">
+        <table>
+          <colgroup><col class="site-column"><col class="category-column"><col></colgroup>
+          <thead><tr><th scope="col">Сайт</th><th scope="col">Категория</th><th scope="col">Заметка</th></tr></thead>
+          <tbody id="bookmark-list"></tbody>
+        </table>
+      </div>
+      <p id="list-status" role="status" aria-live="polite" hidden></p>
+    </section>
+  </main>
+</body>
+</html>

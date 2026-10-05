@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="DesignCode favicon">
+  <style>
+    .designcode-mark-stop { stop-color: #050608; }
+    @media (prefers-color-scheme: dark) {
+      .designcode-mark-stop { stop-color: #fff; }
+    }
+  </style>
+  <path d="M64 20L20 64L64 108H20V20H64ZM92.834 30.7637C102.125 38.831 108 50.7294 108 64C108 77.2712 102.124 89.169 92.832 97.2363C92.6355 97.0212 59.5996 64 59.5996 64C59.5996 64 92.8325 30.7796 92.834 30.7637ZM74.7129 21.3154C74.9563 21.3763 75.1987 21.44 75.4404 21.5049C75.1987 21.44 74.9563 21.3763 74.7129 21.3154Z" fill="url(#paint0)"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M20 64L64 20C75.0301 20 85.1123 24.0587 92.8345 30.7641C92.833 30.78 59.6 64 59.6 64C59.6 64 92.8345 97.22 92.833 97.2373C85.111 103.942 75.0294 108 64 108L20 64Z" fill="url(#paint1)" fill-opacity="0.2"/>
+  <defs>
+    <linearGradient id="paint0" x1="14.3226" y1="20" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop class="designcode-mark-stop"/>
+      <stop class="designcode-mark-stop" offset="1" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="paint1" x1="20" y1="64.4731" x2="92.8602" y2="108" gradientUnits="userSpaceOnUse">
+      <stop class="designcode-mark-stop"/>
+      <stop class="designcode-mark-stop" offset="1" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
