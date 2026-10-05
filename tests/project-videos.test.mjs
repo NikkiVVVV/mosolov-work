@@ -9,12 +9,12 @@ class FakeVideo extends EventTarget {
   pause() { this.paused=true; this.dispatchEvent(new Event('pause')); }
 }
 const fire = (target, type, props={}) => target.dispatchEvent(Object.assign(new Event(type),props));
-async function fixture(shuttle,initiallyVisible=true,extra={}) {
+async function fixture(shuttle,initiallyVisible=true,extra={},initialStagger=false) {
   globalThis.document=Object.assign(new EventTarget(),{hidden:false,createElement:()=>new FakeVideo()});
   globalThis.MutationObserver=class { observe() {} disconnect() {} };
   let onVisibility,onProximity;
   globalThis.IntersectionObserver=class { constructor(callback,options){if(options?.rootMargin)onProximity=callback;else onVisibility=callback;} observe() {} };
-  const manager=createProjectVideos({classList:{contains:()=>false}});
+  const manager=createProjectVideos({classList:{contains:()=>false}},{initialStagger});
   const card=Object.assign(new EventTarget(),{contains:()=>false});
   const video=manager.attach({id:'test',video:'test.mp4',shuttle,...extra},card);
   const setVisible=(value,ratio=value?1:0)=>onVisibility([{target:video,isIntersecting:value,intersectionRatio:ratio}]);
@@ -133,4 +133,23 @@ test('continuous clips loop and resume without a hover reset after leaving the v
   setVisible(true);await new Promise(resolve=>setImmediate(resolve));
   assert.equal(video.paused,false);assert.equal(video.currentTime,5.2);
   fire(card,'pointerenter',{pointerType:'mouse'});assert.equal(video.currentTime,5.2);
+});
+
+test('initial entrance starts left first, calories at 4.5s, then other visible videos',async(t)=>{
+  t.mock.timers.enable({apis:['Date','setTimeout'],now:1000});
+  const first=await fixture(undefined,true,{id:'01'},true);
+  const calories=await fixture(undefined,true,{id:'11'},true);
+  const other=await fixture(undefined,true,{id:'07'},true);
+  assert.equal(first.video.paused,false);
+  assert.equal(calories.video.paused,true);assert.equal(other.video.paused,true);
+  fire(calories.card,'pointerenter',{pointerType:'mouse'});
+  assert.equal(calories.video.paused,true);
+  t.mock.timers.tick(4499);assert.equal(calories.video.paused,true);
+  t.mock.timers.tick(1);assert.equal(calories.video.paused,false);assert.equal(other.video.paused,true);
+  other.setVisible(false);t.mock.timers.tick(1000);assert.equal(other.video.paused,true);
+  other.setVisible(true);assert.equal(other.video.paused,false);
+  await new Promise(resolve=>setImmediate(resolve));
+  calories.video.currentTime=2;calories.setVisible(false);t.mock.timers.tick(200);
+  assert.equal(calories.video.paused,true);calories.setVisible(true);
+  assert.equal(calories.video.paused,false);assert.equal(calories.video.currentTime,2);
 });

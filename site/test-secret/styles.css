@@ -309,11 +309,56 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 .resume-download .resume-download-icon{width:20px;height:20px;flex:none;fill:currentColor;stroke:none}
 
 /* v102: matched-height media pairs; full-width rows for featured cases. */
-.grid{display:flex;flex-direction:column;gap:28px;align-items:stretch}
-.project-row{display:grid;width:100%;gap:24px;align-items:start;min-width:0}
+.grid{--card-gap:24px;display:flex;flex-direction:column;gap:var(--card-gap);align-items:stretch}
+.project-row{display:grid;width:100%;gap:var(--card-gap);align-items:start;min-width:0}
 .project-row>.project-card{min-width:0;grid-column:auto}
+/* v108: the user's first four cases, in two independently stacked columns. */
+.project-opening{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap);min-width:0}
+.project-opening-column{display:flex;flex-direction:column;gap:var(--card-gap);min-width:0}
+.project-opening .project-card{min-width:0}
+.project-opening-left>.project-card:last-child{display:flex;flex-direction:column;flex:1;min-height:0}
+.grid .project-opening-left>.project-card:last-child .project-cover{flex:1;min-height:0;aspect-ratio:auto!important}
+.project-opening-left>.project-card:last-child video{object-fit:cover}
+/* v109: full-width talk followed by a portrait and two stacked videos. */
+.project-showcase{display:flex;flex-direction:column;gap:var(--card-gap);min-width:0}
+.project-showcase-trio{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap);align-items:start}
+.project-showcase-stack{display:flex;flex-direction:column;gap:var(--card-gap);min-width:0}
+.project-showcase .project-card{min-width:0}
+.project-showcase>.project-card .project-description{color:var(--ink)}
+.project-showcase-trio .project-cover video{object-fit:cover}
+/* The right stack defines the height; crop the portrait equally at both ends. */
+.project-showcase-trio>[data-project-id="21"]{align-self:stretch;display:flex;flex-direction:column;min-height:0}
+.grid .project-showcase-trio>[data-project-id="21"] .project-cover{flex:1;min-height:0;aspect-ratio:auto!important}
+.grid .project-showcase-stack>[data-project-id="10"] .project-cover{aspect-ratio:3/2!important}
+.grid .project-showcase-stack>[data-project-id="20"] .project-cover{aspect-ratio:8/7!important}
+/* v111: the next authored group after the bag / mayonnaise composition. */
+.project-tools{display:flex;flex-direction:column;gap:var(--card-gap);min-width:0}
+.project-tools-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap);align-items:start;min-width:0}
+.project-tools .project-card{min-width:0}
+.grid [data-project-id="09"] .project-cover{aspect-ratio:16/9!important}
+.grid [data-project-id="09"] .project-cover video{object-fit:cover;object-position:center}
+.grid .project-tools-pair [data-project-id="18"] .project-cover{aspect-ratio:1193/1319!important}
+.project-tools-pair [data-project-id="18"] video{object-fit:cover;transform:scale(1.8)}
+[data-project-id="17"] .project-description{color:var(--ink)}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
- .grid{display:grid;grid-template-columns:1fr;grid-auto-rows:auto;gap:28px}
+ .grid{display:grid;grid-template-columns:1fr;grid-auto-rows:auto;gap:var(--card-gap)}
  .project-row{display:contents}
  .project-row>.project-card{grid-column:1 / -1}
+ .project-tools,.project-tools-pair{display:contents}
+ .project-tools .project-card{grid-column:1 / -1}
+ .project-showcase,.project-showcase-trio,.project-showcase-stack{display:contents}
+ .project-showcase .project-card{display:block;grid-column:1 / -1}
+ .grid .project-showcase-trio>[data-project-id="21"] .project-cover{aspect-ratio:1!important}
+ .project-opening,.project-opening-column{display:contents}
+ .project-opening .project-card{display:block;grid-column:1 / -1}
+ .grid .project-opening-left>.project-card:last-child .project-cover{aspect-ratio:9/16!important}
+}
+
+/* v112: retain the first card’s 4:5 frame for the new portrait footage. */
+.grid [data-project-id="01"] .project-cover video{object-fit:cover;object-position:center}
+
+/* Extra breathing room below the talk caption, as annotated. */
+[data-project-id="16"] .project-description{margin-bottom:12px}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ [data-project-id="16"] .project-description{margin-bottom:4px}
 }

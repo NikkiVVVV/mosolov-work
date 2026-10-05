@@ -3,7 +3,7 @@ import { createVideoShuttle } from './video-shuttle.js?v=44';
 import { track } from './portfolio-analytics.js?v=63';
 
 // Keep the same media element across filtering and language changes.
-export function createProjectVideos(root = document.documentElement) {
+export function createProjectVideos(root = document.documentElement, {initialStagger = true} = {}) {
   const entries = new Map();
   const byVideo = new WeakMap();
   const visibility = new IntersectionObserver(changes => {
@@ -27,6 +27,13 @@ export function createProjectVideos(root = document.documentElement) {
     }
   }, {rootMargin:'320px 0px',threshold:0});
   let ready = !root.classList.contains('is-loading');
+  let readyAt = ready ? Date.now() : null;
+  // Stagger only the first page entrance; later viewport resumes are immediate.
+  function startupWait(entry) {
+    if (!initialStagger) return 0;
+    const delay = entry.project.id === '01' ? 0 : entry.project.id === '11' ? 4500 : 5500;
+    return Math.max(0, readyAt + delay - Date.now());
+  }
   function load(entry) {
     if (!ready || entry.loading || (!entry.near&&!entry.visible) || !entry.video.isConnected) return;
     entry.loading=true;
@@ -39,6 +46,12 @@ export function createProjectVideos(root = document.documentElement) {
   }
   function play(entry, restart = false) {
     if (!ready || !entry.visible || document.hidden || !entry.video.isConnected) return;
+    const wait = startupWait(entry);
+    if (wait > 0) {
+      entry.video.autoplay=false;
+      if (!entry.startTimer) entry.startTimer=setTimeout(()=>{entry.startTimer=null;play(entry);},wait);
+      return;
+    }
     if (!entry.loaded) {load(entry);return;}
     if (restart && !entry.video.paused && !entry.video.ended) return;
     if (entry.shuttle) {
@@ -63,6 +76,7 @@ export function createProjectVideos(root = document.documentElement) {
   const observer = new MutationObserver(() => {
     if (!root.classList.contains('is-loading')) {
       ready = true;
+      readyAt = Date.now();
       observer.disconnect();
       sync();
     }

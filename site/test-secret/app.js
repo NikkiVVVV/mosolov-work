@@ -1,12 +1,12 @@
 import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=102';
+import { createProjectBento } from './project-bento.js?v=115';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed102';
+import { projects } from './projects.js?v=feed115';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed102';
+import { englishProjects } from './locale.js?v=feed115';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed102';
+import { createProjectVideos } from './project-videos.js?v=feed115';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -109,7 +109,7 @@ function renderProjects() {
     card.setAttribute('aria-label', project.title);
     const cover = document.createElement('div');
     cover.className = 'project-cover';
-    cover.style.aspectRatio=project.video?`${project.videoWidth}/${project.videoHeight}`:project.coverRatio||'4/3';
+    cover.style.aspectRatio=project.coverRatio||(project.video?`${project.videoWidth}/${project.videoHeight}`:'4/3');
     if(project.game){
       cover.style.removeProperty('aspect-ratio');
       cover.classList.add('space-game-cover');cover.append(spaceGame.element);
