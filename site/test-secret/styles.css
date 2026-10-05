@@ -88,7 +88,7 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
   .mobile-topbar{position:fixed;z-index:45;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;width:calc(100% - 40px);max-width:390px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
   .mobile-topbar .mobile-theme-slot{margin:0;justify-content:flex-start}
   .mobile-topbar .theme-switch button{width:36px;height:36px;padding:8px}
-  .mobile-topbar .contact-button{min-height:36px;height:36px;padding:8px 20px;font-size:12px;line-height:20px}
+  .mobile-topbar .contact-button{min-height:36px;height:36px;padding:8px 20px;font-size:16px;line-height:20px}
   .is-loading .mobile-topbar{visibility:hidden}
   .layout{margin-top:48px}
   .profile{text-align:left;align-items:stretch;transform:none}
