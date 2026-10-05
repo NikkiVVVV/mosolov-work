@@ -18,7 +18,7 @@ export function initSearchMotion(canvas, form, input) {
         const distance = Math.hypot(x - origin.x, y - origin.y);
         const wave = progress < 1 ? Math.exp(-Math.pow((distance - radius) / 48, 2)) * (1 - progress) : 0;
         const edge = Math.min(1, Math.abs(x - width / 2) / (width * .4));
-        const base = .025 + .12 * edge;
+        const base = .03 + .11 * edge;
         context.fillStyle = `rgba(190,194,188,${base + wave * .65})`;
         const size = 2 + wave * 3;
         const push = wave * 6;

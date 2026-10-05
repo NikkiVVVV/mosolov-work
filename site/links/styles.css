@@ -2,7 +2,7 @@
 @font-face{font-family:'IBM Plex Sans';src:url('./assets/IBMPlexSans.woff2') format('woff2');font-weight:100 700;font-stretch:75% 100%;font-display:swap}
 :root{color-scheme:dark;--surface:#191a1b;--ink:#eeefeb;--muted:#a6a8a2;--line:#343638;--subtle:#252729;font-family:'IBM Plex Sans',sans-serif}
 *{box-sizing:border-box}
-body{margin:0;background:var(--surface);color:var(--ink);font:400 16px/24px 'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;overflow-x:clip;background:var(--surface);color:var(--ink);font:400 16px/24px 'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer;touch-action:manipulation}
 a{color:inherit;text-decoration:none}
@@ -11,7 +11,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset
 [hidden]{display:none!important}
 .page-shell{max-width:1120px;margin:auto;padding:0 28px 48px}
 .search-section{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:432px;padding:64px 0 72px}
-#search-wave{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;mask-image:linear-gradient(transparent,#000 12%,#000 80%,transparent)}
+#search-wave{position:absolute;left:50%;top:50%;width:100vw;height:720px;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;mask-image:radial-gradient(ellipse at center,#000 12%,rgba(0,0,0,.8) 32%,rgba(0,0,0,.3) 55%,transparent 74%)}
 h1{font:400 48px/56px Werkzeug,'IBM Plex Sans',sans-serif;font-variation-settings:'wdth' 1000;letter-spacing:-2px;text-align:center;margin:0 0 40px}
 .search-form{display:flex;align-items:center;gap:12px;width:min(calc(100% - 48px),400px);height:56px;padding:8px 12px 8px 20px;border:1px solid transparent;border-radius:32px;background:#252627;transition:border-color .2s,background .2s;flex-shrink:0}
 .search-form:focus-within{border-color:#595c5e;background:#282a2b}
@@ -57,6 +57,12 @@ tbody tr:hover{background:#1e2021}
 .chat-turn{margin-bottom:40px;animation:arrive .35s ease-out}
 .chat-question{max-width:85%;width:fit-content;margin:0 0 24px auto;background:var(--subtle);padding:12px 20px;border-radius:20px 20px 4px 20px;overflow-wrap:anywhere}
 .chat-empty{color:var(--muted);margin:0;padding:8px 0}
+.assistant-message{width:fit-content;max-width:min(100%,640px);margin:0 0 20px;padding:16px 20px;border:1px solid var(--line);border-radius:4px 20px 20px 20px;background:#202223}
+.assistant-label{display:block;color:var(--muted);font-size:12px;line-height:16px;margin-bottom:8px}
+.chat-response{color:var(--ink);margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.assistant-message .search-loading-label{margin:12px 0 0}
+.retry-search{margin-top:12px;border:1px solid #515456;border-radius:8px;background:transparent;padding:8px 12px;color:var(--ink)}
+.search-sources{color:var(--muted);margin:12px 0 0;font-size:12px;line-height:16px}
 .chat-mode .search-form{align-self:center;margin-top:16px;transform-origin:left center}
 .search-loading-label{display:flex;align-items:center;gap:8px;color:var(--muted);margin:0 0 16px}
 .loading-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);animation:loading-pulse 1.2s ease-in-out infinite}

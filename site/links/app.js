@@ -1,11 +1,13 @@
 import { initSearchMotion } from './search-motion.js';
 import { siteMonogram } from './site-icon.js';
+import { mergeResults } from './search-results.js';
 
 const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');
 const filters = $('#filters');
 const queryInput = $('#search');
 const form = $('#search-form');
+const apiBase = document.documentElement.dataset.apiBase || '';
 const status = $('#list-status');
 const filterOptions = [
   { id: 'all', label: 'Все' },
@@ -15,7 +17,7 @@ const filterOptions = [
   { id: 'media', label: 'Медиа' },
   { id: 'ai', label: 'AI' }
 ];
-const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false };
+const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
 const chat = $('#chat');
 let pendingSearch = null;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -23,7 +25,7 @@ initSearchMotion($('#search-wave'), form, queryInput);
 const stopwords = new Set([
   'тот', 'та', 'то', 'те', 'самый', 'был', 'была', 'было', 'есть', 'который', 'которые',
   'с', 'со', 'и', 'а', 'в', 'во', 'на', 'для', 'по', 'из', 'про', 'как', 'где', 'найди', 'найти', 'покажи', 'мне',
-  'сайт', 'сайты', 'сайтов', 'сайта'
+  'сайт', 'сайты', 'сайтов', 'сайта', 'find', 'show', 'me', 'the', 'a', 'an', 'with', 'for', 'and', 'websites', 'sites'
 ]);
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char => ({
@@ -138,17 +140,68 @@ function resultTable(body, loading = false) {
   return `<div class="table-wrap${loading ? ' loading-table' : ''}"${loading ? ' aria-hidden="true"' : ' tabindex="0" role="region" aria-label="Найденные ссылки, таблица с горизонтальной прокруткой"'}><table><caption class="sr-only">Найденные ссылки</caption><colgroup><col class="site-column"><col class="category-column"><col></colgroup><thead><tr><th scope="col">Сайт</th><th scope="col">Категория</th><th scope="col">Заметка</th></tr></thead><tbody>${body}</tbody></table></div>`;
 }
 
-function loadingResult() {
-  const skeletonRow = '<tr><td><span class="skeleton"></span></td><td><span class="skeleton skeleton-short"></span></td><td><span class="skeleton skeleton-note"></span><span class="skeleton skeleton-note"></span></td></tr>';
-  return '<p class="search-loading-label" role="status"><span class="loading-dot" aria-hidden="true"></span>Ищу в закладках…</p>' + resultTable(skeletonRow.repeat(3), true);
+function assistantReply(message, {loading = false, retry = false, sources = ''} = {}) {
+  return `<div class="assistant-message"><span class="assistant-label">Поиск по закладкам</span><p class="chat-response">${escapeHTML(message)}</p>${loading ? '<p class="search-loading-label" role="status"><span class="loading-dot" aria-hidden="true"></span>Ищу по смыслу…</p>' : ''}${sources ? `<p class="search-sources">${escapeHTML(sources)}</p>` : ''}${retry ? '<button class="retry-search" type="button">Повторить AI-поиск</button>' : ''}</div>`;
+}
+
+function showAnswer(answer, message, items, options = {}) {
+  answer.innerHTML = assistantReply(message, options) + (items.length ? resultTable(items.map(row).join('')) : '');
 }
 
 function cancelPendingSearch() {
   if (!pendingSearch) return;
-  clearTimeout(pendingSearch.timer);
+  pendingSearch.controller?.abort();
   pendingSearch.answer.setAttribute('aria-busy', 'false');
-  pendingSearch.answer.innerHTML = '<p class="chat-empty">Поиск остановлен.</p>';
+  clearTimeout(pendingSearch.slowTimer);
+  showAnswer(pendingSearch.answer, 'AI-поиск остановлен. Совпадения по словам сохранены.', pendingSearch.keyword);
   pendingSearch = null;
+}
+
+async function answerQuery(query, answer, history, keyword) {
+  const controller = new AbortController();
+  const job = {controller, answer, keyword};
+  pendingSearch = job;
+  answer.setAttribute('aria-busy', 'true');
+  showAnswer(answer, keyword.length ? `По словам уже нашёл ${keyword.length}. Проверяю, что ещё подходит по смыслу.` : 'Ищу подходящие сайты в твоих закладках.', keyword, {loading: state.aiEnabled});
+  let timeout;
+  try {
+    if (state.aiEnabled) {
+      timeout = setTimeout(() => controller.abort('timeout'), 45000);
+      job.slowTimer = setTimeout(() => {
+        if (pendingSearch === job) showAnswer(answer, 'AI отвечает дольше обычного. Продолжаю искать; совпадения по словам уже доступны.', keyword, {loading:true});
+      }, 8000);
+      const response = await fetch(`${apiBase}/api/search`, {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({query, history}), signal: controller.signal
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'AI-поиск недоступен.');
+      if (pendingSearch !== job) return;
+      if (!Array.isArray(data.ids) || typeof data.message !== 'string') throw new Error('Некорректный ответ поиска.');
+      const itemsById = new Map(state.items.map(item => [item.id, item]));
+      const semantic = [...new Set(data.ids)].map(id => itemsById.get(id)).filter(item => item && isReady(item) && isVisible(item));
+      const items = mergeResults(semantic, keyword);
+      showAnswer(answer, data.message, items, {sources: `По словам: ${keyword.length} · По смыслу: ${semantic.length} · Без повторов: ${items.length}`});
+      if (data.intent !== 'offtopic') state.history = [...history, query].slice(-4);
+    } else {
+      showAnswer(answer, keyword.length ? `Нашёл ${keyword.length} по словам. В этой версии AI пока не подключён.` : 'По словам ничего не нашёл. Попробуй «градиенты», «портфолио» или название сайта. В этой версии AI пока не подключён.', keyword);
+    }
+  } catch (error) {
+    if (pendingSearch !== job) return;
+    const notice = controller.signal.aborted ? 'AI не успел ответить.' : error.message;
+    showAnswer(answer, `${notice} ${keyword.length ? 'Совпадения по словам остаются ниже.' : 'По словам совпадений нет. Попробуй более короткий запрос.'}`, keyword, {retry:true});
+    answer.querySelector('.retry-search').addEventListener('click', () => {
+      cancelPendingSearch();
+      answerQuery(query, answer, history, keyword);
+    }, {once:true});
+  } finally {
+    clearTimeout(timeout);
+    clearTimeout(job.slowTimer);
+    if (pendingSearch === job) {
+      answer.setAttribute('aria-busy', 'false');
+      pendingSearch = null;
+    }
+  }
 }
 
 function renderForm() {
@@ -193,21 +246,10 @@ form.addEventListener('submit', event => {
   const turn = document.createElement('section');
   turn.className = 'chat-turn';
   turn.setAttribute('aria-label', `Поиск: ${state.query}`);
-  turn.innerHTML = `<p class="chat-question">${escapeHTML(query)}</p><div class="chat-answer" aria-busy="true">${loadingResult()}</div>`;
+  turn.innerHTML = `<p class="chat-question">${escapeHTML(query)}</p><div class="chat-answer" aria-busy="true"></div>`;
   chat.append(turn);
   const answer = turn.querySelector('.chat-answer');
-  // Local search is fast. Keep this UI preview visible during the 550 ms
-  // composer transition; this is not a simulated network or AI request.
-  const timer = setTimeout(() => {
-    if (pendingSearch?.answer !== answer) return;
-    const items = filteredItems();
-    answer.innerHTML = items.length
-      ? resultTable(items.map(row).join(''))
-      : '<p class="chat-empty">Ничего не найдено. Попробуйте другое слово — например, «анимация» или «градиенты».</p>';
-    answer.setAttribute('aria-busy', 'false');
-    pendingSearch = null;
-  }, 550);
-  pendingSearch = { timer, answer };
+  answerQuery(query, answer, [...state.history], filteredItems());
   queryInput.value = '';
   queryInput.placeholder = 'Что ещё найти?';
   renderForm();
@@ -235,6 +277,7 @@ queryInput.addEventListener('keydown', event => {
 $('#back-to-library').addEventListener('click', () => {
   cancelPendingSearch();
   state.chatting = false;
+  state.history = [];
   document.body.classList.remove('chat-mode');
   $('#catalog').hidden = false;
   $('#back-to-library').hidden = true;
@@ -263,6 +306,9 @@ async function loadBookmarks() {
     if (!response.ok) throw new Error('Каталог недоступен');
     state.items = (await response.json()).items || [];
     state.icons = await fetch('./favicons/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    if (!document.documentElement.dataset.catalog || apiBase) {
+      state.aiEnabled = await fetch(`${apiBase}/api/health`, {cache:'no-store', signal:AbortSignal.timeout(5000)}).then(r => r.json()).then(data => data.aiSearch === true).catch(() => false);
+    }
     state.loaded = true;
     render();
   } catch {
