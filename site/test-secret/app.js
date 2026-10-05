@@ -1,12 +1,12 @@
 import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectMasonry } from './project-masonry.js?v=81';
+import { createProjectBento } from './project-bento.js?v=102';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed91';
+import { projects } from './projects.js?v=feed102';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed91';
+import { englishProjects } from './locale.js?v=feed102';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed73';
+import { createProjectVideos } from './project-videos.js?v=feed102';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -15,7 +15,7 @@ bindAnalytics();
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
 
 const grid = document.querySelector('#grid');
-const masonry = createProjectMasonry(grid);
+const bento = createProjectBento(grid);
 const panel = document.querySelector('#sphere-panel');
 const dialog = document.querySelector('#project-preview');
 const contactDialog=document.querySelector('#contact-dialog');
@@ -100,17 +100,18 @@ dialog.addEventListener('close', () => sphere?.setActive(view === 'sphere'));
 
 function renderProjects() {
   spaceGame.pause();spaceGame.setLanguage(language);
-  const selected = projects.filter(p => p.alwaysVisible || category === 'all' || p.category === category).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
+  const selected = projects.filter(p => !p.hidden && (p.alwaysVisible || category === 'all' || p.category === category)).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
   grid.replaceChildren(...selected.map(project => {
     const card = document.createElement('article');
     card.className = 'project-card';
+    if(project.wide || project.game)card.classList.add('project-card-wide');
     card.dataset.projectId=project.id;
     card.setAttribute('aria-label', project.title);
     const cover = document.createElement('div');
     cover.className = 'project-cover';
     cover.style.aspectRatio=project.video?`${project.videoWidth}/${project.videoHeight}`:project.coverRatio||'4/3';
     if(project.game){
-      card.classList.add('project-card-wide');cover.style.removeProperty('aspect-ratio');
+      cover.style.removeProperty('aspect-ratio');
       cover.classList.add('space-game-cover');cover.append(spaceGame.element);
     }else if(project.video){
       cover.classList.add('has-video');
@@ -128,15 +129,15 @@ function renderProjects() {
       cover.append(link);
     }
     card.append(cover);
-    // A caption is optional: omit it for an image-only card.
-    if(project.description && project.showDescription!==false){
+    // Captions are shown only when explicitly requested for the card.
+    if(project.description && project.showDescription===true){
       const description=document.createElement('p');
       description.className='project-description';description.textContent=project.description;
       card.append(description);
     }
     return card;
   }));
-  masonry.refresh();
+  bento.refresh();
   projectVideos.sync();
   sphere?.setProjects(selected);
   status.textContent = language==='en'?`Projects: ${selected.length}.`:`Карточек: ${selected.length}.`;

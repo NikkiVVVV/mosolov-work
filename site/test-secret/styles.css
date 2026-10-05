@@ -268,7 +268,7 @@ html[data-theme=dark] .project-link:hover{background:rgba(25,26,27,.84)}
 
 /* v81: token heatmap spans both desktop masonry columns. */
 .project-card-wide{grid-column:1 / -1}
-.grid .project-card-wide .project-cover{aspect-ratio:auto;height:420px}
+.grid .project-card-wide .space-game-cover{aspect-ratio:auto;height:420px}
 .space-game{--token-gray:#3b3d3e}
 html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 .space-score{right:24px;left:24px;top:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:14px;line-height:20px;letter-spacing:.04em}
@@ -307,3 +307,13 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  .mobile-topbar[data-scroll-hidden=true]{transform:translateY(calc(-100% - 32px - env(safe-area-inset-top,0px)));opacity:0;pointer-events:none}
 }
 .resume-download .resume-download-icon{width:20px;height:20px;flex:none;fill:currentColor;stroke:none}
+
+/* v102: matched-height media pairs; full-width rows for featured cases. */
+.grid{display:flex;flex-direction:column;gap:28px;align-items:stretch}
+.project-row{display:grid;width:100%;gap:24px;align-items:start;min-width:0}
+.project-row>.project-card{min-width:0;grid-column:auto}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .grid{display:grid;grid-template-columns:1fr;grid-auto-rows:auto;gap:28px}
+ .project-row{display:contents}
+ .project-row>.project-card{grid-column:1 / -1}
+}

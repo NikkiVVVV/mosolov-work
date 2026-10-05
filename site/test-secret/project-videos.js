@@ -44,7 +44,7 @@ export function createProjectVideos(root = document.documentElement) {
     if (entry.shuttle) {
       if (restart && entry.shuttle.held) entry.shuttle.advance();
       else if (entry.shuttle.held) return;
-    } else if (restart) entry.video.currentTime = 0;
+    } else if (restart && !entry.video.loop) entry.video.currentTime = 0;
     entry.video.muted=true;entry.video.autoplay=true;
     if (entry.playPending || (!entry.video.paused&&!entry.video.ended)) return;
     entry.playPending=true;
@@ -88,7 +88,7 @@ export function createProjectVideos(root = document.documentElement) {
         video.setAttribute('webkit-playsinline','');
         video.preload = 'none';
         video.controls = false;
-        video.loop = false;
+        video.loop = project.videoLoop === true;
         video.setAttribute('aria-hidden', 'true');
         entry = { video, project, near:false, loading:false, loaded:false, playPending:false, pauseTimer:null, visible:false, shuttle: project.shuttle ? createVideoShuttle(video, project.shuttle) : null };
         entries.set(project.id, entry);
@@ -119,8 +119,9 @@ export function createProjectVideos(root = document.documentElement) {
       });
       if (entry.shuttle) {
         card.tabIndex = 0;
-        card.addEventListener('pointerup', event => {
-          if (event.pointerType === 'touch') play(entry, true);
+        card.addEventListener('click', event => {
+          if (event.button > 0 || event.target?.closest?.('a,button')) return;
+          play(entry, true);
         });
         card.addEventListener('keydown', event => {
           if (event.key === 'Enter' || event.key === ' ') {
