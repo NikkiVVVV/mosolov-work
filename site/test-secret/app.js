@@ -1,12 +1,12 @@
 import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=124';
+import { createProjectBento } from './project-bento.js?v=125';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed124';
+import { projects } from './projects.js?v=feed125';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed124';
+import { englishProjects } from './locale.js?v=feed125';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed124';
+import { createProjectVideos } from './project-videos.js?v=feed125';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -249,7 +249,7 @@ const translatedNodes=[
 const translatedLabels=[
   ['#current-mazik-link','Visit Mazik'],['#current-avito-link','Visit the Avito project'],['#current-radar-link','Visit idea radar'],
   ['.current-projects','Current projects'],['.profile','About me'],['#portfolio','Projects'],['.filters','Project category'],
-  ['.theme-switch','Theme and language'],['.mobile-topbar','Theme, language and contact'],
+  ['.theme-switch','Theme, language and bookmarks'],['#bookmarks-link','Favorite bookmarks — opens in a new tab'],['.mobile-topbar','Theme, language and contact'],
   ['#close-contact','Close contacts'],['#close-preview','Close'],['.contact-links','Contact Nikita'],
 ].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.getAttribute('aria-label')};});
 const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>({element,ru:element.textContent,en:({'[Онлайн]':'[Online]','[Друг]':'[Drug]'})[element.textContent]||element.textContent}));
@@ -266,7 +266,7 @@ function applyLanguage(){
     intro.replaceChildren('Design Engineer. Создаю эмоциональные',lineBreak,' цифровые продукты.');
   }else intro.textContent='Design Engineer. I create digital products that evoke emotion.';
   translatedLabels.forEach(item=>item.element.setAttribute('aria-label',item[language]));
-  languageButton.querySelector('span').textContent=language.toUpperCase();
+  languageButton.querySelector('span').textContent=language==='ru'?'EN':'RU';
   languageButton.title=language==='ru'?'Switch to English':'Переключить на русский';
   languageButton.setAttribute('aria-label',languageButton.title);
   updateThemeButtons();renderProjects();positionFilterIndicator();

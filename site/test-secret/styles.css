@@ -155,6 +155,10 @@ html[data-theme=dark] .theme-moon{opacity:0;transform:rotate(40deg) scale(.6)}
 #language-toggle span{transform:none}
 /* Let the 24px text line center inside the button instead of overflowing its 20px padded content box. */
 .theme-switch #language-toggle{padding-block:0}
+.theme-switch #bookmarks-link{position:relative;display:grid;align-items:center;justify-items:start;flex:none;width:44px;height:44px;padding:0;border-radius:4px;color:var(--muted);text-decoration:none;transition:color 180ms}
+.theme-switch #bookmarks-link:hover{color:var(--ink)}
+#bookmarks-link svg{margin-left:-2px}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.mobile-topbar .theme-switch #bookmarks-link{width:36px;height:36px}}
 #language-toggle{font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
 @media(prefers-reduced-motion:reduce){#theme-toggle svg{transition:none}}
 
