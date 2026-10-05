@@ -1,12 +1,12 @@
-import { createMobileHeader } from './mobile-header.js?v=89';
+import { createMobileMenu } from './mobile-menu.js?v=130';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=125';
+import { createProjectBento } from './project-bento.js?v=130';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed125';
+import { projects } from './projects.js?v=feed130';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed125';
+import { englishProjects } from './locale.js?v=feed130';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed125';
+import { createProjectVideos } from './project-videos.js?v=feed130';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -212,7 +212,8 @@ function applyTheme(next){
   document.dispatchEvent(new Event('portfolio:theme'));
 }
 themeButton.addEventListener('click',async()=>{
-  const button=themeButton;
+  const menuTheme=document.querySelector('[data-menu-theme]');
+  const button=menuTheme?.getClientRects().length?menuTheme:themeButton;
   const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
   track('theme_change',{theme:next});
   const sequence=++themeSequence;
@@ -249,7 +250,7 @@ const translatedNodes=[
 const translatedLabels=[
   ['#current-mazik-link','Visit Mazik'],['#current-avito-link','Visit the Avito project'],['#current-radar-link','Visit idea radar'],
   ['.current-projects','Current projects'],['.profile','About me'],['#portfolio','Projects'],['.filters','Project category'],
-  ['.theme-switch','Theme, language and bookmarks'],['#bookmarks-link','Favorite bookmarks — opens in a new tab'],['.mobile-topbar','Theme, language and contact'],
+  ['.theme-switch','Theme, language and bookmarks'],['#bookmarks-link','Favorite bookmarks — opens in a new tab'],['.mobile-topbar','Menu and contact'],
   ['#close-contact','Close contacts'],['#close-preview','Close'],['.contact-links','Contact Nikita'],
 ].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.getAttribute('aria-label')};});
 const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>({element,ru:element.textContent,en:({'[Онлайн]':'[Online]','[Друг]':'[Drug]'})[element.textContent]||element.textContent}));
@@ -302,7 +303,7 @@ const profile=document.querySelector('.profile');
 const syncProfileHeight=createProfileFit(profile,mobileLayout);
 mobileLayout.addEventListener('change',placeResponsiveControls);
 placeResponsiveControls();
-createMobileHeader(document.querySelector('.mobile-topbar'),mobileLayout);
+createMobileMenu(document.querySelector('.mobile-menu'),mobileLayout);
 
 document.documentElement.dataset.appReady='true';
 document.dispatchEvent(new Event('portfolio:ready'));
