@@ -35,6 +35,7 @@ export function createProfileFit(profile,mobile){
   profile.querySelector('details').addEventListener('toggle',schedule);
   window.addEventListener('resize',schedule,{passive:true});
   document.addEventListener('portfolio:language',schedule);
+  document.addEventListener('portfolio:pendant-unavailable',()=>{lastKey='';schedule();});
   document.fonts.ready.then(()=>{lastKey='';schedule();});
   return sync;
 }

@@ -12,7 +12,7 @@ export class PendantCharacter {
     this.loaded=0;this.textures=[];
     this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},
       shakeMix:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
-    const files=['idle-tired-v55.webp','shake-v55.webp','cup-layer-v2.png','pucker-v1.png','cat-user-v2.png','eyeroll-v1.png'];this.totalTextures=files.length;
+    const files=['idle-tired-v55.webp','shake-v55.webp','cup-layer-v2-lossless.webp','pucker-v1-lossless.webp','cat-user-v2-lossless.webp','eyeroll-v1-lossless.webp'];this.totalTextures=files.length;
     const loader=new THREE.TextureLoader();
     Promise.all(files.map((name)=>loader.loadAsync(`assets/pendant/clay/${name}`).then(map=>{this.loaded++;return map;}))).then(maps=>{
       maps.forEach((map,i)=>{map.colorSpace=THREE.SRGBColorSpace;this.uniforms[`pose${i}`]={value:map};});

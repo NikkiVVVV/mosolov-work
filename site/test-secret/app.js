@@ -1,5 +1,5 @@
 import { createMobileHeader } from './mobile-header.js?v=89';
-import { createProfileFit } from './profile-fit.js?v=71';
+import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectMasonry } from './project-masonry.js?v=81';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
 import { projects } from './projects.js?v=feed81';

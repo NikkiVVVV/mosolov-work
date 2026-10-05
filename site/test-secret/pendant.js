@@ -7,8 +7,8 @@ import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=80';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
-import { PendantEntrance } from './pendant-entrance.js?v=76';
-import { PendantCharacter } from './pendant-character.js?v=55';
+import { PendantEntrance } from './pendant-entrance.js?v=90';
+import { PendantCharacter } from './pendant-character.js?v=90';
 
 class Pendant {
   constructor(block) {
@@ -23,16 +23,20 @@ class Pendant {
     this.arrival={offset:0,velocity:0}; this.elapsed=0;
     this.visible = true; this.paused = false; this.ready = false; this.frame = 0;
     this.intro=new PendantEntrance(this);
-    try { this.init(); } catch (error) { this.fallback('3D недоступно — показан статичный вариант.'); console.warn('Pendant unavailable:', error); }
+    try { this.init(); } catch (error) { this.fallback('3D недоступно. Портфолио доступно ниже.'); console.warn('Pendant unavailable:', error); }
   }
   fallback(message) {
     this.failed = true; this.resizeObserver?.disconnect(); this.intersection?.disconnect();
     if(this.orientation)this.disableTilt();
     cancelAnimationFrame(this.frame); this.frame = 0; this.ready = false;
-    this.host.dataset.ready = 'false'; this.overlay?.layer.remove(); this.renderer?.domElement.remove(); this.renderer?.dispose();
+    this.host.dataset.ready = 'false';
     for (const b of this.tools.querySelectorAll('button')) b.disabled = true;
     this.note.textContent = message;
     this.intro?.finish();
+    this.overlay?.layer.remove(); this.renderer?.domElement.remove(); this.renderer?.dispose();
+    // Without WebGL show the portfolio directly, with no stale image or empty device slot.
+    this.block.hidden = true;
+    document.dispatchEvent(new CustomEvent('portfolio:pendant-unavailable'));
   }
   init() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
@@ -78,10 +82,11 @@ class Pendant {
     lining.position.z = .04; this.body.add(lining);
     this.lining=lining;this.darkLining=black;this.lightLining=new THREE.MeshBasicMaterial({color:0xd9dad3});
     this.character=new PendantCharacter(this.body,()=>{
+      if(this.failed)return;
       this.ready=true;this.host.dataset.ready='true';
       if(!this.intro.active&&!this.reduced.matches){this.arrival.offset=8;this.state.angle=.12;this.motion.twist.angle=-.15;}
       this.overlay.layer.style.visibility='';this.wake();
-    },()=>this.fallback('Не удалось загрузить персонажа — показан статичный вариант.'));
+    },()=>this.fallback('Не удалось загрузить персонажа. Портфолио доступно ниже.'));
     const eye = new THREE.Mesh(new THREE.TorusGeometry(.13,.055,8,24), graphite);
     eye.position.set(0,1.64,-.08); this.body.add(eye);this.attachmentEye=eye;
     const cordCanvas = document.createElement('canvas'); cordCanvas.width=32; cordCanvas.height=128;
@@ -112,7 +117,7 @@ class Pendant {
     this.host.addEventListener('focusin',()=>this.wake());
     document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;}else this.wake();});
     this.reduced.addEventListener('change',()=>this.reset());
-    canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.fallback('3D приостановлено — показан статичный вариант. Обнови страницу, чтобы повторить.');});
+    canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.fallback('3D приостановлено. Обнови страницу, чтобы повторить.');});
     this.wake();
   }
   applyTheme(){

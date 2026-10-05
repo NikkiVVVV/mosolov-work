@@ -13,7 +13,7 @@ export class PendantEntrance {
     const appReady=document.documentElement.dataset.appReady==='true'?Promise.resolve():new Promise(resolve=>document.addEventListener('portfolio:ready',resolve,{once:true}));
     appReady.then(async()=>{
       await document.fonts.ready;
-      await Promise.all([...document.querySelectorAll('.layout img:not(.pendant-poster)')].map(img=>img.decode?.().catch(()=>{})));
+      await Promise.all([...document.querySelectorAll('.layout img:not([loading=lazy])')].map(img=>img.decode?.().catch(()=>{})));
       this.pageProgress=1;this.pageReady=true;pendant.wake();
     });
     this.watchdog=setTimeout(()=>this.finish(),11000);
