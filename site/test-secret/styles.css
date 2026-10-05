@@ -435,6 +435,6 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  .mobile-menu #mobile-menu-toggle{-webkit-backdrop-filter:none;backdrop-filter:none}
  .mobile-menu button,.mobile-menu a{transition:background-color 240ms ease,color 240ms ease,border-color 240ms ease}
  #mobile-menu-backdrop{transition:opacity 280ms ease,visibility 280ms,background-color 240ms ease}
- .menu-mayonez-image{display:block;width:20px;height:20px;overflow:hidden;border-radius:4px;flex:none}
- .mobile-menu .menu-mayonez-image img{display:block;width:100%;height:100%;border-radius:0;object-fit:cover;transform:scale(1.4);transform-origin:50% 65%}
+ .menu-mayonez-icon{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#ef654a;flex:none}
+ .menu-mayonez-icon::after{content:"";width:8px;height:8px;border-radius:50%;background:#f8cf58}
 }
