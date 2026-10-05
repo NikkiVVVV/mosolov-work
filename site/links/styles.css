@@ -25,8 +25,9 @@ h1{font:400 48px/56px Werkzeug,'IBM Plex Sans',sans-serif;font-variation-setting
 .submit-search:disabled{display:none}
 .submit-search svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .clear-search{border:0;background:transparent;color:#aaa;font-size:24px;line-height:1;width:24px;height:32px}
-.filters{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
-.filter-button{padding:8px 16px;min-height:36px;border:0;border-radius:4px;background:transparent;color:var(--muted);font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
+.filters{display:flex;width:100%;gap:8px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:16px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter-button{flex:1 0 0;min-width:max-content;padding:12px 16px;min-height:44px;white-space:nowrap;border:0;border-radius:4px;background:transparent;color:var(--muted);font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
 .filter-button:hover,.filter-button[aria-pressed=true]{background:var(--subtle);color:var(--ink)}
 .table-wrap{border:1px solid var(--line);border-radius:12px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#515456 transparent}
 .table-wrap:focus-visible{outline:2px solid var(--muted);outline-offset:4px}
@@ -88,8 +89,6 @@ tbody tr:hover{background:#1e2021}
  h1{font-size:36px;line-height:44px;letter-spacing:-1px;margin-bottom:32px}
  .search-form{gap:8px;padding-left:16px}
  .search-spark{width:16px;height:16px}
- .filters{gap:0}
- .filter-button{padding:8px}
  th,td{padding:12px 8px;font-size:16px;line-height:24px}
  .site-column{width:176px}
  .category-column{width:136px}
