@@ -1,3 +1,4 @@
+import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=71';
 import { createProjectMasonry } from './project-masonry.js?v=81';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
@@ -282,6 +283,7 @@ const profile=document.querySelector('.profile');
 const syncProfileHeight=createProfileFit(profile,mobileLayout);
 mobileLayout.addEventListener('change',placeResponsiveControls);
 placeResponsiveControls();
+createMobileHeader(document.querySelector('.mobile-topbar'),mobileLayout);
 
 document.documentElement.dataset.appReady='true';
 document.dispatchEvent(new Event('portfolio:ready'));

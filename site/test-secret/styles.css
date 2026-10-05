@@ -85,7 +85,7 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
 .theme-switch svg{width:20px;height:20px}
 .mobile-topbar{display:none}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
-  .mobile-topbar{position:absolute;z-index:45;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;width:calc(100% - 40px);max-width:390px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+  .mobile-topbar{position:fixed;z-index:45;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;width:calc(100% - 40px);max-width:390px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
   .mobile-topbar .mobile-theme-slot{margin:0;justify-content:flex-start}
   .mobile-topbar .theme-switch button{width:36px;height:36px;padding:8px}
   .mobile-topbar .contact-button{min-height:36px;height:36px;padding:8px 20px;font-size:12px;line-height:20px}
@@ -147,12 +147,12 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
 .theme-switch button:hover{color:var(--ink)}
 .theme-switch #theme-toggle,.theme-switch #language-toggle{padding-left:0;justify-items:start}
 #theme-toggle svg{position:absolute;transition:opacity 180ms,transform 240ms}
-#theme-toggle svg{left:-2px}
+#theme-toggle svg{left:-2px;top:50%;margin-top:-10px}
 .theme-sun{opacity:0;transform:rotate(-40deg) scale(.6)}
 .theme-moon{opacity:1;transform:rotate(0) scale(1)}
 html[data-theme=dark] .theme-sun{opacity:1;transform:rotate(0) scale(1)}
 html[data-theme=dark] .theme-moon{opacity:0;transform:rotate(40deg) scale(.6)}
-#language-toggle span{transform:translateY(-2px)}
+#language-toggle span{transform:none}
 #language-toggle{font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
 @media(prefers-reduced-motion:reduce){#theme-toggle svg{transition:none}}
 
@@ -243,7 +243,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 /* A short desktop view compacts spacing and lifts the sticky profile on expansion. */
 @media(min-width:641px){
  .profile{overflow-anchor:none;--profile-lift:0px;--profile-compression:0;min-height:calc(100svh - 92px + var(--profile-lift));transform:translateY(calc(-28px - var(--profile-lift)));gap:calc(24px - 12px * var(--profile-compression));transition:transform 360ms ease,min-height 360ms ease,gap 360ms ease}
- .profile[data-scroll]{position:relative;top:auto}
+ .profile[data-scroll]{max-height:calc(100svh - 92px);overflow-y:auto;scrollbar-width:thin}
  .profile>.theme-switch{position:static;left:auto;bottom:auto;align-self:flex-start;margin-top:auto;flex-shrink:0}
  .profile .pendant{height:calc(310px - 60px * var(--profile-compression));transition:height 360ms ease}
  .profile .current-projects ul,.profile .profile-links,.profile .workplaces ol{gap:calc(12px - 4px * var(--profile-compression));transition:gap 360ms ease}
@@ -290,3 +290,18 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 .space-onboarding.visible .space-hint-hand{animation:token-swipe 1.2s ease-in-out 2}
 @keyframes token-swipe{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
 @media(prefers-reduced-motion:reduce){.space-onboarding{transition:none}.space-onboarding.visible .space-hint-hand{animation:none}}
+
+/* v89: desktop profile is anchored to the viewport, not the end of the feed. */
+@media(min-width:641px){
+ .profile{position:fixed;left:max(20px,calc((100vw - var(--content))/2));width:240px;top:96px}
+ .portfolio{grid-column:2}
+}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .profile{position:static;left:auto;width:100%}
+ .profile[data-scroll]{max-height:none;overflow:visible}
+ .mobile-topbar{isolation:isolate;transition:transform 220ms ease,opacity 220ms ease}
+ .mobile-topbar::before{content:'';position:absolute;z-index:-1;left:50%;top:calc(-16px - env(safe-area-inset-top,0px));bottom:-12px;width:100vw;transform:translateX(-50%);background:var(--surface);opacity:0;transition:opacity 180ms}
+ .mobile-topbar[data-scrolled=true]::before{opacity:1}
+ .mobile-topbar[data-scroll-hidden=true]{transform:translateY(calc(-100% - 32px - env(safe-area-inset-top,0px)));opacity:0;pointer-events:none}
+}
+.resume-download .resume-download-icon{width:20px;height:20px;flex:none;fill:currentColor;stroke:none}
