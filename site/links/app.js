@@ -1,6 +1,6 @@
 import { initSearchMotion } from './search-motion.js';
 import { siteMonogram } from './site-icon.js';
-import { mergeResults } from './search-results.js';
+import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js';
 
 const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');
@@ -97,11 +97,11 @@ function searchScore(item, query) {
 
 function filteredItems() {
   const selected = state.items.filter(item => matchesFilter(item));
-  if (!state.query) return selected;
+  if (!state.query) return selected.sort(compareSiteNames);
   return selected
     .map((item, index) => ({ item, index, score: searchScore(item, state.query) }))
     .filter(result => result.score > 0)
-    .sort((left, right) => right.score - left.score || left.index - right.index)
+    .sort((left, right) => right.score - left.score || compareSiteNames(left.item, right.item) || left.index - right.index)
     .map(result => result.item);
 }
 
@@ -158,6 +158,11 @@ function cancelPendingSearch() {
 }
 
 async function answerQuery(query, answer, history, keyword) {
+  if (!state.aiEnabled) {
+    answer.setAttribute('aria-busy', 'false');
+    showAnswer(answer, keywordSearchMessage(keyword.length), keyword);
+    return;
+  }
   const controller = new AbortController();
   const job = {controller, answer, keyword};
   pendingSearch = job;
@@ -183,8 +188,6 @@ async function answerQuery(query, answer, history, keyword) {
       const items = mergeResults(semantic, keyword);
       showAnswer(answer, data.message, items, {sources: `По словам: ${keyword.length} · По смыслу: ${semantic.length} · Без повторов: ${items.length}`});
       if (data.intent !== 'offtopic') state.history = [...history, query].slice(-4);
-    } else {
-      showAnswer(answer, keyword.length ? `Нашёл ${keyword.length} по словам. В этой версии AI пока не подключён.` : 'По словам ничего не нашёл. Попробуй «градиенты», «портфолио» или название сайта. В этой версии AI пока не подключён.', keyword);
     }
   } catch (error) {
     if (pendingSearch !== job) return;
