@@ -78,7 +78,7 @@ html[data-theme=dark] .pendant-config{--config-surface:#2b2e31;--config-secondar
 .loader-device{position:absolute;left:19%;top:53.2%;width:33.8%;height:19%}
 .loader-screen{position:absolute;left:21.8%;top:54.6%;width:28.2%;height:16.1%;z-index:3;display:grid;place-items:center;overflow:hidden;border-radius:24%;background:#050607;box-shadow:inset 0 0 2px #000;transition:background 350ms ease}
 .loader-screen-content{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;transition:opacity 350ms ease}
-.site-loader[data-boot=on] .loader-screen{background:#101214}
+.site-loader[data-boot=on] .loader-screen{background:#24292f;box-shadow:inset 0 0 12px #a9c9ed18,0 0 10px #c8dfff14;color:#fff}
 .site-loader[data-boot=on] .loader-screen-content{opacity:1}
 .loader-brand{font:400 clamp(6px,min(2vw,1.1svh),11px)/1.2 monospace;letter-spacing:.02em;white-space:nowrap}
 .loader-progress{display:flex;gap:2px}

@@ -1,5 +1,5 @@
 import { landingImpulse } from './pendant-motion.js?v=67';
-import {entranceFrame,bootFrame} from './entrance-motion.js?v=68';
+import {entranceFrame,bootFrame} from './entrance-motion.js?v=76';
 
 export class PendantEntrance {
   constructor(pendant){
@@ -48,7 +48,7 @@ export class PendantEntrance {
     this.el.dataset.boot=boot.powered?'on':'off';
     if(this.boxLayoutDirty)this.renderDevice();
     const targets=[this.fontProgress,(p.character.loaded||0)/p.character.totalTextures,this.pageProgress];
-    targets.forEach((target,i)=>{this.displayed[i]=Math.min(target,this.displayed[i]+(boot.progressing?dt*.8:0));});
+    targets.forEach((target,i)=>{this.displayed[i]=Math.min(target,this.displayed[i]+(boot.progressing?dt*(reduced?.8:.6):0));});
     const progress=this.displayed.reduce((sum,x)=>sum+x,0)/3;
     const bar=this.el.querySelector('.loader-progress');
     bar.setAttribute('aria-valuenow',String(Math.round(progress*100)));
