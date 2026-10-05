@@ -1,19 +1,25 @@
 import { createMobileHeader } from './mobile-header.js?v=89';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=121';
+import { createProjectBento } from './project-bento.js?v=122';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed121';
+import { projects } from './projects.js?v=feed122';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed121';
+import { englishProjects } from './locale.js?v=feed122';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed121';
+import { createProjectVideos } from './project-videos.js?v=feed122';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
 bindAnalytics();
-document.querySelector('#back-to-top').addEventListener('click',()=>{
-  const heading=document.querySelector('.profile-heading h1');
-  heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});
+document.querySelector('#back-to-top').addEventListener('click',event=>{
+  if(event.detail===0){
+    // Keyboard/assistive activation moves focus; pointer activation only scrolls.
+    const heading=document.querySelector('.profile-heading h1');
+    heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});
+    heading.addEventListener('blur',()=>heading.removeAttribute('tabindex'),{once:true});
+  }else{
+    event.currentTarget.blur();
+  }
   window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
 });
 
