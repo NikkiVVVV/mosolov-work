@@ -153,6 +153,8 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
 html[data-theme=dark] .theme-sun{opacity:1;transform:rotate(0) scale(1)}
 html[data-theme=dark] .theme-moon{opacity:0;transform:rotate(40deg) scale(.6)}
 #language-toggle span{transform:none}
+/* Let the 24px text line center inside the button instead of overflowing its 20px padded content box. */
+.theme-switch #language-toggle{padding-block:0}
 #language-toggle{font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
 @media(prefers-reduced-motion:reduce){#theme-toggle svg{transition:none}}
 
