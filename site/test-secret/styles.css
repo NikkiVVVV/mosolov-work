@@ -6,7 +6,7 @@
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.layout{max-width:390px;display:flex;flex-direction:column;gap:40px;margin-top:32px}.profile{position:static;width:100%}.profile>p{max-width:300px}.identity{flex-direction:row;align-items:center;gap:16px}.avatar{width:64px;height:72px}.contacts{flex-direction:row;gap:16px;align-items:center}.portfolio{width:100%}.toolbar{gap:12px;margin-bottom:24px}.filters{width:100%}.filters button{padding:12px 8px}.grid{grid-template-columns:1fr;gap:32px}.project-cover{height:244px;aspect-ratio:auto}.sphere-stage{aspect-ratio:1;min-height:300px}.sphere-footer{padding-top:8px}}
 #sphere-items{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}.sphere-item{left:50%;top:50%;backface-visibility:visible}
 .filters{max-width:100%;min-width:0;overflow-x:auto;scrollbar-width:none}
-@media(max-width:360px){.filters button{padding:12px 4px;font-size:16px}.filters{gap:2px}}
+@media(max-width:360px){.filters button{padding:8px 4px;font-size:16px}.filters{gap:2px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 /* Concave gallery: crop the continuous surface, with no globe silhouette. */
@@ -32,11 +32,11 @@
 .theme-switch svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .is-loading .theme-switch{visibility:hidden}
 .filters{background:none;padding:0;gap:4px;border:0;border-radius:0;overflow-y:hidden}
-.filters button{background:var(--subtle);border:0;border-radius:4px;position:relative;padding:12px;min-height:44px;margin:0;font-family:Werkzeug,monospace;font-variation-settings:'wdth' 1000;font-size:16px;line-height:20px;color:var(--muted)}
+.filters button{background:var(--subtle);border:0;border-radius:4px;position:relative;padding:8px 16px;min-height:36px;margin:0;font-family:Werkzeug,monospace;font-variation-settings:'wdth' 1000;font-size:16px;line-height:20px;color:var(--muted)}
 .filters button[aria-selected=true]{background:#101111;color:#fff}
 @media(min-width:641px){.profile{top:96px;transform:translateY(-28px)}}
-@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.profile{margin-top:-28px}.filters{flex:0 1 auto;width:max-content}.filters button{padding:12px;font-size:16px}.theme-switch{left:max(20px,calc((100vw - 390px)/2));bottom:calc(16px + env(safe-area-inset-bottom,0px))}.layout{margin-bottom:104px}}
-@media(max-width:380px){.filters button{padding:12px 4px;font-size:16px}}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.profile{margin-top:-28px}.filters{flex:0 1 auto;width:max-content}.filters button{padding:8px 12px;font-size:16px}.theme-switch{left:max(20px,calc((100vw - 390px)/2));bottom:calc(16px + env(safe-area-inset-bottom,0px))}.layout{margin-bottom:104px}}
+@media(max-width:380px){.filters button{padding:8px 4px;font-size:16px}}
 
 .project-caption{display:flex;flex-direction:column;gap:4px;width:100%}
 .project-title{font:16px/24px Werkzeug,monospace;color:var(--ink)}
@@ -53,15 +53,15 @@ html[data-theme-wave=active]::view-transition-new(root){clip-path:circle(0 at va
 .project-date{flex:none;font:10px/16px Werkzeug,monospace;color:var(--muted);background:var(--subtle);padding:4px 8px;border-radius:4px}
 .project-description{font-family:Werkzeug,monospace;font-size:16px;line-height:18px;margin-top:0}
 .project-title,.project-date,.project-description{font-variation-settings:'wdth' 1000}
-.contact-button{flex:none;border:0;border-radius:4px;padding:12px;min-height:44px;background:#101111;color:#fff;font:16px/24px Werkzeug,monospace;font-variation-settings:'wdth' 1000;white-space:nowrap;margin-left:auto}
+.contact-button{flex:none;border:0;border-radius:4px;padding:8px 20px;min-height:36px;background:#101111;color:#fff;font:16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000;white-space:nowrap;margin-left:auto}
 html[data-theme=dark] .contact-button{background:#f5f5f3;color:#101111}
 .contact-links{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
 .toolbar{flex-wrap:nowrap}.toolbar .filters{flex:0 1 auto;width:auto;min-width:0;overflow-x:auto}.toolbar .filters button{flex:none}
 .identity:has(.pendant-block)>div:last-child{margin-top:-12px}
-.contact-button{padding:12px 16px}
+.contact-button{padding:8px 20px}
 .filters{position:relative;isolation:isolate;--tab-x:0px;--tab-width:44px;--tab-fill:var(--subtle);scrollbar-width:none}
 .filters::-webkit-scrollbar{display:none}
-.filters:before{content:'';position:absolute;left:0;top:0;height:44px;width:var(--tab-width);transform:translateX(var(--tab-x));background:var(--tab-fill);border-radius:4px;pointer-events:none;transition:transform 240ms var(--ease),width 240ms var(--ease),background 180ms}
+.filters:before{content:'';position:absolute;left:0;top:0;height:36px;width:var(--tab-width);transform:translateX(var(--tab-x));background:var(--tab-fill);border-radius:4px;pointer-events:none;transition:transform 240ms var(--ease),width 240ms var(--ease),background 180ms}
 .filters button,.filters button[aria-selected=true]{background:transparent;border:0;color:var(--muted);transition:color 180ms}
 .filters button[aria-selected=true]{color:#101111}
 html[data-theme=dark] .filters button[aria-selected=true]{color:#fff}
@@ -88,7 +88,7 @@ html[data-theme=dark] .theme-switch button[aria-pressed=true]{color:#fff}
   .mobile-topbar{position:absolute;z-index:45;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;width:calc(100% - 40px);max-width:390px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
   .mobile-topbar .mobile-theme-slot{margin:0;justify-content:flex-start}
   .mobile-topbar .theme-switch button{width:36px;height:36px;padding:8px}
-  .mobile-topbar .contact-button{min-height:36px;height:36px;padding:8px 16px;font-size:12px;line-height:20px}
+  .mobile-topbar .contact-button{min-height:36px;height:36px;padding:8px 20px;font-size:12px;line-height:20px}
   .is-loading .mobile-topbar{visibility:hidden}
   .layout{margin-top:48px}
   .profile{text-align:left;align-items:stretch;transform:none}
@@ -198,7 +198,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
   html[data-theme=dark] .experience summary{color:#fff}
   .toolbar{width:100%;justify-content:flex-start}
   .toolbar .filters{flex:1 1 100%;width:100%}
-  .toolbar .filters button{flex:1 0 auto;padding-inline:4px}
+  .toolbar .filters button{flex:1 0 auto;padding-inline:8px}
   .experience .workplaces{text-align:left}
   .project-link{opacity:1;transform:none}
 }
@@ -219,7 +219,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 @keyframes resume-icon-cycle{0%{opacity:0;transform:translateY(3px)}4%,29%{opacity:1;transform:translateY(0)}33%,100%{opacity:0;transform:translateY(-3px)}}
 @media(prefers-reduced-motion:reduce){.experience[open] .resume-app-icon{animation:none}.resume-app-icon{display:none}.icon-codex{display:block;opacity:1}}
 
-@media(max-width:360px){.toolbar .filters{gap:0}}
+@media(max-width:360px){.toolbar .filters{gap:0}.toolbar .filters button{padding-inline:4px}}
 
 /* Mobile identity returns to the full content width while the intro is hidden. */
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
@@ -230,7 +230,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 
 /* The last card is playable in every filter. */
 .profile-heading h1{font-size:20px;line-height:28px}
-.profile-heading p{font-size:14px;line-height:20px}
+.profile-heading p{font-size:16px;line-height:20px}
 .mobile-copy-break{display:none}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){.mobile-copy-break{display:initial}}
 .project-cover.space-game-cover,.project-card:hover .space-game-cover{transform:none;background:var(--subtle);overflow:hidden}

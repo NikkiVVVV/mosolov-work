@@ -148,10 +148,8 @@ class Pendant {
       if(mobile){
         const bottom=new THREE.Vector3(0,-1.72,.1).project(this.camera);
         shiftY=height-16-(.5-bottom.y*.5)*height;
-      }else{
-        const edge=new THREE.Vector3(-1.54,-.1,.1).project(this.camera);
-        shiftX=-(edge.x*.5+.5)*width;
       }
+      // Desktop stays centred on the profile anchor, independent of shell size.
     }
     this.camera.setViewOffset(width,height,-left-shiftX,-top-shiftY,view.width,view.height);
     if(schedule)this.wake();
