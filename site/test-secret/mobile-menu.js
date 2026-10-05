@@ -13,8 +13,8 @@ export function createMobileMenu(root,mobile){
   toggle.querySelector('span').textContent=open?(en()?'Close':'Закрыть'):(en()?'Menu':'Меню');
   root.setAttribute('aria-label',en()?'Mobile navigation':'Мобильная навигация');
   root.querySelector('[data-menu-bookmarks] span').textContent=en()?'Favorites':'Избранное';
-  root.querySelector('[data-menu-email] span').textContent=en()?'Email':'Почта';
-  root.querySelector('[data-menu-mayonez] span').textContent=en()?'Mayonez':'Майонез';
+  root.querySelector('[data-menu-skin] span').textContent=en()?'Change skin':'Изменить скин';
+  root.querySelector('[data-menu-mayonez] > span:last-child').textContent=en()?'Mayonez':'Майонез';
   root.querySelector('[data-menu-channel] span').textContent=en()?'Telegram channel':'ТГ-канал';
   theme.querySelector('span').textContent=document.documentElement.dataset.theme==='dark'?(en()?'Light theme':'Светлая тема'):(en()?'Dark theme':'Тёмная тема');
   const icon=document.querySelector(document.documentElement.dataset.theme==='dark'?'.theme-sun':'.theme-moon').cloneNode(true);
@@ -36,6 +36,11 @@ export function createMobileMenu(root,mobile){
  document.addEventListener('focusin',event=>{if(open&&!root.contains(event.target))setOpen(false);});
  theme.addEventListener('click',()=>document.querySelector('#theme-toggle').click());
  language.addEventListener('click',()=>document.querySelector('#language-toggle').click());
+ root.querySelector('[data-menu-skin]').addEventListener('click',()=>{
+  setOpen(false);
+  const action=document.querySelector('[data-action="zoom"]');
+  action?.click();
+ });
  root.addEventListener('click',event=>{
   const action=event.target.closest('a,#open-contact');
   if(!action)return;
@@ -48,8 +53,10 @@ export function createMobileMenu(root,mobile){
   const y=Math.max(0,Math.min(scrollY,document.documentElement.scrollHeight-innerHeight));
   const state=headerScrollState(anchor,y,hidden);anchor=state.anchor;hidden=state.hidden;
   if(open||root.querySelector(':focus-visible')||header.querySelector(':focus-visible'))hidden=false;
-  root.dataset.scrollHidden=String(hidden);root.inert=hidden;
-  header.dataset.scrollHidden=String(hidden);header.dataset.scrolled=String(y>8);header.inert=hidden;
+  const next=String(hidden),scrolled=String(y>8);
+  if(root.dataset.scrollHidden!==next){root.dataset.scrollHidden=next;root.inert=hidden;}
+  if(header.dataset.scrollHidden!==next){header.dataset.scrollHidden=next;header.inert=hidden;}
+  if(header.dataset.scrolled!==scrolled)header.dataset.scrolled=scrolled;
  }
  function schedule(){if(!frame)frame=requestAnimationFrame(sync);}
  window.addEventListener('scroll',schedule,{passive:true});

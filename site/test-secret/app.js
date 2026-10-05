@@ -1,12 +1,12 @@
-import { createMobileMenu } from './mobile-menu.js?v=130';
+import { createMobileMenu } from './mobile-menu.js?v=132';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=130';
+import { createProjectBento } from './project-bento.js?v=132';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed130';
+import { projects } from './projects.js?v=feed132';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed130';
+import { englishProjects } from './locale.js?v=feed132';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed130';
+import { createProjectVideos } from './project-videos.js?v=feed132';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -218,7 +218,7 @@ themeButton.addEventListener('click',async()=>{
   track('theme_change',{theme:next});
   const sequence=++themeSequence;
   themeTransition?.skipTransition();
-  if(!document.startViewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches){applyTheme(next);return;}
+  if(document.querySelector('.mobile-menu')?.dataset.open==='true'||!document.startViewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches){applyTheme(next);return;}
   const r=button.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
   const radius=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
   const root=document.documentElement;
