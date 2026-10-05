@@ -172,7 +172,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .experience summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:4px}
 .experience summary svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform 180ms}
 .experience[open] summary svg{transform:rotate(180deg)}
-.experience .workplaces{display:block;padding-top:12px}
+.experience .workplaces{display:block;padding-top:20px}
 .experience .current-projects{padding-top:20px}
 .experience summary svg{flex-shrink:0}
 
@@ -247,7 +247,7 @@ html[data-theme=dark] .current-project-link{color:#fff}
  .profile>.theme-switch{position:static;left:auto;bottom:auto;align-self:flex-start;margin-top:auto;flex-shrink:0}
  .profile .pendant{height:calc(310px - 60px * var(--profile-compression));transition:height 360ms ease}
  .profile .current-projects ul,.profile .profile-links,.profile .workplaces ol{gap:calc(12px - 4px * var(--profile-compression));transition:gap 360ms ease}
- .profile .experience .workplaces{padding-top:calc(12px - 4px * var(--profile-compression));transition:padding-top 360ms ease}
+ .profile .experience .workplaces,.profile .experience .current-projects{padding-top:calc(20px - 4px * var(--profile-compression));transition:padding-top 360ms ease}
  .profile .resume-downloads{margin-top:calc(20px - 8px * var(--profile-compression));transition:margin-top 360ms ease}
  .profile .resume-download{min-height:36px;padding-block:calc(8px - 2px * var(--profile-compression));transition:padding 360ms ease}
  .profile-measure,.profile-measure *{transition:none!important}
@@ -261,3 +261,5 @@ html[data-theme=dark] .current-project-link{color:#fff}
 .current-work-link{color:var(--ink);text-decoration:none}
 .current-work-link:hover{opacity:.65}
 .current-work-link:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+
+#experience-title{font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000}
