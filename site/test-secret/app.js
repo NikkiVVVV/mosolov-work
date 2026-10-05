@@ -2,7 +2,7 @@ import { createProfileFit } from './profile-fit.js?v=71';
 import { createProjectMasonry } from './project-masonry.js?v=81';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
 import { projects } from './projects.js?v=feed81';
-import { createSpaceGame } from './space-game.js?v=84';
+import { createSpaceGame } from './space-game.js?v=86';
 import { englishProjects } from './locale.js?v=feed44';
 import { features } from './features.js';
 import { createProjectVideos } from './project-videos.js?v=feed73';

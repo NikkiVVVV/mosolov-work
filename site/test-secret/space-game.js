@@ -1,10 +1,11 @@
 // Bounded Canvas2D, no textures or engine. Pauses when hidden/offscreen.
+import { createGameVisibility } from './game-visibility.js?v=85';
 import { createGameResult } from './game-result.js?v=84';
 import { track } from './portfolio-analytics.js?v=63';
 import { createTokens, strikeTokens, roundOutcome, TOKEN_COLUMNS } from './token-game-model.js?v=82';
 export function createSpaceGame(){
  const root=document.createElement('div');root.className='space-game';
- root.innerHTML='<canvas tabindex="0"></canvas><div class="space-score"><span class="space-score-label">TOKENS</span><span class="space-score-value">0</span></div><div class="space-message"><span>YOU LOSE</span></div><span class="sr-only" role="status" aria-live="polite"></span>';
+ root.innerHTML='<canvas tabindex="0"></canvas><div class="space-score"><span class="space-score-label">TOKENS</span><span class="space-score-value">0</span></div><div class="space-onboarding" aria-hidden="true"><svg viewBox="0 0 88 48" fill="none"><g class="space-hint-arrows"><path d="M20 16H4m0 0 6-6M4 16l6 6m58-6h16m0 0-6-6m6 6-6 6"/></g><g class="space-hint-hand"><path d="M36 29V9a4 4 0 0 1 8 0v15-6a4 4 0 0 1 8 0v7-3a4 4 0 0 1 8 0v10c0 8-5 12-12 12h-4c-4 0-7-2-9-5l-9-12a4 4 0 0 1 6-5l4 7Z"/></g></svg><span>Двигай влево-вправо</span></div><div class="space-message"><span>YOU LOSE</span></div><span class="sr-only" role="status" aria-live="polite"></span>';
  const canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');
  const scoreEl=root.querySelector('.space-score-value'),label=root.querySelector('.space-score-label'),message=root.querySelector('.space-message'),status=root.querySelector('[role=status]');
  let width=320,height=420,ship=.5,target=.5,score=0,bullets=[],tokens=[],particles=[],popups=[];
@@ -13,6 +14,10 @@ export function createSpaceGame(){
  const blues=['',null,'#174e79','#087dcb','#169fff'];
  const shipPixels=['0001000','0011100','0011100','1111111','1101011'];
  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ const mobile=matchMedia('(max-width:640px), (hover:none) and (pointer:coarse)');
+ const hint=root.querySelector('.space-onboarding');
+ let hintTimer,pointer=null;
+ function hideHint(){clearTimeout(hintTimer);hint.classList.remove('visible');}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const result=createGameResult(message,{reducedMotion:reduced});
  function colors(){const css=getComputedStyle(root);ink=css.color;gray=css.getPropertyValue('--token-gray').trim()||'#3b3d3e';}
@@ -43,7 +48,7 @@ export function createSpaceGame(){
  }
  function stop(){running=false;root.dataset.running='false';cancelAnimationFrame(frame);frame=0;last=0;}
  function finish(outcome){
-   stop();finished=true;roundStarted=false;bullets=[];particles=[];popups=[];
+   stop();hideHint();finished=true;roundStarted=false;bullets=[];particles=[];popups=[];
    track('game_over',{score,game:'tokens'});
    result.show(outcome);root.dataset.outcome=outcome;
    status.textContent=(outcome==='lost'?'YOU LOSE. ':'ALL TOKENS CLEARED. ')+'TOKENS: '+score;draw();
@@ -78,16 +83,27 @@ export function createSpaceGame(){
  }
  function start(replay=false){if(finished){if(!replay)return;reset();}if(!running&&visible&&!document.hidden){if(!roundStarted){roundStarted=true;track('game_start',{game:'tokens'});}running=true;root.dataset.running='true';last=0;frame=requestAnimationFrame(tick);}}
  function move(e){const r=canvas.getBoundingClientRect();target=clamp((e.clientX-r.left)/r.width,14/width,1-14/width);}
- canvas.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){move(e);start();}});
- canvas.addEventListener('pointermove',move);
- canvas.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')stop();});
- canvas.addEventListener('pointerdown',e=>{move(e);canvas.setPointerCapture(e.pointerId);start(true);});
- canvas.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')stop();});
- canvas.addEventListener('pointercancel',stop);
- canvas.addEventListener('blur',stop);
- root.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();target=clamp(target+(e.key==='ArrowLeft'?-.08:.08),.05,.95);start(true);});
- document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();result.pause();}else if(visible)result.resume();});
- const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){stop();result.pause();}else if(!document.hidden)result.resume();},{threshold:.1});observer.observe(canvas);
+ canvas.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')move(e);});
+ canvas.addEventListener('pointermove',e=>{
+   if(e.pointerType==='mouse'){move(e);hideHint();return;}
+   if(!pointer||pointer.id!==e.pointerId)return;
+   const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;
+   if(!pointer.axis&&Math.max(Math.abs(dx),Math.abs(dy))>6)pointer.axis=Math.abs(dx)>Math.abs(dy)?'x':'y';
+   if(pointer.axis==='x'){move(e);hideHint();}
+ });
+ canvas.addEventListener('pointerdown',e=>{
+   pointer={id:e.pointerId,x:e.clientX,y:e.clientY,axis:null};
+   if(e.pointerType==='mouse')move(e);
+   canvas.setPointerCapture(e.pointerId);start(true);
+ });
+ canvas.addEventListener('pointerup',()=>{pointer=null;});
+ canvas.addEventListener('pointercancel',()=>{pointer=null;});
+ root.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();hideHint();target=clamp(target+(e.key==='ArrowLeft'?-.08:.08),.05,.95);start(true);});
+ const visibility=createGameVisibility({target:canvas,mobile,
+   onPause(){visible=false;stop();hideHint();result.pause();},
+   onResume(){visible=true;result.resume();start();},
+   onHint(){if(finished)return;hint.classList.add('visible');hintTimer=setTimeout(hideHint,3000);}
+ });
  const resize=new ResizeObserver(()=>{
    const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;
    const oldHeight=height;width=r.width;height=r.height;
@@ -99,10 +115,11 @@ export function createSpaceGame(){
  new MutationObserver(()=>{colors();draw();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
  function setLanguage(value){
    lang=value;label.textContent='TOKENS';
+   hint.querySelector('span').textContent=lang==='en'?'Move left and right':'Двигай влево-вправо';
    scoreEl.textContent=score.toLocaleString(lang==='en'?'en-US':'ru-RU');
    canvas.setAttribute('aria-label',lang==='en'?'Burn tokens. Move the ship with the pointer, touch or arrow keys. Gray: one hit. Blue: two to four hits. Automatic fire.':'Выбивай токены. Двигай корабль мышкой, пальцем или стрелками. Серый — одно попадание, синие — от двух до четырёх. Стрельба автоматическая.');
    root.setAttribute('aria-label',lang==='en'?'Token game':'Игра с токенами');
  }
  colors();reset();draw();setLanguage('ru');
- return {element:root,pause(){stop();result.pause();},setLanguage};
+ return {element:root,pause(){stop();hideHint();result.pause();visibility.refresh();},setLanguage};
 }
