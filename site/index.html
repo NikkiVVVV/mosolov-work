@@ -1,11 +1,145 @@
 <!doctype html>
-<html lang="ru" data-analytics-project="home" data-analytics-redirect="https://t.me/nikir_public">
+<html lang="ru" data-theme="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title></title>
-<noscript><meta http-equiv="refresh" content="0;url=https://t.me/nikir_public"></noscript>
-<script>setTimeout(()=>location.replace('https://t.me/nikir_public'),800);</script>
-<script defer src="/shared/analytics.js?v=20261002-metrika"></script>
-</head><body></body>
+  <link rel="canonical" href="https://mosolov.work/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Никита Мосолов — Design Engineer</title>
+  <script>
+    document.documentElement.classList.add('is-loading');
+    window.revealPortfolioPage=()=>{
+      const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+      for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar,.mobile-menu')){
+        element.animate([{opacity:0},{opacity:1}],{duration:reduced?0:650,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});
+      }
+    };
+    window.portfolioBootTimeout=setTimeout(()=>{document.documentElement.classList.remove('is-loading');document.querySelector('.layout')?.removeAttribute('inert');document.querySelector('.site-loader')?.remove();document.body.style.overflow='';window.revealPortfolioPage();},12000);
+  </script>
+  <style>.site-loader{display:none}.is-loading .site-loader{display:grid;position:fixed;inset:0;z-index:100;background:#171819;place-items:center}.is-loading .layout{visibility:hidden}html[data-theme=dark] .site-loader{background:#171819}</style>
+  <link rel="preload" href="assets/loading/human-inside-tray-v78-lossless.webp" as="image" fetchpriority="high">
+  <link rel="icon" href="data:,">
+  <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=141">
+  <link rel="stylesheet" href="pendant.css?v=91">
+  <script type="module" src="app.js?v=feed141"></script>
+  <script type="module" src="pendant.js?v=141"></script>
+</head>
+<body>
+  <div class="site-loader" role="status" aria-label="Загрузка портфолио" data-phase="loading">
+    <div class="loader-package" data-loader-slot>
+      <img class="loader-box" src="assets/loading/human-inside-tray-v78-lossless.webp" width="941" height="1672" alt="" fetchpriority="high" decoding="async">
+      <div class="loader-device" aria-hidden="true"></div>
+      <div class="loader-lid" aria-hidden="true"><span>HUMAN INSIDE</span></div>
+      <div class="loader-screen"><div class="loader-screen-content"><span class="loader-brand">NIKITA MOSOLOV</span><div class="loader-progress" role="progressbar" aria-label="Загрузка" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    </div>
+  </div>
+  <a class="skip-link" href="#portfolio">К работам</a>
+  <header class="mobile-topbar" aria-label="Меню и связь"><div class="mobile-theme-slot"></div><div class="mobile-contact-slot"></div></header>
+  <div id="mobile-menu-backdrop" data-open="false" aria-hidden="true"></div>
+  <nav class="mobile-menu" aria-label="Мобильная навигация" data-open="false">
+    <div id="mobile-menu-panel" aria-hidden="true" inert>
+      <div class="mobile-menu-row" style="--row:0">
+        <button type="button" data-menu-theme><span class="sr-only">Светлая тема</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
+        <button type="button" data-menu-language aria-label="Switch to English">EN</button>
+        <a data-menu-bookmarks href="https://mosolov.work/links/" target="_blank" rel="noopener"><span>Избранное</span></a>
+      </div>
+      <div class="mobile-menu-row" style="--row:1">
+        <button type="button" data-menu-skin><span>Изменить скин</span></button>
+        <a data-menu-channel href="https://t.me/nikir_public" target="_blank" rel="noopener"><img src="assets/profile/telegram-avatar-v121.jpg" width="20" height="20" alt=""><span>ТГ-канал</span></a>
+      </div>
+      <div class="mobile-menu-row" style="--row:2">
+        <a data-menu-radar href="https://idearadar.ru/" target="_blank" rel="noopener"><img src="assets/profile/idea-radar-icon-v130.svg" width="20" height="20" alt=""><span>Idea Radar</span></a>
+        <a data-menu-mayonez href="https://t.me/mayonez12_bot" target="_blank" rel="noopener"><span class="menu-mayonez-icon" aria-hidden="true"></span><span>Майонез</span></a>
+      </div>
+      <div class="mobile-menu-row" style="--row:3">
+        <a data-menu-experience href="https://idearadar.ru/experience/" target="_blank" rel="noopener"><img src="assets/profile/experience-radar-icon-v131.svg" width="20" height="20" alt=""><span>Experience Radar</span></a>
+      </div>
+    </div>
+    <button type="button" id="mobile-menu-toggle" aria-controls="mobile-menu-panel" aria-expanded="false"><span class="sr-only">Меню</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="menu-tile menu-tile-a" x="4" y="4" width="6" height="6" rx="1"/><rect class="menu-tile menu-tile-b" x="14" y="4" width="6" height="6" rx="1"/><rect class="menu-tile menu-tile-c" x="4" y="14" width="6" height="6" rx="1"/><rect class="menu-tile menu-tile-d" x="14" y="14" width="6" height="6" rx="1"/></svg></button>
+  </nav>
+  <main class="layout">
+    <aside class="profile" aria-label="Обо мне">
+      <div class="identity">
+        <div class="pendant-block" data-pendant-block>
+          <div class="pendant" data-pendant></div>
+          <div class="pendant-tools"><button data-action="nudge" title="Качнуть подвеску">Качнуть</button><button data-action="spin">Оборот</button><button data-action="zoom">Ближе</button><button data-action="tilt" aria-pressed="false">Наклон телефона</button><button data-action="reset">Сбросить</button></div>
+          <p class="pendant-note" role="status"></p>
+        </div>
+        <div class="profile-heading"><div><h1>Никита Мосолов</h1><p>Design Engineer. Создаю эмоциональные<br class="mobile-copy-break"> цифровые продукты.</p></div></div>
+      </div>
+      <div class="profile-links">
+      <details class="experience">
+        <summary><span id="experience-title">Опыт и проекты</span><span class="experience-apps" aria-hidden="true"><img class="experience-app" src="assets/profile/experience-app-1-v138.png" width="32" height="32" alt=""><img class="experience-app" src="assets/profile/experience-app-2-v138.png" width="32" height="32" alt=""><img class="experience-app" src="assets/profile/experience-app-3-v138.png" width="32" height="32" alt=""><img class="experience-app" src="assets/profile/experience-app-4-v138.png" width="32" height="32" alt=""></span></summary>
+      <section class="workplaces" aria-labelledby="workplaces-title">
+        <h2 id="workplaces-title" class="sr-only">Места работы</h2>
+        <ol>
+          <li><span id="current-avito">Авито</span><span class="current-project-team" id="current-avito-team">[Auto]</span><a class="workplace-period workplace-current current-work-link" id="current-avito-link" href="https://www.avito.ru/comtrans/top-models" target="_blank" rel="noopener noreferrer" aria-label="Перейти к проекту Авито"><i aria-hidden="true"></i>now</a></li>
+          <li><span>Сбер</span><span class="workplace-team">[Онлайн]</span><span class="workplace-period">24→25</span></li>
+          <li><span>Сбер</span><span class="workplace-team">[UserSoft]</span><span class="workplace-period">22→23</span></li>
+          <li><span>Сбер</span><span class="workplace-team">[Друг]</span><span class="workplace-period">19→23</span></li>
+        </ol>
+      </section>
+      <section class="current-projects" aria-label="Текущие проекты">
+        <ul>
+
+          <li><span id="current-mazik">Мазик</span><span class="current-project-team" id="current-mazik-type">[mini app]</span><a class="current-project-link" id="current-mazik-link" href="http://mazik.mosolov.work/" target="_blank" rel="noopener noreferrer" aria-label="Перейти в Мазик"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></li>
+          <li><span id="current-radar">Idea Radar</span><span class="current-project-team" id="current-radar-type">[service]</span><a class="current-project-link" id="current-radar-link" href="https://idearadar.ru/" target="_blank" rel="noopener noreferrer" aria-label="Перейти в idea radar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></li>
+        </ul>
+      </section>
+      <div class="resume-downloads">
+        <a class="resume-download" href="assets/resume/nikita-mosolov-resume.pdf?v=40" download="nikita-mosolov-resume.pdf"><span id="resume-pdf-label">Резюме PDF</span><svg class="resume-download-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40A8,8,0,0,0,168,96H141V32a8,8,0,0,0-16,0V96H88a8,8,0,0,0-5.66,13.66Z"/></svg></a>
+        <a class="resume-download" href="assets/resume/nikita-mosolov-resume.md?v=40" download="nikita-mosolov-resume.md"><span id="resume-md-label">Резюме MD</span><span class="resume-app-icons" aria-hidden="true"><span class="resume-app-icon icon-codex"></span><span class="resume-app-icon icon-claude"></span><span class="resume-app-icon icon-vscode"></span></span></a>
+      </div>
+      </details>
+      </div>
+    </aside>
+    <section id="portfolio" class="portfolio" aria-label="Работы">
+      <div class="toolbar">
+        <div class="filters" role="tablist" aria-label="Категория работ">
+          <button type="button" data-filter="all" role="tab" id="tab-all" aria-controls="work-panel" tabindex="0" aria-selected="true">Все</button>
+          <button type="button" data-filter="work" role="tab" id="tab-work" aria-controls="work-panel" tabindex="-1" aria-selected="false">Работа</button>
+          <button type="button" data-filter="pet" role="tab" id="tab-pet" aria-controls="work-panel" tabindex="-1" aria-selected="false">Пет-проекты</button>
+          <button type="button" data-filter="publication" role="tab" id="tab-publication" aria-controls="work-panel" tabindex="-1" aria-selected="false">Публикации</button>
+        </div>
+        <button type="button" class="contact-button" id="open-contact" aria-haspopup="dialog">Связь</button>
+        <div class="view-toggle" hidden role="group" aria-label="Режим отображения">
+          <button type="button" data-view="grid" aria-label="Сетка" title="Сетка" aria-pressed="true"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx=".7"/><rect x="12" y="3" width="5" height="5" rx=".7"/><rect x="3" y="12" width="5" height="5" rx=".7"/><rect x="12" y="12" width="5" height="5" rx=".7"/></svg></button>
+          <button type="button" data-view="sphere" aria-label="Панорама" title="Панорама" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.3"/><ellipse cx="10" cy="10" rx="3.6" ry="7.3"/><path d="M3 10h14M4.3 5.8c3.4 1.5 8 1.5 11.4 0M4.3 14.2c3.4-1.5 8-1.5 11.4 0"/></svg></button>
+        </div>
+      </div>
+      <div id="work-panel" role="tabpanel" aria-labelledby="tab-all">
+      <div class="grid" id="grid"></div>
+      <div class="sphere-panel" id="sphere-panel" hidden>
+        <div class="sphere-stage" id="sphere-stage" tabindex="0" role="group" aria-label="Вогнутая панорама работ. Перемещайте перетаскиванием или стрелками." aria-describedby="sphere-hint"><canvas id="sphere-canvas" aria-hidden="true"></canvas><div id="sphere-items"></div></div>
+        <div class="sphere-footer"><span id="sphere-hint">Потяни, чтобы осмотреться</span><button type="button" id="motion-toggle" aria-pressed="false">Пауза</button></div>
+      </div>
+      </div>
+      <p class="sr-only" id="result-status" role="status" aria-live="polite"></p>
+      <footer class="portfolio-footer">
+        <a class="footer-channel" href="https://t.me/nikir_public" target="_blank" rel="noopener noreferrer"><span class="footer-avatar" aria-hidden="true"><img src="assets/profile/telegram-avatar-v121.jpg" width="24" height="24" alt="" loading="lazy"></span><span id="footer-channel-label">Telegram-канал</span></a>
+        <button type="button" class="footer-top" id="back-to-top"><span id="footer-top-label">Наверх</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+      </footer>
+    </section>
+  </main>
+  <dialog id="project-preview" aria-labelledby="preview-title"><div class="dialog-header"><h2 id="preview-title">Работа</h2><button type="button" id="close-preview" aria-label="Закрыть">Закрыть ×</button></div><div class="preview-cover"><span id="preview-index"></span></div><p class="meta" id="preview-meta"></p><p id="preview-description"></p></dialog>
+  <dialog id="contact-dialog" aria-labelledby="contact-title">
+    <div class="contact-grabber" aria-hidden="true"><span></span></div>
+    <div class="dialog-header"><h2 id="contact-title">Связь</h2><button type="button" id="close-contact" aria-label="Закрыть контакты"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+    <nav class="contact-links" aria-label="Написать Никите">
+      <a href="mailto:nikkiuxi@gmail.com"><span class="contact-label">Email</span><span class="contact-value">nikkiuxi@gmail.com</span><svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
+      <a href="https://t.me/nikir_public" target="_blank" rel="noopener"><span class="contact-label">Telegram</span><span class="contact-value">@nikir_public</span><svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
+      <a href="https://github.com/NikkiVVVV" target="_blank" rel="noopener"><span class="contact-label">GitHub</span><span class="contact-value">NikkiVVVV</span><svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
+    </nav>
+  </dialog>
+  <div class="theme-switch" role="group" aria-label="Тема, язык и закладки">
+    <button type="button" id="theme-toggle" aria-label="Включить тёмную тему" title="Включить тёмную тему">
+      <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+      <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+    </button>
+    <button type="button" id="language-toggle" aria-label="Switch to English" title="Switch to English"><span>EN</span></button>
+    <a id="bookmarks-link" href="https://mosolov.work/links/" target="_blank" rel="noopener" aria-label="Избранные закладки — в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 3.1 5.9 6.6 1-4.8 4.6 1.2 6.5-6.1-3.1L5.9 21l1.2-6.5-4.8-4.6 6.6-1Z"/></svg></a>
+  </div>
+  <noscript><p>Для переключения режимов включите JavaScript.</p></noscript>
+</body>
 </html>

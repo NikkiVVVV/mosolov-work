@@ -1,0 +1,21 @@
+// English copy mirrors the existing Russian project content; no new claims.
+export const englishProjects = {
+  '22':{title:'Idea Radar'},
+  '21':{title:'Tea Meow',mobileDescription:'A promo video for Tea Meow, a shop for everyday teas.'},
+  '18':{title:'Equipment selection'},
+  '19':{title:'New equipment'},
+  '20':{title:'Avito Pro',mobileDescription:'Redesign of the “Contact Avito” section in the seller dashboard.'},
+  '17':{title:'Avito Rewriter — Figma plugin',description:'Avito Rewriter for Figma checks copy against the tone of voice and suggests new versions.'},
+  '16':{title:'Stop being just designers — become creators',description:'2026 · Talk at the Prosto Slozhno conference. “Stop being just designers — become creators”.'},
+  '15':{title:'Plan or burn out',description:'My “Plan or burn out” talk at the Design Dvizh conference.',meta:'Talk at Design Dvizh'},
+  '14':{title:'My home',imageAlt:'Home app in a phone mockup on a graphite background'},
+  '13':{title:'Yandex — indoor search'},
+  '12':{title:'Launching a tea shop on Ozon',imageAlt:'A cat holding a cup beside a shu pu-erh tea package',description:'Sharing the story of launching a tea shop on Ozon.',meta:'Article on vc.ru'},
+  '11':{mobileDescription:'Mayonez is a Telegram mini app for tracking your nutrition.',title:'Mayonez — Telegram bot',description:'',meta:'Telegram bot'},
+  '10': {title:'Mayonnaise'},
+  '09': {title:'Equipment leasing',description:'Equipment leasing for business.',meta:'Avito Auto · Leasing',detail:''},
+  '01': {title:'Piece by piece',description:'An exploded view of an excavator for top special-equipment models.',meta:'Avito Auto · Special equipment',detail:''},
+  '04': {imageAlt:'Employee search in a phone mockup on a soft sage-green background',title:'People search',meta:'Sber · 2019–2023',description:'',detail:'Designed key flows and microservices for Sber and ecosystem employees, covering research, product design, design reviews and implementation review.'},
+  '07': {title:'That very bag',meta:'Interactive website',description:'An ordinary bag became the star of an interactive travel album.',detail:'A personal interactive project: crumple and rotate the bag, then browse travel photos in the album.'},
+  '08': {title:'Tamagotchi',meta:'Interactive mascot',description:'A character you can touch: pull it, swing it and watch it react.',detail:'A pendant with my mascot that responds to dragging, swings and spins. Click it to open the case settings.'},
+};
