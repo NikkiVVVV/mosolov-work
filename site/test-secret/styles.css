@@ -453,15 +453,15 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  }
 }
 
-/* App logos form a compact stack and fan out when experience opens. */
-.experience summary{justify-content:space-between;gap:12px;min-height:44px}
-.experience-apps{position:relative;display:block;flex:none;width:40px;height:20px}
-.experience-app{position:absolute;top:2px;left:11px;display:block;width:16px;height:16px;object-fit:contain;transform-origin:50% 80%;transition:transform 320ms cubic-bezier(.22,1,.36,1);filter:drop-shadow(0 1px 1px #0003)}
-.experience-app:nth-child(1){transform:translateX(9px) rotate(18deg)}
-.experience-app:nth-child(2){transform:translateX(4px) rotate(7deg)}
-.experience-app:nth-child(3){transform:translateX(-1px) rotate(-4deg)}
-.experience-app:nth-child(4){transform:translateX(-6px) rotate(-15deg)}
-.experience[open] .experience-app:nth-child(1){transform:translateX(13px) rotate(24deg) scale(1.1)}
-.experience[open] .experience-app:nth-child(2){transform:translateX(5px) translateY(-1px) rotate(8deg) scale(1.1)}
-.experience[open] .experience-app:nth-child(3){transform:translateX(-4px) translateY(-1px) rotate(-8deg) scale(1.1)}
-.experience[open] .experience-app:nth-child(4){transform:translateX(-12px) rotate(-24deg) scale(1.1)}
+/* User-provided app icons: level overlapping row, centered on the label. */
+.experience summary{justify-content:space-between;align-items:center;gap:12px;min-height:44px}
+.experience-apps{position:relative;display:block;flex:none;width:64px;height:28px}
+.experience-app{position:absolute;top:0;left:0;display:block;width:28px;height:28px;object-fit:contain;transform-origin:center;transition:transform 320ms cubic-bezier(.22,1,.36,1)}
+.experience-app:nth-child(1){transform:translateX(36px)}
+.experience-app:nth-child(2){transform:translateX(24px)}
+.experience-app:nth-child(3){transform:translateX(12px)}
+.experience-app:nth-child(4){transform:translateX(0)}
+.experience[open] .experience-app:nth-child(1){transform:translateX(36px) scale(1.08)}
+.experience[open] .experience-app:nth-child(2){transform:translateX(16px) scale(1.08)}
+.experience[open] .experience-app:nth-child(3){transform:translateX(-4px) scale(1.08)}
+.experience[open] .experience-app:nth-child(4){transform:translateX(-24px) scale(1.08)}

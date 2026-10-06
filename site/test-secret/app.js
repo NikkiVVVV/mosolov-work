@@ -1,12 +1,12 @@
-import { createMobileMenu } from './mobile-menu.js?v=136';
+import { createMobileMenu } from './mobile-menu.js?v=137';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=136';
+import { createProjectBento } from './project-bento.js?v=137';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed136';
+import { projects } from './projects.js?v=feed137';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed136';
+import { englishProjects } from './locale.js?v=feed137';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed136';
+import { createProjectVideos } from './project-videos.js?v=feed137';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
