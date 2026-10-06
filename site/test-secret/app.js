@@ -1,12 +1,12 @@
-import { createMobileMenu } from './mobile-menu.js?v=140';
+import { createMobileMenu } from './mobile-menu.js?v=141';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=140';
+import { createProjectBento } from './project-bento.js?v=141';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed140';
+import { projects } from './projects.js?v=feed141';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed140';
+import { englishProjects } from './locale.js?v=feed141';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed140';
+import { createProjectVideos } from './project-videos.js?v=feed141';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -319,7 +319,7 @@ document.querySelector('.filters').addEventListener('keydown',e=>{
   e.preventDefault();tabs[i].focus();tabs[i].click();
 });
 
-// One gentle mobile hint, five seconds after the entrance has finished.
+// One gentle mobile hint, three seconds after the entrance has finished.
 {
  const experience=document.querySelector('.experience');
  let interacted=false;
@@ -329,7 +329,7 @@ document.querySelector('.filters').addEventListener('keydown',e=>{
   if(interacted||experience.open||!contactMobile()||contactReduced())return;
   experience.classList.add('experience-hint');
   setTimeout(()=>experience.classList.remove('experience-hint'),1100);
- },5000);
+ },3000);
  if(document.documentElement.classList.contains('is-loading')){
   const observer=new MutationObserver(()=>{
    if(!document.documentElement.classList.contains('is-loading')){observer.disconnect();start();}

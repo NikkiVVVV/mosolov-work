@@ -116,8 +116,6 @@ export class PendantEntrance {
         p.hitSurface.hidden=false;p.wake();
       }).catch(()=>{});
     }else if(p.hitSurface)p.hitSurface.hidden=false;
-    for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar')){
-      element.animate([{opacity:0},{opacity:1}],{duration:p.reduced.matches?0:300,easing:'ease-out'});
-    }
+    window.revealPortfolioPage?.();
   }
 }
