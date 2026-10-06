@@ -37,7 +37,7 @@ export class PendantEntrance {
     camera.setViewOffset(rect.width,rect.height,-rect.left,-rect.top,view.width,view.height);
     p.pivot.position.set(0,0,0);p.pivot.rotation.set(0,0,0);p.body.position.set(0,0,0);p.body.rotation.set(0,0,0);
     p.character.root.visible=false;
-    for(const part of [p.cord.mesh,p.cord.knot,p.cord.tail])part.visible=false;
+    for(const part of [p.cord.mesh,p.cord.knot,p.cord.tail,p.attachmentEye])part.visible=false;
     p.scene.updateMatrixWorld();p.renderer.render(p.scene,camera);this.boxLayoutDirty=false;
   }
   tick(dt,reduced){
