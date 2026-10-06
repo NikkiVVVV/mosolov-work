@@ -341,7 +341,7 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 .project-tools{display:flex;flex-direction:column;gap:var(--card-gap);min-width:0}
 .project-tools-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap);align-items:start;min-width:0}
 .project-tools .project-card{min-width:0}
-.grid [data-project-id="09"] .project-cover{aspect-ratio:16/9!important}
+.grid [data-project-id="09"] .project-cover{aspect-ratio:4/3!important}
 .grid [data-project-id="09"] .project-cover video{object-fit:cover;object-position:center}
 .grid .project-tools-pair [data-project-id="18"] .project-cover{aspect-ratio:1193/1319!important}
 .project-tools-pair [data-project-id="18"] video{object-fit:cover;transform:scale(1.8)}
@@ -400,7 +400,7 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 
 /* Mobile navigation: actions unfold downward from the top-left control. */
 .mobile-menu,#mobile-menu-backdrop{display:none}
-@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+@media all{
  .mobile-topbar{display:flex!important;min-height:36px;z-index:48;pointer-events:none;transition:transform 260ms cubic-bezier(.22,1,.36,1),opacity 200ms}
  .mobile-topbar .mobile-theme-slot{display:none}
  .mobile-topbar .mobile-contact-slot{pointer-events:auto;margin-left:auto}
@@ -429,7 +429,7 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 }
 
 /* Keep the live blur intact during a menu theme change; promote moving controls. */
-@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+@media all{
  .mobile-topbar,.mobile-menu{will-change:transform,opacity;transform:translate3d(0,0,0);transition:transform 200ms cubic-bezier(.2,.7,.3,1),opacity 160ms ease}
  .mobile-topbar[data-scroll-hidden=true],.mobile-menu[data-scroll-hidden=true]{transform:translate3d(0,calc(-100% - 32px - env(safe-area-inset-top,0px)),0)}
  .mobile-menu #mobile-menu-toggle{-webkit-backdrop-filter:none;backdrop-filter:none}
@@ -437,4 +437,18 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  #mobile-menu-backdrop{transition:opacity 280ms ease,visibility 280ms,background-color 240ms ease}
  .menu-mayonez-icon{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#ef654a;flex:none}
  .menu-mayonez-icon::after{content:"";width:8px;height:8px;border-radius:50%;background:#f8cf58}
+}
+
+/* Shared menu; desktop opens above the former theme controls. */
+.theme-switch{display:none!important}
+.experience summary{justify-content:flex-start;gap:4px}
+.experience-toggle{width:12px;height:12px;background:none;border-radius:0}
+.experience summary .experience-toggle svg{width:12px;height:12px;margin:0}
+@media not all and (max-width:640px){
+ @media (hover:hover), (min-height:641px){
+  .mobile-topbar{display:none!important}
+  .mobile-menu{left:max(20px,calc((100vw - var(--content))/2));top:auto;bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+  #mobile-menu-panel{top:auto;bottom:48px;max-width:calc(100vw - 40px)}
+  .mobile-menu-row{transform:translateY(12px) scale(.96);transform-origin:left bottom}
+ }
 }

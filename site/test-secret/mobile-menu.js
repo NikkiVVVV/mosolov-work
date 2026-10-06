@@ -11,7 +11,7 @@ export function createMobileMenu(root,mobile){
  const en=()=>document.documentElement.lang==='en';
  function labels(){
   toggle.querySelector('span').textContent=open?(en()?'Close':'Закрыть'):(en()?'Menu':'Меню');
-  root.setAttribute('aria-label',en()?'Mobile navigation':'Мобильная навигация');
+  root.setAttribute('aria-label',en()?'Navigation':'Навигация');
   root.querySelector('[data-menu-bookmarks] span').textContent=en()?'Favorites':'Избранное';
   root.querySelector('[data-menu-skin] span').textContent=en()?'Change skin':'Изменить скин';
   root.querySelector('[data-menu-mayonez] > span:last-child').textContent=en()?'Mayonez':'Майонез';
@@ -49,7 +49,7 @@ export function createMobileMenu(root,mobile){
  },true);
  function sync(){
   frame=0;
-  if(!mobile.matches){setOpen(false);root.inert=true;header.inert=false;header.removeAttribute('data-scroll-hidden');header.removeAttribute('data-scrolled');return;}
+  if(!mobile.matches){hidden=false;anchor=scrollY;root.inert=false;root.dataset.scrollHidden='false';header.inert=false;header.removeAttribute('data-scroll-hidden');header.removeAttribute('data-scrolled');return;}
   const y=Math.max(0,Math.min(scrollY,document.documentElement.scrollHeight-innerHeight));
   const state=headerScrollState(anchor,y,hidden);anchor=state.anchor;hidden=state.hidden;
   if(open||root.querySelector(':focus-visible')||header.querySelector(':focus-visible'))hidden=false;
