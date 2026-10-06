@@ -492,3 +492,12 @@ html:not([data-theme=dark]) .experience-app{box-shadow:0 2px 6px rgba(25,26,27,.
  0%,100%{transform:translateX(var(--hint-rest))}
  45%{transform:translateX(var(--hint-out)) scale(1.04)}
 }
+
+/* Preserve media geometry while images/posters load, then fade them in. */
+.project-cover.media-loading{background:var(--subtle)}
+.project-cover.media-loading::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,var(--raised) 50%,transparent 75%);opacity:.45;transform:translateX(-100%);animation:media-shimmer 1600ms ease-in-out infinite;pointer-events:none}
+.project-cover.media-loading>img,.project-cover.media-loading>video{opacity:0}
+.project-cover.media-ready>img,.project-cover.media-ready>video{opacity:1;transition:opacity 320ms ease-out}
+.project-cover.media-failed::before{animation:none;opacity:0}
+@keyframes media-shimmer{to{transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.project-cover.media-loading::before{animation:none;transform:none;opacity:.15}.project-cover.media-ready>img,.project-cover.media-ready>video{transition:none}}
