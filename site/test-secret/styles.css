@@ -474,3 +474,21 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  .experience:not([open]) summary:hover .experience-app:nth-child(4){transform:translateX(-12px) scale(1.04)}
 }
 html:not([data-theme=dark]) .experience-app{box-shadow:0 2px 6px rgba(25,26,27,.14)}
+
+@media not all and (max-width:640px){
+ @media (hover:hover), (min-height:641px){
+  .grid [data-project-id="15"] .project-cover{aspect-ratio:9/13!important}
+  .grid [data-project-id="15"] .project-cover video{object-fit:cover;object-position:center top}
+ }
+}
+.experience-app:nth-child(1){--hint-rest:36px;--hint-out:36px}
+.experience-app:nth-child(2){--hint-rest:24px;--hint-out:20px}
+.experience-app:nth-child(3){--hint-rest:12px;--hint-out:4px}
+.experience-app:nth-child(4){--hint-rest:0px;--hint-out:-12px}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .experience-hint:not([open]) .experience-app{animation:experience-nudge 1000ms cubic-bezier(.22,1,.36,1) both}
+}
+@keyframes experience-nudge{
+ 0%,100%{transform:translateX(var(--hint-rest))}
+ 45%{transform:translateX(var(--hint-out)) scale(1.04)}
+}
