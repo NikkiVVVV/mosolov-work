@@ -456,7 +456,7 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 /* User-provided app icons: level overlapping row, centered on the label. */
 .experience summary{justify-content:space-between;align-items:center;gap:12px;min-height:44px}
 .experience-apps{position:relative;display:block;flex:none;width:64px;height:28px}
-.experience-app{position:absolute;top:0;left:0;display:block;width:28px;height:28px;object-fit:contain;transform-origin:center;transition:transform 320ms cubic-bezier(.22,1,.36,1)}
+.experience-app{position:absolute;top:0;left:0;display:block;width:28px;height:28px;object-fit:contain;border:3px solid var(--surface);border-radius:8px;background:var(--surface);transform-origin:center;transition:transform 320ms cubic-bezier(.22,1,.36,1)}
 .experience-app:nth-child(1){transform:translateX(36px)}
 .experience-app:nth-child(2){transform:translateX(24px)}
 .experience-app:nth-child(3){transform:translateX(12px)}
