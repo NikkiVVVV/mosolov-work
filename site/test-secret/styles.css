@@ -452,3 +452,16 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
   .mobile-menu-row{transform:translateY(12px) scale(.96);transform-origin:left bottom}
  }
 }
+
+/* App logos form a compact stack and fan out when experience opens. */
+.experience summary{justify-content:space-between;gap:12px;min-height:44px}
+.experience-apps{position:relative;display:block;flex:none;width:80px;height:40px}
+.experience-app{position:absolute;top:4px;left:22px;display:block;width:32px;height:32px;object-fit:contain;transform-origin:50% 80%;transition:transform 320ms cubic-bezier(.22,1,.36,1);filter:drop-shadow(0 1px 1px #0003)}
+.experience-app:nth-child(1){transform:translateX(18px) rotate(18deg)}
+.experience-app:nth-child(2){transform:translateX(8px) rotate(7deg)}
+.experience-app:nth-child(3){transform:translateX(-2px) rotate(-4deg)}
+.experience-app:nth-child(4){transform:translateX(-12px) rotate(-15deg)}
+.experience[open] .experience-app:nth-child(1){transform:translateX(26px) rotate(24deg) scale(1.1)}
+.experience[open] .experience-app:nth-child(2){transform:translateX(10px) translateY(-2px) rotate(8deg) scale(1.1)}
+.experience[open] .experience-app:nth-child(3){transform:translateX(-8px) translateY(-2px) rotate(-8deg) scale(1.1)}
+.experience[open] .experience-app:nth-child(4){transform:translateX(-24px) rotate(-24deg) scale(1.1)}
