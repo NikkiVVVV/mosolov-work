@@ -477,7 +477,7 @@ html:not([data-theme=dark]) .experience-app{box-shadow:0 2px 6px rgba(25,26,27,.
 
 @media not all and (max-width:640px){
  @media (hover:hover), (min-height:641px){
-  .grid [data-project-id="15"] .project-cover{aspect-ratio:9/13!important}
+  .grid [data-project-id="15"] .project-cover{aspect-ratio:9/15!important}
   .grid [data-project-id="15"] .project-cover video{object-fit:cover;object-position:center top}
  }
 }

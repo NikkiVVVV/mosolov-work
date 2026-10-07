@@ -183,3 +183,12 @@ test('changing to mobile releases an already held shuttle endpoint',async()=>{
  assert.equal(video.currentTime,4.5);assert.equal(video.paused,false);assert.equal(video.loop,true);
  media.matches=false;fire(media,'change');assert.equal(video.loop,false);
 });
+
+test('seven-second clip holds after end and replays on new hover, including mobile',async()=>{
+ for(const mobile of [false,true]){
+ const {video,card,setVisible}=await fixture(undefined,true,{holdAtEnd:true},false,mobile);
+ assert.equal(video.loop,false);video.currentTime=7;video.ended=true;video.pause();
+ setVisible(false);setVisible(true);assert.equal(video.paused,true);assert.equal(video.currentTime,7);
+ fire(card,'pointerenter',{pointerType:'mouse'});assert.equal(video.currentTime,0);assert.equal(video.paused,false);
+ }
+});

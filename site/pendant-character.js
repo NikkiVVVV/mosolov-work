@@ -40,7 +40,7 @@ export class PendantCharacter {
             p.xy+=headShift*head;
             // Keep the portrait in front of the lining; head rotation is a 2.5D warp.
             p.z=0.;
-            p.xy*=.85;
+            p.xy*=.935;
             p.y+=.2;
             // Extend the shirt below the screen mask, including light-theme edges.
             p.y-=(1.-uv.y)*.18;
@@ -89,7 +89,7 @@ export class PendantCharacter {
               }
             }
             if(idleKind>2.5){
-              vec2 catUv=(vWindow-vec2(-.35,-2.4+idleAmount*1.35))/1.7+.5;
+              vec2 catUv=(vWindow-vec2(-.35,-2.4+idleAmount*1.35))/1.87+.5;
               if(all(greaterThanEqual(catUv,vec2(0.)))&&all(lessThanEqual(catUv,vec2(1.)))){
                 vec4 cat=texture2D(pose4,catUv);
                 cat.a*=smoothstep(.02,.1,cat.a)*smoothstep(0.,.015,min(min(catUv.x,catUv.y),min(1.-catUv.x,1.-catUv.y)));

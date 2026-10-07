@@ -10,7 +10,7 @@ export function createProjectVideos(root = document.documentElement, {initialSta
     ? {...entry.project,...entry.project.mobileVideo,videoWebm:null} : entry.project;
   function configure(entry) {
     entry.shuttle?.setContinuous(!!mobile?.matches);
-    if (!entry.shuttle) entry.video.loop=entry.project.videoLoop===true || !!mobile?.matches;
+    if (!entry.shuttle) entry.video.loop=!entry.project.holdAtEnd && (entry.project.videoLoop===true || !!mobile?.matches);
   }
   const byVideo = new WeakMap();
   const visibility = new IntersectionObserver(changes => {
@@ -62,6 +62,7 @@ export function createProjectVideos(root = document.documentElement, {initialSta
       return;
     }
     if (!entry.loaded) {load(entry);return;}
+    if (entry.project.holdAtEnd && entry.video.ended && !restart) return;
     if (restart && !entry.video.paused && !entry.video.ended) return;
     if (entry.shuttle) {
       if (restart && entry.shuttle.held) entry.shuttle.advance();
