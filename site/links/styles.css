@@ -159,3 +159,5 @@ tbody tr:hover{background:#1e2021}
 
 /* Reserve space before the category in catalog and search tables. */
 th:first-child,td:first-child{padding-right:16px}
+
+.portfolio-footer a[href*="linkedin.com"]{text-transform:lowercase}
