@@ -507,3 +507,6 @@ html:not([data-theme=dark]) .experience-app{box-shadow:0 2px 6px rgba(25,26,27,.
 @font-face{font-family:'Golos Text';src:url('assets/fonts/GolosText-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
 h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:normal;letter-spacing:-.02em}
 .filters button,.contact-button,.experience summary,#experience-title,.mobile-menu button,.mobile-menu a,.portfolio-footer,#contact-title{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:normal}
+
+/* Compact navigation type; retain control height and hit areas. */
+.filters button,.contact-button,.mobile-menu button,.mobile-menu a{font-size:15px;line-height:20px}
