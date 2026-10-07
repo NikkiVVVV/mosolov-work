@@ -411,8 +411,8 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  .mobile-menu-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;opacity:0;transform:translateY(-12px) scale(.96);transform-origin:left top;transition:opacity 180ms,transform 240ms cubic-bezier(.22,1,.36,1)}
  .mobile-menu[data-open=true] #mobile-menu-panel{visibility:visible}
  .mobile-menu[data-open=true] .mobile-menu-row{opacity:1;transform:none;transition-delay:calc(var(--row) * 45ms)}
- .mobile-menu button,.mobile-menu a{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 12px;border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);border-radius:var(--control-radius);background:color-mix(in srgb,var(--surface) 94%,transparent);color:var(--ink);font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000;text-decoration:none;white-space:nowrap;box-shadow:0 4px 16px #00000008;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
- .mobile-menu button:active,.mobile-menu a:active{transform:scale(.96)}
+ .mobile-menu button,.mobile-menu a,.contact-menu button,.contact-menu a{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 12px;border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);border-radius:var(--control-radius);background:color-mix(in srgb,var(--surface) 94%,transparent);color:var(--ink);font:400 16px/20px Werkzeug,monospace;font-variation-settings:'wdth' 1000;text-decoration:none;white-space:nowrap;box-shadow:0 4px 16px #00000008;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+ .mobile-menu button:active,.mobile-menu a:active,.contact-menu button:active,.contact-menu a:active{transform:scale(.96)}
  .mobile-menu a img{width:20px;height:20px;flex:none;border-radius:50%;object-fit:cover}
  .mobile-menu svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
  .mobile-menu #mobile-menu-toggle{background:var(--subtle);color:var(--ink);border-color:transparent;box-shadow:none}
@@ -506,9 +506,23 @@ html:not([data-theme=dark]) .experience-app{box-shadow:0 2px 6px rgba(25,26,27,.
 @font-face{font-family:'Golos Text';src:url('assets/fonts/GolosText-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'Golos Text';src:url('assets/fonts/GolosText-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
 h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:normal;letter-spacing:-.02em}
-.filters button,.contact-button,.experience summary,#experience-title,.mobile-menu button,.mobile-menu a,.portfolio-footer,#contact-title{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:normal}
+.filters button,.contact-button,.experience summary,#experience-title,.mobile-menu button,.mobile-menu a,.contact-menu button,.contact-menu a,.portfolio-footer,#contact-title{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:normal}
 
 /* Compact navigation type; retain control height and hit areas. */
-.filters button,.contact-button,.mobile-menu button,.mobile-menu a{font-size:15px;line-height:20px}
+.filters button,.contact-button,.mobile-menu button,.mobile-menu a,.contact-menu button,.contact-menu a{font-size:15px;line-height:20px}
 
 #current-radar{white-space:nowrap}
+
+/* Contact menu shares the navigation's floating tabs and blurred backdrop. */
+#contact-menu-backdrop{position:fixed;inset:0;z-index:47;background:color-mix(in srgb,var(--surface) 35%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity 280ms,visibility 280ms}
+#contact-menu-backdrop[data-open=true]{opacity:1;visibility:visible}
+#contact-dialog{position:fixed;inset:auto;z-index:49;width:max-content;max-width:calc(100vw - 40px);padding:0;border:0;border-radius:0;background:none;box-shadow:none;opacity:0;visibility:hidden;transform:translateY(-12px) scale(.96);transform-origin:right top;transition:opacity 180ms,transform 240ms cubic-bezier(.22,1,.36,1),visibility 240ms}
+#contact-dialog[data-open=true]{opacity:1;visibility:visible;transform:none}
+#contact-dialog .contact-menu-row{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+#contact-dialog{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+#contact-dialog .contact-icon-only{width:40px;height:40px;min-width:40px;padding:8px}
+#contact-dialog img{width:20px;height:20px;flex:none;border-radius:4px;object-fit:cover}
+#contact-dialog a[href*="nikir_public"] img{border-radius:50%}
+#contact-dialog button:disabled{opacity:1;cursor:default}
+#open-contact[aria-expanded=true]{position:relative;z-index:50}
+@media(prefers-reduced-motion:reduce){#contact-dialog,#contact-menu-backdrop{transition:none}}

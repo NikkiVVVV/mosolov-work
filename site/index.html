@@ -20,9 +20,9 @@
   <link rel="preload" href="assets/loading/human-inside-tray-v159.webp" as="image" fetchpriority="high">
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=160">
+  <link rel="stylesheet" href="styles.css?v=166">
   <link rel="stylesheet" href="pendant.css?v=91">
-  <script type="module" src="app.js?v=feed161"></script>
+  <script type="module" src="app.js?v=feed166"></script>
   <script type="module" src="pendant.js?v=159"></script>
 </head>
 <body>
@@ -121,15 +121,16 @@
     </section>
   </main>
   <dialog id="project-preview" aria-labelledby="preview-title"><div class="dialog-header"><h2 id="preview-title">Работа</h2><button type="button" id="close-preview" aria-label="Закрыть">Закрыть ×</button></div><div class="preview-cover"><span id="preview-index"></span></div><p class="meta" id="preview-meta"></p><p id="preview-description"></p></dialog>
-  <dialog id="contact-dialog" aria-labelledby="contact-title">
-    <div class="contact-grabber" aria-hidden="true"><span></span></div>
-    <div class="dialog-header"><h2 id="contact-title">Связь</h2><button type="button" id="close-contact" aria-label="Закрыть контакты"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
-    <nav class="contact-links" aria-label="Написать Никите">
-      <a href="mailto:nikkiuxi@gmail.com"><span class="contact-label">Email</span><span class="contact-value">nikkiuxi@gmail.com</span><svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
-      <a href="https://t.me/nikir_public" target="_blank" rel="noopener"><span class="contact-label">Telegram</span><span class="contact-value">@nikir_public</span><svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
-      <a href="https://github.com/NikkiVVVV" target="_blank" rel="noopener"><span class="contact-label">GitHub</span><span class="contact-value">NikkiVVVV</span><svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
-    </nav>
-  </dialog>
+  <div id="contact-menu-backdrop" data-open="false"></div>
+  <nav id="contact-dialog" class="contact-menu" aria-label="Связь" data-open="false" inert>
+    <div class="contact-menu-row">
+      <button type="button" class="contact-icon-only" aria-label="LinkedIn" disabled><img src="assets/icons/contact-linkedin.svg" width="20" height="20" alt=""></button>
+      <a class="contact-icon-only" href="mailto:nikkiuxi@gmail.com" aria-label="Почта"><img src="assets/icons/contact-gmail.svg" width="20" height="20" alt=""></a>
+      <button type="button" class="contact-icon-only" aria-label="X" disabled><img src="assets/icons/contact-x.svg" width="20" height="20" alt=""></button>
+      <button type="button" class="contact-icon-only" aria-label="Написать в Telegram" disabled><img src="assets/icons/contact-telegram.svg" width="20" height="20" alt=""></button>
+    </div>
+    <span id="contact-title" hidden>Связь</span>
+  </nav>
   <div class="theme-switch" role="group" aria-label="Тема, язык и закладки">
     <button type="button" id="theme-toggle" aria-label="Включить тёмную тему" title="Включить тёмную тему">
       <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>

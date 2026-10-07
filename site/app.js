@@ -32,51 +32,34 @@ const dialog = document.querySelector('#project-preview');
 const contactDialog=document.querySelector('#contact-dialog');
 const contactMobile=()=>matchMedia('(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px)').matches;
 const contactReduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
-let contactClosing=false,contactDrag=null,contactOverflow=null;
-function closeContact(){
-  if(!contactDialog.open||contactClosing)return;
-  contactClosing=true;
-  const from=getComputedStyle(contactDialog).transform;
-  contactDialog.getAnimations().forEach(animation=>animation.cancel());
-  if(contactMobile()&&!contactReduced()){
-    contactDialog.animate([{transform:from==='none'?'translateY(0)':from},{transform:'translateY(100%)'}],{duration:220,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}).finished.then(()=>contactDialog.close()).catch(()=>{});
-  }else contactDialog.close();
+const contactMenuButton=document.querySelector('#open-contact');
+const contactBackdrop=document.querySelector('#contact-menu-backdrop');
+let contactOpen=false;
+function placeContact(){
+ const rect=contactMenuButton.getBoundingClientRect();
+ contactDialog.style.top=`${rect.bottom+12}px`;
+ contactDialog.style.right=`${Math.max(20,innerWidth-rect.right)}px`;
 }
-document.querySelector('#open-contact').addEventListener('click',()=>{
-  contactClosing=false;contactDialog.style.transform='';
-  contactOverflow=[document.documentElement.style.overflow,document.body.style.overflow];
-  document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
-  contactDialog.showModal();
-});
-document.querySelector('#close-contact').addEventListener('click',closeContact);
-contactDialog.addEventListener('cancel',e=>{e.preventDefault();closeContact();});
-contactDialog.addEventListener('close',()=>{
-  contactDialog.getAnimations().forEach(animation=>animation.cancel());
-  contactDialog.style.transform='';contactDrag=null;contactClosing=false;
-  if(contactOverflow){[document.documentElement.style.overflow,document.body.style.overflow]=contactOverflow;contactOverflow=null;}
-});
-contactDialog.addEventListener('click',e=>{const r=contactDialog.getBoundingClientRect();if(e.target===contactDialog&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))closeContact();});
-contactDialog.addEventListener('pointerdown',e=>{
-  if(!contactMobile()||contactClosing||e.button!==0||e.target.closest('button,a')||!e.target.closest('.contact-grabber,.dialog-header'))return;
-  contactDialog.getAnimations().forEach(animation=>animation.cancel());
-  contactDrag={id:e.pointerId,y:e.clientY,offset:0};contactDialog.setPointerCapture(e.pointerId);
-});
-contactDialog.addEventListener('pointermove',e=>{
-  if(!contactDrag||e.pointerId!==contactDrag.id)return;
-  contactDrag.offset=Math.max(0,e.clientY-contactDrag.y);
-  contactDialog.style.transform=`translateY(${contactDrag.offset}px)`;
-});
-function releaseContact(e){
-  if(!contactDrag||e.pointerId!==contactDrag.id)return;
-  const offset=contactDrag.offset;contactDrag=null;
-  if(contactDialog.hasPointerCapture(e.pointerId))contactDialog.releasePointerCapture(e.pointerId);
-  if(e.type==='pointerup'&&offset>64){closeContact();return;}
-  contactDialog.style.transform='';
-  if(!contactReduced())contactDialog.animate([{transform:`translateY(${offset}px)`},{transform:'translateY(0)'}],{duration:180,easing:'ease-out'});
+function closeContact(focus=false){
+ contactOpen=false;contactDialog.dataset.open='false';contactDialog.inert=true;
+ contactBackdrop.dataset.open='false';contactMenuButton.setAttribute('aria-expanded','false');
+ if(focus)contactMenuButton.focus({preventScroll:true});
 }
-contactDialog.addEventListener('pointerup',releaseContact);
-contactDialog.addEventListener('pointercancel',releaseContact);
-contactDialog.addEventListener('lostpointercapture',releaseContact);
+contactMenuButton.setAttribute('aria-haspopup','menu');contactMenuButton.setAttribute('aria-controls','contact-dialog');contactMenuButton.setAttribute('aria-expanded','false');
+contactMenuButton.addEventListener('click',()=>{
+ if(contactOpen){closeContact();return;}
+ const menu=document.querySelector('.mobile-menu');
+ if(menu?.dataset.open==='true')document.querySelector('#mobile-menu-toggle').click();
+ placeContact();contactOpen=true;contactDialog.dataset.open='true';contactDialog.inert=false;
+ contactBackdrop.dataset.open='true';contactMenuButton.setAttribute('aria-expanded','true');
+});
+contactBackdrop.addEventListener('click',()=>closeContact(true));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&contactOpen){closeContact(true);e.preventDefault();}});
+contactDialog.addEventListener('click',e=>{if(e.target.closest('a'))closeContact();});
+document.querySelector('#mobile-menu-toggle').addEventListener('click',()=>closeContact());
+window.addEventListener('resize',()=>{if(contactOpen)placeContact();});
+window.addEventListener('scroll',()=>{if(contactOpen)placeContact();},{passive:true});
+closeContact();
 const motion = document.querySelector('#motion-toggle');
 const status = document.querySelector('#result-status');
 let category = 'all';
@@ -151,7 +134,8 @@ function renderProjects() {
     }
     if(project.href){
       const link=document.createElement('a');
-      link.className='project-link';link.href=project.href;link.target='_blank';link.rel='noopener noreferrer';
+      link.className='project-link';link.href=contactMobile()&&project.mobileHref?project.mobileHref:project.href;link.target='_blank';link.rel='noopener noreferrer';
+      if(project.mobileHref)link.addEventListener('click',()=>{link.href=contactMobile()?project.mobileHref:project.href;});
       link.setAttribute('aria-label',language==='en'?`Open ${project.title}`:`Открыть «${project.title}»`);
       link.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>';
       cover.append(link);
@@ -268,7 +252,7 @@ const translatedLabels=[
   ['#current-mazik-link','Visit Mazik'],['#current-avito-link','Visit the Avito project'],['#current-radar-link','Visit idea radar'],
   ['.current-projects','Current projects'],['.profile','About me'],['#portfolio','Projects'],['.filters','Project category'],
   ['.theme-switch','Theme, language and bookmarks'],['#bookmarks-link','Favorite bookmarks — opens in a new tab'],['.mobile-topbar','Menu and contact'],
-  ['#close-contact','Close contacts'],['#close-preview','Close'],['.contact-links','Contact Nikita'],
+  ['#close-preview','Close'],['#contact-dialog','Contact Nikita'],
 ].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.getAttribute('aria-label')};});
 const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>({element,ru:element.textContent,en:({'[Онлайн]':'[Online]','[Друг]':'[Drug]'})[element.textContent]||element.textContent}));
 const companyNames=[...document.querySelectorAll('.workplaces li>span:first-child')].map(element=>({element,ru:element.textContent,en:({'Сбер':'Sber','Авито':'Avito'})[element.textContent]||element.textContent}));
