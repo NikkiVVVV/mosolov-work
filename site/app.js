@@ -1,3 +1,4 @@
+import {prepareMedia,animateExperience,createCaseReveal} from './ui-reveal.js?v=167';
 import { createMobileMenu } from './mobile-menu.js?v=143';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectBento } from './project-bento.js?v=143';
@@ -92,21 +93,8 @@ dialog.addEventListener('click', e => {
 });
 dialog.addEventListener('close', () => sphere?.setActive(view === 'sphere'));
 
-function prepareMedia(cover,media,poster){
-  cover.classList.add('media-loading');cover.setAttribute('aria-busy','true');
-  let revealed=false;
-  const reveal=()=>{if(revealed)return;revealed=true;cover.classList.remove('media-loading','media-failed');cover.classList.add('media-ready');cover.setAttribute('aria-busy','false');};
-  if(media.tagName==='VIDEO'){
-    media.addEventListener('loadeddata',reveal,{once:true});
-    if(media.readyState>=2)reveal();
-    if(poster){const preview=new Image();preview.onload=()=>{preview.decode().catch(()=>{}).then(reveal);};preview.onerror=()=>cover.classList.add('media-failed');preview.src=poster;}
-  }else{
-    const decoded=()=>media.decode().catch(()=>{}).then(reveal);
-    media.addEventListener('load',decoded,{once:true});
-    media.addEventListener('error',()=>{cover.classList.add('media-failed');cover.setAttribute('aria-busy','false');},{once:true});
-    if(media.complete&&media.naturalWidth)decoded();
-  }
-}
+const revealCase=createCaseReveal();
+animateExperience(document.querySelector('.experience'));
 
 function renderProjects() {
   spaceGame.pause();spaceGame.setLanguage(language);
@@ -152,7 +140,7 @@ function renderProjects() {
       description.className='project-description project-description-mobile';
       description.textContent=project.mobileDescription;card.append(description);
     }
-    return card;
+    revealCase(card);return card;
   }));
   bento.refresh();
   projectVideos.sync();

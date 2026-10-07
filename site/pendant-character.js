@@ -76,11 +76,11 @@ export class PendantCharacter {
             vec2 gaze=eyeUV(sampleUv);
             // Shaking moves the original portrait; no second face and no dissolve.
             vec4 result=premul(texture2D(pose0,gaze));
-            if(exasperation>.5&&shakeMix<.1)result=premul(texture2D(pose5,gaze));
+            if(exasperation>.5)result=premul(texture2D(pose5,gaze));
             float eyePatch=max(1.-smoothstep(.75,1.,length((vUv-vec2(.425,.565))/vec2(.049,.03))),
                                1.-smoothstep(.75,1.,length((vUv-vec2(.602,.565))/vec2(.049,.03))));
-            result=mix(result,premul(texture2D(pose3,sampleUv)),sleepAmount*eyePatch);
-            if(idleKind>.5&&idleKind<1.5){
+            result=mix(result,premul(texture2D(pose3,sampleUv)),sleepAmount*eyePatch*(1.-exasperation));
+            if(exasperation<.5&&idleKind>.5&&idleKind<1.5){
               // One rigid foreground sprite rises from below. The portrait is never crossfaded.
               vec2 cupUv=vUv+vec2(-.015,.30+(1.-idleAmount)*.85);
               if(all(greaterThanEqual(cupUv,vec2(0.)))&&all(lessThanEqual(cupUv,vec2(1.)))){
@@ -88,7 +88,7 @@ export class PendantCharacter {
                 result=cup+result*(1.-cup.a);
               }
             }
-            if(idleKind>2.5){
+            if(exasperation<.5&&idleKind>2.5){
               vec2 catUv=(vWindow-vec2(-.35,-2.4+idleAmount*1.35))/1.87+.5;
               if(all(greaterThanEqual(catUv,vec2(0.)))&&all(lessThanEqual(catUv,vec2(1.)))){
                 vec4 cat=texture2D(pose4,catUv);
@@ -136,6 +136,6 @@ export class PendantCharacter {
     this.uniforms.headShift.value.set(pose.headX,Math.abs(pose.headX)*.24-pose.impact*.025);
     this.uniforms.headTilt.value-=pose.headX*.7;
     this.uniforms.clock.value=reduced?0:time;
-    return {...pose,face:sleeping>.8?'sleep':pose.face,exasperation:this.uniforms.exasperation.value,idleKind:idle.kind,idleAmount:idle.amount};
+    return {...pose,face:this.uniforms.exasperation.value>.5?'pull':sleeping>.8?'sleep':pose.face,exasperation:this.uniforms.exasperation.value,idleKind:idle.kind,idleAmount:idle.amount};
   }
 }

@@ -526,3 +526,17 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 #contact-dialog button:disabled{opacity:1;cursor:default}
 #open-contact[aria-expanded=true]{position:relative;z-index:50}
 @media(prefers-reduced-motion:reduce){#contact-dialog,#contact-menu-backdrop{transition:none}}
+
+/* Keep the same compositing layers throughout menu close/open. */
+#open-contact{position:relative;z-index:50}
+#contact-dialog{transform:translateY(-8px);transition:opacity 240ms ease,transform 240ms cubic-bezier(.22,1,.36,1),visibility 0s 240ms}
+#contact-dialog[data-open=true]{transition-delay:0s}
+#contact-menu-backdrop{transition:opacity 280ms ease,visibility 0s 280ms}
+#contact-menu-backdrop[data-open=true]{transition-delay:0s}
+.experience-body{overflow:hidden}
+.case-entering{opacity:0;transition:opacity 480ms ease}
+.case-entering.case-visible{opacity:1}
+.project-cover::before{transition:opacity 400ms ease}
+.project-cover.media-ready::before{content:'';position:absolute;inset:0;background:var(--subtle);opacity:0;pointer-events:none}
+.project-cover.media-ready>img,.project-cover.media-ready>video{transition:opacity 480ms ease}
+@media(prefers-reduced-motion:reduce){.case-entering{opacity:1;transition:none}#contact-dialog,#contact-menu-backdrop{transition:none}.project-cover.media-ready>img,.project-cover.media-ready>video{transition:none}}
