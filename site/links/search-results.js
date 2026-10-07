@@ -10,7 +10,7 @@ export function compareSiteNames(left, right) {
 
 export function keywordSearchMessage(count) {
   return count > 0
-    ? `Нашёл ссылок: ${count}.`
+    ? `Нашёл ссылок: ${count}`
     : 'Ничего не нашёл. Попробуй другое слово или название сайта.';
 }
 

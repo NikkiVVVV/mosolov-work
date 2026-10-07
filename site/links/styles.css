@@ -27,7 +27,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset
 .search-section{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:432px;padding:64px 0 72px}
 #search-wave{position:absolute;left:50%;top:50%;width:100vw;height:720px;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;mask-image:radial-gradient(ellipse at center,#000 12%,rgba(0,0,0,.8) 32%,rgba(0,0,0,.3) 55%,transparent 74%)}
 h1{font:500 48px/56px 'Golos Text',sans-serif;letter-spacing:-.02em;text-align:center;margin:0 0 40px}
-.search-form{display:flex;align-items:center;gap:12px;width:min(calc(100% - 48px),400px);height:56px;padding:8px 12px 8px 20px;border:1px solid transparent;border-radius:32px;background:#252627;transition:border-color .2s,background .2s;flex-shrink:0}
+.search-form{display:flex;align-items:center;gap:12px;width:min(100%,440px);height:56px;padding:8px 12px 8px 20px;border:1px solid transparent;border-radius:32px;background:#252627;transition:border-color .2s,background .2s;flex-shrink:0}
 .search-form:focus-within{border-color:#595c5e;background:#282a2b}
 .query-notice{max-width:400px;margin:12px 24px 0;color:var(--muted);font-size:12px;line-height:16px;text-align:center}
 .search-spark{width:20px;height:20px;fill:#a6a8a2;flex:none;transition:transform .5s}

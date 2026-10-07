@@ -97,7 +97,7 @@ export function initSearchMotion(canvas, form, input) {
   document.addEventListener('visibilitychange', resize);
   new MutationObserver(resize).observe(document.body, {attributes: true, attributeFilter: ['class']});
 
-  const prompts = ['Сайты с необычной типографикой', 'Референсы с интересной анимацией', 'Инструменты для работы с 3D'];
+  const prompts = ['Необычная типографика', 'Референсы с анимацией', 'Инструменты для 3D'];
   let promptIndex = 0;
   setInterval(() => {
     if (document.hidden || reduced.matches || input.value || document.body.classList.contains('chat-mode')) return;

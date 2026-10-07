@@ -1,7 +1,7 @@
 import { createTabGroup } from './tab-group.js';
-import { initSearchMotion } from './search-motion.js';
+import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
-import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js';
+import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=195';
 
 const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');
@@ -252,7 +252,7 @@ modal.addEventListener('close', () => {
   noticeHome.after(queryNotice);
   state.query = '';
   queryInput.value = '';
-  queryInput.placeholder = 'Сайты с необычной типографикой';
+  queryInput.placeholder = 'Необычная типографика';
   render();
   queryInput.focus({preventScroll: true});
 });
