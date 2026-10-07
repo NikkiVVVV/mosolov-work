@@ -223,7 +223,9 @@ function renderForm() {
 function render() {
   renderForm();
   const categories=[...new Set(state.items.filter(item=>isReady(item)&&isVisible(item)).map(categoryLabel))];
-  const filterOptions=[{id:'all',label:'Все'},...categories.sort((a,b)=>a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
+  const categoryOrder = ['Анимация', 'Видео', 'Инструменты', 'Рефы', 'Интерактив', 'Контекст', 'Курсор', 'Медиа', 'AI', 'Наклон', 'Пасхалки', 'Подборки', 'Скролл'];
+  const rank = label => categoryOrder.includes(label) ? categoryOrder.indexOf(label) : categoryOrder.length;
+  const filterOptions=[{id:'all',label:'Все'},...categories.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
   tabGroup.render(filterOptions, state.filter);
   const items = filteredItems();
   list.innerHTML = items.map(row).join('');
