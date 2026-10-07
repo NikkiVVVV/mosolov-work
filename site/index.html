@@ -16,7 +16,7 @@
         element.animate([{opacity:0},{opacity:1}],{duration:reduced?0:650,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});
       }
     };
-    window.portfolioBootTimeout=setTimeout(()=>{document.documentElement.classList.remove('is-loading');document.querySelector('.layout')?.removeAttribute('inert');document.querySelector('.site-loader')?.remove();document.body.style.overflow='';window.revealPortfolioPage();},12000);
+    window.portfolioBootTimeout=returning?null:setTimeout(()=>{document.documentElement.classList.remove('is-loading');document.querySelector('.layout')?.removeAttribute('inert');document.querySelector('.site-loader')?.remove();document.body.style.overflow='';window.revealPortfolioPage();},12000);
   </script>
   <style>.site-loader{display:none}.is-loading .site-loader{display:grid;position:fixed;inset:0;z-index:100;background:#171819;place-items:center}.is-loading .layout{visibility:hidden}html[data-theme=dark] .site-loader{background:#171819}</style>
   <link rel="preload" href="assets/loading/human-inside-tray-v159.webp" as="image" fetchpriority="high">
