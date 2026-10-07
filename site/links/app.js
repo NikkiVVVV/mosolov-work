@@ -14,14 +14,6 @@ const noticeHome = document.createComment('query-notice-home');
 queryNotice.before(noticeHome);
 queryNotice.hidden = !notifyBase;
 const status = $('#list-status');
-const filterOptions = [
-  { id: 'all', label: 'Все' },
-  { id: 'refs', label: 'Рефы' },
-  { id: 'design', label: 'Дизайн' },
-  { id: 'tools', label: 'Инструменты' },
-  { id: 'media', label: 'Медиа' },
-  { id: 'ai', label: 'AI' }
-];
 const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
 const chat = $('#chat');
 const modal = $('#chat-modal');
@@ -79,7 +71,7 @@ function displayType(item) {
 function matchesFilter(item, filter = state.filter) {
   if (!isReady(item) || !isVisible(item)) return false;
   if (filter === 'all') return true;
-  return categoryIds(item).has(filter);
+  return categoryLabel(item) === filter;
 }
 
 function searchScore(item, query) {
@@ -225,8 +217,10 @@ function renderForm() {
 
 function render() {
   renderForm();
+  const categories=[...new Set(state.items.filter(item=>isReady(item)&&isVisible(item)).map(categoryLabel))];
+  const filterOptions=[{id:'all',label:'Все'},...categories.sort((a,b)=>a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
   filters.innerHTML = filterOptions.map(option =>
-    `<button class="filter-button" data-filter="${option.id}" type="button" aria-pressed="${state.filter === option.id}">${option.label}</button>`
+    `<button class="filter-button" data-filter="${escapeHTML(option.id)}" type="button" aria-pressed="${state.filter === option.id}">${escapeHTML(option.label)}</button>`
   ).join('');
   const items = filteredItems();
   list.innerHTML = items.map(row).join('');
@@ -326,6 +320,7 @@ filters.addEventListener('click', event => {
   if (!button) return;
   state.filter = button.dataset.filter;
   render();
+  [...filters.querySelectorAll('button')].find(item=>item.dataset.filter===state.filter)?.focus({preventScroll:true});
 });
 
 async function loadBookmarks() {

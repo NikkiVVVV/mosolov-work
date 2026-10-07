@@ -135,3 +135,10 @@ tbody tr:hover{background:#1e2021}
 .links-menu-backdrop[data-open=true]{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
 @media(prefers-reduced-motion:reduce){.links-menu-backdrop{transition:none}}
 .links-bar-panel a{white-space:nowrap}
+
+/* All category tabs remain visible, wrapping into rows. */
+.filters{flex-wrap:wrap;overflow:visible;gap:8px}
+.filter-button{background:var(--subtle);color:var(--muted);transition:background 180ms ease,color 180ms ease}
+.filter-button:hover{background:#343638;color:var(--ink)}
+.filter-button[aria-pressed=true]{background:#414446;color:var(--ink)}
+.filter-button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
