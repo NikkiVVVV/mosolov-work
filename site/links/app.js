@@ -1,3 +1,4 @@
+import { createTabGroup } from './tab-group.js';
 import { initSearchMotion } from './search-motion.js';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js';
@@ -5,6 +6,10 @@ import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-r
 const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');
 const filters = $('#filters');
+const tabGroup = createTabGroup(filters, value => {
+  state.filter = value;
+  render();
+});
 const queryInput = $('#search');
 const form = $('#search-form');
 const apiBase = document.documentElement.dataset.apiBase || '';
@@ -219,9 +224,7 @@ function render() {
   renderForm();
   const categories=[...new Set(state.items.filter(item=>isReady(item)&&isVisible(item)).map(categoryLabel))];
   const filterOptions=[{id:'all',label:'Все'},...categories.sort((a,b)=>a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
-  filters.innerHTML = filterOptions.map(option =>
-    `<button class="filter-button" data-filter="${escapeHTML(option.id)}" type="button" aria-pressed="${state.filter === option.id}">${escapeHTML(option.label)}</button>`
-  ).join('');
+  tabGroup.render(filterOptions, state.filter);
   const items = filteredItems();
   list.innerHTML = items.map(row).join('');
   status.textContent = items.length ? '' : 'Ничего не найдено. Попробуйте другое слово или фильтр.';
@@ -315,13 +318,7 @@ $('#clear-search').addEventListener('click', () => {
   renderForm();
   queryInput.focus();
 });
-filters.addEventListener('click', event => {
-  const button = event.target.closest('[data-filter]');
-  if (!button) return;
-  state.filter = button.dataset.filter;
-  render();
-  [...filters.querySelectorAll('button')].find(item=>item.dataset.filter===state.filter)?.focus({preventScroll:true});
-});
+
 
 async function loadBookmarks() {
   status.textContent = 'Загрузка…';
