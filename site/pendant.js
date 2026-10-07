@@ -11,6 +11,8 @@ import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
 import { PendantEntrance } from './pendant-entrance.js?v=148';
 import { PendantCharacter } from './pendant-character.js?v=167';
 
+import { createScreenGlass } from './pendant-glass.js?v=170';
+
 class Pendant {
   constructor(block) {
     this.block = block; this.host = block.querySelector('[data-pendant]');
@@ -86,6 +88,7 @@ class Pendant {
       if(!this.intro.active&&!this.reduced.matches){this.arrival.offset=8;this.state.angle=.12;this.motion.twist.angle=-.15;}
       this.overlay.layer.style.visibility='';this.wake();
     },()=>this.fallback('Не удалось загрузить 3D — показана статичная подвеска.'));
+    this.screenGlass=createScreenGlass(this.body);
     const eye = new THREE.Mesh(new THREE.TorusGeometry(.13,.055,8,24), graphite);
     eye.position.set(0,1.64,-.08); this.body.add(eye);this.attachmentEye=eye;
     const cordCanvas = document.createElement('canvas'); cordCanvas.width=32; cordCanvas.height=128;
@@ -381,6 +384,7 @@ class Pendant {
     const scale=geometry.screenScale;
     this.lining.geometry=geometry.lining;
     this.character.uniforms.windowMask.value=screenMask(id);
+    this.screenGlass.setShape(id);
     this.attachmentEye.position.y=geometry.eyeY;
     this.cord.attachmentOffset=geometry.eyeY-1.64;
     this.cord.knot.position.y=1.98+this.cord.attachmentOffset;
