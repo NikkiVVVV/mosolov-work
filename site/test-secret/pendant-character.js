@@ -12,7 +12,8 @@ export class PendantCharacter {
     this.loaded=0;this.textures=[];
     this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},
       shakeMix:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
-    const files=['idle-tired-v55.webp','shake-v55.webp','cup-layer-v2-lossless.webp','pucker-v1-lossless.webp','cat-user-v2-lossless.webp','eyeroll-v1-lossless.webp'];this.totalTextures=files.length;
+    this.idleState.queue=['cat'];
+    const files=['gta-idle-v36.png','gta-shake-v36.png','cup-layer-v2-lossless.webp','pucker-v1-lossless.webp','cat-user-v2-lossless.webp','gta-pull-v36.png'];this.totalTextures=files.length;
     const loader=new THREE.TextureLoader();
     Promise.all(files.map((name)=>loader.loadAsync(`assets/pendant/clay/${name}`).then(map=>{this.loaded++;return map;}))).then(maps=>{
       maps.forEach((map,i)=>{map.colorSpace=THREE.SRGBColorSpace;this.uniforms[`pose${i}`]={value:map};});
@@ -38,8 +39,8 @@ export class PendantCharacter {
             p.xy+=headShift*head;
             // Keep the portrait in front of the lining; head rotation is a 2.5D warp.
             p.z=0.;
-            p.xy*=1.85;
-            p.y-=1.34;
+            p.xy*=.85;
+            p.y+=.2;
 
             vWindow=p.xy+vec2(0.,-.2);
             gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);
@@ -54,10 +55,10 @@ export class PendantCharacter {
           uniform float shakeMix;
           vec4 premul(vec4 c){return vec4(c.rgb*c.a,c.a);}
           vec2 eyeUV(vec2 uv){
-            float l=length((uv-vec2(.445,.797))/vec2(.022,.012));
-            float r=length((uv-vec2(.532,.801))/vec2(.022,.012));
+            float l=length((uv-vec2(.425,.565))/vec2(.035,.016));
+            float r=length((uv-vec2(.602,.565))/vec2(.035,.016));
             float mask=1.-smoothstep(.55,1.,min(l,r));
-            return uv-vec2(look.x*.006,-look.y*.004)*mask;
+            return uv-vec2(look.x*.009,-look.y*.005)*mask;
           }
           void main(){
             vec2 maskUV=vWindow/4.+.5;
@@ -65,8 +66,8 @@ export class PendantCharacter {
             float screenAlpha=texture2D(windowMask,maskUV).a;
             if(screenAlpha<.02)discard;
             vec2 gaze=eyeUV(vUv);
-            vec4 result=mix(premul(texture2D(pose0,gaze)),premul(texture2D(pose1,vUv)),shakeMix);
-            result=mix(result,premul(texture2D(pose5,vUv)),exasperation*(1.-shakeMix)*smoothstep(.58,.65,vUv.y));
+            vec4 result=mix(premul(texture2D(pose0,gaze)),premul(texture2D(pose1,gaze)),shakeMix);
+            result=mix(result,premul(texture2D(pose5,gaze)),exasperation*(1.-shakeMix));
             if(idleKind>.5&&idleKind<1.5){
               // One rigid foreground sprite rises from below. The portrait is never crossfaded.
               vec2 cupUv=vUv+vec2(.027,(1.-idleAmount)*.5);
