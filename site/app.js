@@ -3,11 +3,11 @@ import { createMobileMenu } from './mobile-menu.js?v=143';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectBento } from './project-bento.js?v=143';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed161';
+import { projects } from './projects.js?v=feed168';
 import { createSpaceGame } from './space-game.js?v=86';
 import { englishProjects } from './locale.js?v=feed143';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed161';
+import { createProjectVideos } from './project-videos.js?v=feed168';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
@@ -237,7 +237,7 @@ const translatedNodes=[
   ['#open-contact','Contact'],['#contact-title','Contact'],['#close-preview','Close ×'],
 ].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.textContent};});
 const translatedLabels=[
-  ['#current-mazik-link','Visit Mazik'],['#current-avito-link','Visit the Avito project'],['#current-radar-link','Visit idea radar'],
+  ['#current-mazik-link','Visit Mazik'],['#current-radar-link','Visit idea radar'],
   ['.current-projects','Current projects'],['.profile','About me'],['#portfolio','Projects'],['.filters','Project category'],
   ['.theme-switch','Theme, language and bookmarks'],['#bookmarks-link','Favorite bookmarks — opens in a new tab'],['.mobile-topbar','Menu and contact'],
   ['#close-preview','Close'],['#contact-dialog','Contact Nikita'],
@@ -246,7 +246,7 @@ const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>(
 const companyNames=[...document.querySelectorAll('.workplaces li>span:first-child')].map(element=>({element,ru:element.textContent,en:({'Сбер':'Sber','Авито':'Avito'})[element.textContent]||element.textContent}));
 function applyLanguage(){
   document.documentElement.lang=language;
-  document.querySelector('#footer-channel-label').textContent=language==='en'?'Telegram channel':'Telegram-канал';
+  document.querySelector('#footer-channel-label').textContent=language==='en'?'Cozy Telegram':'Уютный Тг';
   document.querySelector('#footer-top-label').textContent=language==='en'?'Back to top':'Наверх';
   document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);

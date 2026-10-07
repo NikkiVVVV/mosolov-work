@@ -18,6 +18,10 @@ export function createProjectVideos(root = document.documentElement, {initialSta
       const entry = byVideo.get(change.target);
       if (!entry) continue;
       entry.visible = change.isIntersecting && change.intersectionRatio > 0;
+      if(entry.project.id==='17'&&!mobile?.matches){
+        const rect=change.boundingClientRect,bounds=change.rootBounds;
+        entry.visible=entry.visible&&(rect&&bounds ? rect.top<=bounds.top+bounds.height*.5&&rect.bottom>=bounds.top+bounds.height*.5 : change.intersectionRatio>=.5);
+      }
       clearTimeout(entry.pauseTimer);
       if (entry.visible) { load(entry); play(entry); }
       else {
@@ -26,7 +30,7 @@ export function createProjectVideos(root = document.documentElement, {initialSta
         entry.pauseTimer=setTimeout(()=>{if(!entry.visible)entry.video.pause();},180);
       }
     }
-  }, {threshold:[0,.01]});
+  }, {threshold:[0,.01,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]});
   const proximity = new IntersectionObserver(changes => {
     for (const change of changes) {
       const entry=byVideo.get(change.target); if(!entry)continue;
