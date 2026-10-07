@@ -5,9 +5,10 @@ import os
 from http import HTTPStatus
 from pathlib import Path
 from ai_search import SearchEngine, SearchError, eligible
+from query_notifications import QueryNotifications
 
 
-def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=False):
+def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=False, notifier=None):
     public_items = [x for x in items if eligible(x)]
 
     def app(environ, start_response):
@@ -33,8 +34,8 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
         if host not in hosts and not (host == 'healthcheck.railway.app' and path == '/api/health' and method == 'GET'):
             return send(403, {'error':'Неизвестный хост.'})
         if path == '/api/health' and method == 'GET':
-            return send(200, {'ok':True,'aiSearch':enabled,'items':len(public_items)})
-        if path != '/api/search':
+            return send(200, {'ok':True,'aiSearch':enabled,'items':len(public_items),'queryNotifications':notifier is not None})
+        if path not in {'/api/search', '/api/query-event'}:
             return send(404, {'error':'not found'})
         if not allowed_origin:
             return send(403, {'error':'Этот сайт не подключён к поиску.'})
@@ -44,7 +45,7 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
             return send(204, {})
         if method != 'POST':
             return send(405, {'error':'method not allowed'})
-        if not enabled:
+        if path == '/api/search' and not enabled:
             return send(503, {'error':'AI-поиск пока не включён.','code':'disabled'})
         if environ.get('CONTENT_TYPE','').split(';')[0] != 'application/json':
             return send(415, {'error':'Нужен JSON-запрос.'})
@@ -63,6 +64,11 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
         except (ValueError, OSError):
             return send(400, {'error':'Некорректный запрос.'})
         try:
+            if path == '/api/query-event':
+                if notifier is None:
+                    return send(503, {'code':'disabled'})
+                code, result = notifier.notify(payload, client, len(public_items))
+                return send(code, {'status':result}, 60 if code == 429 else 0)
             return send(200, engine.search(payload, public_items, client))
         except SearchError as error:
             print(f'AI search: {error.code} (HTTP {error.status})', flush=True)
@@ -92,5 +98,12 @@ def from_environment():
     if '*' in origins or '*' in hosts:
         raise RuntimeError('Wildcard origins/hosts are not allowed.')
     enabled = os.environ.get('AI_ENABLED') == 'true' and bool(os.environ.get('SILICONFLOW_API_KEY'))
+    token = os.environ.get('BOOKMARK_TELEGRAM_BOT_TOKEN', '')
+    chat_id = os.environ.get('BOOKMARK_TELEGRAM_CHAT_ID', '')
+    notifier = None
+    if os.environ.get('NOTIFICATIONS_ENABLED') == 'true':
+        if not token or not chat_id.isdigit() or int(chat_id) <= 0:
+            raise RuntimeError('Notifications need a bot token and a private chat ID.')
+        notifier = QueryNotifications(state_dir/'query-notifications.sqlite', token, chat_id)
     return create_app(items, SearchEngine(state_dir/'search-limits.sqlite', token_day=250_000), origins=origins,
-                      hosts=hosts, enabled=enabled, railway_proxy=on_railway)
+                      hosts=hosts, enabled=enabled, railway_proxy=on_railway, notifier=notifier)
