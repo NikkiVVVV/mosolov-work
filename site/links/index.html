@@ -5,10 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#191a1b">
   <title>Избранные закладки</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=184">
+  <script type="module" src="./mobile-navigation.js?v=184"></script>
   <script type="module" src="./app.js"></script>
 </head>
 <body>
+  <nav class="links-mobile-bar" aria-label="Мобильная навигация">
+    <a class="links-bar-icon" href="/" aria-label="На главную"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></a>
+    <details class="links-bar-menu">
+      <summary class="links-bar-icon" aria-label="Меню"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></summary>
+      <div class="links-bar-panel">
+        <a href="/">Главная</a>
+        <a href="https://t.me/nikir_public" target="_blank" rel="noopener noreferrer">ТГ-канал</a>
+        <a href="https://idearadar.ru/" target="_blank" rel="noopener noreferrer">Idea Radar</a>
+        <a href="https://t.me/mayonez12_bot" target="_blank" rel="noopener noreferrer">Майонез</a>
+        <a href="https://idearadar.ru/experience/" target="_blank" rel="noopener noreferrer">Experience Radar</a>
+      </div>
+    </details>
+  </nav>
   <main class="page-shell">
     <section class="search-section" aria-label="Поиск по закладкам">
       <canvas id="search-wave" aria-hidden="true"></canvas>

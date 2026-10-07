@@ -568,6 +568,10 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
  .mobile-menu-row{justify-content:flex-end;transform-origin:right top}
 }
 
+.mobile-page-link{pointer-events:auto;display:grid;place-items:center;width:36px;height:36px;padding:7px;border:1px solid transparent;border-radius:var(--control-radius);background:var(--subtle);color:var(--ink)}
+.mobile-page-link:hover{text-decoration:none}
+.mobile-page-link:active{transform:scale(.96)}
+.mobile-page-link svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .portfolio-footer{gap:16px;flex-wrap:wrap;font-size:15px;line-height:20px}
 .portfolio-footer .footer-social{color:var(--muted)}
 .portfolio-footer .footer-social:hover{color:var(--ink)}

@@ -3,6 +3,20 @@
 @font-face{font-family:'Golos Text';src:url('./assets/GolosText-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'Golos Text';src:url('./assets/GolosText-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
 :root{color-scheme:dark;--surface:#191a1b;--ink:#eeefeb;--muted:#a6a8a2;--line:#3d4041;--subtle:#252729;font-family:'Golos Text',sans-serif}
+.links-mobile-bar{display:none}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .links-mobile-bar{position:fixed;z-index:48;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;width:calc(100% - 40px);max-width:390px;margin:auto;pointer-events:none;transition:transform 200ms ease,opacity 160ms ease}
+ .links-mobile-bar[data-scroll-hidden=true]{transform:translateY(calc(-100% - 32px - env(safe-area-inset-top,0px)));opacity:0}
+ .links-bar-icon{pointer-events:auto;display:grid;place-items:center;width:36px;height:36px;padding:7px;border:1px solid transparent;border-radius:8px;background:var(--subtle);color:var(--ink);cursor:pointer;list-style:none}
+ .links-bar-icon::-webkit-details-marker{display:none}
+ .links-bar-icon:hover{text-decoration:none}
+ .links-bar-icon:active{transform:scale(.96)}
+ .links-bar-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+ .links-bar-menu summary rect{fill:currentColor;stroke:none}
+ .links-bar-panel{position:absolute;top:48px;right:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:auto}
+ .links-bar-panel a{padding:8px 12px;min-height:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:15px;font-weight:500;box-shadow:0 4px 16px #00000008}
+ .links-bar-menu summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+}
 *{box-sizing:border-box}
 body{margin:0;overflow-x:clip;background:var(--surface);color:var(--ink);font:400 16px/24px 'Golos Text',sans-serif;-webkit-font-smoothing:antialiased}
 button,input{font:inherit;color:inherit}
