@@ -1,4 +1,4 @@
-import { showPendantFallback } from './pendant-fallback.js?v=91';
+import { showPendantFallback } from './pendant-fallback.js?v=186';
 import * as THREE from './vendor/three.module.js';
 import { track } from './portfolio-analytics.js?v=63';
 import { clamp, createSpatialMotion, stepSpatialMotion, releaseSpatialMotion, positionToDragTargets, stepArrival, ambientTargets } from './pendant-motion.js?v=67';
@@ -119,7 +119,12 @@ class Pendant {
     this.host.addEventListener('focusin',()=>this.wake());
     document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;}else this.wake();});
     this.reduced.addEventListener('change',()=>this.reset());
-    canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.fallback('3D приостановлено — показана статичная подвеска.');});
+    canvas.addEventListener('webglcontextlost',e=>{
+      e.preventDefault();this.contextLost=true;cancelAnimationFrame(this.frame);this.frame=0;
+      this.contextRecovery=setTimeout(()=>{if(this.contextLost)this.fallback('3D недоступно — показана статичная подвеска.');},5000);
+    });
+    canvas.addEventListener('webglcontextrestored',()=>{clearTimeout(this.contextRecovery);this.contextLost=false;if(!this.failed){this.queueResize();this.wake();}});
+    window.addEventListener('pageshow',()=>{if(!this.failed&&!this.contextLost){this.queueResize();this.wake();}});
     this.wake();
   }
   applyTheme(){
@@ -161,7 +166,7 @@ class Pendant {
     this.camera.setViewOffset(width,height,-left-shiftX,-top-shiftY,view.width,view.height);
     if(schedule)this.wake();
   }
-  wake(){if(!this.failed&&!this.frame&&this.visible&&!document.hidden){this.last=performance.now();this.frame=requestAnimationFrame(t=>this.tick(t));}}
+  wake(){if(!this.failed&&!this.contextLost&&!this.frame&&this.visible&&!document.hidden){this.last=performance.now();this.frame=requestAnimationFrame(t=>this.tick(t));}}
   tick(time){
     this.frame=0;
     // Up to 60 fps with the smaller mobile buffer; avoid redundant frames on 120 Hz screens.

@@ -580,3 +580,5 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 
 .mobile-page-link svg{fill:currentColor;stroke:none}
 .mobile-page-link svg{color:#fff}
+
+.mobile-page-link svg{color:var(--ink)}

@@ -6,7 +6,7 @@ export async function showPendantFallback(block,{reduced=false,documentRef=docum
   image.className='pendant-fallback';image.alt='Никита Мосолов в подвеске';
   image.width=600;image.height=900;image.decoding='async';
   image.style.visibility='hidden';
-  image.src='assets/pendant/pendant-fallback-v91.png';
+  image.src='assets/pendant/pendant-fallback-v186.png';
   host.append(image);block.hidden=false;
   try{await image.decode();}catch{
     image.remove();block.hidden=true;

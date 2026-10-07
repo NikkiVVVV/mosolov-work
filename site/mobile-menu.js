@@ -12,7 +12,6 @@ export function createMobileMenu(root,mobile){
  function labels(){
   toggle.querySelector('span').textContent=open?(en()?'Close':'Закрыть'):(en()?'Menu':'Меню');
   root.setAttribute('aria-label',en()?'Navigation':'Навигация');
-  root.querySelector('[data-menu-bookmarks] span').textContent=en()?'Favorites':'Избранное';
   root.querySelector('[data-menu-skin] span').textContent=en()?'Change skin':'Изменить скин';
   root.querySelector('[data-menu-mayonez] > span:last-child').textContent=en()?'Mayonez':'Майонез';
   root.querySelector('[data-menu-channel] span').textContent=en()?'Telegram channel':'ТГ-канал';

@@ -8,7 +8,9 @@ function close(){menu.open=false;}
 document.addEventListener('click',event=>{if(!menu.contains(event.target))close();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.open){close();toggle.focus();}});
 document.addEventListener('focusin',event=>{if(!bar.contains(event.target))close();});
-menu.addEventListener('toggle',()=>toggle.setAttribute('aria-label',menu.open?'Закрыть меню':'Меню'));
+const backdrop=bar.querySelector('.links-menu-backdrop');
+backdrop.addEventListener('click',close);
+menu.addEventListener('toggle',()=>{toggle.setAttribute('aria-label',menu.open?'Закрыть меню':'Меню');backdrop.dataset.open=String(menu.open);});
 menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',close));
 function sync(){
  frame=0;

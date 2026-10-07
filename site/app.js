@@ -1,5 +1,5 @@
 import {prepareMedia,animateExperience,createCaseReveal} from './ui-reveal.js?v=167';
-import { createMobileMenu } from './mobile-menu.js?v=143';
+import { createMobileMenu } from './mobile-menu.js?v=186';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectBento } from './project-bento.js?v=143';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
