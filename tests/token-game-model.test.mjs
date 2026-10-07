@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createTokens,hitToken,strikeTokens,roundOutcome} from '../site/test-secret/token-game-model.js';
+import {createTokens,hitToken,strikeTokens,roundOutcome} from '../site/token-game-model.js';
 for(let hp=1;hp<=4;hp++)test(`${hp} hits to destroy; award original token value once`,()=>{
  const token={hp,value:hp*128};
  for(let n=1;n<hp;n++)assert.equal(hitToken(token),0);

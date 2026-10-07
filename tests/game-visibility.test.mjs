@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGameVisibility} from '../site/test-secret/game-visibility.js';
+import {createGameVisibility} from '../site/game-visibility.js';
 function fixture(isMobile){
  let enter,docChange;const calls=[];
  globalThis.document={hidden:false,addEventListener:(name,fn)=>{docChange=fn;}};

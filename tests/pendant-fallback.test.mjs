@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {showPendantFallback} from '../site/test-secret/pendant-fallback.js';
+import {showPendantFallback} from '../site/pendant-fallback.js';
 function fixture(fail=false){
  const state={events:[],removed:false};let child;
  const image={style:{},async decode(){if(fail)throw Error('network');},remove(){state.removed=true;child=null;},animate(frames,options){state.frames=frames;state.options=options;return {finished:Promise.resolve(),cancel(){state.cancelled=true;}};}};

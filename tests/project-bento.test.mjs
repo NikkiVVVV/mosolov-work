@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {planBento,partitionOpening,partitionShowcase,partitionTools} from '../site/test-secret/project-bento.js';
-import {projects} from '../site/test-secret/projects.js';
+import {planBento,partitionOpening,partitionShowcase,partitionTools} from '../site/project-bento.js';
+import {projects} from '../site/projects.js';
 const ratio=p=>p.video?p.videoWidth/p.videoHeight:p.coverRatio?.split('/').map(Number).reduce((a,b)=>a/b)||1;
 for(const category of ['all','work','pet','publication'])test(`balanced ${category} rows contain each visible card exactly once`,()=>{
  const items=projects.filter(p=>!p.hidden&&(p.alwaysVisible||category==='all'||p.category===category)).map(p=>({id:p.id,wide:p.wide||p.game,ratio:ratio(p)}));

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createProjectVideos } from '../site/test-secret/project-videos.js';
+import { createProjectVideos } from '../site/project-videos.js';
 
 class FakeVideo extends EventTarget {
   constructor() { super(); this.dataset={}; this.currentTime=0; this.paused=true; this.ended=false; this.isConnected=true; }

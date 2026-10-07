@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {headerScrollState} from '../site/test-secret/mobile-header.js';
+import {headerScrollState} from '../site/mobile-header.js';
 test('down hides and up reveals with direction thresholds',()=>{
  assert.deepEqual(headerScrollState(100,112,false),{anchor:112,hidden:true});
  assert.deepEqual(headerScrollState(112,104,true),{anchor:104,hidden:false});

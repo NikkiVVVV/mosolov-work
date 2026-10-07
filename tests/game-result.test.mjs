@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGameResult,CAT_DURATION,CAT_FADE} from '../site/test-secret/game-result.js';
+import {createGameResult,CAT_DURATION,CAT_FADE} from '../site/game-result.js';
 function fixture(reducedMotion=false){
  const events={};
  const image={dataset:{},removeAttribute(name){delete this[name];},addEventListener(name,callback){events[name]=callback;}};
