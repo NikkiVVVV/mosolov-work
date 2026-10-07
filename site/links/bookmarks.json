@@ -1552,8 +1552,11 @@
       "bookmarkTitles": [
         "Foliobin by Nikita Petrov"
       ],
-      "ownerNote": "Галерея портфолио продуктовых дизайнеров.",
-      "tags": [],
+      "ownerNote": "Хорошая подборка портфолио.",
+      "tags": [
+        "Рефы",
+        "хорошая подборка портфолио"
+      ],
       "folderPaths": [
         "Рефы"
       ],
