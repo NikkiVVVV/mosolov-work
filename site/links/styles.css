@@ -3,9 +3,7 @@
 @font-face{font-family:'Golos Text';src:url('./assets/GolosText-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'Golos Text';src:url('./assets/GolosText-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
 :root{color-scheme:dark;--surface:#191a1b;--ink:#eeefeb;--muted:#a6a8a2;--line:#3d4041;--subtle:#252729;font-family:'Golos Text',sans-serif}
-.links-mobile-bar{display:none}
-@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
- .links-mobile-bar{position:fixed;z-index:48;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;width:calc(100% - 40px);max-width:390px;margin:auto;pointer-events:none;transition:transform 200ms ease,opacity 160ms ease}
+ .links-mobile-bar{position:fixed;z-index:48;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;width:calc(100% - 40px);max-width:960px;margin:auto;pointer-events:none;transition:transform 200ms ease,opacity 160ms ease}
  .links-mobile-bar[data-scroll-hidden=true]{transform:translateY(calc(-100% - 32px - env(safe-area-inset-top,0px)));opacity:0}
  .links-bar-icon{pointer-events:auto;display:grid;place-items:center;width:36px;height:36px;padding:7px;border:1px solid transparent;border-radius:8px;background:var(--subtle);color:var(--ink);cursor:pointer;list-style:none}
  .links-bar-icon::-webkit-details-marker{display:none}
@@ -16,7 +14,7 @@
  .links-bar-panel{position:absolute;top:48px;right:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:auto}
  .links-bar-panel a{padding:8px 12px;min-height:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:15px;font-weight:500;box-shadow:0 4px 16px #00000008}
  .links-bar-menu summary:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-}
+@media(max-width:640px){.links-mobile-bar{max-width:390px}}
 *{box-sizing:border-box}
 body{margin:0;overflow-x:clip;background:var(--surface);color:var(--ink);font:400 16px/24px 'Golos Text',sans-serif;-webkit-font-smoothing:antialiased}
 button,input{font:inherit;color:inherit}
@@ -148,3 +146,13 @@ tbody tr:hover{background:#1e2021}
 .filters .filter-button{flex:0 0 auto;min-width:0;min-height:28px;padding:4px 8px;border-radius:8px;font-size:13px;line-height:20px;background:#292b2d;color:#b5b7b4}
 .filters .filter-button:hover{background:#36393b;color:var(--ink)}
 .filters .filter-button[aria-pressed=true]{background:#45484a;color:#fff}
+
+/* Match portfolio service tiles and footer. */
+.links-bar-panel a{display:inline-flex;align-items:center;gap:8px}
+.links-bar-panel img{display:block;width:20px;height:20px;flex:none;border-radius:4px}
+.menu-mayonez-icon{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#ef654a;flex:none}
+.menu-mayonez-icon::after{content:"";width:8px;height:8px;border-radius:50%;background:#f8cf58}
+.portfolio-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:32px 0 0;font:500 15px/20px 'Golos Text',sans-serif}
+.portfolio-footer a{display:inline-flex;align-items:center;min-height:44px;white-space:nowrap;color:var(--muted);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.portfolio-footer a:hover{color:var(--ink)}
+@media(max-width:640px){.portfolio-footer{gap:12px;font-size:14px;flex-wrap:nowrap}}
