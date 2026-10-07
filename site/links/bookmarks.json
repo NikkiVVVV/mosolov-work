@@ -3338,6 +3338,80 @@
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
+    },
+    {
+      "id": "139c5b7a30e97616",
+      "featuredRank": 103,
+      "url": "https://details.so/",
+      "domain": "details.so",
+      "title": "details.so",
+      "bookmarkTitles": [
+        "details.so"
+      ],
+      "ownerNote": "Рефы отдельных блоков сайта: первый экран, футеры, кнопки и навигация.",
+      "tags": [
+        "Рефы",
+        "блоки",
+        "навигация",
+        "кнопки",
+        "футеры"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "2a42bf2d1b2277b3",
+      "featuredRank": 102,
+      "url": "https://siteofsites.co/",
+      "domain": "siteofsites.co",
+      "title": "siteofsites.co",
+      "bookmarkTitles": [
+        "siteofsites.co"
+      ],
+      "ownerNote": "Галерея сайтов для вдохновения с фильтрами.",
+      "tags": [
+        "Рефы",
+        "сайты",
+        "галерея",
+        "референсы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "e52a2df38613b6af",
+      "featuredRank": 101,
+      "url": "https://vengeanceui.com/",
+      "domain": "vengeanceui.com",
+      "title": "vengeanceui.com",
+      "bookmarkTitles": [
+        "vengeanceui.com"
+      ],
+      "ownerNote": "Эффекты наведения, анимированные подсказки и блоки со скролл-анимацией.",
+      "tags": [
+        "Инструменты",
+        "hover",
+        "подсказки",
+        "скролл",
+        "анимация"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
     }
   ]
 }
