@@ -2,11 +2,11 @@ import { createMobileMenu } from './mobile-menu.js?v=143';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectBento } from './project-bento.js?v=143';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed160';
+import { projects } from './projects.js?v=feed161';
 import { createSpaceGame } from './space-game.js?v=86';
 import { englishProjects } from './locale.js?v=feed143';
 import { features } from './features.js';
-import { createProjectVideos } from './project-videos.js?v=feed160';
+import { createProjectVideos } from './project-videos.js?v=feed161';
 
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
