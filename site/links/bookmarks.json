@@ -1407,19 +1407,18 @@
     },
     {
       "id": "3e11236d4c9f17a7",
-      "featuredRank": 80,
+      "featuredRank": 108,
       "url": "https://www.footer.design/",
       "domain": "www.footer.design",
       "title": "Footer — The only footer gallery on earth.",
       "bookmarkTitles": [
         "Footer — The only footer gallery on earth."
       ],
-      "ownerNote": "Галерея футеров с фильтрами по типу и стилю.",
+      "ownerNote": "Подборка футеров сайтов.",
       "tags": [
         "Рефы",
         "футеры",
-        "подвал",
-        "референсы"
+        "блоки"
       ],
       "folderPaths": [
         "Рефы"
@@ -1621,15 +1620,19 @@
     },
     {
       "id": "cc6c3c59856ee2c2",
-      "featuredRank": 0,
+      "featuredRank": 105,
       "url": "https://pricingpages.design/",
       "domain": "pricingpages.design",
       "title": "Pricing Pages — A Curated Gallery of Pricing Page Designs",
       "bookmarkTitles": [
         "Pricing Pages — A Curated Gallery of Pricing Page Designs"
       ],
-      "ownerNote": "Рефы страниц с тарифами.",
-      "tags": [],
+      "ownerNote": "Рефы страниц тарифов и сравнения планов.",
+      "tags": [
+        "Рефы",
+        "тарифы",
+        "прайсинг"
+      ],
       "folderPaths": [
         "Рефы"
       ],
@@ -3293,19 +3296,19 @@
     },
     {
       "id": "0335d0682f514e21",
-      "featuredRank": 78,
+      "featuredRank": 106,
       "url": "https://cta.gallery/",
       "domain": "cta.gallery",
       "title": "cta.gallery",
       "bookmarkTitles": [
         "cta.gallery"
       ],
-      "ownerNote": "Рефы CTA-блоков: кнопки, формы и секции с призывом к действию.",
+      "ownerNote": "Рефы блоков с призывом к действию.",
       "tags": [
         "Рефы",
         "CTA",
-        "кнопки",
-        "формы"
+        "блоки",
+        "кнопки"
       ],
       "folderPaths": [
         "Рефы"
@@ -3407,6 +3410,52 @@
       ],
       "folderPaths": [
         "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "80a2a9f260c1aa25",
+      "featuredRank": 107,
+      "url": "https://navbar.gallery/",
+      "domain": "navbar.gallery",
+      "title": "navbar.gallery",
+      "bookmarkTitles": [
+        "navbar.gallery"
+      ],
+      "ownerNote": "Рефы навигации и меню: выпадающие, боковые и на весь экран.",
+      "tags": [
+        "Рефы",
+        "навигация",
+        "меню"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "f67fc9aeea969731",
+      "featuredRank": 104,
+      "url": "https://supahero.io/",
+      "domain": "supahero.io",
+      "title": "supahero.io",
+      "bookmarkTitles": [
+        "supahero.io"
+      ],
+      "ownerNote": "Подборка первых экранов сайтов.",
+      "tags": [
+        "Рефы",
+        "первые экраны",
+        "hero"
+      ],
+      "folderPaths": [
+        "Рефы"
       ],
       "description": "",
       "reviewHint": "curated",
