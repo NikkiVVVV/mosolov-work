@@ -14,7 +14,7 @@ export class PendantCharacter {
     this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},
       shakeMix:{value:0},sleepAmount:{value:0},glitch:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
     this.idleState.queue=['sip','cat'];
-    const files=['gta-idle-v36.png','gta-idle-v36.png','gta-cup-v150.png','gta-sleep-v150.png','gta-cat-v150.png','gta-pull-v36.png'];this.totalTextures=files.length;
+    const files=['gta-idle-v36.png','gta-sway-v176.webp','gta-cup-v150.png','gta-sleep-v150.png','gta-cat-v150.png','gta-pull-v36.png'];this.totalTextures=files.length;
     const loader=new THREE.TextureLoader();
     Promise.all(files.map((name)=>loader.loadAsync(`assets/pendant/clay/${name}`).then(map=>{this.loaded++;return map;}))).then(maps=>{
       maps.forEach((map,i)=>{map.colorSpace=THREE.SRGBColorSpace;this.uniforms[`pose${i}`]={value:map};});
@@ -74,12 +74,12 @@ export class PendantCharacter {
             float noise=fract(sin(band*73.1+tick*19.7)*43758.5453);
             sampleUv.x+=(noise-.5)*.016*glitch*step(.88,noise);
             vec2 gaze=eyeUV(sampleUv);
-            // Shaking moves the original portrait; no second face and no dissolve.
-            vec4 result=premul(texture2D(pose0,gaze));
+            // One aligned expression pose follows the same moving head and eases back at rest.
+            vec4 result=mix(premul(texture2D(pose0,gaze)),premul(texture2D(pose1,gaze)),shakeMix);
             if(exasperation>.5)result=premul(texture2D(pose5,gaze));
             float eyePatch=max(1.-smoothstep(.75,1.,length((vUv-vec2(.425,.565))/vec2(.049,.03))),
                                1.-smoothstep(.75,1.,length((vUv-vec2(.602,.565))/vec2(.049,.03))));
-            result=mix(result,premul(texture2D(pose3,sampleUv)),sleepAmount*eyePatch*(1.-exasperation));
+            result=mix(result,premul(texture2D(pose3,sampleUv)),sleepAmount*eyePatch*(1.-exasperation)*(1.-shakeMix));
             if(exasperation<.5&&idleKind>.5&&idleKind<1.5){
               // One rigid foreground sprite rises from below. The portrait is never crossfaded.
               vec2 cupUv=vUv+vec2(-.015,.30+(1.-idleAmount)*.85);
