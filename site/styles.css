@@ -344,7 +344,7 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
 .grid [data-project-id="09"] .project-cover{aspect-ratio:4/3!important}
 .grid [data-project-id="09"] .project-cover video{object-fit:cover;object-position:center}
 .grid .project-tools-pair [data-project-id="18"] .project-cover{aspect-ratio:1193/1319!important}
-.project-tools-pair [data-project-id="18"] video{object-fit:cover;transform:scale(1.8)}
+.project-tools-pair [data-project-id="18"] video{object-fit:cover;object-position:center top;transform:none}
 [data-project-id="17"] .project-description{color:var(--ink)}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
  .grid{display:grid;grid-template-columns:1fr;grid-auto-rows:auto;gap:var(--card-gap)}
