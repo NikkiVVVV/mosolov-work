@@ -9,7 +9,7 @@ import { createCaseFinishes, finishes } from './pendant-finishes.js?v=80';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
 import { PendantEntrance } from './pendant-entrance.js?v=148';
-import { PendantCharacter } from './pendant-character.js?v=gta36';
+import { PendantCharacter } from './pendant-character.js?v=150';
 
 class Pendant {
   constructor(block) {
@@ -237,13 +237,14 @@ class Pendant {
   bind(){
     const canvas=this.hitSurface;
     window.addEventListener('pointermove',e=>{
-      
+      this.character.interruptIdle();
       if(e.pointerType==='touch')return;
       const r=this.hitSurface.getBoundingClientRect();
       this.character.pointer.x=clamp((e.clientX-r.left-r.width/2)/Math.max(160,innerWidth*.28),-1,1);
       this.character.pointer.y=clamp((e.clientY-r.top-r.height/2)/Math.max(160,innerHeight*.28),-1,1);
       this.wake();
     },{passive:true});
+    for(const event of ['pointerdown','keydown','wheel'])window.addEventListener(event,()=>{this.character.interruptIdle();this.wake();},{passive:true});
     document.documentElement.addEventListener('pointerleave',()=>{this.character.pointer={x:0,y:0};});
     canvas.addEventListener('pointerdown',e=>{
       if(e.button!==0||this.drag||this.configDrag||this.touchCandidate)return;
