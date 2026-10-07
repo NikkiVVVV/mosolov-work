@@ -134,3 +134,4 @@ tbody tr:hover{background:#1e2021}
 .links-menu-backdrop{position:fixed;inset:calc(-16px - env(safe-area-inset-top,0px)) calc((100% - 100vw)/2) auto;height:110dvh;background:color-mix(in srgb,var(--surface) 35%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 280ms ease,visibility 0s 280ms}
 .links-menu-backdrop[data-open=true]{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
 @media(prefers-reduced-motion:reduce){.links-menu-backdrop{transition:none}}
+.links-bar-panel a{white-space:nowrap}
