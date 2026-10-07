@@ -547,3 +547,10 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 .project-cover.media-ready::before{content:'';position:absolute;inset:0;background:var(--subtle);opacity:0;pointer-events:none}
 .project-cover.media-ready>img,.project-cover.media-ready>video{transition:opacity 480ms ease}
 @media(prefers-reduced-motion:reduce){.case-entering{opacity:1;transition:none}#contact-dialog,#contact-menu-backdrop{transition:none}.project-cover.media-ready>img,.project-cover.media-ready>video{transition:none}}
+
+/* Mobile navigation follows the right edge; desktop placement stays unchanged. */
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .mobile-menu{left:auto;right:max(20px,calc((100vw - 390px)/2));align-items:flex-end}
+ #mobile-menu-panel{left:auto;right:0;align-items:flex-end}
+ .mobile-menu-row{justify-content:flex-end;transform-origin:right top}
+}
