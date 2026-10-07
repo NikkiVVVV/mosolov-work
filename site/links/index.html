@@ -10,10 +10,13 @@
 </head>
 <body>
   <main class="page-shell">
+    <nav id="view-tabs" class="view-tabs" aria-label="Разделы закладок" hidden>
+      <button type="button" data-view="library" aria-pressed="true">Все закладки</button>
+      <button type="button" data-view="chat" aria-pressed="false">Чат</button>
+    </nav>
     <section class="search-section" aria-label="Поиск по закладкам">
       <canvas id="search-wave" aria-hidden="true"></canvas>
       <h1>Избранные<br>закладки</h1>
-      <button id="back-to-library" type="button" hidden>← Все закладки</button>
       <div id="chat" class="chat" role="log" aria-label="История поиска" aria-live="polite" hidden></div>
       <form class="search-form" role="search" id="search-form">
         <svg class="search-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1c1.5 8 3 9.5 11 11-8 1.5-9.5 3-11 11C10.5 15 9 13.5 1 12 9 10.5 10.5 9 12 1Z"/></svg>

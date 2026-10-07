@@ -141,7 +141,7 @@ function resultTable(body, loading = false) {
 }
 
 function assistantReply(message, {loading = false, retry = false, sources = ''} = {}) {
-  return `<div class="assistant-message"><span class="assistant-label">Поиск по закладкам</span><p class="chat-response">${escapeHTML(message)}</p>${loading ? '<p class="search-loading-label" role="status"><span class="loading-dot" aria-hidden="true"></span>Ищу по смыслу…</p>' : ''}${sources ? `<p class="search-sources">${escapeHTML(sources)}</p>` : ''}${retry ? '<button class="retry-search" type="button">Повторить AI-поиск</button>' : ''}</div>`;
+  return `<div class="assistant-message"><div class="assistant-bubble"><p class="chat-response">${escapeHTML(message)}</p>${loading ? '<p class="search-loading-label" role="status"><span class="loading-dot" aria-hidden="true"></span>Ищу по смыслу…</p>' : ''}${sources ? `<p class="search-sources">${escapeHTML(sources)}</p>` : ''}${retry ? '<button class="retry-search" type="button">Повторить AI-поиск</button>' : ''}</div></div>`;
 }
 
 function showAnswer(answer, message, items, options = {}) {
@@ -232,6 +232,38 @@ function resetSearch() {
   queryInput.focus();
 }
 
+let chatScroll = 0;
+function showView(view) {
+  const chatting = view === 'chat';
+  if (!chatting && state.chatting) {
+    chatScroll = window.scrollY;
+    cancelPendingSearch();
+  }
+  state.chatting = chatting;
+  document.body.classList.toggle('chat-mode', chatting);
+  $('#catalog').hidden = chatting;
+  chat.hidden = !chatting;
+  $('#view-tabs').hidden = !chat.children.length;
+  $('#view-tabs').querySelectorAll('[data-view]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.view === view));
+  });
+  state.query = '';
+  queryInput.value = '';
+  queryInput.placeholder = chatting ? 'Что ещё найти?' : 'Сайты с необычной типографикой';
+  render();
+  window.scrollTo({top: chatting ? chatScroll : 0, behavior: 'instant'});
+  if (!reducedMotion.matches) {
+    const targets = chatting ? [chat] : [$('h1'), form, $('#catalog')];
+    targets.forEach((target, index) => {
+      target.getAnimations().forEach(animation => animation.cancel());
+      target.animate([
+        {opacity: 0, transform: 'translateY(8px)'},
+        {opacity: 1, transform: 'translateY(0)'}
+      ], {duration: 320, delay: index * 40, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards'});
+    });
+  }
+}
+
 form.addEventListener('submit', event => {
   event.preventDefault();
   if (!queryInput.value.trim() || !state.loaded) return;
@@ -244,13 +276,16 @@ form.addEventListener('submit', event => {
   state.chatting = true;
   document.body.classList.add('chat-mode');
   $('#catalog').hidden = true;
-  $('#back-to-library').hidden = false;
   chat.hidden = false;
   const turn = document.createElement('section');
   turn.className = 'chat-turn';
   turn.setAttribute('aria-label', `Поиск: ${state.query}`);
   turn.innerHTML = `<p class="chat-question">${escapeHTML(query)}</p><div class="chat-answer" aria-busy="true"></div>`;
   chat.append(turn);
+  $('#view-tabs').hidden = false;
+  $('#view-tabs').querySelectorAll('[data-view]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.view === 'chat'));
+  });
   const answer = turn.querySelector('.chat-answer');
   answerQuery(query, answer, [...state.history], filteredItems());
   queryInput.value = '';
@@ -260,12 +295,12 @@ form.addEventListener('submit', event => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     const after = form.getBoundingClientRect();
     if (!reducedMotion.matches) form.animate([
-      { transform: `translate(${before.left - after.left}px, ${before.top - after.top}px) scaleX(${before.width / after.width})` },
-      { transform: 'none' }
+      { transform: `translateX(-50%) translate(${before.left - after.left}px, ${before.top - after.top}px) scaleX(${before.width / after.width})` },
+      { transform: 'translateX(-50%)' }
     ], { duration: 550, easing: 'cubic-bezier(.22,1,.36,1)' });
   }
   // Keep the question and the first results visible, even for a long answer.
-  chat.scrollTo({ top: turn.offsetTop - chat.offsetTop, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+  window.scrollTo({ top: Math.max(0, turn.getBoundingClientRect().top + window.scrollY - 96), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
   queryInput.focus({ preventScroll: true });
 });
 queryInput.addEventListener('input', () => {
@@ -277,17 +312,10 @@ queryInput.addEventListener('keydown', event => {
     form.requestSubmit();
   }
 });
-$('#back-to-library').addEventListener('click', () => {
-  cancelPendingSearch();
-  state.chatting = false;
-  state.history = [];
-  document.body.classList.remove('chat-mode');
-  $('#catalog').hidden = false;
-  $('#back-to-library').hidden = true;
-  chat.hidden = true;
-  chat.replaceChildren();
-  queryInput.placeholder = 'Сайты с необычной типографикой';
-  resetSearch();
+$('#view-tabs').addEventListener('click', event => {
+  const button = event.target.closest('[data-view]');
+  if (!button || (button.dataset.view === 'chat') === state.chatting) return;
+  showView(button.dataset.view);
 });
 $('#clear-search').addEventListener('click', () => {
   queryInput.value = '';
