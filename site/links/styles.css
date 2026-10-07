@@ -49,7 +49,7 @@ h1{font:500 48px/56px 'Golos Text',sans-serif;letter-spacing:-.02em;text-align:c
 .table-wrap::-webkit-scrollbar{height:8px}
 .table-wrap::-webkit-scrollbar-thumb{background:#515456;border-radius:4px}
 .site-link{display:flex;align-items:center;gap:12px;min-width:0}
-.site-link>span:last-child{white-space:nowrap}
+.site-link>span:last-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .site-icon{position:relative;display:grid;place-items:center;width:20px;height:20px;flex:none;border-radius:4px;background:var(--icon-color,#424344);color:#d4d7d3;font:500 10px/20px 'IBM Plex Sans',sans-serif;overflow:hidden}
 .site-icon img{position:absolute;inset:0;width:20px;height:20px;object-fit:contain;background:var(--surface)}
 .site-monogram{letter-spacing:0;font-variation-settings:normal}
@@ -156,3 +156,6 @@ tbody tr:hover{background:#1e2021}
 .portfolio-footer a{display:inline-flex;align-items:center;min-height:44px;white-space:nowrap;color:var(--muted);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .portfolio-footer a:hover{color:var(--ink)}
 @media(max-width:640px){.portfolio-footer{gap:12px;font-size:14px;flex-wrap:nowrap}}
+
+/* Reserve space before the category in catalog and search tables. */
+th:first-child,td:first-child{padding-right:16px}

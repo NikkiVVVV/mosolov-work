@@ -138,8 +138,7 @@ function row(item) {
   const icon = state.icons[item.domain];
   const monogram = siteMonogram(item.domain);
   const favicon = `<span class="site-icon${icon ? ' has-icon' : ''}" style="--icon-color:${monogram.color}" aria-hidden="true"><span class="site-monogram">${escapeHTML(monogram.letters)}</span>${icon ? `<img src="${escapeHTML(icon)}" alt="" width="20" height="20" loading="lazy">` : ''}</span>`;
-  const shortTitle = Array.from(title).length > 15 ? Array.from(title).slice(0, 15).join('') + '…' : title;
-  return `<tr><td><a class="site-link" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(title)}" aria-label="${escapeHTML(title)}">${favicon}<span>${escapeHTML(shortTitle)}</span></a></td><td>${escapeHTML(categoryLabel(item))}</td><td>${escapeHTML(note)}</td></tr>`;
+  return `<tr><td><a class="site-link" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(title)}" aria-label="${escapeHTML(title)}">${favicon}<span>${escapeHTML(title)}</span></a></td><td>${escapeHTML(categoryLabel(item))}</td><td>${escapeHTML(note)}</td></tr>`;
 }
 
 function resultTable(body, loading = false) {
