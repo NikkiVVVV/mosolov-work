@@ -9,7 +9,7 @@ export class PendantEntrance {
     this.package=this.el.querySelector('.loader-package');this.deviceSlot=this.el.querySelector('.loader-device');
     this.el.querySelector('.loader-box').decode().catch(()=>{this.el.dataset.assetFailed='true';}).finally(()=>{this.assetReady=true;pendant.wake();});
     this.started=performance.now();this.readyAt=null;this.pageReady=false;this.fontProgress=0;this.pageProgress=0;this.displayed=[0,0,0];
-    Promise.all([document.fonts.load('16px Werkzeug'),document.fonts.load('14px "IBM Plex Sans"')].map(task=>task.then(()=>{this.fontProgress+=.5;}))).then(()=>document.fonts.ready).then(()=>{this.fontProgress=1;});
+    Promise.all([document.fonts.load('16px Werkzeug'),document.fonts.load('16px "Golos Text"'),document.fonts.load('500 16px "Golos Text"')].map(task=>task.then(()=>{this.fontProgress+=1/3;}))).then(()=>document.fonts.ready).then(()=>{this.fontProgress=1;});
     const appReady=document.documentElement.dataset.appReady==='true'?Promise.resolve():new Promise(resolve=>document.addEventListener('portfolio:ready',resolve,{once:true}));
     appReady.then(async()=>{
       await document.fonts.ready;

@@ -8,7 +8,7 @@ import { shapes, caseGeometry, screenMask } from './pendant-shapes.js?v=52';
 import { createCaseFinishes, finishes } from './pendant-finishes.js?v=80';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
-import { PendantEntrance } from './pendant-entrance.js?v=145';
+import { PendantEntrance } from './pendant-entrance.js?v=148';
 import { PendantCharacter } from './pendant-character.js?v=90';
 
 class Pendant {
