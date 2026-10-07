@@ -554,3 +554,8 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
  #mobile-menu-panel{left:auto;right:0;align-items:flex-end}
  .mobile-menu-row{justify-content:flex-end;transform-origin:right top}
 }
+
+.portfolio-footer{gap:16px;flex-wrap:wrap;font-size:15px;line-height:20px}
+.portfolio-footer .footer-social{color:var(--muted)}
+.portfolio-footer .footer-social:hover{color:var(--ink);text-decoration:none}
+@media(max-width:640px){.portfolio-footer{gap:12px;font-size:14px;flex-wrap:nowrap}}

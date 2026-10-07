@@ -230,7 +230,7 @@ const translatedNodes=[
   ['#current-avito','Avito'],
   ['#current-avito-team','[Auto]'],['#current-mazik','Mazik'],['#current-radar','Idea Radar'],
   ['#current-mazik-type','[mini app]'],['#current-radar-type','[service]'],
-  ['#experience-title','Experience & projects'],['#resume-md-label','Resume MD'],
+  ['#experience-title','Experience & projects'],
   ['.skip-link','View projects'],
   ['#workplaces-title','Workplaces'],
   ['#tab-all','All'],['#tab-work','Work'],['#tab-pet','Side projects'],['#tab-publication','Publications'],
@@ -246,8 +246,8 @@ const teamNames=[...document.querySelectorAll('.workplace-team')].map(element=>(
 const companyNames=[...document.querySelectorAll('.workplaces li>span:first-child')].map(element=>({element,ru:element.textContent,en:({'Сбер':'Sber','Авито':'Avito'})[element.textContent]||element.textContent}));
 function applyLanguage(){
   document.documentElement.lang=language;
-  document.querySelector('#footer-channel-label').textContent=language==='en'?'Cozy Telegram':'Уютный Тг';
-  document.querySelector('#footer-top-label').textContent=language==='en'?'Back to top':'Наверх';
+  document.querySelector('#footer-channel-label').textContent=language==='en'?'telegram channel':'канал в тг';
+  document.querySelector('#footer-top-label').textContent=language==='en'?'back to top':'наверх';
   document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
   const intro=document.querySelector('.profile-heading p');
