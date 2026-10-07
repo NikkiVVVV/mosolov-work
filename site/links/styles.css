@@ -17,6 +17,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset
 h1{font:500 48px/56px 'Golos Text',sans-serif;letter-spacing:-.02em;text-align:center;margin:0 0 40px}
 .search-form{display:flex;align-items:center;gap:12px;width:min(calc(100% - 48px),400px);height:56px;padding:8px 12px 8px 20px;border:1px solid transparent;border-radius:32px;background:#252627;transition:border-color .2s,background .2s;flex-shrink:0}
 .search-form:focus-within{border-color:#595c5e;background:#282a2b}
+.query-notice{max-width:400px;margin:12px 24px 0;color:var(--muted);font-size:12px;line-height:16px;text-align:center}
 .search-spark{width:20px;height:20px;fill:#a6a8a2;flex:none;transition:transform .5s}
 .search-form:focus-within .search-spark{transform:rotate(90deg)}
 .search-form input{min-width:0;flex:1;width:100%;border:0;background:transparent;font-size:16px;line-height:24px;outline:none;padding:0}
@@ -60,7 +61,7 @@ tbody tr:hover{background:#1e2021}
 .chat-modal-header>button:hover{background:var(--subtle);color:var(--ink)}
 .chat-modal-header>button svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
 .chat{min-width:0;min-height:0;flex:1;overflow-y:auto;overscroll-behavior-y:contain;padding:24px;scrollbar-width:thin}
-.chat-composer{flex:none;display:flex;justify-content:center;padding:16px 24px calc(20px + env(safe-area-inset-bottom));}
+.chat-composer{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 24px calc(20px + env(safe-area-inset-bottom));}
 .chat-composer .search-form{width:min(100%,400px);margin:0;box-shadow:0 8px 32px #0006,0 2px 8px #0004}
 .chat-turn{margin-bottom:40px;animation:arrive .35s ease-out}
 .chat-question{max-width:85%;width:fit-content;margin:0 0 24px auto;background:var(--subtle);padding:12px 20px;border-radius:20px 20px 4px 20px;overflow-wrap:anywhere}

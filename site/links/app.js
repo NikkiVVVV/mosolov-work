@@ -8,6 +8,11 @@ const filters = $('#filters');
 const queryInput = $('#search');
 const form = $('#search-form');
 const apiBase = document.documentElement.dataset.apiBase || '';
+const notifyBase = document.documentElement.dataset.notifyBase || '';
+const queryNotice = $('#query-notice');
+const noticeHome = document.createComment('query-notice-home');
+queryNotice.before(noticeHome);
+queryNotice.hidden = !notifyBase;
 const status = $('#list-status');
 const filterOptions = [
   { id: 'all', label: 'Все' },
@@ -123,6 +128,7 @@ const shortCategories = {
 };
 
 function categoryLabel(item) {
+  if (['Рефы', 'Инструменты', 'Медиа', 'AI', 'Дизайн'].includes(item.tags?.[0])) return item.tags[0];
   return shortCategories[item.tags?.[0]] || ({
     'Референс': 'Рефы', 'Инструмент': 'Инструменты'
   }[displayType(item)] || (item.tags?.length ? 'Рефы' : displayType(item)));
@@ -245,6 +251,7 @@ modal.addEventListener('close', () => {
   state.chatting = false;
   document.body.classList.remove('chat-mode');
   formHome.after(form);
+  noticeHome.after(queryNotice);
   state.query = '';
   queryInput.value = '';
   queryInput.placeholder = 'Сайты с необычной типографикой';
@@ -273,6 +280,7 @@ form.addEventListener('submit', event => {
   document.body.classList.add('chat-mode');
   if (firstTurn) {
     $('#chat-composer').append(form);
+    $('#chat-composer').append(queryNotice);
     modal.showModal();
   }
   const turn = document.createElement('section');
@@ -285,6 +293,13 @@ form.addEventListener('submit', event => {
     .map(item => ({item, score: searchScore(item, query)})).filter(result => result.score > 0)
     .sort((a, b) => b.score - a.score || compareSiteNames(a.item, b.item)).map(result => result.item);
   answerQuery(query, answer, [...state.history], keyword);
+  if (notifyBase) {
+    // Best effort: no retries, no cookies and no dependency of search on Telegram.
+    fetch(`${notifyBase}/api/query-event`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
+      body: JSON.stringify({query, resultCount: keyword.length}), signal: AbortSignal.timeout(8000)
+    }).catch(() => {});
+  }
   queryInput.value = '';
   queryInput.placeholder = 'Что ещё найти?';
   renderForm();

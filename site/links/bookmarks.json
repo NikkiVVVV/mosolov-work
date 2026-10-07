@@ -2,6 +2,7 @@
   "items": [
     {
       "id": "51c7b475f51e9df9",
+      "featuredRank": 0,
       "url": "https://dotmatrix.zzzzshawn.cloud/",
       "domain": "dotmatrix.zzzzshawn.cloud",
       "title": "Классные лоудеры",
@@ -9,7 +10,7 @@
         "Классные лоудеры",
         "Библиотека анимированных лоудеров"
       ],
-      "ownerNote": "Классные лоудеры",
+      "ownerNote": "Анимированные точечные лоудеры.",
       "tags": [
         "Анимация"
       ],
@@ -23,6 +24,7 @@
     },
     {
       "id": "3b37fc49daf4ccb9",
+      "featuredRank": 0,
       "url": "https://jelly-ui.com/#jelly-button",
       "domain": "jelly-ui.com",
       "title": "Коллекция резиновых кнопок и элементов.",
@@ -44,6 +46,7 @@
     },
     {
       "id": "4516d9fdc1ccc9fd",
+      "featuredRank": 0,
       "url": "https://locomotive.ca/en",
       "domain": "locomotive.ca",
       "title": "Появление карточки проекта при наведении на текст",
@@ -64,6 +67,7 @@
     },
     {
       "id": "8cb76b8e0de66af0",
+      "featuredRank": 0,
       "url": "https://gsap.com/scroll",
       "domain": "gsap.com",
       "title": "Интересное взаимодействие текста и объектов.",
@@ -84,13 +88,14 @@
     },
     {
       "id": "be0a496f877fc6c9",
+      "featuredRank": 0,
       "url": "https://www.morphicons.com/",
       "domain": "www.morphicons.com",
       "title": "Хорошая анимация иконок.",
       "bookmarkTitles": [
         "Хорошая анимация иконок."
       ],
-      "ownerNote": "Хорошая анимация иконок.",
+      "ownerNote": "SVG-иконки превращаются друг в друга с пружинной анимацией.",
       "tags": [
         "Анимация"
       ],
@@ -104,13 +109,14 @@
     },
     {
       "id": "ed59448cf1f3f4ac",
+      "featuredRank": 0,
       "url": "https://demos.gsap.com/demo/macos-dock-effect",
       "domain": "demos.gsap.com",
       "title": "Перетекание одной гонки в другую.",
       "bookmarkTitles": [
         "Перетекание одной гонки в другую."
       ],
-      "ownerNote": "Перетекание одной гонки в другую.",
+      "ownerNote": "Док как в macOS: иконки плавно увеличиваются под курсором.",
       "tags": [
         "Анимация"
       ],
@@ -124,6 +130,7 @@
     },
     {
       "id": "d7d0a0a0e895db95",
+      "featuredRank": 0,
       "url": "https://reactbits.dev/components/accordion-gallery",
       "domain": "reactbits.dev",
       "title": "Раскрытие карточек",
@@ -131,7 +138,7 @@
         "Раскрытие карточек",
         "React Bits - Accordion Gallery"
       ],
-      "ownerNote": "Раскрытие карточек",
+      "ownerNote": "Галерея-аккордеон: панели раскрываются при наведении, картинки двигаются с параллаксом.",
       "tags": [
         "Анимация"
       ],
@@ -145,6 +152,7 @@
     },
     {
       "id": "fb34fa5c35ff9a68",
+      "featuredRank": 0,
       "url": "https://animos.app/editor",
       "domain": "animos.app",
       "title": "Анимация карточек",
@@ -152,7 +160,7 @@
         "Анимация карточек",
         "Классная анимация карточек."
       ],
-      "ownerNote": "Анимация карточек",
+      "ownerNote": "Шаблоны для показа дизайна в движении. Загрузить макет и экспортировать видео.",
       "tags": [
         "Анимация"
       ],
@@ -166,6 +174,7 @@
     },
     {
       "id": "d1bcdb2db639300d",
+      "featuredRank": 0,
       "url": "https://recent.design/i/4qrfoic-designer-portfolio-theme-toggle",
       "domain": "recent.design",
       "title": "Интерактивная смена темы сайта",
@@ -190,6 +199,7 @@
     },
     {
       "id": "3793b1e05b1d51fe",
+      "featuredRank": 0,
       "url": "https://tech100-five-into-one.vercel.app/",
       "domain": "tech100-five-into-one.vercel.app",
       "title": "Классное появление карточек.",
@@ -210,6 +220,7 @@
     },
     {
       "id": "9bc4b20c383db47f",
+      "featuredRank": 0,
       "url": "https://iamnoman.com/stickers",
       "domain": "iamnoman.com",
       "title": "Эффект при наведении на таб.",
@@ -218,7 +229,7 @@
         "Интерактивные стикеры",
         "Эффект при наведении на таб. · Интерактивные стикеры"
       ],
-      "ownerNote": "Эффект при наведении на таб. · Интерактивные стикеры",
+      "ownerNote": "Стикеры отклеиваются при взаимодействии. Реф тактильной анимации.",
       "tags": [
         "Анимация",
         "Интерактивы"
@@ -233,13 +244,14 @@
     },
     {
       "id": "0cc6d2ba682be9ff",
+      "featuredRank": 0,
       "url": "https://projects.arkon.digital/threejs/wavy-cubes",
       "domain": "projects.arkon.digital",
       "title": "Фон",
       "bookmarkTitles": [
         "Фон"
       ],
-      "ownerNote": "Фон",
+      "ownerNote": "Волна из 3D-кубиков. Реф анимированного фона.",
       "tags": [
         "Анимация"
       ],
@@ -253,6 +265,7 @@
     },
     {
       "id": "e16f6b12ea91b3d7",
+      "featuredRank": 0,
       "url": "https://gobzzzmusicplayer2024.vercel.app/",
       "domain": "gobzzzmusicplayer2024.vercel.app",
       "title": "Карточки для плеера.",
@@ -273,13 +286,14 @@
     },
     {
       "id": "7aee1e9a1373529c",
+      "featuredRank": 0,
       "url": "https://tympanus.net/Development/ElasticStack",
       "domain": "tympanus.net",
       "title": "Драг карточки",
       "bookmarkTitles": [
         "Драг карточки"
       ],
-      "ownerNote": "Драг карточки",
+      "ownerNote": "Карточки в стопке: перетаскивание и упругое движение.",
       "tags": [
         "Анимация"
       ],
@@ -293,13 +307,14 @@
     },
     {
       "id": "2e08f930e3f6f512",
+      "featuredRank": 0,
       "url": "https://www.framer.com/marketplace/components/confidential-folder",
       "domain": "www.framer.com",
       "title": "Мягкое открытие карточки.",
       "bookmarkTitles": [
         "Мягкое открытие карточки."
       ],
-      "ownerNote": "Мягкое открытие карточки.",
+      "ownerNote": "Интерактивная папка с плавным раскрытием. Компонент для Framer.",
       "tags": [
         "Анимация"
       ],
@@ -313,13 +328,14 @@
     },
     {
       "id": "a6b53dbd59526c2a",
+      "featuredRank": 0,
       "url": "https://astapable.com/",
       "domain": "astapable.com",
       "title": "Стартовый видос для сайта портфолио",
       "bookmarkTitles": [
         "Стартовый видос для сайта портфолио"
       ],
-      "ownerNote": "Стартовый видос для сайта портфолио",
+      "ownerNote": "Портфолио Евгения Астапова. Реф стартового видео и подачи проектов.",
       "tags": [
         "Видео"
       ],
@@ -333,6 +349,7 @@
     },
     {
       "id": "c38bfbac2984424c",
+      "featuredRank": 88,
       "url": "https://recent.design/",
       "domain": "recent.design",
       "title": "База постов с вау- механиками",
@@ -340,10 +357,12 @@
         "База постов с вау- механиками",
         "Recent — Design Inspiration"
       ],
-      "ownerNote": "База постов с вау- механиками",
+      "ownerNote": "Свежие рефы сайтов, приложений и отдельных UI-деталей.",
       "tags": [
-        "Звуки и хаптики",
-        "Базовые места вдохновения"
+        "Рефы",
+        "референсы",
+        "сайты",
+        "UI"
       ],
       "folderPaths": [
         "Рефы"
@@ -355,13 +374,14 @@
     },
     {
       "id": "79c7411df4c7a943",
+      "featuredRank": 0,
       "url": "https://www.measured.site/",
       "domain": "www.measured.site",
       "title": "Движение объекта по мере скорола страницы.",
       "bookmarkTitles": [
         "Движение объекта по мере скорола страницы."
       ],
-      "ownerNote": "Движение объекта по мере скорола страницы.",
+      "ownerNote": "Объект двигается по мере скролла. Реф связи анимации с прокруткой.",
       "tags": [
         "Скролл"
       ],
@@ -375,13 +395,14 @@
     },
     {
       "id": "152d3c07a5b27077",
+      "featuredRank": 0,
       "url": "https://amoshuke.github.io/flutter_tilt_book/en/v4/docs/examples/holofoil-card-demo",
       "domain": "amoshuke.github.io",
       "title": "Карточка с паралаксом.",
       "bookmarkTitles": [
         "Карточка с паралаксом."
       ],
-      "ownerNote": "Карточка с паралаксом.",
+      "ownerNote": "Голографическая карточка с наклоном и бликами. Демо Flutter Tilt.",
       "tags": [
         "Акселерометр или гироскоп"
       ],
@@ -395,13 +416,14 @@
     },
     {
       "id": "63d390a8e50bb478",
+      "featuredRank": 0,
       "url": "https://www.mikes.cv/",
       "domain": "www.mikes.cv",
       "title": "Прикольное взаимодействие",
       "bookmarkTitles": [
         "Прикольное взаимодействие"
       ],
-      "ownerNote": "Прикольное взаимодействие",
+      "ownerNote": "Портфолио Mike Barton. Сохранено как реф интерактивной подачи.",
       "tags": [
         "Интерактивы"
       ],
@@ -415,6 +437,7 @@
     },
     {
       "id": "52e474b964fd954c",
+      "featuredRank": 0,
       "url": "https://designcode.io/",
       "domain": "designcode.io",
       "title": "Миллиард интерактивных взаимодействий на сайте.",
@@ -423,7 +446,7 @@
         "Интерактивные 404",
         "Миллиард интерактивных взаимодействий на сайте. · Интерактивные 404"
       ],
-      "ownerNote": "Миллиард интерактивных взаимодействий на сайте. · Интерактивные 404",
+      "ownerNote": "Уроки по интерфейсам и приложениям: шаблоны, промпты и исходники.",
       "tags": [
         "Интерактивы"
       ],
@@ -437,6 +460,7 @@
     },
     {
       "id": "486dac25e18c264b",
+      "featuredRank": 0,
       "url": "https://iskra.graphics/can",
       "domain": "iskra.graphics",
       "title": "Интерактивная банка со стикерами.",
@@ -457,13 +481,14 @@
     },
     {
       "id": "e1ec4b322bd463f8",
+      "featuredRank": 0,
       "url": "https://wallop.lol/",
       "domain": "wallop.lol",
       "title": "Аркада с брендами",
       "bookmarkTitles": [
         "Аркада с брендами"
       ],
-      "ownerNote": "Аркада с брендами",
+      "ownerNote": "Каталог сайтов в виде аркады. Реф игрового интерфейса.",
       "tags": [
         "Интерактивы"
       ],
@@ -477,13 +502,14 @@
     },
     {
       "id": "7aba482edf3750b5",
+      "featuredRank": 0,
       "url": "https://bruno-simon.com/",
       "domain": "bruno-simon.com",
       "title": "Браузерная игра с изучением виртуального мира.",
       "bookmarkTitles": [
         "Браузерная игра с изучением виртуального мира."
       ],
-      "ownerNote": "Браузерная игра с изучением виртуального мира.",
+      "ownerNote": "Портфолио Bruno Simon: ездить по 3D-миру и смотреть проекты.",
       "tags": [
         "Интерактивы"
       ],
@@ -497,6 +523,7 @@
     },
     {
       "id": "dc61fa968b1babc9",
+      "featuredRank": 0,
       "url": "https://shedsgns.me/",
       "domain": "shedsgns.me",
       "title": "Интерактивная доска.",
@@ -517,6 +544,7 @@
     },
     {
       "id": "0d6282f3a79da832",
+      "featuredRank": 0,
       "url": "https://www.bakai.me/lab",
       "domain": "www.bakai.me",
       "title": "Интерактивные появления QR",
@@ -538,6 +566,7 @@
     },
     {
       "id": "86ede42f3b9131a8",
+      "featuredRank": 0,
       "url": "https://segerman.dev/",
       "domain": "segerman.dev",
       "title": "Эффект акварели при движении курсора.",
@@ -558,13 +587,14 @@
     },
     {
       "id": "a114902b7f542e5e",
+      "featuredRank": 0,
       "url": "https://rive.app/marketplace/28334-53514-interactive-character-follow",
       "domain": "rive.app",
       "title": "Кот маскот",
       "bookmarkTitles": [
         "Кот маскот"
       ],
-      "ownerNote": "Кот маскот",
+      "ownerNote": "Персонаж следит за курсором. Можно разобрать и переделать в Rive.",
       "tags": [
         "Курсор"
       ],
@@ -578,6 +608,7 @@
     },
     {
       "id": "46a0384436cf1266",
+      "featuredRank": 0,
       "url": "https://visacenter.chipsa.design/",
       "domain": "visacenter.chipsa.design",
       "title": "Эффект воды у фона при движении мышки.",
@@ -598,6 +629,7 @@
     },
     {
       "id": "2b740a1ab51744c9",
+      "featuredRank": 0,
       "url": "https://projects.arkon.digital/threejs/water-caustics-landing",
       "domain": "projects.arkon.digital",
       "title": "Классный эффект воды.",
@@ -618,6 +650,7 @@
     },
     {
       "id": "afde5dd8880fd4ec",
+      "featuredRank": 0,
       "url": "https://tympanus.net/Development/ImageRevealHover",
       "domain": "tympanus.net",
       "title": "Появление карточки при Ховере.",
@@ -638,13 +671,14 @@
     },
     {
       "id": "093512614c494f8c",
+      "featuredRank": 0,
       "url": "https://matthew.wagerfield.com/parallax",
       "domain": "matthew.wagerfield.com",
       "title": "Пример хорошего параллакса.",
       "bookmarkTitles": [
         "Пример хорошего параллакса."
       ],
-      "ownerNote": "Пример хорошего параллакса.",
+      "ownerNote": "Слои двигаются за курсором или наклоном устройства. Демо parallax.js.",
       "tags": [
         "Курсор"
       ],
@@ -658,13 +692,14 @@
     },
     {
       "id": "06496197180ba245",
+      "featuredRank": 0,
       "url": "https://udivankin.github.io/sunrise-sunset-js",
       "domain": "udivankin.github.io",
       "title": "Время работы синхроненца с освещением.",
       "bookmarkTitles": [
         "Время работы синхроненца с освещением."
       ],
-      "ownerNote": "Время работы синхроненца с освещением.",
+      "ownerNote": "Расчёт восхода, заката и золотого часа на JavaScript. Есть интерактивное демо.",
       "tags": [
         "Контекст реального мира"
       ],
@@ -678,13 +713,14 @@
     },
     {
       "id": "53799e7252ccb16f",
+      "featuredRank": 0,
       "url": "https://animal-face.pages.dev/",
       "domain": "animal-face.pages.dev",
       "title": "Общение с Москотом прямо на сайте.",
       "bookmarkTitles": [
         "Общение с Москотом прямо на сайте."
       ],
-      "ownerNote": "Общение с Москотом прямо на сайте.",
+      "ownerNote": "Интерактивный маскот на странице. Реф общения с персонажем.",
       "tags": [
         "ПАСХАЛКИ И приколы"
       ],
@@ -698,13 +734,14 @@
     },
     {
       "id": "d03a178b74302193",
+      "featuredRank": 0,
       "url": "https://app.theladybug.app/",
       "domain": "app.theladybug.app",
       "title": "ASCII",
       "bookmarkTitles": [
         "ASCII"
       ],
-      "ownerNote": "ASCII",
+      "ownerNote": "ASCII, дизеринг и полутон для картинок и видео. Обработка прямо в браузере.",
       "tags": [
         "ПАСХАЛКИ И приколы"
       ],
@@ -718,6 +755,7 @@
     },
     {
       "id": "bada40e89d0a75fa",
+      "featuredRank": 0,
       "url": "https://holocloth.vercel.app/",
       "domain": "holocloth.vercel.app",
       "title": "Прикольная тряпка.",
@@ -738,6 +776,7 @@
     },
     {
       "id": "f78f3db12a183584",
+      "featuredRank": 0,
       "url": "https://bloub.vercel.app/#etat=comet",
       "domain": "bloub.vercel.app",
       "title": "Конструктор персонажа.",
@@ -759,6 +798,7 @@
     },
     {
       "id": "b6cea785590f66a0",
+      "featuredRank": 95,
       "url": "https://transitions.dev/",
       "domain": "transitions.dev",
       "title": "transitions.dev",
@@ -766,10 +806,12 @@
         "transitions.dev",
         "Transitions.dev: UI transitions for AI agents"
       ],
-      "ownerNote": "transitions.dev",
+      "ownerNote": "Переходы с кодом: смена текста, раскрытие меню и изменение размеров карточек.",
       "tags": [
-        "ПАСХАЛКИ И приколы",
-        "Базовые места вдохновения"
+        "Анимация",
+        "переходы",
+        "текст",
+        "микроинтеракции"
       ],
       "folderPaths": [
         "Рефы"
@@ -781,6 +823,7 @@
     },
     {
       "id": "045c07a0917f450f",
+      "featuredRank": 0,
       "url": "https://www.dark.design/",
       "domain": "www.dark.design",
       "title": "База интерактивных сайтов",
@@ -802,6 +845,7 @@
     },
     {
       "id": "218944a84ddfc800",
+      "featuredRank": 0,
       "url": "https://bookofshapes.com/",
       "domain": "bookofshapes.com",
       "title": "Мноооого шепов для анимации",
@@ -809,7 +853,7 @@
         "Мноооого шепов для анимации",
         "Шейпы"
       ],
-      "ownerNote": "Мноооого шепов для анимации",
+      "ownerNote": "Генеративные SVG-паттерны: настроить рисунок и скачать.",
       "tags": [
         "Базовые места вдохновения"
       ],
@@ -823,6 +867,7 @@
     },
     {
       "id": "42c404fb72ebbf19",
+      "featuredRank": 0,
       "url": "https://tympanus.net/codrops/hub/all",
       "domain": "tympanus.net",
       "title": "Креатив хаб",
@@ -830,7 +875,7 @@
         "Креатив хаб",
         "Creative Hub"
       ],
-      "ownerNote": "Креатив хаб",
+      "ownerNote": "Codrops: коллекция демо, UI-эффектов и креативных экспериментов.",
       "tags": [
         "Базовые места вдохновения"
       ],
@@ -843,7 +888,32 @@
       "status": "kept"
     },
     {
+      "id": "a4a29808200db0fc",
+      "featuredRank": 86,
+      "url": "https://collectui.com/",
+      "domain": "collectui.com",
+      "title": "РЕФЫ - Collect UI",
+      "bookmarkTitles": [
+        "РЕФЫ - Collect UI"
+      ],
+      "ownerNote": "Рефы отдельных экранов: формы, карточки, онбординг и другие UI-задачи.",
+      "tags": [
+        "Рефы",
+        "экраны",
+        "формы",
+        "онбординг"
+      ],
+      "folderPaths": [
+        "Дизайн"
+      ],
+      "description": "Discover amazing UI designs, portfolios, and inspiration curated by design magicians",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
       "id": "50a80cf37c57edbc",
+      "featuredRank": 0,
       "url": "https://eng.basement.studio/tools/shader-lab",
       "domain": "eng.basement.studio",
       "title": "Анимация красного заголовка.",
@@ -862,6 +932,7 @@
     },
     {
       "id": "95fedbda4bab73a3",
+      "featuredRank": 0,
       "url": "https://coolshap.es/",
       "domain": "coolshap.es",
       "title": "coolshapes",
@@ -880,13 +951,14 @@
     },
     {
       "id": "b0595e138ec060ff",
+      "featuredRank": 0,
       "url": "https://torph.lochie.me/",
       "domain": "torph.lochie.me",
       "title": "Красивая смена текста",
       "bookmarkTitles": [
         "Красивая смена текста"
       ],
-      "ownerNote": "Красивое перетекание одного текста в другой.",
+      "ownerNote": "Один текст плавно превращается в другой. Компонент без зависимостей.",
       "tags": [],
       "folderPaths": [
         "Инструменты"
@@ -898,13 +970,14 @@
     },
     {
       "id": "3c480bade6d407a1",
+      "featuredRank": 0,
       "url": "https://fontshare.com/",
       "domain": "fontshare.com",
       "title": "Fontshare: Quality Fonts. Free.",
       "bookmarkTitles": [
         "Fontshare: Quality Fonts. Free."
       ],
-      "ownerNote": "Библиотека шрифтов от Indian Type Foundry.",
+      "ownerNote": "Бесплатные шрифты от Indian Type Foundry. Для подбора типографики.",
       "tags": [],
       "folderPaths": [
         "Инструменты"
@@ -916,6 +989,7 @@
     },
     {
       "id": "af41c5edcbe57d06",
+      "featuredRank": 0,
       "url": "https://grainient.supply/",
       "domain": "grainient.supply",
       "title": "Unlimited Gradients, Animated Gradients and AI-Generated Backgrounds",
@@ -934,13 +1008,14 @@
     },
     {
       "id": "a55a52bfc1ba3c12",
+      "featuredRank": 0,
       "url": "https://www.obsidianui.dev/components#component-gallery",
       "domain": "www.obsidianui.dev",
       "title": "React Components | ObsidianUI",
       "bookmarkTitles": [
         "React Components | ObsidianUI"
       ],
-      "ownerNote": "Интерактивные React-компоненты с готовым кодом.",
+      "ownerNote": "Интерактивные React-компоненты на Motion и Tailwind. Демо и исходники.",
       "tags": [],
       "folderPaths": [
         "Инструменты"
@@ -952,6 +1027,7 @@
     },
     {
       "id": "b21da798756d0bdb",
+      "featuredRank": 0,
       "url": "https://pageflows.com/",
       "domain": "pageflows.com",
       "title": "Page Flows - user flow design inspiration",
@@ -970,6 +1046,7 @@
     },
     {
       "id": "6231dbf3de7b1b53",
+      "featuredRank": 0,
       "url": "https://bentogrids.com/",
       "domain": "bentogrids.com",
       "title": "БЕНТО",
@@ -988,6 +1065,7 @@
     },
     {
       "id": "0eee7a11c122e3c6",
+      "featuredRank": 0,
       "url": "https://patttterns.net/",
       "domain": "patttterns.net",
       "title": "PATTTTERNS",
@@ -1006,6 +1084,7 @@
     },
     {
       "id": "5db27823470238c2",
+      "featuredRank": 0,
       "url": "https://figmaelements.com/",
       "domain": "figmaelements.com",
       "title": "Figma Elements | Free UI Kits, Templates, and more Figma Resources",
@@ -1024,6 +1103,7 @@
     },
     {
       "id": "a3f72edcd8a5be6d",
+      "featuredRank": 0,
       "url": "https://www.artlebedev.ru/everything/",
       "domain": "www.artlebedev.ru",
       "title": "Задизайнено",
@@ -1042,6 +1122,7 @@
     },
     {
       "id": "56f060d26c0d011a",
+      "featuredRank": 0,
       "url": "https://m3.material.io/",
       "domain": "m3.material.io",
       "title": "Material Design",
@@ -1060,6 +1141,7 @@
     },
     {
       "id": "73f5b4a7c287cbe1",
+      "featuredRank": 0,
       "url": "https://ratingruneta.ru/",
       "domain": "ratingruneta.ru",
       "title": "«Рейтинг Рунета» — рейтинги, которым можно доверять",
@@ -1078,6 +1160,7 @@
     },
     {
       "id": "4705d20b88b1d961",
+      "featuredRank": 0,
       "url": "https://www.cssdesignawards.com/",
       "domain": "www.cssdesignawards.com",
       "title": "CSS Design Awards - Website Awards - Best Web Design Inspiration - CSS Awards",
@@ -1096,6 +1179,7 @@
     },
     {
       "id": "a42f7d0623724c49",
+      "featuredRank": 0,
       "url": "https://minimal.gallery/",
       "domain": "minimal.gallery",
       "title": "minimal.gallery",
@@ -1113,25 +1197,8 @@
       "status": "kept"
     },
     {
-      "id": "556947c0ae020cdd",
-      "url": "https://uigarage.net/",
-      "domain": "uigarage.net",
-      "title": "Патерны веб моб",
-      "bookmarkTitles": [
-        "Патерны веб моб"
-      ],
-      "ownerNote": "Паттерны для веба и мобильных интерфейсов.",
-      "tags": [],
-      "folderPaths": [
-        "Рефы"
-      ],
-      "description": "UI Garage is closing down",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "9f39daf7239beb30",
+      "featuredRank": 0,
       "url": "https://ukit.com/neowizard#templates/all",
       "domain": "ukit.com",
       "title": "uKit — Wizard: Выбор шаблона",
@@ -1150,6 +1217,7 @@
     },
     {
       "id": "858d581ddf4cf725",
+      "featuredRank": 0,
       "url": "https://httpster.net/",
       "domain": "httpster.net",
       "title": "Website Design Inspiration | Httpster",
@@ -1168,6 +1236,7 @@
     },
     {
       "id": "192c34e51c757629",
+      "featuredRank": 0,
       "url": "https://typespiration.com/design/page/2/",
       "domain": "typespiration.com",
       "title": "Шрифтовые пары",
@@ -1186,6 +1255,7 @@
     },
     {
       "id": "a47ada2a46f656ce",
+      "featuredRank": 0,
       "url": "https://www.curated.design/",
       "domain": "www.curated.design",
       "title": "curated.design",
@@ -1204,6 +1274,7 @@
     },
     {
       "id": "2cc0b172c697d703",
+      "featuredRank": 0,
       "url": "https://dprofile.ru/",
       "domain": "dprofile.ru",
       "title": "dprofile",
@@ -1222,6 +1293,7 @@
     },
     {
       "id": "ee7645df77e6593f",
+      "featuredRank": 0,
       "url": "https://savee.it/",
       "domain": "savee.it",
       "title": "SAVEE",
@@ -1240,6 +1312,7 @@
     },
     {
       "id": "052e76b0c982334a",
+      "featuredRank": 0,
       "url": "https://www.ogimage.gallery/",
       "domain": "www.ogimage.gallery",
       "title": "Подборка классных интерфейсов",
@@ -1258,6 +1331,7 @@
     },
     {
       "id": "a732b8bb091e98f9",
+      "featuredRank": 0,
       "url": "https://www.admiretheweb.com/",
       "domain": "www.admiretheweb.com",
       "title": "Admire The Web - The very best in web design inspiration",
@@ -1276,6 +1350,7 @@
     },
     {
       "id": "7c37ebcc8a7d788b",
+      "featuredRank": 0,
       "url": "https://setproduct.com/",
       "domain": "setproduct.com",
       "title": "Figma templates, design systems and UI kits",
@@ -1294,6 +1369,7 @@
     },
     {
       "id": "69979d461779c64f",
+      "featuredRank": 0,
       "url": "https://builtformars.com/ux-bites",
       "domain": "builtformars.com",
       "title": "UX Bites",
@@ -1312,6 +1388,7 @@
     },
     {
       "id": "3d6a322ed6e30d09",
+      "featuredRank": 0,
       "url": "https://figr.design/",
       "domain": "figr.design",
       "title": "Figr",
@@ -1330,14 +1407,20 @@
     },
     {
       "id": "3e11236d4c9f17a7",
+      "featuredRank": 80,
       "url": "https://www.footer.design/",
       "domain": "www.footer.design",
       "title": "Footer — The only footer gallery on earth.",
       "bookmarkTitles": [
         "Footer — The only footer gallery on earth."
       ],
-      "ownerNote": "Галерея футеров. Да, только футеров.",
-      "tags": [],
+      "ownerNote": "Галерея футеров с фильтрами по типу и стилю.",
+      "tags": [
+        "Рефы",
+        "футеры",
+        "подвал",
+        "референсы"
+      ],
       "folderPaths": [
         "Рефы"
       ],
@@ -1348,13 +1431,14 @@
     },
     {
       "id": "1fd50fc0040661ea",
-      "url": "https://raindrop.io/mamkindesigner/designer-portfolios-10167530",
-      "domain": "raindrop.io",
+      "featuredRank": 0,
+      "url": "https://mamkindesigner.raindrop.page/designer-portfolios-10167530",
+      "domain": "mamkindesigner.raindrop.page",
       "title": "Designer Portfolios",
       "bookmarkTitles": [
         "Designer Portfolios"
       ],
-      "ownerNote": "Большая подборка дизайнерских портфолио.",
+      "ownerNote": "Большая подборка портфолио дизайнеров, разложенная по странам.",
       "tags": [],
       "folderPaths": [
         "Рефы"
@@ -1366,6 +1450,7 @@
     },
     {
       "id": "c626405258667c77",
+      "featuredRank": 0,
       "url": "https://www.audienceful.com/inspiration",
       "domain": "www.audienceful.com",
       "title": "Примеры писем",
@@ -1384,6 +1469,7 @@
     },
     {
       "id": "4097e63132bdeea3",
+      "featuredRank": 0,
       "url": "https://packagingoftheworld.com/category/best-rated/top-10",
       "domain": "packagingoftheworld.com",
       "title": "Упаковка",
@@ -1402,6 +1488,7 @@
     },
     {
       "id": "1e66b27aa60b76ea",
+      "featuredRank": 0,
       "url": "https://logosystem.co/",
       "domain": "logosystem.co",
       "title": "Logo System",
@@ -1420,6 +1507,7 @@
     },
     {
       "id": "4c2cd5d06ec2c4d6",
+      "featuredRank": 0,
       "url": "https://www.arka.com/collections/all",
       "domain": "www.arka.com",
       "title": "Рефы упаковкм",
@@ -1438,6 +1526,7 @@
     },
     {
       "id": "7358b288243aca7d",
+      "featuredRank": 0,
       "url": "https://abtest.design/patterns/paywall-free-trial",
       "domain": "abtest.design",
       "title": "Paywall & free trial",
@@ -1456,6 +1545,7 @@
     },
     {
       "id": "30dbc04e7a696813",
+      "featuredRank": 0,
       "url": "https://handheld.design/",
       "domain": "handheld.design",
       "title": "Handheld Design® - Discover best-in-class mobile design inspiration.",
@@ -1474,6 +1564,7 @@
     },
     {
       "id": "763fda0dcd56484d",
+      "featuredRank": 0,
       "url": "https://khagwal.com/interactions/",
       "domain": "khagwal.com",
       "title": "Interactions by Nitish Khagwal",
@@ -1492,6 +1583,7 @@
     },
     {
       "id": "88d8e3d1e543128b",
+      "featuredRank": 0,
       "url": "https://illustrations.saas-ui.dev/",
       "domain": "illustrations.saas-ui.dev",
       "title": "Реыф компановки экранов",
@@ -1510,6 +1602,7 @@
     },
     {
       "id": "8cf9482b0835be90",
+      "featuredRank": 0,
       "url": "https://marketplace.savee.it/",
       "domain": "marketplace.savee.it",
       "title": "Savee Marketplace",
@@ -1528,6 +1621,7 @@
     },
     {
       "id": "cc6c3c59856ee2c2",
+      "featuredRank": 0,
       "url": "https://pricingpages.design/",
       "domain": "pricingpages.design",
       "title": "Pricing Pages — A Curated Gallery of Pricing Page Designs",
@@ -1546,6 +1640,7 @@
     },
     {
       "id": "280151956c0ef706",
+      "featuredRank": 0,
       "url": "https://foliobin.com/ru",
       "domain": "foliobin.com",
       "title": "Foliobin by Nikita Petrov",
@@ -1567,6 +1662,7 @@
     },
     {
       "id": "fdc1a7d87f654ad5",
+      "featuredRank": 0,
       "url": "https://shopify.design/",
       "domain": "shopify.design",
       "title": "Shopify Design",
@@ -1585,6 +1681,7 @@
     },
     {
       "id": "75fbf6deaf62380c",
+      "featuredRank": 0,
       "url": "https://sketchfab.com/search?type=models",
       "domain": "sketchfab.com",
       "title": "3D Модельки",
@@ -1603,6 +1700,7 @@
     },
     {
       "id": "3de3cbaea9272dd2",
+      "featuredRank": 0,
       "url": "https://www.lowercase.club/",
       "domain": "www.lowercase.club",
       "title": "lowercase - the technical design studio",
@@ -1621,6 +1719,7 @@
     },
     {
       "id": "8a9499a9adf6f1a2",
+      "featuredRank": 0,
       "url": "https://10000refs.me/library",
       "domain": "10000refs.me",
       "title": "Креативные видосы",
@@ -1639,13 +1738,14 @@
     },
     {
       "id": "488d00a01d068b91",
+      "featuredRank": 0,
       "url": "https://keepsimple.io/ru/articles",
       "domain": "keepsimple.io",
       "title": "KeepSimple: Базовые статьи",
       "bookmarkTitles": [
         "KeepSimple: Базовые статьи"
       ],
-      "ownerNote": "Статьи про продукт, команды и психологию.",
+      "ownerNote": "Статьи про управление IT-командами, продукт и когнитивные искажения.",
       "tags": [],
       "folderPaths": [
         "Медиа"
@@ -1657,6 +1757,7 @@
     },
     {
       "id": "8ec3adf4adc84782",
+      "featuredRank": 0,
       "url": "https://awdee.ru/",
       "domain": "awdee.ru",
       "title": "Оди. О дизайне — Журнал для дизайнеров",
@@ -1675,6 +1776,7 @@
     },
     {
       "id": "7425ec1fd2461e58",
+      "featuredRank": 0,
       "url": "https://dsgners.ru/",
       "domain": "dsgners.ru",
       "title": "DSGNERS — онлайн-платформа для дизайнеров, которые идут в ногу со временем.",
@@ -1693,6 +1795,7 @@
     },
     {
       "id": "301cc6b6d4af6af9",
+      "featuredRank": 0,
       "url": "https://ux.pub/",
       "domain": "ux.pub",
       "title": "Продуктовый дизайн, UX/UI и проектирование интерфейсов. Новости дизайн индустрии. | UXPUB",
@@ -1711,6 +1814,7 @@
     },
     {
       "id": "4129442a0d43dd7e",
+      "featuredRank": 0,
       "url": "https://kinzhal.media/",
       "domain": "kinzhal.media",
       "title": "Кинжал - это hard blog о soft skills для каждого rock star",
@@ -1729,6 +1833,7 @@
     },
     {
       "id": "09b2ce57373b309d",
+      "featuredRank": 0,
       "url": "https://habr.com/ru/",
       "domain": "habr.com",
       "title": "Лучшие публикации за сутки / Хабр",
@@ -1747,6 +1852,7 @@
     },
     {
       "id": "f88da4508d844eba",
+      "featuredRank": 0,
       "url": "https://habr.com/ru/company/agima/blog/479038/",
       "domain": "habr.com",
       "title": "Цифровая трансформация «Леруа Мерлен»: проектирование интерфейса для работы с обращениями покупателей / Блог компании Агентство AGIMA / Хабр",
@@ -1765,6 +1871,7 @@
     },
     {
       "id": "80197a26f958bf3e",
+      "featuredRank": 0,
       "url": "https://bangbangeducation.ru/subscription",
       "domain": "bangbangeducation.ru",
       "title": "Дизайн-библиотека — Bang Bang Education",
@@ -1783,6 +1890,7 @@
     },
     {
       "id": "a7b5f7d45675568b",
+      "featuredRank": 0,
       "url": "https://bureau.ru/school/designers/12/",
       "domain": "bureau.ru",
       "title": "Школа дизайнеров Бюро Горбунова",
@@ -1801,6 +1909,7 @@
     },
     {
       "id": "a947455e03272e23",
+      "featuredRank": 0,
       "url": "https://www.uprock.ru/",
       "domain": "www.uprock.ru",
       "title": "Uprock",
@@ -1819,6 +1928,7 @@
     },
     {
       "id": "3745e47d5aeddc47",
+      "featuredRank": 0,
       "url": "https://www.nngroup.com/courses/measuring-ux/",
       "domain": "www.nngroup.com",
       "title": "Measuring UX and ROI | Full Day Training Course by NN/g",
@@ -1837,6 +1947,7 @@
     },
     {
       "id": "1c5e26eb2d691122",
+      "featuredRank": 0,
       "url": "https://bureau.ru/soviet/",
       "domain": "bureau.ru",
       "title": "3968 советов",
@@ -1855,6 +1966,7 @@
     },
     {
       "id": "accbc87cdd3d5e65",
+      "featuredRank": 0,
       "url": "https://vc.ru/hr/442901-10-mysley-o-tom-kak-stat-horoshim-rukovoditelem-komandy-dizayna",
       "domain": "vc.ru",
       "title": "10 мыслей о том, как стать хорошим руководителем команды дизайна — Карьера на vc.ru",
@@ -1872,25 +1984,8 @@
       "status": "kept"
     },
     {
-      "id": "65c1ba97afd3e425",
-      "url": "https://intuition.team/book",
-      "domain": "intuition.team",
-      "title": "Книга «Сложный дизайнер»",
-      "bookmarkTitles": [
-        "Книга «Сложный дизайнер»"
-      ],
-      "ownerNote": "Книга «Сложный дизайнер».",
-      "tags": [],
-      "folderPaths": [
-        "Медиа"
-      ],
-      "description": "...",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "fbc10131f54b4f6d",
+      "featuredRank": 0,
       "url": "https://uxrdsgn.ru/",
       "domain": "uxrdsgn.ru",
       "title": "Мамкин Дизайнер – интерфейсы, исследования и инструменты",
@@ -1909,6 +2004,7 @@
     },
     {
       "id": "4946245637d2859c",
+      "featuredRank": 0,
       "url": "https://guides.kontur.ru/",
       "domain": "guides.kontur.ru",
       "title": "Контур.Гайды",
@@ -1927,6 +2023,7 @@
     },
     {
       "id": "a874847e083f8336",
+      "featuredRank": 0,
       "url": "https://developer.apple.com/design/resources/",
       "domain": "developer.apple.com",
       "title": "Apple Design Resources - Apple Developer",
@@ -1945,13 +2042,14 @@
     },
     {
       "id": "90e05f669a1e7276",
+      "featuredRank": 0,
       "url": "https://zamesin.ru/books/product-howto/why-90-percents-of-startups-fail",
       "domain": "zamesin.ru",
       "title": "Как делать продукт",
       "bookmarkTitles": [
         "Как делать продукт"
       ],
-      "ownerNote": "Книга про создание продукта и JTBD.",
+      "ownerNote": "Глава о причинах провала стартапов и ошибках в работе над продуктом.",
       "tags": [],
       "folderPaths": [
         "Медиа"
@@ -1963,6 +2061,7 @@
     },
     {
       "id": "87abaa0deb38fd48",
+      "featuredRank": 0,
       "url": "https://ktostudent.ru/",
       "domain": "ktostudent.ru",
       "title": "Кто студент",
@@ -1981,6 +2080,7 @@
     },
     {
       "id": "17b0dba2099dd6fb",
+      "featuredRank": 0,
       "url": "https://www.baza.uprock.ru/",
       "domain": "www.baza.uprock.ru",
       "title": "Все самое полезное дизайнеру",
@@ -1999,6 +2099,7 @@
     },
     {
       "id": "6084ac0536822166",
+      "featuredRank": 0,
       "url": "https://www.setters.media/",
       "domain": "www.setters.media",
       "title": "SETTERS Media",
@@ -2017,6 +2118,7 @@
     },
     {
       "id": "7f29c55e0e4ef661",
+      "featuredRank": 0,
       "url": "https://a11y.mts.ru/",
       "domain": "a11y.mts.ru",
       "title": "Практики доступности интерфейсов — МТС",
@@ -2035,6 +2137,7 @@
     },
     {
       "id": "7ee041846fd82230",
+      "featuredRank": 0,
       "url": "https://fastfounder.ru/news/",
       "domain": "fastfounder.ru",
       "title": "news — Fast Founder",
@@ -2053,6 +2156,7 @@
     },
     {
       "id": "ba88c3bc4a8dc164",
+      "featuredRank": 0,
       "url": "https://keepsimple.io/uxcore",
       "domain": "keepsimple.io",
       "title": "Матрица: UX Core",
@@ -2071,6 +2175,7 @@
     },
     {
       "id": "0e727477bdb830f5",
+      "featuredRank": 0,
       "url": "https://app.sensortower.com/top-charts?category=0&country=RU&date=2026-01-15&device=iphone&os=ios",
       "domain": "app.sensortower.com",
       "title": "Top Charts - Market Analysis - Sensor Tower",
@@ -2089,6 +2194,7 @@
     },
     {
       "id": "c8e23f57ae17920e",
+      "featuredRank": 0,
       "url": "https://app.netlify.com/drop",
       "domain": "app.netlify.com",
       "title": "Drop | Netlify",
@@ -2107,8 +2213,9 @@
     },
     {
       "id": "a56413d87c65280b",
-      "url": "https://bard.google.com/chat?hl=ru",
-      "domain": "bard.google.com",
+      "featuredRank": 0,
+      "url": "https://gemini.google.com/",
+      "domain": "gemini.google.com",
       "title": "Bard",
       "bookmarkTitles": [
         "Bard"
@@ -2124,25 +2231,8 @@
       "status": "kept"
     },
     {
-      "id": "6ff030026cefae8b",
-      "url": "https://www.krea.ai/apps/image/flux",
-      "domain": "www.krea.ai",
-      "title": "Flux | KREA.AI",
-      "bookmarkTitles": [
-        "Flux | KREA.AI"
-      ],
-      "ownerNote": "Генерация картинок в Krea, в том числе Flux.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Generate AI images with Flux, ChatGPT, Imagen, Ideogram, and more. Upload references and choose styles — the best text-to-image models in one place.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "29d619b3ae2ba538",
+      "featuredRank": 0,
       "url": "https://preview.reve.art/app/explore",
       "domain": "preview.reve.art",
       "title": "Explore: Reve",
@@ -2160,25 +2250,8 @@
       "status": "kept"
     },
     {
-      "id": "1fe343cf6a679e01",
-      "url": "https://www.maginative.com/",
-      "domain": "www.maginative.com",
-      "title": "Maginative",
-      "bookmarkTitles": [
-        "Maginative"
-      ],
-      "ownerNote": "Материалы и консультации по внедрению AI.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Maginative is an AI advisory firm working with boards, executives, and leadership teams on AI education, assessment, and strategy.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "91b357cddf96875b",
+      "featuredRank": 0,
       "url": "https://firefly.adobe.com/",
       "domain": "firefly.adobe.com",
       "title": "Adobe Firefly",
@@ -2197,6 +2270,7 @@
     },
     {
       "id": "0206a55e3cf6a8fe",
+      "featuredRank": 0,
       "url": "https://rudalle.ru/",
       "domain": "rudalle.ru",
       "title": "Russian DALL-E",
@@ -2214,43 +2288,8 @@
       "status": "kept"
     },
     {
-      "id": "65fea29fab7781e5",
-      "url": "https://bypassai.ai/",
-      "domain": "bypassai.ai",
-      "title": "Делаем текст читабельным",
-      "bookmarkTitles": [
-        "Делаем текст читабельным"
-      ],
-      "ownerNote": "Переписать AI-текст более живым языком.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Bypass AI is the best free AI checker and AI detection remover to get 100% human scores. Use this anti AI detector to humanize AI text. Try our AI bypasser today.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
-      "id": "42629f653f047517",
-      "url": "https://limewire.com/",
-      "domain": "limewire.com",
-      "title": "LimeWire",
-      "bookmarkTitles": [
-        "LimeWire"
-      ],
-      "ownerNote": "Загрузить файл и поделиться ссылкой.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Upload and send files of any size quickly and securely. No account required to share your files, photos and videos.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "a315b1b041780626",
+      "featuredRank": 0,
       "url": "https://app.leonardo.ai/",
       "domain": "app.leonardo.ai",
       "title": "Leonardo.Ai",
@@ -2269,13 +2308,14 @@
     },
     {
       "id": "ae1f55bab4817358",
+      "featuredRank": 0,
       "url": "https://www.coze.com/home",
       "domain": "www.coze.com",
       "title": "Coze_создание плагинов",
       "bookmarkTitles": [
         "Coze_создание плагинов"
       ],
-      "ownerNote": "AI-агенты и инструменты для рабочих задач.",
+      "ownerNote": "Coze: собрать AI-агента или взять готового бота для рабочей задачи.",
       "tags": [],
       "folderPaths": [
         "AI"
@@ -2287,13 +2327,14 @@
     },
     {
       "id": "6e202622be001aa3",
-      "url": "https://afforai.com/v3.5",
-      "domain": "afforai.com",
+      "featuredRank": 0,
+      "url": "https://logically.app/",
+      "domain": "logically.app",
       "title": "Afforai поиск научных статаей",
       "bookmarkTitles": [
         "Afforai поиск научных статаей"
       ],
-      "ownerNote": "Поиск по исследованиям и работа с источниками.",
+      "ownerNote": "Logically, бывший Afforai: работа с исследованиями, PDF и ссылками на источники.",
       "tags": [],
       "folderPaths": [
         "AI"
@@ -2304,32 +2345,15 @@
       "status": "kept"
     },
     {
-      "id": "ff229df707de57e2",
-      "url": "https://postimages.org/",
-      "domain": "postimages.org",
-      "title": "Хостинг картинок",
-      "bookmarkTitles": [
-        "Хостинг картинок"
-      ],
-      "ownerNote": "Загрузить картинку и получить прямую ссылку.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Provides free image uploading and hosting integration for forums. Free picture hosting and photo sharing for websites and blogs.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "e4e9c02b0aaabc75",
+      "featuredRank": 0,
       "url": "https://www.krea.ai/home",
       "domain": "www.krea.ai",
       "title": "krea.ai/home",
       "bookmarkTitles": [
         "krea.ai/home"
       ],
-      "ownerNote": "Генерация и улучшение картинок, видео и 3D.",
+      "ownerNote": "Krea: генерация и редактирование картинок, видео и 3D. Есть Flux и другие модели.",
       "tags": [],
       "folderPaths": [
         "AI"
@@ -2340,43 +2364,8 @@
       "status": "kept"
     },
     {
-      "id": "5530f8f8d6f785c3",
-      "url": "https://www.coze.com/store/bot",
-      "domain": "www.coze.com",
-      "title": "Bot Store - Coze",
-      "bookmarkTitles": [
-        "Bot Store - Coze"
-      ],
-      "ownerNote": "Каталог готовых ботов Coze.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Coze is an AI Agent-based intelligent office platform that offers an integrated suite of productivity tools including AI writing,PPT generation,web development,and AI design.Coze is dedicated to providing users and enterprises with a new,efficient,secure,and convenient intelligent office experience.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
-      "id": "b73f23ff1d3cefa0",
-      "url": "https://habr.com/ru/articles/549962/",
-      "domain": "habr.com",
-      "title": "Создание Python Telegram бота и его deploy на виртуальную машину / Хабр",
-      "bookmarkTitles": [
-        "Создание Python Telegram бота и его deploy на виртуальную машину / Хабр"
-      ],
-      "ownerNote": "Как сделать Telegram-бота на Python и задеплоить.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Кому нужны чат-боты? Рынок чат-ботов в России растет с бешеной скоростью и ожидается ежегодный прирост на 30% в течение ближайших трех лет. В 2020 г. количество запросов на чат-боты увеличилось на 17%...",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "53d77742aa5bd6fb",
+      "featuredRank": 0,
       "url": "https://klingai.com/",
       "domain": "klingai.com",
       "title": "KLING AI: Next-Generation AI Creative Studio",
@@ -2396,6 +2385,7 @@
     },
     {
       "id": "7f554aa72c7685aa",
+      "featuredRank": 0,
       "url": "https://www.meshy.ai/",
       "domain": "www.meshy.ai",
       "title": "Meshy - Free 3D AI Model Generator",
@@ -2414,6 +2404,7 @@
     },
     {
       "id": "8418ee65b38e9d5b",
+      "featuredRank": 0,
       "url": "https://playground.com/",
       "domain": "playground.com",
       "title": "AI Design логотипов + крутые темплейты",
@@ -2431,25 +2422,8 @@
       "status": "kept"
     },
     {
-      "id": "ad3b90bc52058e78",
-      "url": "https://huggingface.co/spaces/OzzyGT/diffusers-fast-inpaint",
-      "domain": "huggingface.co",
-      "title": "Заменяет объекты",
-      "bookmarkTitles": [
-        "Заменяет объекты"
-      ],
-      "ownerNote": "Заменить выделенный объект на картинке.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Upload a picture, paint over the area you want to modify, and type a description of what should appear there. The tool quickly generates new content for the masked region that matches your prompt a...",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "96b53277865f93d3",
+      "featuredRank": 0,
       "url": "https://www.blinkshot.io/",
       "domain": "www.blinkshot.io",
       "title": "BlinkShot Image Generator",
@@ -2468,6 +2442,7 @@
     },
     {
       "id": "a131757cd593a798",
+      "featuredRank": 0,
       "url": "https://clipdrop.co/uncrop#initml_custom_pro_action",
       "domain": "clipdrop.co",
       "title": "Clipdrop - Uncrop",
@@ -2486,6 +2461,7 @@
     },
     {
       "id": "925613b4213324f5",
+      "featuredRank": 0,
       "url": "https://www.artguru.ai/",
       "domain": "www.artguru.ai",
       "title": "Artguru - ретуш",
@@ -2504,6 +2480,7 @@
     },
     {
       "id": "feb89044aed34168",
+      "featuredRank": 0,
       "url": "https://www.topazlabs.com/gigapixel",
       "domain": "www.topazlabs.com",
       "title": "Topaz Labs | апскейл",
@@ -2522,6 +2499,7 @@
     },
     {
       "id": "34e76d9648a25684",
+      "featuredRank": 0,
       "url": "https://www.dzine.ai/",
       "domain": "www.dzine.ai",
       "title": "Dzine (formerly Stylar.ai) - The Most Controllable AI Image & Design Tool",
@@ -2540,6 +2518,7 @@
     },
     {
       "id": "9de4eb87ea2def7e",
+      "featuredRank": 0,
       "url": "https://huggingface.co/multimodalart/isometric-skeumorphic-3d-bnb",
       "domain": "huggingface.co",
       "title": "multimodalart/isometric-skeumorphic-3d-bnb · Hugging Face",
@@ -2558,6 +2537,7 @@
     },
     {
       "id": "e8a778988ec09b71",
+      "featuredRank": 0,
       "url": "https://stitch.withgoogle.com/",
       "domain": "stitch.withgoogle.com",
       "title": "Stitch - Design with AI",
@@ -2577,6 +2557,7 @@
     },
     {
       "id": "b6aaeb22ca677e23",
+      "featuredRank": 0,
       "url": "https://www.artbreeder.com/tools/composer",
       "domain": "www.artbreeder.com",
       "title": "Composer - Artbreeder",
@@ -2595,6 +2576,7 @@
     },
     {
       "id": "2e37188e5726921f",
+      "featuredRank": 0,
       "url": "https://magichour.ai/create",
       "domain": "magichour.ai",
       "title": "Ai заменна лица и микропромты",
@@ -2613,6 +2595,7 @@
     },
     {
       "id": "c0fadff54acb9749",
+      "featuredRank": 0,
       "url": "https://www.heygen.com/",
       "domain": "www.heygen.com",
       "title": "Мокап/Лицо/Видео",
@@ -2631,13 +2614,14 @@
     },
     {
       "id": "5fbf13198cc4a5f9",
-      "url": "https://labs.google/fx/ru/tools/whisk",
-      "domain": "labs.google",
+      "featuredRank": 0,
+      "url": "https://flow.google.com/",
+      "domain": "flow.google.com",
       "title": "Whisk - labs.google/fx",
       "bookmarkTitles": [
         "Whisk - labs.google/fx"
       ],
-      "ownerNote": "Генеративные эксперименты Google: Whisk / Flow.",
+      "ownerNote": "Google Flow: генерация видео и картинок. Бывшая ссылка на Whisk ведёт сюда.",
       "tags": [],
       "folderPaths": [
         "AI"
@@ -2649,6 +2633,7 @@
     },
     {
       "id": "d082da893f62aab8",
+      "featuredRank": 0,
       "url": "https://openart.ai/video?ai_model=veo3",
       "domain": "openart.ai",
       "title": "AI Video Generator - Create Videos from Text, Images & Elements",
@@ -2667,6 +2652,7 @@
     },
     {
       "id": "fe6c2f657282a8b0",
+      "featuredRank": 0,
       "url": "https://steos.io/voice/gallery?layout=grid&page=compilation",
       "domain": "steos.io",
       "title": "Генерация голоса",
@@ -2685,6 +2671,7 @@
     },
     {
       "id": "9bc37e2626842b58",
+      "featuredRank": 0,
       "url": "https://higgsfield.ai/",
       "domain": "higgsfield.ai",
       "title": "Рефы контента ai",
@@ -2703,13 +2690,14 @@
     },
     {
       "id": "ddffe7df056e3cba",
+      "featuredRank": 0,
       "url": "https://www.minimax.io/",
       "domain": "www.minimax.io",
       "title": "MiniMax",
       "bookmarkTitles": [
         "MiniMax"
       ],
-      "ownerNote": "Мультимодальные AI-модели MiniMax.",
+      "ownerNote": "MiniMax: модели для текста, видео, речи и музыки. Доступ через API.",
       "tags": [],
       "folderPaths": [
         "AI"
@@ -2721,6 +2709,7 @@
     },
     {
       "id": "5c0fc3fbc1c72e6c",
+      "featuredRank": 0,
       "url": "https://hyper3d.ai/",
       "domain": "hyper3d.ai",
       "title": "AI 3D",
@@ -2739,6 +2728,7 @@
     },
     {
       "id": "cb54df126bff175e",
+      "featuredRank": 0,
       "url": "https://replicate.com/",
       "domain": "replicate.com",
       "title": "Обучение_Replicate",
@@ -2756,25 +2746,8 @@
       "status": "kept"
     },
     {
-      "id": "4df6a01309e6042f",
-      "url": "https://www.notsobrightideas.com/",
-      "domain": "www.notsobrightideas.com",
-      "title": "ИИ сервисы",
-      "bookmarkTitles": [
-        "ИИ сервисы"
-      ],
-      "ownerNote": "Каталог AI-сервисов и инструментов.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "Explore our non-curated collection of AI tools, agents, cursor rules, and more. Your go-to resource for discovering innovative AI solutions and development tools.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "92cc5570564594f2",
+      "featuredRank": 0,
       "url": "https://productradar.ru/",
       "domain": "productradar.ru",
       "title": "Лучшие стартапы и пет-проекты России – Product Radar",
@@ -2792,32 +2765,15 @@
       "status": "kept"
     },
     {
-      "id": "e58254243230eeba",
-      "url": "https://wifitalents.com/ai-in-the-design-industry-statistics/",
-      "domain": "wifitalents.com",
-      "title": "Статистика использования ИИ в индустрии дизайна: подтвержденный отчет за 2026 год.",
-      "bookmarkTitles": [
-        "Статистика использования ИИ в индустрии дизайна: подтвержденный отчет за 2026 год."
-      ],
-      "ownerNote": "Статистика использования AI в дизайне.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
-      ],
-      "description": "See how AI is reshaping design work with hard numbers from 2026, including the jump in time saved and the growing share of projects that start with automated concepting. The contrast is the point, adoption is accelerating fast while design quality checks are shifting to new benchmarks you will want to understand before the next cycle.",
-      "reviewHint": "curated",
-      "privacyHint": "public",
-      "status": "kept"
-    },
-    {
       "id": "7dffe094a29be837",
+      "featuredRank": 0,
       "url": "https://styles.refero.design/",
       "domain": "styles.refero.design",
       "title": "Refero Styles",
       "bookmarkTitles": [
         "Refero Styles"
       ],
-      "ownerNote": "Стили сайтов: цвета, типографика и отступы.",
+      "ownerNote": "Стили реальных сайтов: цвета, шрифты, отступы и файлы DESIGN.md.",
       "tags": [],
       "folderPaths": [
         "AI"
@@ -2829,6 +2785,7 @@
     },
     {
       "id": "8590c059929bfa04",
+      "featuredRank": 0,
       "url": "https://neuraldeep.ru/mcp",
       "domain": "neuraldeep.ru",
       "title": "neuraldeep.ru",
@@ -2847,6 +2804,7 @@
     },
     {
       "id": "0e7efba0bd1d8092",
+      "featuredRank": 0,
       "url": "https://www.cloudflare.com/drop/",
       "domain": "www.cloudflare.com",
       "title": "Cloudflare Drop",
@@ -2865,6 +2823,7 @@
     },
     {
       "id": "fb4a899e784ccb3b",
+      "featuredRank": 0,
       "url": "https://vercel.com/drop",
       "domain": "vercel.com",
       "title": "Drop to Deploy",
@@ -2883,6 +2842,7 @@
     },
     {
       "id": "0db2bd11a6f4c874",
+      "featuredRank": 0,
       "url": "https://syntx.ai/ru/image/banana",
       "domain": "syntx.ai",
       "title": "Nano Banana - SYNTX.AI",
@@ -2893,6 +2853,486 @@
       "tags": [],
       "folderPaths": [
         "AI"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "379d8f8d5205f195",
+      "featuredRank": 100,
+      "url": "https://metalforge.xyz/",
+      "domain": "metalforge.xyz",
+      "title": "metalforge.xyz",
+      "bookmarkTitles": [
+        "metalforge.xyz"
+      ],
+      "ownerNote": "Шейдеры и анимации для веба и приложений. Цветные потоки Light Drip — как в посте.",
+      "tags": [
+        "Анимация",
+        "шейдеры",
+        "градиенты",
+        "Light Drip"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "86b498fd1dab39e6",
+      "featuredRank": 99,
+      "url": "https://kobra.systems/",
+      "domain": "kobra.systems",
+      "title": "kobra.systems",
+      "bookmarkTitles": [
+        "kobra.systems"
+      ],
+      "ownerNote": "React-компоненты с кодом: формы, таблицы, меню и интерфейсы чата.",
+      "tags": [
+        "Инструменты",
+        "React",
+        "компоненты",
+        "чат"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "af6d2744a9b6609b",
+      "featuredRank": 98,
+      "url": "https://uiarc.dev/",
+      "domain": "uiarc.dev",
+      "title": "uiarc.dev",
+      "bookmarkTitles": [
+        "uiarc.dev"
+      ],
+      "ownerNote": "Анимированные React-компоненты: чат, галереи, док и готовые блоки.",
+      "tags": [
+        "Инструменты",
+        "React",
+        "компоненты",
+        "анимация"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "1ed6457537d6061d",
+      "featuredRank": 97,
+      "url": "https://kinetics.colorion.co/",
+      "domain": "kinetics.colorion.co",
+      "title": "kinetics.colorion.co",
+      "bookmarkTitles": [
+        "kinetics.colorion.co"
+      ],
+      "ownerNote": "Пружинные анимации для интерфейса: кнопки, карточки и переходы.",
+      "tags": [
+        "Анимация",
+        "spring",
+        "пружины",
+        "микроинтеракции"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "54fbaa2967d3f45e",
+      "featuredRank": 96,
+      "url": "https://beui.dev/",
+      "domain": "beui.dev",
+      "title": "beui.dev",
+      "bookmarkTitles": [
+        "beui.dev"
+      ],
+      "ownerNote": "React-компоненты на Motion: анимированные формы, списки и графики.",
+      "tags": [
+        "Инструменты",
+        "React",
+        "Motion",
+        "компоненты"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "4e92e08b02389a3a",
+      "featuredRank": 94,
+      "url": "https://boardui.com/",
+      "domain": "boardui.com",
+      "title": "boardui.com",
+      "bookmarkTitles": [
+        "boardui.com"
+      ],
+      "ownerNote": "React-компоненты для дашбордов: таблицы, графики, фильтры и формы.",
+      "tags": [
+        "Инструменты",
+        "React",
+        "дашборды",
+        "таблицы"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "5aad749ca1cf529e",
+      "featuredRank": 93,
+      "url": "https://evilcharts.com/",
+      "domain": "evilcharts.com",
+      "title": "evilcharts.com",
+      "bookmarkTitles": [
+        "evilcharts.com"
+      ],
+      "ownerNote": "Анимированные React-графики для shadcn/ui.",
+      "tags": [
+        "Инструменты",
+        "React",
+        "графики",
+        "визуализация данных"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "4b078eb16072599f",
+      "featuredRank": 92,
+      "url": "https://reverseui.com/",
+      "domain": "reverseui.com",
+      "title": "reverseui.com",
+      "bookmarkTitles": [
+        "reverseui.com"
+      ],
+      "ownerNote": "Необычные UI-эффекты: частицы, радиальное меню, док и светящиеся фоны.",
+      "tags": [
+        "Анимация",
+        "частицы",
+        "меню",
+        "фоны"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "5ea41f3555bd210b",
+      "featuredRank": 91,
+      "url": "https://shaders.com/",
+      "domain": "shaders.com",
+      "title": "shaders.com",
+      "bookmarkTitles": [
+        "shaders.com"
+      ],
+      "ownerNote": "Редактор шейдеров и открытые компоненты. Собрать эффект из готовых частей.",
+      "tags": [
+        "Инструменты",
+        "шейдеры",
+        "WebGPU",
+        "эффекты"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "dd6b5ea7f215a2e7",
+      "featuredRank": 90,
+      "url": "https://ui.devclubxnst.online/",
+      "domain": "ui.devclubxnst.online",
+      "title": "ui.devclubxnst.online",
+      "bookmarkTitles": [
+        "ui.devclubxnst.online"
+      ],
+      "ownerNote": "UI-компоненты с упругой анимацией, шейдерами и микроинтеракциями.",
+      "tags": [
+        "Инструменты",
+        "компоненты",
+        "пружины",
+        "шейдеры"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "e64ba29049af817a",
+      "featuredRank": 89,
+      "url": "https://smoothui.dev/",
+      "domain": "smoothui.dev",
+      "title": "smoothui.dev",
+      "bookmarkTitles": [
+        "smoothui.dev"
+      ],
+      "ownerNote": "Анимированные React-компоненты на Motion и Tailwind для shadcn/ui.",
+      "tags": [
+        "Инструменты",
+        "React",
+        "Motion",
+        "компоненты"
+      ],
+      "folderPaths": [
+        "Инструменты"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "95d9e6d9a535472a",
+      "featuredRank": 87,
+      "url": "https://siteinspire.com/",
+      "domain": "siteinspire.com",
+      "title": "siteinspire.com",
+      "bookmarkTitles": [
+        "siteinspire.com"
+      ],
+      "ownerNote": "Галерея сайтов с фильтрами по стилю, типу и теме.",
+      "tags": [
+        "Рефы",
+        "референсы",
+        "сайты",
+        "верстка"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "abffc4d71e9b32e7",
+      "featuredRank": 85,
+      "url": "https://designspo.com/",
+      "domain": "designspo.com",
+      "title": "designspo.com",
+      "bookmarkTitles": [
+        "designspo.com"
+      ],
+      "ownerNote": "Рефы интерфейсов SaaS-продуктов.",
+      "tags": [
+        "Рефы",
+        "SaaS",
+        "интерфейсы",
+        "референсы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "64d4c719409f9330",
+      "featuredRank": 84,
+      "url": "https://land-book.com/",
+      "domain": "land-book.com",
+      "title": "land-book.com",
+      "bookmarkTitles": [
+        "land-book.com"
+      ],
+      "ownerNote": "Подборка лендингов и сайтов. Смотреть композицию и подачу контента.",
+      "tags": [
+        "Рефы",
+        "лендинги",
+        "композиция",
+        "сайты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "192da554530d9778",
+      "featuredRank": 83,
+      "url": "https://posts.design/",
+      "domain": "posts.design",
+      "title": "posts.design",
+      "bookmarkTitles": [
+        "posts.design"
+      ],
+      "ownerNote": "Реальные посты брендов: анонсы, запуски и карточки для соцсетей.",
+      "tags": [
+        "Рефы",
+        "соцсети",
+        "посты",
+        "анонсы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "c3149d723bff86fe",
+      "featuredRank": 82,
+      "url": "https://404s.design/",
+      "domain": "404s.design",
+      "title": "404s.design",
+      "bookmarkTitles": [
+        "404s.design"
+      ],
+      "ownerNote": "Подборка страниц 404. Как оформить ошибку без скучного тупика.",
+      "tags": [
+        "Рефы",
+        "404",
+        "ошибки",
+        "референсы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "539e0a348d95424a",
+      "featuredRank": 81,
+      "url": "https://maxibestof.one/",
+      "domain": "maxibestof.one",
+      "title": "maxibestof.one",
+      "bookmarkTitles": [
+        "maxibestof.one"
+      ],
+      "ownerNote": "Рефы сайтов, отдельных секций и шрифтовых сочетаний.",
+      "tags": [
+        "Рефы",
+        "секции",
+        "шрифты",
+        "сайты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "bf9922f3d5841339",
+      "featuredRank": 79,
+      "url": "https://seesaw.website/",
+      "domain": "seesaw.website",
+      "title": "seesaw.website",
+      "bookmarkTitles": [
+        "seesaw.website"
+      ],
+      "ownerNote": "Подборка сайтов по темам: портфолио, студии, магазины и продукты.",
+      "tags": [
+        "Рефы",
+        "портфолио",
+        "сайты",
+        "референсы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "0335d0682f514e21",
+      "featuredRank": 78,
+      "url": "https://cta.gallery/",
+      "domain": "cta.gallery",
+      "title": "cta.gallery",
+      "bookmarkTitles": [
+        "cta.gallery"
+      ],
+      "ownerNote": "Рефы CTA-блоков: кнопки, формы и секции с призывом к действию.",
+      "tags": [
+        "Рефы",
+        "CTA",
+        "кнопки",
+        "формы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "60d9a1a2058b7cef",
+      "featuredRank": 77,
+      "url": "https://siiimple.com/",
+      "domain": "siiimple.com",
+      "title": "siiimple.com",
+      "bookmarkTitles": [
+        "siiimple.com"
+      ],
+      "ownerNote": "Минималистичные сайты. Смотреть сетку, типографику и свободное пространство.",
+      "tags": [
+        "Рефы",
+        "минимализм",
+        "типографика",
+        "сетка"
+      ],
+      "folderPaths": [
+        "Рефы"
       ],
       "description": "",
       "reviewHint": "curated",

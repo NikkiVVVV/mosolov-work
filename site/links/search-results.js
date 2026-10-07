@@ -3,7 +3,7 @@ const siteName = item => String(item.domain || '').replace(/^www\./i, '');
 
 // Sort by the name displayed in the site column, ignoring the www prefix.
 export function compareSiteNames(left, right) {
-  const featured = item => item.id === '280151956c0ef706' ? 1 : 0;
+  const featured = item => Number(item.featuredRank) || (item.id === '280151956c0ef706' ? 1 : 0);
   return featured(right) - featured(left) || siteNameCollator.compare(siteName(left), siteName(right))
     || siteNameCollator.compare(String(left.url || ''), String(right.url || ''));
 }
