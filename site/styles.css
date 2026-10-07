@@ -398,6 +398,19 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  .grid .project-card .project-description{font:400 16px/24px 'Golos Text',sans-serif;color:var(--ink);margin:0}
 }
 
+/* Seven mobile menu levels; desktop grouping remains unchanged. */
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ .mobile-menu #mobile-menu-panel{display:grid;grid-template-columns:1fr auto;gap:8px;justify-items:end}
+ #mobile-menu-panel .mobile-menu-row{display:contents}
+ #mobile-menu-panel [data-menu-theme]{grid-area:1 / 1;justify-self:end}
+ #mobile-menu-panel [data-menu-language]{grid-area:1 / 2}
+ #mobile-menu-panel [data-menu-skin]{grid-area:2 / 1 / auto / 3}
+ #mobile-menu-panel [data-menu-bookmarks]{grid-area:3 / 1 / auto / 3}
+ #mobile-menu-panel [data-menu-channel]{grid-area:4 / 1 / auto / 3}
+ #mobile-menu-panel [data-menu-radar]{grid-area:5 / 1 / auto / 3}
+ #mobile-menu-panel [data-menu-mayonez]{grid-area:6 / 1 / auto / 3}
+ #mobile-menu-panel [data-menu-experience]{grid-area:7 / 1 / auto / 3}
+}
 /* Mobile contact links live in the left navigation menu. */
 .mobile-menu a:is([data-menu-linkedin],[data-menu-x]){display:none}
 @media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
@@ -557,5 +570,6 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 
 .portfolio-footer{gap:16px;flex-wrap:wrap;font-size:15px;line-height:20px}
 .portfolio-footer .footer-social{color:var(--muted)}
-.portfolio-footer .footer-social:hover{color:var(--ink);text-decoration:none}
+.portfolio-footer .footer-social:hover{color:var(--ink)}
+.portfolio-footer a,.portfolio-footer a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 @media(max-width:640px){.portfolio-footer{gap:12px;font-size:14px;flex-wrap:nowrap}}

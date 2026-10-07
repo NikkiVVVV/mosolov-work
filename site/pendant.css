@@ -32,9 +32,11 @@ html[data-theme=dark] .pendant-config{--config-surface:#2b2e31;--config-secondar
 .pendant-config[open]{display:flex;flex-direction:column}
 .pendant-config .config-content{display:flex;flex-direction:column;gap:20px;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0;margin:0}
 .config-header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;z-index:41}
-.config-dismiss{display:grid;place-items:center;flex:none;width:36px;height:36px;padding:8px;border:0;border-radius:8px;background:transparent;color:var(--muted)}
-.config-dismiss:hover{background:var(--config-secondary);color:var(--ink)}
-.config-dismiss svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.config-dismiss{display:grid;place-items:center;flex:none;width:44px;height:44px;padding:12px;border:0;border-radius:8px;background:var(--config-secondary);color:var(--ink);cursor:pointer;transition:background 160ms ease,transform 160ms ease}
+.config-dismiss:hover{background:color-mix(in srgb,var(--config-secondary) 85%,var(--ink) 15%)}
+.config-dismiss:active{transform:scale(.96)}
+.config-dismiss:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.config-dismiss svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round}
 .config-title{font:400 20px/28px 'IBM Plex Sans',sans-serif;margin:0}
 .pendant-config .pendant{height:324px;min-height:0;max-width:none;margin:0}
 .config-preview{min-width:0;background:radial-gradient(ellipse at center,#a7b4c212,transparent 70%)}

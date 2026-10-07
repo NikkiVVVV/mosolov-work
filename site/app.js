@@ -12,17 +12,6 @@ import { createProjectVideos } from './project-videos.js?v=feed168';
 const projectVideos = createProjectVideos();
 const spaceGame = createSpaceGame();
 bindAnalytics();
-document.querySelector('#back-to-top').addEventListener('click',event=>{
-  if(event.detail===0){
-    // Keyboard/assistive activation moves focus; pointer activation only scrolls.
-    const heading=document.querySelector('.profile-heading h1');
-    heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});
-    heading.addEventListener('blur',()=>heading.removeAttribute('tabindex'),{once:true});
-  }else{
-    event.currentTarget.blur();
-  }
-  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
-});
 
 const ProjectSphere = features.panorama ? (await import('./sphere.js')).ProjectSphere : null;
 
@@ -247,7 +236,7 @@ const companyNames=[...document.querySelectorAll('.workplaces li>span:first-chil
 function applyLanguage(){
   document.documentElement.lang=language;
   document.querySelector('#footer-channel-label').textContent=language==='en'?'telegram channel':'канал в тг';
-  document.querySelector('#footer-top-label').textContent=language==='en'?'back to top':'наверх';
+  document.querySelector('#footer-top-label').textContent=language==='en'?'message me':'написать';
   document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
   const intro=document.querySelector('.profile-heading p');
