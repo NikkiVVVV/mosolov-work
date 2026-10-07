@@ -2,7 +2,7 @@ import { createMobileMenu } from './mobile-menu.js?v=143';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectBento } from './project-bento.js?v=143';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed153';
+import { projects } from './projects.js?v=feed154';
 import { createSpaceGame } from './space-game.js?v=86';
 import { englishProjects } from './locale.js?v=feed143';
 import { features } from './features.js';
