@@ -19,6 +19,9 @@ const filterOptions = [
 ];
 const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
 const chat = $('#chat');
+const modal = $('#chat-modal');
+const formHome = document.createComment('search-form-home');
+form.before(formHome);
 let pendingSearch = null;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 initSearchMotion($('#search-wave'), form, queryInput);
@@ -232,75 +235,61 @@ function resetSearch() {
   queryInput.focus();
 }
 
-let chatScroll = 0;
-function showView(view) {
-  const chatting = view === 'chat';
-  if (!chatting && state.chatting) {
-    chatScroll = window.scrollY;
-    cancelPendingSearch();
-  }
-  state.chatting = chatting;
-  document.body.classList.toggle('chat-mode', chatting);
-  $('#catalog').hidden = chatting;
-  chat.hidden = !chatting;
-  $('#view-tabs').hidden = !chat.children.length;
-  $('#view-tabs').querySelectorAll('[data-view]').forEach(button => {
-    button.setAttribute('aria-pressed', String(button.dataset.view === view));
-  });
+function closeChat() {
+  if (!modal.open) return;
+  cancelPendingSearch();
+  modal.close();
+}
+
+modal.addEventListener('close', () => {
+  state.chatting = false;
+  document.body.classList.remove('chat-mode');
+  formHome.after(form);
   state.query = '';
   queryInput.value = '';
-  queryInput.placeholder = chatting ? 'Что ещё найти?' : 'Сайты с необычной типографикой';
+  queryInput.placeholder = 'Сайты с необычной типографикой';
   render();
-  window.scrollTo({top: chatting ? chatScroll : 0, behavior: 'instant'});
-  if (!reducedMotion.matches) {
-    const targets = chatting ? [chat] : [$('h1'), form, $('#catalog')];
-    targets.forEach((target, index) => {
-      target.getAnimations().forEach(animation => animation.cancel());
-      target.animate([
-        {opacity: 0, transform: 'translateY(8px)'},
-        {opacity: 1, transform: 'translateY(0)'}
-      ], {duration: 320, delay: index * 40, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards'});
-    });
-  }
-}
+  queryInput.focus({preventScroll: true});
+});
+modal.addEventListener('cancel', event => {
+  event.preventDefault();
+  closeChat();
+});
+$('#close-chat').addEventListener('click', closeChat);
+modal.addEventListener('click', event => {
+  if (event.target !== modal) return;
+  const bounds = modal.getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) closeChat();
+});
 
 form.addEventListener('submit', event => {
   event.preventDefault();
   if (!queryInput.value.trim() || !state.loaded) return;
-  const before = form.getBoundingClientRect();
   cancelPendingSearch();
   state.query = queryInput.value.trim();
-  state.filter = 'all';
   const query = state.query;
   const firstTurn = !state.chatting;
   state.chatting = true;
   document.body.classList.add('chat-mode');
-  $('#catalog').hidden = true;
-  chat.hidden = false;
+  if (firstTurn) {
+    $('#chat-composer').append(form);
+    modal.showModal();
+  }
   const turn = document.createElement('section');
   turn.className = 'chat-turn';
   turn.setAttribute('aria-label', `Поиск: ${state.query}`);
   turn.innerHTML = `<p class="chat-question">${escapeHTML(query)}</p><div class="chat-answer" aria-busy="true"></div>`;
   chat.append(turn);
-  $('#view-tabs').hidden = false;
-  $('#view-tabs').querySelectorAll('[data-view]').forEach(button => {
-    button.setAttribute('aria-pressed', String(button.dataset.view === 'chat'));
-  });
   const answer = turn.querySelector('.chat-answer');
-  answerQuery(query, answer, [...state.history], filteredItems());
+  const keyword = state.items.filter(item => isReady(item) && isVisible(item))
+    .map(item => ({item, score: searchScore(item, query)})).filter(result => result.score > 0)
+    .sort((a, b) => b.score - a.score || compareSiteNames(a.item, b.item)).map(result => result.item);
+  answerQuery(query, answer, [...state.history], keyword);
   queryInput.value = '';
   queryInput.placeholder = 'Что ещё найти?';
   renderForm();
-  if (firstTurn) {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    const after = form.getBoundingClientRect();
-    if (!reducedMotion.matches) form.animate([
-      { transform: `translateX(-50%) translate(${before.left - after.left}px, ${before.top - after.top}px) scaleX(${before.width / after.width})` },
-      { transform: 'translateX(-50%)' }
-    ], { duration: 550, easing: 'cubic-bezier(.22,1,.36,1)' });
-  }
   // Keep the question and the first results visible, even for a long answer.
-  window.scrollTo({ top: Math.max(0, turn.getBoundingClientRect().top + window.scrollY - 96), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+  chat.scrollTo({ top: Math.max(0, turn.offsetTop - chat.offsetTop - 16), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
   queryInput.focus({ preventScroll: true });
 });
 queryInput.addEventListener('input', () => {
@@ -311,11 +300,6 @@ queryInput.addEventListener('keydown', event => {
     event.preventDefault();
     form.requestSubmit();
   }
-});
-$('#view-tabs').addEventListener('click', event => {
-  const button = event.target.closest('[data-view]');
-  if (!button || (button.dataset.view === 'chat') === state.chatting) return;
-  showView(button.dataset.view);
 });
 $('#clear-search').addEventListener('click', () => {
   queryInput.value = '';
