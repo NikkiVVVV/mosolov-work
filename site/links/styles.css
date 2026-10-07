@@ -125,3 +125,6 @@ tbody tr:hover{background:#1e2021}
  .chat-question{padding:12px 16px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.links-bar-icon svg{fill:currentColor;stroke:none}
+.links-bar-icon svg{color:#fff}

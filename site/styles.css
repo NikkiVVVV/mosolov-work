@@ -577,3 +577,6 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 .portfolio-footer .footer-social:hover{color:var(--ink)}
 .portfolio-footer a,.portfolio-footer a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 @media(max-width:640px){.portfolio-footer{gap:12px;font-size:14px;flex-wrap:nowrap}}
+
+.mobile-page-link svg{fill:currentColor;stroke:none}
+.mobile-page-link svg{color:#fff}

@@ -7,7 +7,9 @@
   <meta name="color-scheme" content="light dark">
   <title>Никита Мосолов — Design Engineer</title>
   <script>
-    document.documentElement.classList.add('is-loading');
+    let returning=false;
+    try{returning=sessionStorage.getItem('portfolio:return')==='true';sessionStorage.removeItem('portfolio:return');}catch{}
+    if(!returning)document.documentElement.classList.add('is-loading');
     window.revealPortfolioPage=()=>{
       const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
       for(const element of document.querySelectorAll('.layout,.theme-switch,.mobile-topbar,.mobile-menu')){
@@ -20,9 +22,11 @@
   <link rel="preload" href="assets/loading/human-inside-tray-v159.webp" as="image" fetchpriority="high">
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=184">
+  <link rel="stylesheet" href="styles.css?v=185">
   <link rel="stylesheet" href="pendant.css?v=172">
   <script type="module" src="app.js?v=183"></script>
+  <link rel="stylesheet" href="/page-navigation.css?v=185">
+  <script type="module" src="/page-navigation.js?v=185"></script>
   <script type="module" src="pendant.js?v=176"></script>
 </head>
 <body>
@@ -42,7 +46,7 @@
       <div class="mobile-menu-row" style="--row:0">
         <button type="button" data-menu-theme><span class="sr-only">Светлая тема</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
         <button type="button" data-menu-language aria-label="Switch to English">EN</button>
-        <a data-menu-bookmarks href="https://mosolov.work/links/" target="_blank" rel="noopener"><span>Избранное</span></a>
+        <a data-menu-bookmarks href="/links/"><span>Избранное</span></a>
       </div>
       <div class="mobile-menu-row" style="--row:1">
         <button type="button" data-menu-skin><span>Изменить скин</span></button>
@@ -140,7 +144,7 @@
       <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
     </button>
     <button type="button" id="language-toggle" aria-label="Switch to English" title="Switch to English"><span>EN</span></button>
-    <a id="bookmarks-link" href="https://mosolov.work/links/" target="_blank" rel="noopener" aria-label="Избранные закладки — в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 3.1 5.9 6.6 1-4.8 4.6 1.2 6.5-6.1-3.1L5.9 21l1.2-6.5-4.8-4.6 6.6-1Z"/></svg></a>
+    <a id="bookmarks-link" href="/links/" aria-label="Избранные закладки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 3.1 5.9 6.6 1-4.8 4.6 1.2 6.5-6.1-3.1L5.9 21l1.2-6.5-4.8-4.6 6.6-1Z"/></svg></a>
   </div>
   <noscript><p>Для переключения режимов включите JavaScript.</p></noscript>
 </body>
