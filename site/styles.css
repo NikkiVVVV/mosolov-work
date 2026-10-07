@@ -398,6 +398,13 @@ html:not(.dark):not([data-theme="dark"]) .space-game{--token-gray:#909697}
  .grid .project-card .project-description{font:400 16px/24px 'Golos Text',sans-serif;color:var(--ink);margin:0}
 }
 
+/* Mobile contact links live in the left navigation menu. */
+.mobile-menu a:is([data-menu-linkedin],[data-menu-x]){display:none}
+@media(max-width:640px), (hover:none) and (pointer:coarse) and (max-height:640px){
+ #open-contact,.mobile-topbar .mobile-contact-slot{display:none!important}
+ .mobile-menu a:is([data-menu-linkedin],[data-menu-x]){display:inline-flex;width:40px;height:40px;min-width:40px;padding:8px;flex:none}
+ .mobile-menu a:is([data-menu-linkedin],[data-menu-x]) img{border-radius:0}
+}
 /* Mobile navigation: actions unfold downward from the top-left control. */
 .mobile-menu,#mobile-menu-backdrop{display:none}
 @media all{
