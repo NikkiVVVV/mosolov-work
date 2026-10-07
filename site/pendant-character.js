@@ -28,7 +28,7 @@ export class PendantCharacter {
             vUv=uv;
             vec3 p=position;
             // Blend deformation across the neck, keeping shoulders and hands anchored.
-            float head=smoothstep(.55,.69,uv.y)*(1.-idleAmount);
+            float head=smoothstep(.20,.36,uv.y)*(1.-idleAmount);
             vec3 q=p-vec3(0.,.2,0.);
             float roll=headTilt-look.x*.045;
             float yaw=look.x*.14*(1.-shakeMix)-shakeMix*.08, pitch=-look.y*.09*(1.-shakeMix);
