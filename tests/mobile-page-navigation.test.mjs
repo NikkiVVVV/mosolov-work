@@ -9,7 +9,7 @@ test('mobile pages link to each other in the same tab',()=>{
 });
 test('footer uses correct brand and contact destination',()=>{
  const html=read('index.html');
- assert.match(html,/>LinkedIn<\/a>/);
+ assert.match(html,/>linkedin<\/a>/);
  assert.match(html,/class="footer-top" href="https:\/\/t.me\/nikir_nikir"/);
  assert.doesNotMatch(read('app.js'),/querySelector\('#back-to-top'\)/);
 });
