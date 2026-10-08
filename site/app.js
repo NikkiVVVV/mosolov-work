@@ -1,7 +1,7 @@
 import {prepareMedia,animateExperience,createCaseReveal} from './ui-reveal.js?v=167';
 import { createMobileMenu } from './mobile-menu.js?v=196';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=198';
+import { createProjectBento } from './project-bento.js?v=200';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
 import { projects } from './projects.js?v=198';
 import { createSpaceGame } from './space-game.js?v=86';

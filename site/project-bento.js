@@ -33,6 +33,20 @@ export function createProjectBento(grid) {
       });
       grid.replaceChildren(...rows);return;
     }
+    if(category==='pet'&&['07','21','10'].every(id=>items.some(item=>item.id===id))){
+      const ids=new Set(['07','21','10']);
+      const rows=planBento(items.filter(item=>!ids.has(item.id))).map(items=>{
+        const row=document.createElement('div');row.className='project-row';
+        row.style.gridTemplateColumns=`repeat(${items.length}, minmax(0, 1fr))`;
+        row.append(...items.map(item=>item.card));return row;
+      });
+      const trio=document.createElement('div');trio.className='project-pet-trio';
+      const stack=document.createElement('div');stack.className='project-pet-stack';
+      stack.append(...['21','10'].map(id=>items.find(item=>item.id===id).card));
+      const bag=items.find(item=>item.id==='07').card;stack.style.order='1';
+      trio.append(bag,stack);
+      grid.replaceChildren(...rows,trio);return;
+    }
     const {opening,remaining:afterOpening}=partitionOpening(items);
     const {showcase,remaining:afterShowcase}=partitionShowcase(afterOpening);
     const {tools,remaining}=partitionTools(afterShowcase);
