@@ -2,10 +2,10 @@ import * as THREE from './vendor/three.module.js';
 import {screenMask} from './pendant-shapes.js?v=52';
 // One quiet perspective grid, fading into the distance.
 export function createPendantDepth(body){
- const uniforms={mask:{value:screenMask('classic')}};
+ const uniforms={mask:{value:screenMask('classic')},travel:{value:0}};
  const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,uniforms,
  vertexShader:`varying vec2 uvRoom;void main(){uvRoom=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
- fragmentShader:`varying vec2 uvRoom;uniform sampler2D mask;
+ fragmentShader:`varying vec2 uvRoom;uniform sampler2D mask;uniform float travel;
  void main(){
  float alpha=texture2D(mask,uvRoom).a;if(alpha<.02)discard;
  // A single sparse floor fades before its vanishing point.
@@ -14,6 +14,7 @@ export function createPendantDepth(body){
  float visible=smoothstep(.08,.34,distanceToHorizon);
  float depth=1./max(distanceToHorizon,.08);
  vec2 coords=vec2(p.x*depth,depth)*1.35;
+ coords.y-=travel;
  vec2 edge=abs(fract(coords+.5)-.5),aa=fwidth(coords);
  float lines=1.-min(smoothstep(.012,.012+aa.x,edge.x),smoothstep(.012,.012+aa.y,edge.y));
  float fade=visible*(1.-smoothstep(3.,7.,depth));
@@ -22,5 +23,5 @@ export function createPendantDepth(body){
  #include <colorspace_fragment>
  }`});
  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(4,4),material);mesh.position.z=.05;mesh.renderOrder=1;body.add(mesh);
- return {setShape(id){uniforms.mask.value=screenMask(id);},update(){}};
+ return {setShape(id){uniforms.mask.value=screenMask(id);},update(time,reduced){uniforms.travel.value=reduced?0:time*.12;}};
 }
