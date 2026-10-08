@@ -9,13 +9,13 @@ export class PendantCharacter {
  constructor(body,onReady,onError){
   this.state=createCharacterState();this.idleState=createIdleReactions();this.idleState.queue=['cat'];this.pointer={x:0,y:0};this.look={x:0,y:0};
   this.previewPose=new URL(location.href).searchParams.get("portrait-state");
-  this.desktopEyes=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 641px)');this.flight={x:0,y:0,vx:0,vy:0,angle:0,spin:0,wild:false,direction:1};
-  this.rest=createRestState();this.loaded=0;this.totalTextures=3;this.textures=[];
+  this.desktopEyes=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 641px)');this.flight={x:0,y:0,vx:0,vy:0,angle:0,spin:0,wild:false,direction:1,hold:0};
+  this.rest=createRestState();this.loaded=0;this.totalTextures=4;this.textures=[];
   this.root=new THREE.Group();body.add(this.root);this.root.visible=false;
   this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},pixelLift:{value:0},shakeMix:{value:0},sleepAmount:{value:0},glitch:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
   const loader=new THREE.TextureLoader();
-  Promise.all(['faces-v206.png','cat-v206.png','book-v206.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat,book])=>{
-   map.colorSpace=THREE.SRGBColorSpace;this.textures=[map,cat,book];this.loaded=3;this.uniforms.atlas={value:map};
+  Promise.all(['faces-v206.png','cat-v206.png','book-v206.png','faces-v202.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat,book,closed])=>{
+   map.colorSpace=THREE.SRGBColorSpace;closed.colorSpace=THREE.SRGBColorSpace;this.textures=[map,cat,book,closed];this.loaded=4;this.uniforms.closedAtlas={value:closed};this.uniforms.closedAmount={value:0};this.uniforms.atlas={value:map};
    this.material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,depthTest:false,toneMapped:false,uniforms:this.uniforms,
     vertexShader:`
      varying vec2 vUv;varying vec2 vWindow;
@@ -27,7 +27,7 @@ export class PendantCharacter {
      }`,
     fragmentShader:`
      varying vec2 vUv;varying vec2 vWindow;
-     uniform sampler2D atlas;uniform sampler2D windowMask;
+     uniform sampler2D atlas;uniform sampler2D closedAtlas;uniform float closedAmount;uniform sampler2D windowMask;
      uniform vec2 look;uniform float shakeMix;uniform float exasperation;uniform float sleepAmount;
      vec4 face(vec2 uv,float cell){return texture2D(atlas,vec2((clamp(uv.x,.002,.998)+cell)/4.,clamp(uv.y,.002,.998)));}
      vec4 premul(vec4 c){return vec4(c.rgb*c.a,c.a);}
@@ -41,6 +41,7 @@ export class PendantCharacter {
       vec4 c=mix(premul(face(uv,0.)),premul(face(uv,1.)),shakeMix);
       c=mix(c,premul(face(uv,2.)),exasperation);
       c=mix(c,premul(face(vUv,3.)),sleepAmount*(1.-exasperation));
+      c=mix(c,premul(texture2D(closedAtlas,vec2((clamp(vUv.x,.002,.998)+3.)/4.,clamp(vUv.y,.002,.998)))),closedAmount);
       if(c.a<.12)discard;c.rgb/=max(c.a,.001);
       bool red=c.r>.5&&c.g<c.r*.23&&c.b<c.r*.30;
       bool yellow=c.r>.6&&c.g>c.r*.78&&c.b<c.r*.17;
@@ -96,11 +97,13 @@ export class PendantCharacter {
     this.uniforms.idleAmount.value*=1-this.uniforms.shakeMix.value;
     const flight=this.flight,h=Math.min(dt,.04);
     const energy=Math.abs(swingSpeed)+Math.abs(spinSpeed)*.6;
-    const wild=!reduced&&(energy>3.5||this.previewPose==='sway');
+    const triggered=energy>3.5||this.previewPose==='sway';
+    flight.hold=triggered?1.2:Math.max(0,flight.hold-h);
+    const wild=!reduced&&(triggered||flight.hold>0);
     if(wild){
       if(!flight.wild)flight.direction=Math.sign(spinSpeed||swingSpeed||1);
       flight.vx+=((swingSpeed||Math.sin(time*9)*5)*1.8-flight.x*2)*h;
-      flight.vy+=(Math.sin(time*7)*energy*.65-flight.y*2)*h;
+      flight.vy+=(Math.sin(time*7)*Math.max(energy,3.5)*.65-flight.y*2)*h;
       flight.spin+=(flight.direction*6-flight.spin)*Math.min(1,h*5);
     }else{
       flight.vx+=(-flight.x*28-flight.vx*9)*h;
@@ -115,6 +118,11 @@ export class PendantCharacter {
       if(Math.abs(flight[axis])>limit){flight[axis]=Math.sign(flight[axis])*limit;flight[velocity]*=-.72;flight.spin+=flight[velocity]*.7;}
     }
     if(reduced){flight.x=flight.y=flight.angle=flight.vx=flight.vy=flight.spin=0;}
+    if(this.uniforms.closedAmount){
+      const unsettled=wild||Math.abs(flight.spin)>.3||Math.abs(flight.x)+Math.abs(flight.y)>.05;
+      this.uniforms.closedAmount.value+=(Number(!reduced&&unsettled)-this.uniforms.closedAmount.value)*(1-Math.exp(-10*h));
+      this.uniforms.look.value.multiplyScalar(1-this.uniforms.closedAmount.value);
+    }
     this.uniforms.headShift.value.set(flight.x,flight.y);this.uniforms.headTilt.value=flight.angle;
     this.uniforms.clock.value=reduced?0:time;
     if(this.previewPose){
