@@ -224,7 +224,7 @@ const translatedNodes=[
   ['#experience-title','Experience & projects'],
   ['.skip-link','View projects'],
   ['#workplaces-title','Workplaces'],
-  ['#tab-all','All'],['#tab-work','Work'],['#tab-pet','Side projects'],['#tab-publication','Publications'],
+  ['#tab-all','All'],['#tab-work','Work'],['#tab-pet','Side projects'],['#tab-publication','Sharing experience'],
   ['#open-contact','Contact'],['#contact-title','Contact'],['#close-preview','Close ×'],
 ].map(([selector,en])=>{const element=document.querySelector(selector);return {element,en,ru:element.textContent};});
 const translatedLabels=[
