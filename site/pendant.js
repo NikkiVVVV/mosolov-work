@@ -9,7 +9,11 @@ import { createCaseFinishes, finishes } from './pendant-finishes.js?v=80';
 import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
 import { PendantEntrance } from './pendant-entrance.js?v=148';
-import { PendantCharacter } from './pendant-character.js?v=199';
+import { PendantCharacter as LegacyCharacter } from './pendant-character.js?v=199';
+import { PendantCharacter as FloatingCharacter } from './pendant-floating-character.js?v=201';
+import {createPendantDepth} from './pendant-depth.js?v=201';
+const floatingPortrait=new URL(location.href).searchParams.get('portrait')==='float';
+const PendantCharacter=floatingPortrait?FloatingCharacter:LegacyCharacter;
 
 import { createScreenGlass } from './pendant-glass.js?v=170';
 
@@ -88,6 +92,7 @@ class Pendant {
       if(!this.intro.active&&!this.reduced.matches){this.arrival.offset=8;this.state.angle=.12;this.motion.twist.angle=-.15;}
       this.overlay.layer.style.visibility='';this.wake();
     },()=>this.fallback('Не удалось загрузить 3D — показана статичная подвеска.'));
+    if(floatingPortrait)this.depthRoom=createPendantDepth(this.body,this.character);
     this.screenGlass=createScreenGlass(this.body);
     const eye = new THREE.Mesh(new THREE.TorusGeometry(.13,.055,8,24), graphite);
     eye.position.set(0,1.64,-.08); this.body.add(eye);this.attachmentEye=eye;
@@ -196,6 +201,7 @@ class Pendant {
     this.body.rotation.set(-this.motion.depth.angle*.18,this.yaw+this.motion.twist.angle,-this.state.velocity*.012);
     const characterPose=this.character.update(dt,this.elapsed,{swing:this.state.angle,swingSpeed:this.state.velocity,
       busy:Boolean(this.drag),stretch:this.motion.stretch.angle,spinSpeed:this.motion.twist.velocity+(this.yaw-this.previousYaw||0)/Math.max(dt,.001),reduced});
+    this.depthRoom?.update(this.elapsed,reduced);
     this.host.dataset.stretch=this.motion.stretch.angle.toFixed(3);this.host.dataset.exasperation=characterPose.exasperation.toFixed(3);
     this.host.dataset.headHits=String(this.character.state.hits);
     this.host.dataset.headX=characterPose.headX.toFixed(3);
@@ -389,7 +395,7 @@ class Pendant {
     const scale=geometry.screenScale;
     this.lining.geometry=geometry.lining;
     this.character.uniforms.windowMask.value=screenMask(id);
-    this.screenGlass.setShape(id);
+    this.screenGlass.setShape(id);this.depthRoom?.setShape(id);
     this.attachmentEye.position.y=geometry.eyeY;
     this.cord.attachmentOffset=geometry.eyeY-1.64;
     this.cord.knot.position.y=1.98+this.cord.attachmentOffset;
