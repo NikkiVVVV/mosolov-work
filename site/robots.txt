@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /assets/brand/portfolio-preview-
+Disallow: /assets/brand/bookmarks-preview-
+
+Sitemap: https://mosolov.work/sitemap.xml

@@ -14,7 +14,7 @@ export class PendantCharacter {
   this.root=new THREE.Group();body.add(this.root);this.root.visible=false;
   this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},pixelLift:{value:0},shakeMix:{value:0},sleepAmount:{value:0},glitch:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
   const loader=new THREE.TextureLoader();
-  Promise.all(['faces-v206.png','cat-v206.png','book-v206.png','faces-v202.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat,book,closed])=>{
+  Promise.all(['faces-v206.png','cat-v206.png','book-v208.png','faces-v202.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat,book,closed])=>{
    map.colorSpace=THREE.SRGBColorSpace;closed.colorSpace=THREE.SRGBColorSpace;this.textures=[map,cat,book,closed];this.loaded=4;this.uniforms.closedAtlas={value:closed};this.uniforms.closedAmount={value:0};this.uniforms.atlas={value:map};
    this.material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,depthTest:false,toneMapped:false,uniforms:this.uniforms,
     vertexShader:`

@@ -92,7 +92,8 @@ function renderProjects() {
     const card = document.createElement('article');
     card.className = 'project-card';
     if(project.wide || project.game)card.classList.add('project-card-wide');
-    card.dataset.projectId=project.id;
+    card.dataset.projectId=project.id;card.id='project-'+project.id;
+    const heading=document.createElement('h2');heading.className='sr-only';heading.textContent=project.title;card.append(heading);
     card.setAttribute('aria-label', project.title);
     const cover = document.createElement('div');
     cover.className = 'project-cover';
@@ -124,6 +125,7 @@ function renderProjects() {
       description.className='project-description';description.textContent=project.description;
       card.append(description);
     }
+    if(!project.showDescription){const copy=document.createElement('p');copy.className='sr-only';copy.textContent=project.description||project.mobileDescription||project.detail||project.title;card.append(copy);}
     if(project.mobileDescription){
       const description=document.createElement('p');
       description.className='project-description project-description-mobile';
@@ -237,7 +239,7 @@ function applyLanguage(){
   document.documentElement.lang=language;
   document.querySelector('#footer-channel-label').textContent=language==='en'?'telegram channel':'канал в тг';
   document.querySelector('#footer-top-label').textContent=language==='en'?'message me':'написать';
-  document.title=(language==='en'?'Nikita Mosolov':'Никита Мосолов')+' — Design Engineer';
+  document.title='Nikita Mosolov — Design Engineer';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
   const intro=document.querySelector('.profile-heading p');
   if(language==='ru'){
