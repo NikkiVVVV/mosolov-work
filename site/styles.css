@@ -609,4 +609,4 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 }
 
 /* Keep the webinar link clear of the speaker on desktop and mobile. */
-[data-project-id="hse-accessibility"] .project-link{right:auto;left:12px;bottom:auto;top:12px}
+[data-project-id="hse-accessibility"] .project-link{right:12px;left:auto;bottom:12px;top:auto}
