@@ -7,7 +7,7 @@ test('portfolio identity, canonical and share assets are present before JS runs'
  assert.match(html,/<title>Nikita Mosolov — Design Engineer<\/title>/);
  assert.match(html,/rel="canonical" href="https:\/\/mosolov.work\/"/);
  assert.match(html,/дизайн-инженер/);
- for(const file of ['portfolio-face-v208.png','portfolio-og-v208.png']){
+ for(const file of ['portfolio-face-v208.png','portfolio-og-v209.png']){
   assert.ok(html.includes(file));await access(new URL('../site/assets/brand/'+file,import.meta.url));
  }
 });
