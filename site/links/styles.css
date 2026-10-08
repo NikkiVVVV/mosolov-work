@@ -86,6 +86,11 @@ tbody tr:hover{background:#1e2021}
 .search-sources{color:var(--muted);margin:12px 0 0;font-size:12px;line-height:16px}
 .search-loading-label{display:flex;align-items:center;gap:8px;color:var(--muted);margin:0 0 16px}
 .loading-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);animation:loading-pulse 1.2s ease-in-out infinite}
+.reply-orb{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;perspective:160px;margin-top:4px}
+.reply-orb-sphere{position:relative;width:0;height:0;transform-style:preserve-3d;animation:reply-orbit 8s linear infinite}
+.reply-orb i{position:absolute;width:2px;height:2px;border-radius:50%;background:#d2d5d5;transform:translate3d(var(--x),var(--y),var(--z));opacity:.72}
+@keyframes reply-orbit{from{transform:rotateZ(-24deg) rotateY(0deg) rotateX(12deg)}to{transform:rotateZ(-24deg) rotateY(360deg) rotateX(12deg)}}
+@media(prefers-reduced-motion:reduce){.reply-orb-sphere{animation:none}}
 .skeleton{display:block;height:12px;border-radius:4px;background:linear-gradient(90deg,#303234 20%,#414446 50%,#303234 80%);background-size:240% 100%;animation:loading-sweep 1.6s ease-in-out infinite;width:76%}
 .skeleton-short{width:56%}
 .skeleton-note{width:90%;margin:8px 0}

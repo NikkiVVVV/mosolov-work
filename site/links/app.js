@@ -1,4 +1,5 @@
 import { createTabGroup } from './tab-group.js';
+import { replyOrb } from './reply-orb.js';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=195';
@@ -151,6 +152,7 @@ function assistantReply(message, {loading = false, retry = false, sources = ''} 
 
 function showAnswer(answer, message, items, options = {}) {
   answer.innerHTML = assistantReply(message, options) + (items.length ? resultTable(items.map(row).join('')) : '');
+  answer.querySelector('.assistant-message')?.insertAdjacentHTML('afterbegin', replyOrb());
 }
 
 function cancelPendingSearch() {
@@ -164,6 +166,10 @@ function cancelPendingSearch() {
 
 async function answerQuery(query, answer, history, keyword) {
   if (!state.aiEnabled) {
+    answer.setAttribute('aria-busy', 'true');
+    showAnswer(answer, 'Ищу…', []);
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    if (!answer.isConnected) return;
     answer.setAttribute('aria-busy', 'false');
     showAnswer(answer, keywordSearchMessage(keyword.length), keyword);
     return;
