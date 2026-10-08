@@ -1,9 +1,9 @@
 import {prepareMedia,animateExperience,createCaseReveal} from './ui-reveal.js?v=167';
 import { createMobileMenu } from './mobile-menu.js?v=196';
 import { createProfileFit } from './profile-fit.js?v=90';
-import { createProjectBento } from './project-bento.js?v=143';
+import { createProjectBento } from './project-bento.js?v=198';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=feed169';
+import { projects } from './projects.js?v=198';
 import { createSpaceGame } from './space-game.js?v=86';
 import { englishProjects } from './locale.js?v=feed143';
 import { features } from './features.js';
@@ -87,7 +87,7 @@ animateExperience(document.querySelector('.experience'));
 
 function renderProjects() {
   spaceGame.pause();spaceGame.setLanguage(language);
-  const selected = projects.filter(p => !p.hidden && (p.alwaysVisible || category === 'all' || p.category === category)).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
+  const selected = projects.filter(p => !p.hidden && (category === 'all' || (!p.homeOnly && p.category === category))).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
   grid.replaceChildren(...selected.map(project => {
     const card = document.createElement('article');
     card.className = 'project-card';
@@ -131,7 +131,7 @@ function renderProjects() {
     }
     revealCase(card);return card;
   }));
-  bento.refresh();
+  bento.refresh(category);
   projectVideos.sync();
   sphere?.setProjects(selected);
   status.textContent = language==='en'?`Projects: ${selected.length}.`:`Карточек: ${selected.length}.`;

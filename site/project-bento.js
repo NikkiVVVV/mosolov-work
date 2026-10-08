@@ -17,13 +17,22 @@ export function planBento(items) {
   return rows;
 }
 export function createProjectBento(grid) {
-  return {refresh(){
+  return {refresh(category){
     const items=[...grid.querySelectorAll('.project-card')].map((card,index)=>{
       const parts=card.querySelector('.project-cover').style.aspectRatio.split('/').map(Number);
       const ratio=parts.length===2 && parts[1]>0 ? parts[0]/parts[1] : 1;
       card.style.order=String(index);
       return {id:card.dataset.projectId,card,ratio,wide:card.classList.contains('project-card-wide'),index};
     });
+    if(category==='work'){
+      const rows=planWork(items).map(items=>{
+        const row=document.createElement('div');row.className='project-row';
+        if(items.some(item=>item.id==='04')&&items.some(item=>item.id==='18'))row.classList.add('project-tools-pair');
+        row.style.gridTemplateColumns=`repeat(${items.length}, minmax(0, 1fr))`;
+        row.append(...items.map(item=>item.card));return row;
+      });
+      grid.replaceChildren(...rows);return;
+    }
     const {opening,remaining:afterOpening}=partitionOpening(items);
     const {showcase,remaining:afterShowcase}=partitionShowcase(afterOpening);
     const {tools,remaining}=partitionTools(afterShowcase);
@@ -80,4 +89,11 @@ export function partitionTools(items){
   const ids=['09','04','18','17'];
   if(!ids.every(id=>items.some(item=>item.id===id)))return {tools:[],remaining:items};
   return {tools:ids.map(id=>items.find(item=>item.id===id)),remaining:items.filter(item=>!ids.includes(item.id))};
+}
+
+// Work has an explicit sequence; category filtering must not rematch unrelated cases.
+export function planWork(items){
+ const groups=[['01'],['19','20'],['09'],['04','18'],['17']];
+ const used=new Set(groups.flat());
+ return [...groups.map(ids=>ids.map(id=>items.find(item=>item.id===id)).filter(Boolean)).filter(row=>row.length),...planBento(items.filter(item=>!used.has(item.id)))];
 }

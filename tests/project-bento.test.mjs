@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {planBento,partitionOpening,partitionShowcase,partitionTools} from '../site/project-bento.js';
+import {planBento,partitionOpening,partitionShowcase,partitionTools,planWork} from '../site/project-bento.js';
 import {projects} from '../site/projects.js';
 const ratio=p=>p.video?p.videoWidth/p.videoHeight:p.coverRatio?.split('/').map(Number).reduce((a,b)=>a/b)||1;
 for(const category of ['all','work','pet','publication'])test(`balanced ${category} rows contain each visible card exactly once`,()=>{
- const items=projects.filter(p=>!p.hidden&&(p.alwaysVisible||category==='all'||p.category===category)).map(p=>({id:p.id,wide:p.wide||p.game,ratio:ratio(p)}));
+ const items=projects.filter(p=>!p.hidden&&(category==='all'||(!p.homeOnly&&p.category===category))).map(p=>({id:p.id,wide:p.wide||p.game,ratio:ratio(p)}));
  const {opening,remaining:afterOpening}=partitionOpening(items);
  const {showcase,remaining:afterShowcase}=partitionShowcase(afterOpening);
  const {tools,remaining}=partitionTools(afterShowcase);
@@ -45,4 +45,14 @@ test('leasing group preserves authored sequence and degrades without missing car
  assert.deepEqual(remaining.map(x=>x.id),['14','08']);
  const filtered=items.filter(x=>x.id!=='09');
  assert.deepEqual(partitionTools(filtered),{tools:[],remaining:filtered});
+});
+
+test('work uses a full-width opening and aligned technique/laptop pair',()=>{
+ const items=projects.filter(p=>!p.hidden&&p.category==='work'&&!p.homeOnly).map(p=>({id:p.id,wide:p.wide,ratio:ratio(p)}));
+ const rows=planWork(items);
+ assert.deepEqual(rows.map(row=>row.map(item=>item.id)),[['01'],['19','20'],['09'],['04','18'],['17']]);
+});
+test('game is home-only and mayonnaise is a pet project',()=>{
+ assert.equal(projects.find(p=>p.game).homeOnly,true);
+ assert.equal(projects.find(p=>p.id==='10').category,'pet');
 });
