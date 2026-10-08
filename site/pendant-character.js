@@ -43,7 +43,7 @@ export class PendantCharacter {
             p.xy*=.935;
             p.y+=.2;
             // Extend the shirt below the screen mask, including light-theme edges.
-            p.y-=(1.-uv.y)*.18;
+            p.y-=(1.-smoothstep(0.,.20,uv.y))*.18;
 
             vWindow=p.xy+vec2(0.,-.2);
             gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);
