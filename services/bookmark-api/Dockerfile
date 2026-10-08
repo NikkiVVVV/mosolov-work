@@ -2,6 +2,6 @@ FROM python:3.13-slim
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-COPY ai_search.py railway_api.py gunicorn.conf.py bookmarks.json ./
+COPY ai_search.py railway_api.py query_notifications.py gunicorn.conf.py bookmarks.json ./
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
 CMD ["gunicorn", "--config", "gunicorn.conf.py", "railway_api:from_environment()"]
