@@ -607,3 +607,6 @@ h1{font-family:'Golos Text',sans-serif;font-weight:500;font-variation-settings:n
 @media (min-width:641px) and (hover:hover), (min-width:641px) and (min-height:641px){
  .project-pet-trio>[data-project-id="07"]{order:0!important}
 }
+
+/* Keep the webinar link clear of the speaker on desktop and mobile. */
+[data-project-id="hse-accessibility"] .project-link{right:auto;left:12px;bottom:auto;top:12px}
