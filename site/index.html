@@ -22,9 +22,9 @@
   <link rel="preload" href="assets/loading/human-inside-tray-v159.webp" as="image" fetchpriority="high">
   <link rel="icon" href="data:,">
   <link rel="preload" href="assets/fonts/Werkzeug.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=194">
+  <link rel="stylesheet" href="styles.css?v=196">
   <link rel="stylesheet" href="pendant.css?v=172">
-  <script type="module" src="app.js?v=186"></script>
+  <script type="module" src="app.js?v=196"></script>
   <link rel="stylesheet" href="/page-navigation.css?v=185">
   <script type="module" src="/page-navigation.js?v=185"></script>
   <script type="module" src="pendant.js?v=186"></script>
@@ -40,6 +40,7 @@
   </div>
   <a class="skip-link" href="#portfolio">К работам</a>
   <header class="mobile-topbar" aria-label="Меню и связь"><a class="mobile-page-link" href="/links/" aria-label="Открыть закладки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-5-6 5Z"/></svg></a><div class="mobile-theme-slot"></div><div class="mobile-contact-slot"></div></header>
+  <a class="desktop-bookmarks" href="/links/" aria-label="Открыть закладки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-5-6 5Z"/></svg></a>
   <div id="mobile-menu-backdrop" data-open="false" aria-hidden="true"></div>
   <nav class="mobile-menu" aria-label="Мобильная навигация" data-open="false">
     <div id="mobile-menu-panel" aria-hidden="true" inert>
@@ -104,7 +105,7 @@
           <button type="button" data-filter="pet" role="tab" id="tab-pet" aria-controls="work-panel" tabindex="-1" aria-selected="false">Пет-проекты</button>
           <button type="button" data-filter="publication" role="tab" id="tab-publication" aria-controls="work-panel" tabindex="-1" aria-selected="false">Публикации</button>
         </div>
-        <button type="button" class="contact-button" id="open-contact" aria-haspopup="dialog">Связь</button>
+        <span class="desktop-menu-slot" aria-hidden="true"></span><button hidden type="button" class="contact-button" id="open-contact" aria-haspopup="dialog">Связь</button>
         <div class="view-toggle" hidden role="group" aria-label="Режим отображения">
           <button type="button" data-view="grid" aria-label="Сетка" title="Сетка" aria-pressed="true"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx=".7"/><rect x="12" y="3" width="5" height="5" rx=".7"/><rect x="3" y="12" width="5" height="5" rx=".7"/><rect x="12" y="12" width="5" height="5" rx=".7"/></svg></button>
           <button type="button" data-view="sphere" aria-label="Панорама" title="Панорама" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.3"/><ellipse cx="10" cy="10" rx="3.6" ry="7.3"/><path d="M3 10h14M4.3 5.8c3.4 1.5 8 1.5 11.4 0M4.3 14.2c3.4-1.5 8-1.5 11.4 0"/></svg></button>

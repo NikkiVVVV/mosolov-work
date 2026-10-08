@@ -48,7 +48,8 @@ export function createMobileMenu(root,mobile){
  },true);
  function sync(){
   frame=0;
-  if(!mobile.matches){hidden=false;anchor=scrollY;root.inert=false;root.dataset.scrollHidden='false';header.inert=false;header.removeAttribute('data-scroll-hidden');header.removeAttribute('data-scrolled');return;}
+  if(!mobile.matches){const rect=document.querySelector('.desktop-menu-slot').getBoundingClientRect();root.style.left=rect.left+'px';root.style.top=rect.top+'px';hidden=false;anchor=scrollY;root.inert=false;root.dataset.scrollHidden='false';header.inert=false;header.removeAttribute('data-scroll-hidden');header.removeAttribute('data-scrolled');return;}
+  root.style.removeProperty('left');root.style.removeProperty('top');
   const y=Math.max(0,Math.min(scrollY,document.documentElement.scrollHeight-innerHeight));
   const state=headerScrollState(anchor,y,hidden);anchor=state.anchor;hidden=state.hidden;
   if(open||root.querySelector(':focus-visible')||header.querySelector(':focus-visible'))hidden=false;
