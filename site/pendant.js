@@ -10,8 +10,8 @@ import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
 import { PendantEntrance } from './pendant-entrance.js?v=148';
 import { PendantCharacter as LegacyCharacter } from './pendant-character.js?v=199';
-import { PendantCharacter as FloatingCharacter } from './pendant-floating-character.js?v=201';
-import {createPendantDepth} from './pendant-depth.js?v=201';
+import { PendantCharacter as FloatingCharacter } from './pendant-floating-character.js?v=202';
+import {createPendantDepth} from './pendant-depth.js?v=202';
 const floatingPortrait=new URL(location.href).searchParams.get('portrait')==='float';
 const PendantCharacter=floatingPortrait?FloatingCharacter:LegacyCharacter;
 

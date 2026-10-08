@@ -7,25 +7,20 @@ import {createRestState,wakeCharacter,stepRest} from './character-rest.js?v=150'
 // Frontal floating portrait atlas; expression changes never change face proportions.
 export class PendantCharacter {
  constructor(body,onReady,onError){
-  this.state=createCharacterState();this.idleState=createIdleReactions();this.pointer={x:0,y:0};this.look={x:0,y:0};
+  this.state=createCharacterState();this.idleState=createIdleReactions();this.idleState.queue=['cat'];this.pointer={x:0,y:0};this.look={x:0,y:0};
   this.previewPose=new URL(location.href).searchParams.get("portrait-state");
-  this.rest=createRestState();this.loaded=0;this.totalTextures=1;this.textures=[];
+  this.rest=createRestState();this.loaded=0;this.totalTextures=2;this.textures=[];
   this.root=new THREE.Group();body.add(this.root);this.root.visible=false;
   this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},shakeMix:{value:0},sleepAmount:{value:0},glitch:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
-  new THREE.TextureLoader().loadAsync('assets/pendant/float/faces-v201.png').then(map=>{
-   map.colorSpace=THREE.SRGBColorSpace;this.textures=[map];this.loaded=1;this.uniforms.atlas={value:map};
+  const loader=new THREE.TextureLoader();
+  Promise.all(['faces-v202.png','cat-v202.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat])=>{
+   map.colorSpace=THREE.SRGBColorSpace;this.textures=[map,cat];this.loaded=2;this.uniforms.atlas={value:map};
    this.material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,depthTest:false,toneMapped:false,uniforms:this.uniforms,
     vertexShader:`
      varying vec2 vUv;varying vec2 vWindow;
      uniform vec2 look;uniform vec2 headShift;uniform float headTilt;uniform float clock;
      void main(){
       vUv=uv;vec3 p=position;
-      float roll=headTilt-look.x*.025;
-      p.xy=mat2(cos(roll),sin(roll),-sin(roll),cos(roll))*p.xy;
-      float yaw=look.x*.16,pitch=-look.y*.10;
-      p.xz=mat2(cos(yaw),sin(yaw),-sin(yaw),cos(yaw))*p.xz;
-      p.yz=mat2(cos(pitch),sin(pitch),-sin(pitch),cos(pitch))*p.yz;
-      p.xy+=headShift+vec2(look.x*.018,.24+sin(clock*.8)*.012);
       vWindow=p.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);
      }`,
     fragmentShader:`
@@ -55,6 +50,21 @@ export class PendantCharacter {
    const aspect=map.image.width/4/map.image.height;
    this.mesh=new THREE.Mesh(new THREE.PlaneGeometry(1.6,1.6/aspect,40,40),this.material);
    this.mesh.position.z=.075;this.mesh.renderOrder=2;this.root.add(this.mesh);
+   cat.colorSpace=THREE.SRGBColorSpace;
+   this.catUniforms={map:{value:cat},windowMask:this.uniforms.windowMask,offset:{value:-2.5}};
+   const catMaterial=new THREE.ShaderMaterial({transparent:true,depthWrite:false,depthTest:false,toneMapped:false,uniforms:this.catUniforms,
+    vertexShader:`varying vec2 vUv;varying vec2 point;uniform float offset;
+     void main(){vUv=uv;vec3 p=position;p.y+=offset;point=p.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,
+    fragmentShader:`varying vec2 vUv;varying vec2 point;uniform sampler2D map;uniform sampler2D windowMask;
+     void main(){vec4 c=texture2D(map,vUv);float mask=texture2D(windowMask,point/4.+.5).a;
+      if(c.a<.12||mask<.02)discard;
+      if(c.r>.5&&c.g<c.r*.23&&c.b<c.r*.30)discard;
+      if(c.r>.6&&c.g>c.r*.78&&c.b<c.r*.17)discard;
+      gl_FragColor=vec4(c.rgb*.78,c.a*mask);
+      #include <colorspace_fragment>
+     }`});
+   this.catMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.65,1.65),catMaterial);this.catMesh.position.z=.09;
+   this.catMesh.renderOrder=2.5;this.root.add(this.catMesh);
    this.root.visible=true;onReady();
   }).catch(onError);
  }
@@ -67,6 +77,7 @@ export class PendantCharacter {
     const exasperationTarget=Math.max(0,Math.min(1,(stretch-.6)/4));
     this.uniforms.exasperation.value=exasperationTarget>.12?1:0;
     this.uniforms.idleKind.value={none:0,sip:1,pucker:2,cat:3}[idle.kind];this.uniforms.idleAmount.value=idle.amount;
+    if(this.catUniforms)this.catUniforms.offset.value=-2.5+(this.previewPose==='cat'?1:idle.kind==='cat'?idle.amount:0)*1.72;
     const pose=stepCharacter(this.state,dt,{spinSpeed,swingSpeed,reduced});
     const ease=reduced?1:1-Math.exp(-7*dt);
     this.look.x+=(this.pointer.x-this.look.x)*ease;this.look.y+=(this.pointer.y-this.look.y)*ease;

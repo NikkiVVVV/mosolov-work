@@ -1,22 +1,29 @@
 import * as THREE from './vendor/three.module.js';
 import {screenMask} from './pendant-shapes.js?v=52';
-// A dim warped room behind the head, masked to the glass opening.
-export function createPendantDepth(body,character){
- const uniforms={mask:{value:screenMask('classic')},time:{value:0},gaze:{value:new THREE.Vector2()}};
+// Perspective room: the same grid continues from rear wall onto floor and side walls.
+export function createPendantDepth(body){
+ const uniforms={mask:{value:screenMask('classic')}};
  const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,uniforms,
  vertexShader:`varying vec2 uvRoom;void main(){uvRoom=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
- fragmentShader:`varying vec2 uvRoom;uniform sampler2D mask;uniform float time;uniform vec2 gaze;
- void main(){float alpha=texture2D(mask,uvRoom).a;if(alpha<.02)discard;
- vec2 p=(uvRoom-.5)*2.;p+=gaze*.022;
- float depth=dot(p,p);vec2 q=p*(1.+depth*.25);
- q+=vec2(sin(p.y*4.+time*.18),cos(p.x*3.-time*.15))*.055;
- vec2 grid=abs(fract(q*7.+.5)-.5);vec2 aa=fwidth(q*7.);
- float lines=1.-min(smoothstep(.016,.016+aa.x,grid.x),smoothstep(.016,.016+aa.y,grid.y));
- float vignette=1.-smoothstep(.45,1.35,length(p));
- vec3 base=mix(vec3(.0008,.0011,.0017),vec3(.0020,.0026,.0038),vignette);
- vec3 color=base+vec3(.11,.13,.15)*lines*(.45+.25*vignette);
- gl_FragColor=vec4(color,alpha);#include <colorspace_fragment>
- }`.replace(';#include',';\n#include')});
+ fragmentShader:`varying vec2 uvRoom;uniform sampler2D mask;
+ void main(){
+ float alpha=texture2D(mask,uvRoom).a;if(alpha<.02)discard;
+ vec2 p=(uvRoom-.5)*3.;vec3 ray=vec3(p,-1.8);
+ float t=6./1.8;float side=0.;
+ if(abs(ray.x)>.0001){float tx=1.8/abs(ray.x);if(tx<t){t=tx;side=1.;}}
+ if(abs(ray.y)>.0001){float ty=1.8/abs(ray.y);if(ty<t){t=ty;side=2.;}}
+ vec3 hit=vec3(0.,0.,3.)+ray*t;
+ vec2 coords=side<.5?hit.xy:side<1.5?hit.zy:hit.xz;
+ coords=coords/.55;
+ vec2 edge=abs(fract(coords+.5)-.5),aa=fwidth(coords);
+ float lines=1.-min(smoothstep(.012,.012+aa.x,edge.x),smoothstep(.012,.012+aa.y,edge.y));
+ float distanceFade=clamp(1.-t*.09,.45,.85);
+ float vignette=1.-smoothstep(.35,1.3,length(p));
+ vec3 base=vec3(.0011,.0014,.0020)*(side<.5?1.:.72);
+ vec3 color=base+vec3(.095,.105,.12)*lines*distanceFade*(.6+.4*vignette);
+ gl_FragColor=vec4(color,alpha);
+ #include <colorspace_fragment>
+ }`});
  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(4,4),material);mesh.position.z=.05;mesh.renderOrder=1;body.add(mesh);
- return {setShape(id){uniforms.mask.value=screenMask(id);},update(time,reduced){uniforms.time.value=reduced?0:time;uniforms.gaze.value.copy(character.uniforms.look.value);}};
+ return {setShape(id){uniforms.mask.value=screenMask(id);},update(){}};
 }
