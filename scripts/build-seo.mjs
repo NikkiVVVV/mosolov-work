@@ -2,7 +2,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {projects} from '../site/projects.js';
 const base='https://mosolov.work/';
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-const visible=projects.filter(p=>!p.hidden&&!p.game);
+const visible=projects.filter(p=>!p.hidden&&!p.game&&!p.filterOnly);
 const person={'@type':'Person','@id':base+'#nikita-mosolov',name:'Nikita Mosolov',alternateName:'Никита Мосолов',jobTitle:'Design Engineer',url:base,image:base+'assets/brand/portfolio-face-v211.png',sameAs:['https://www.linkedin.com/in/nikita-mosolov-985b0828a/','https://x.com/nikmos_pd','https://t.me/nikir_nikir'],knowsAbout:['Design Engineering','Product Design','Interaction Design','Creative Development']};
 const schema={'@context':'https://schema.org','@graph':[person,{'@type':'WebSite','@id':base+'#website',url:base,name:'Nikita Mosolov — Design Engineer',publisher:{'@id':person['@id']}},{'@type':'ProfilePage','@id':base+'#profile',url:base,name:'Nikita Mosolov — Design Engineer',inLanguage:['ru','en'],mainEntity:{'@id':person['@id']},isPartOf:{'@id':base+'#website'}},{'@type':'ItemList',name:'Работы и проекты Никиты Мосолова',itemListElement:visible.map((p,i)=>({'@type':'ListItem',position:i+1,item:{'@type':'CreativeWork','@id':base+'#project-'+p.id,url:base+'#project-'+p.id,name:p.title,description:p.description||p.mobileDescription||p.detail||p.title,image:new URL(p.poster||p.image,base).href,creator:{'@id':person['@id']},genre:{work:'Product design',pet:'Independent project',publication:'Talk or publication'}[p.category]}}))}]};
 let html=await readFile('site/index.html','utf8');

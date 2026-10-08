@@ -1,5 +1,6 @@
 // English copy mirrors the existing Russian project content; no new claims.
 export const englishProjects = {
+  'hse-accessibility':{title:'HSE webinar | Digital accessibility: how designers and developers care for people',description:'HSE webinar | Digital accessibility: how designers and developers care for people'},
   '22':{title:'Idea Radar'},
   '21':{title:'Tea Meow',mobileDescription:'A promo video for Tea Meow, a shop for everyday teas.'},
   '18':{title:'Equipment selection'},

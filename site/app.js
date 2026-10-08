@@ -3,9 +3,9 @@ import { createMobileMenu } from './mobile-menu.js?v=196';
 import { createProfileFit } from './profile-fit.js?v=90';
 import { createProjectBento } from './project-bento.js?v=200';
 import { track, bindAnalytics } from './portfolio-analytics.js?v=63';
-import { projects } from './projects.js?v=198';
+import { projects } from './projects.js?v=hse215';
 import { createSpaceGame } from './space-game.js?v=86';
-import { englishProjects } from './locale.js?v=feed143';
+import { englishProjects } from './locale.js?v=hse215';
 import { features } from './features.js';
 import { createProjectVideos } from './project-videos.js?v=feed168';
 
@@ -87,7 +87,7 @@ animateExperience(document.querySelector('.experience'));
 
 function renderProjects() {
   spaceGame.pause();spaceGame.setLanguage(language);
-  const selected = projects.filter(p => !p.hidden && (category === 'all' || (!p.homeOnly && p.category === category))).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
+  const selected = projects.filter(p => !p.hidden && (category === 'all' ? !p.filterOnly : (!p.homeOnly && p.category === category))).map(p=>language==='en'?{...p,...(p.game?{title:'Token game'}:englishProjects[p.id])}:p);
   grid.replaceChildren(...selected.map(project => {
     const card = document.createElement('article');
     card.className = 'project-card';

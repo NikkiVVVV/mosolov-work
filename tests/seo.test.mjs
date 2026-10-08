@@ -14,7 +14,7 @@ test('portfolio identity, canonical and share assets are present before JS runs'
 test('each published project has crawlable HTML and an accurate structured entry',()=>{
  const graph=JSON.parse(html.match(/id="portfolio-schema">([\s\S]*?)<\/script>/)[1])['@graph'];
  const list=graph.find(x=>x['@type']==='ItemList').itemListElement;
- const visible=projects.filter(p=>!p.hidden&&!p.game);
+ const visible=projects.filter(p=>!p.hidden&&!p.game&&!p.filterOnly);
  assert.equal(list.length,visible.length);
  for(const p of visible){
   assert.ok(html.includes(`id="project-${p.id}"`));
