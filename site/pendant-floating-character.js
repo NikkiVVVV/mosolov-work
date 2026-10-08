@@ -9,19 +9,21 @@ export class PendantCharacter {
  constructor(body,onReady,onError){
   this.state=createCharacterState();this.idleState=createIdleReactions();this.idleState.queue=['cat'];this.pointer={x:0,y:0};this.look={x:0,y:0};
   this.previewPose=new URL(location.href).searchParams.get("portrait-state");
-  this.rest=createRestState();this.loaded=0;this.totalTextures=2;this.textures=[];
+  this.desktopEyes=matchMedia('(hover: hover) and (pointer: fine) and (min-width: 641px)');this.flight={x:0,y:0,vx:0,vy:0,angle:0,spin:0,wild:false,direction:1};
+  this.rest=createRestState();this.loaded=0;this.totalTextures=3;this.textures=[];
   this.root=new THREE.Group();body.add(this.root);this.root.visible=false;
-  this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},shakeMix:{value:0},sleepAmount:{value:0},glitch:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
+  this.uniforms={windowMask:{value:screenMask('classic')},look:{value:new THREE.Vector2()},headTilt:{value:0},headShift:{value:new THREE.Vector2()},clock:{value:0},pixelLift:{value:0},shakeMix:{value:0},sleepAmount:{value:0},glitch:{value:0},exasperation:{value:0},idleKind:{value:0},idleAmount:{value:0}};
   const loader=new THREE.TextureLoader();
-  Promise.all(['faces-v202.png','cat-v202.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat])=>{
-   map.colorSpace=THREE.SRGBColorSpace;this.textures=[map,cat];this.loaded=2;this.uniforms.atlas={value:map};
+  Promise.all(['faces-v206.png','cat-v206.png','book-v206.png'].map(file=>loader.loadAsync('assets/pendant/float/'+file))).then(([map,cat,book])=>{
+   map.colorSpace=THREE.SRGBColorSpace;this.textures=[map,cat,book];this.loaded=3;this.uniforms.atlas={value:map};
    this.material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,depthTest:false,toneMapped:false,uniforms:this.uniforms,
     vertexShader:`
      varying vec2 vUv;varying vec2 vWindow;
-     uniform vec2 look;uniform vec2 headShift;uniform float headTilt;uniform float clock;
+     uniform vec2 look;uniform vec2 headShift;uniform float headTilt;uniform float clock;uniform float pixelLift;
      void main(){
-      vUv=uv;vec3 p=position;
+      vUv=uv;vec3 p=position;float c=cos(headTilt),s=sin(headTilt);p.xy=mat2(c,-s,s,c)*p.xy;p.xy+=headShift;
       vWindow=p.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);
+      gl_Position.y+=gl_Position.w*pixelLift;
      }`,
     fragmentShader:`
      varying vec2 vUv;varying vec2 vWindow;
@@ -65,12 +67,17 @@ export class PendantCharacter {
      }`});
    this.catMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.65,1.65),catMaterial);this.catMesh.position.z=.09;
    this.catMesh.renderOrder=2.5;this.root.add(this.catMesh);
+   book.colorSpace=THREE.SRGBColorSpace;
+   this.bookUniforms={map:{value:book},windowMask:this.uniforms.windowMask,offset:{value:-3.}};
+   const bookMaterial=catMaterial.clone();bookMaterial.uniforms=this.bookUniforms;
+   this.bookMesh=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.1*book.image.height/book.image.width),bookMaterial);
+   this.bookMesh.position.z=.095;this.bookMesh.renderOrder=2.6;this.root.add(this.bookMesh);
    this.root.visible=true;onReady();
   }).catch(onError);
  }
   interruptIdle(){interruptIdle(this.idleState);wakeCharacter(this.rest);}
   update(dt,time,{swingSpeed=0,spinSpeed=0,stretch=0,busy=false,reduced}){
-    const idle=stepIdle(this.idleState,dt,{reduced});
+    const idle=stepIdle(this.idleState,this.idleState.active?dt*.3:dt,{reduced});
     const sleeping=stepRest(this.rest,dt,{active:busy||Math.abs(swingSpeed)>1.4||Math.abs(spinSpeed)>2,reduced});
     this.uniforms.sleepAmount.value=sleeping;
     this.uniforms.glitch.value=reduced?0:Math.min(.65,Math.max(0,(Math.abs(swingSpeed)+Math.abs(spinSpeed)*.5-3)/6));
@@ -80,22 +87,42 @@ export class PendantCharacter {
     if(this.catUniforms)this.catUniforms.offset.value=-2.5+(this.previewPose==='cat'?1:idle.kind==='cat'?idle.amount:0)*1.72;
     const pose=stepCharacter(this.state,dt,{spinSpeed,swingSpeed,reduced});
     const ease=reduced?1:1-Math.exp(-7*dt);
-    this.look.x+=(this.pointer.x-this.look.x)*ease;this.look.y+=(this.pointer.y-this.look.y)*ease;
+    this.look.x+=((this.desktopEyes.matches?this.pointer.x:0)-this.look.x)*ease;this.look.y+=((this.desktopEyes.matches?this.pointer.y:0)-this.look.y)*ease;
     this.uniforms.look.value.set(reduced?0:this.look.x,reduced?0:this.look.y);
     this.uniforms.look.value.multiplyScalar(1-sleeping);
     const blend=reduced?1:1-Math.exp(-12*dt);
     this.uniforms.shakeMix.value+=(Number(pose.face==='shake')-this.uniforms.shakeMix.value)*blend;
     this.uniforms.look.value.multiplyScalar(1-this.uniforms.shakeMix.value);
     this.uniforms.idleAmount.value*=1-this.uniforms.shakeMix.value;
-    this.uniforms.headTilt.value=-.035*this.uniforms.shakeMix.value+(reduced?0:Math.sin(time*1.1)*.018);
-    this.uniforms.headShift.value.set(pose.headX,Math.abs(pose.headX)*.24-pose.impact*.025);
-    this.uniforms.headTilt.value-=pose.headX*.7;
+    const flight=this.flight,h=Math.min(dt,.04);
+    const energy=Math.abs(swingSpeed)+Math.abs(spinSpeed)*.6;
+    const wild=!reduced&&(energy>3.5||this.previewPose==='sway');
+    if(wild){
+      if(!flight.wild)flight.direction=Math.sign(spinSpeed||swingSpeed||1);
+      flight.vx+=((swingSpeed||Math.sin(time*9)*5)*1.8-flight.x*2)*h;
+      flight.vy+=(Math.sin(time*7)*energy*.65-flight.y*2)*h;
+      flight.spin+=(flight.direction*6-flight.spin)*Math.min(1,h*5);
+    }else{
+      flight.vx+=(-flight.x*28-flight.vx*9)*h;
+      flight.vy+=(-flight.y*28-flight.vy*9)*h;
+      const home=Math.atan2(Math.sin(flight.angle),Math.cos(flight.angle));
+      flight.spin+=(-home*24-flight.spin*8)*h;
+    }
+    flight.wild=wild;
+    flight.vx=Math.max(-5,Math.min(5,flight.vx));flight.vy=Math.max(-4,Math.min(4,flight.vy));flight.spin=Math.max(-9,Math.min(9,flight.spin));
+    flight.x+=flight.vx*h;flight.y+=flight.vy*h;flight.angle+=flight.spin*h;
+    for(const [axis,velocity,limit] of [['x','vx',.56],['y','vy',.43]]){
+      if(Math.abs(flight[axis])>limit){flight[axis]=Math.sign(flight[axis])*limit;flight[velocity]*=-.72;flight.spin+=flight[velocity]*.7;}
+    }
+    if(reduced){flight.x=flight.y=flight.angle=flight.vx=flight.vy=flight.spin=0;}
+    this.uniforms.headShift.value.set(flight.x,flight.y);this.uniforms.headTilt.value=flight.angle;
     this.uniforms.clock.value=reduced?0:time;
     if(this.previewPose){
       this.uniforms.shakeMix.value=Number(this.previewPose==='sway');
       this.uniforms.exasperation.value=Number(this.previewPose==='pull');
-      this.uniforms.sleepAmount.value=Number(this.previewPose==='sleep');
+      this.uniforms.sleepAmount.value=Number(this.previewPose==='read'||this.previewPose==='sleep');
     }
-    return {...pose,face:this.uniforms.exasperation.value>.5?'pull':sleeping>.8?'sleep':pose.face,exasperation:this.uniforms.exasperation.value,idleKind:idle.kind,idleAmount:idle.amount};
+    if(this.bookUniforms)this.bookUniforms.offset.value=-3+this.uniforms.sleepAmount.value*2.05;
+    return {...pose,face:this.uniforms.exasperation.value>.5?'pull':sleeping>.8?'read':pose.face,exasperation:this.uniforms.exasperation.value,idleKind:idle.kind,idleAmount:idle.amount};
   }
 }

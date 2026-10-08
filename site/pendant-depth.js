@@ -19,9 +19,17 @@ export function createPendantDepth(body){
  float lines=1.-min(smoothstep(.012,.012+aa.x,edge.x),smoothstep(.012,.012+aa.y,edge.y));
  float fade=visible*(1.-smoothstep(3.,7.,depth));
  vec3 color=vec3(.0011,.0014,.0020)+vec3(.065,.072,.08)*lines*fade;
+ // Sparse static stars above the horizon, intentionally dim.
+ vec2 starUV=uvRoom*50.,cell=floor(starUV);
+ float seed=fract(sin(dot(cell,vec2(127.1,311.7)))*43758.5453);
+ vec2 center=vec2(fract(seed*71.3),fract(seed*113.7))*.6+.2;
+ float radius=.055;
+ float star=1.-smoothstep(radius,radius+length(fwidth(starUV))*.65,length(fract(starUV)-center));
+ float sky=smoothstep(.18,.40,p.y);
+ color+=vec3(.040,.045,.052)*star*step(.975,seed)*sky;
  gl_FragColor=vec4(color,alpha);
  #include <colorspace_fragment>
  }`});
  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(4,4),material);mesh.position.z=.05;mesh.renderOrder=1;body.add(mesh);
- return {setShape(id){uniforms.mask.value=screenMask(id);},update(time,reduced){uniforms.travel.value=reduced?0:time*.12;}};
+ return {setShape(id){uniforms.mask.value=screenMask(id);},update(time,reduced){uniforms.travel.value=reduced?0:time*.18;}};
 }

@@ -10,8 +10,8 @@ import { PendantOverlay } from './pendant-overlay.js?v=65';
 import { PendantViewport, touchIntent } from './pendant-viewport.js?v=67';
 import { PendantEntrance } from './pendant-entrance.js?v=148';
 import { PendantCharacter as LegacyCharacter } from './pendant-character.js?v=199';
-import { PendantCharacter as FloatingCharacter } from './pendant-floating-character.js?v=202';
-import {createPendantDepth} from './pendant-depth.js?v=204';
+import { PendantCharacter as FloatingCharacter } from './pendant-floating-character.js?v=206';
+import {createPendantDepth} from './pendant-depth.js?v=206';
 const floatingPortrait=new URL(location.href).searchParams.get('portrait')==='float';
 const PendantCharacter=floatingPortrait?FloatingCharacter:LegacyCharacter;
 
@@ -147,6 +147,7 @@ class Pendant {
     this.renderer.transmissionResolutionScale=this.mobile.matches?.5:1;
     const view=this.viewport.sync({width:innerWidth,height:innerHeight,screenHeight:Math.max(screen.height,screen.width),mobile:this.mobile.matches,dialog:Boolean(this.dialog?.open),scrollX,scrollY},rect);
     const {left,top}=view;
+    if(this.character.uniforms.pixelLift)this.character.uniforms.pixelLift.value=8/view.height;
     // Only the device captures touch; the surrounding page still scrolls normally.
     this.hitSurface.style.touchAction='none';
     this.camera.clearViewOffset();this.camera.aspect=width/height;
