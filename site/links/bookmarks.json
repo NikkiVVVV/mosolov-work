@@ -370,7 +370,8 @@
       "description": "The best design inspiration on the Internet.",
       "reviewHint": "curated",
       "privacyHint": "public",
-      "status": "kept"
+      "status": "kept",
+      "priorityRank": 5
     },
     {
       "id": "79c7411df4c7a943",
@@ -3148,7 +3149,8 @@
       "description": "",
       "reviewHint": "curated",
       "privacyHint": "public",
-      "status": "kept"
+      "status": "kept",
+      "priorityRank": 13
     },
     {
       "id": "abffc4d71e9b32e7",
@@ -3461,6 +3463,688 @@
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
+    },
+    {
+      "id": "ea7e247a1ef2f9dd",
+      "url": "https://www.typedump.com/",
+      "domain": "www.typedump.com",
+      "title": "typedump | Free fonts to download – typography for designers",
+      "bookmarkTitles": [
+        "typedump | Free fonts to download – typography for designers"
+      ],
+      "ownerNote": "Бесплатные шрифты для дизайн-проектов.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 1
+    },
+    {
+      "id": "6fdb13c271893e3e",
+      "url": "https://kombai.com/gallery/web/",
+      "domain": "kombai.com",
+      "title": "Web UI Design Inspirations | Kombai Gallery",
+      "bookmarkTitles": [
+        "Web UI Design Inspirations | Kombai Gallery"
+      ],
+      "ownerNote": "Галерея веб-интерфейсов и отдельных UI-элементов.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 2
+    },
+    {
+      "id": "dd5e5998e23daefc",
+      "url": "https://demos.gsap.com/demo/magnetic-button-overwrite-modes/",
+      "domain": "demos.gsap.com",
+      "title": "GSAP Demo Hub",
+      "bookmarkTitles": [
+        "GSAP Demo Hub"
+      ],
+      "ownerNote": "Демо магнитной кнопки на GSAP с разными режимами анимации.",
+      "tags": [
+        "Анимация"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 3
+    },
+    {
+      "id": "bfd3d4ae70439c67",
+      "url": "https://bencho.dev/",
+      "domain": "bencho.dev",
+      "title": "Bencho - UI interactive blocks",
+      "bookmarkTitles": [
+        "Bencho - UI interactive blocks"
+      ],
+      "ownerNote": "Интерактивные UI-блоки: кнопки, карточки и физические взаимодействия.",
+      "tags": [
+        "Интерактив"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 4
+    },
+    {
+      "id": "45e6f7e98a9afdbf",
+      "url": "https://detail.design/",
+      "domain": "detail.design",
+      "title": "Detail · Where craft lives",
+      "bookmarkTitles": [
+        "Detail · Where craft lives"
+      ],
+      "ownerNote": "Детали интерфейсов и примеры аккуратного исполнения.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 6
+    },
+    {
+      "id": "43ab8ae441bb99ee",
+      "url": "https://screenlane.com/",
+      "domain": "screenlane.com",
+      "title": "РЕФЫ - Screenlane - Web & mobile UI design inspiration",
+      "bookmarkTitles": [
+        "РЕФЫ - Screenlane - Web & mobile UI design inspiration"
+      ],
+      "ownerNote": "Референсы веб- и мобильных интерфейсов.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 7
+    },
+    {
+      "id": "3fc1bbdc29d225a1",
+      "url": "https://60fps.design/",
+      "domain": "60fps.design",
+      "title": "60fps рефы",
+      "bookmarkTitles": [
+        "60fps рефы"
+      ],
+      "ownerNote": "Видео взаимодействий и анимаций мобильных приложений.",
+      "tags": [
+        "Анимация"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 8
+    },
+    {
+      "id": "86e8cae20824919f",
+      "url": "https://shadergpt.14islands.com/",
+      "domain": "shadergpt.14islands.com",
+      "title": "ShaderGPT",
+      "bookmarkTitles": [
+        "ShaderGPT"
+      ],
+      "ownerNote": "Генерация шейдеров по текстовому описанию.",
+      "tags": [
+        "AI"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 9
+    },
+    {
+      "id": "8287c8181a0bd3c4",
+      "url": "https://endlesstools.io/",
+      "domain": "endlesstools.io",
+      "title": "Endless Tools",
+      "bookmarkTitles": [
+        "Endless Tools"
+      ],
+      "ownerNote": "Редактор визуальных эффектов и графики.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 10
+    },
+    {
+      "id": "9611562fcf3795e7",
+      "url": "https://www.digitalminimalist.com/tools",
+      "domain": "www.digitalminimalist.com",
+      "title": "Best Apps for Minimalists",
+      "bookmarkTitles": [
+        "Best Apps for Minimalists"
+      ],
+      "ownerNote": "Приложения и инструменты для цифрового минимализма.",
+      "tags": [
+        "Подборки"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 11
+    },
+    {
+      "id": "6ac510bc5fb66415",
+      "url": "https://uncut.wtf/",
+      "domain": "uncut.wtf",
+      "title": "Welcome to UNCUT.wtf",
+      "bookmarkTitles": [
+        "Welcome to UNCUT.wtf"
+      ],
+      "ownerNote": "Каталог бесплатных шрифтов независимых авторов.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 12
+    },
+    {
+      "id": "0168b1c1a52fb648",
+      "url": "https://www.logggos.club/",
+      "domain": "www.logggos.club",
+      "title": "Logggos — Well-Designed Logos for Your Inspiration",
+      "bookmarkTitles": [
+        "Logggos — Well-Designed Logos for Your Inspiration"
+      ],
+      "ownerNote": "Логотипы и фирменные знаки для вдохновения.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 14
+    },
+    {
+      "id": "67bf731caad0791f",
+      "url": "https://saaslandingpage.com/",
+      "domain": "saaslandingpage.com",
+      "title": "Лучшие примеры SaaS-страниц для вдохновения дизайна - SaaS Landing Page",
+      "bookmarkTitles": [
+        "Лучшие примеры SaaS-страниц для вдохновения дизайна - SaaS Landing Page"
+      ],
+      "ownerNote": "Примеры лендингов SaaS-продуктов.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 15
+    },
+    {
+      "id": "2f57a1307d006e00",
+      "url": "https://mobbin.design/browse/ios/apps",
+      "domain": "mobbin.design",
+      "title": "РЕФЫ - Browse iOS Apps",
+      "bookmarkTitles": [
+        "РЕФЫ - Browse iOS Apps"
+      ],
+      "ownerNote": "Скриншоты и пользовательские сценарии iOS-приложений.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 16
+    },
+    {
+      "id": "084bc43395035359",
+      "url": "https://benchmarkee.ru/",
+      "domain": "benchmarkee.ru",
+      "title": "Бенчмарки — скриншоты и UX-паттерны лучших мобильных приложений",
+      "bookmarkTitles": [
+        "Бенчмарки — скриншоты и UX-паттерны лучших мобильных приложений"
+      ],
+      "ownerNote": "Скриншоты и UX-паттерны мобильных приложений.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 17
+    },
+    {
+      "id": "17e97c7ec15f656a",
+      "url": "https://www.designspells.com/",
+      "domain": "www.designspells.com",
+      "title": "Взаимодействия и анимации",
+      "bookmarkTitles": [
+        "Взаимодействия и анимации"
+      ],
+      "ownerNote": "Необычные детали, взаимодействия и анимации интерфейсов.",
+      "tags": [
+        "Интерактив"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 18
+    },
+    {
+      "id": "ee8caa59fe9db0ab",
+      "url": "https://designengineer.tools/",
+      "domain": "designengineer.tools",
+      "title": "Design Engineer Tools",
+      "bookmarkTitles": [
+        "Design Engineer Tools"
+      ],
+      "ownerNote": "Инструменты для дизайнеров, которые разрабатывают интерфейсы.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 19
+    },
+    {
+      "id": "739b5d19add9c579",
+      "url": "https://motionsites.ai/",
+      "domain": "motionsites.ai",
+      "title": "MotionSites — Premium Hero Prompts",
+      "bookmarkTitles": [
+        "MotionSites — Premium Hero Prompts"
+      ],
+      "ownerNote": "Промпты для создания сайтов и первых экранов с анимацией.",
+      "tags": [
+        "AI"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 20
+    },
+    {
+      "id": "dd455598100d7fd8",
+      "url": "https://showreel.design/",
+      "domain": "showreel.design",
+      "title": "Showreel.design",
+      "bookmarkTitles": [
+        "Showreel.design"
+      ],
+      "ownerNote": "Подборка работ и примеров моушн-дизайна.",
+      "tags": [
+        "Анимация"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 21
+    },
+    {
+      "id": "1e7fa1230acf992f",
+      "url": "https://www.spottedinprod.com/",
+      "domain": "www.spottedinprod.com",
+      "title": "Spotted in Prod — The very best of iOS",
+      "bookmarkTitles": [
+        "Spotted in Prod — The very best of iOS"
+      ],
+      "ownerNote": "Детали и взаимодействия в реальных iOS-приложениях.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 22
+    },
+    {
+      "id": "bd021b473bb16766",
+      "url": "https://refero.design/",
+      "domain": "refero.design",
+      "title": "Refero — design references for your next project",
+      "bookmarkTitles": [
+        "Refero — design references for your next project"
+      ],
+      "ownerNote": "Библиотека экранов и сценариев веб- и мобильных продуктов.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 23
+    },
+    {
+      "id": "2bd73695eccb9066",
+      "url": "https://find.design/",
+      "domain": "find.design",
+      "title": "Анимации",
+      "bookmarkTitles": [
+        "Анимации"
+      ],
+      "ownerNote": "Референсы интерфейсов и анимаций.",
+      "tags": [
+        "Анимация"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 24
+    },
+    {
+      "id": "21e11ffc75137e88",
+      "url": "https://toolfolio.com/design",
+      "domain": "toolfolio.com",
+      "title": "Design Tools - TOOLFOLIO",
+      "bookmarkTitles": [
+        "Design Tools - TOOLFOLIO"
+      ],
+      "ownerNote": "Каталог инструментов для дизайнеров.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 25
+    },
+    {
+      "id": "315b3481bd2c8102",
+      "url": "https://www.aura.build/",
+      "domain": "www.aura.build",
+      "title": "Рефы блоков.",
+      "bookmarkTitles": [
+        "Рефы блоков."
+      ],
+      "ownerNote": "Создание сайтов и UI-блоков с помощью AI.",
+      "tags": [
+        "AI"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 26
+    },
+    {
+      "id": "df6609c7cd1f4f0b",
+      "url": "https://variant.com/community",
+      "domain": "variant.com",
+      "title": "Variant: идеи для лендосов",
+      "bookmarkTitles": [
+        "Variant: идеи для лендосов"
+      ],
+      "ownerNote": "Галерея идей и вариантов интерфейсов сообщества Variant.",
+      "tags": [
+        "AI"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 27
+    },
+    {
+      "id": "7d71981376847eb4",
+      "url": "http://www.ui-skills.com/",
+      "domain": "www.ui-skills.com",
+      "title": "UI Skills for Design",
+      "bookmarkTitles": [
+        "UI Skills for Design"
+      ],
+      "ownerNote": "Навыки для AI-агентов по дизайну и разработке интерфейсов.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 28
+    },
+    {
+      "id": "9fa32ddf9cd22e7c",
+      "url": "https://icon.museum/",
+      "domain": "icon.museum",
+      "title": "Иконки приложений, вдохновение.",
+      "bookmarkTitles": [
+        "Иконки приложений, вдохновение."
+      ],
+      "ownerNote": "Коллекция иконок приложений для вдохновения.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 29
+    },
+    {
+      "id": "32b887927bb715bd",
+      "url": "https://vorpus.github.io/performativeUI/#/",
+      "domain": "vorpus.github.io",
+      "title": "Примитивный юаq",
+      "bookmarkTitles": [
+        "Примитивный юаq"
+      ],
+      "ownerNote": "Экспериментальные интерфейсные примитивы и взаимодействия.",
+      "tags": [
+        "Интерактив"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 30
+    },
+    {
+      "id": "fae33e480635d810",
+      "url": "https://ui.aceternity.com/components",
+      "domain": "ui.aceternity.com",
+      "title": "ui блоков",
+      "bookmarkTitles": [
+        "ui блоков"
+      ],
+      "ownerNote": "Готовые UI-компоненты с анимациями для React и Tailwind.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 31
+    },
+    {
+      "id": "4954943e6cf75804",
+      "url": "https://reactbits.dev/",
+      "domain": "reactbits.dev",
+      "title": "Библиотека React компонентов.",
+      "bookmarkTitles": [
+        "Библиотека React компонентов."
+      ],
+      "ownerNote": "Библиотека анимированных компонентов React.",
+      "tags": [
+        "Инструменты"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 32
+    },
+    {
+      "id": "1bc44271ade0590d",
+      "url": "https://bricxlabs.com/",
+      "domain": "bricxlabs.com",
+      "title": "BRICX | UI/UX Design Agency for SaaS",
+      "bookmarkTitles": [
+        "BRICX | UI/UX Design Agency for SaaS"
+      ],
+      "ownerNote": "Дизайн-агентство Bricx: интерфейсы и сайты SaaS-продуктов.",
+      "tags": [
+        "Рефы"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "featuredRank": 0,
+      "priorityRank": 33
     }
   ]
 }

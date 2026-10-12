@@ -2,7 +2,7 @@ import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
-import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=195';
+import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
 
 const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');

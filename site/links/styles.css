@@ -172,3 +172,7 @@ th:first-child,td:first-child{padding-right:16px}
  .filters{max-width:760px;gap:8px}
  .filters .filter-button{min-height:36px;padding:8px 12px;font-size:16px;line-height:20px}
 }
+
+/* Category tabs use the complete table width and wrap as whole controls. */
+.filters{max-width:none;min-width:0;height:auto;overflow:visible}
+.filters .filter-button{white-space:nowrap;flex-shrink:0}
