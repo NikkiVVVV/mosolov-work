@@ -239,7 +239,7 @@ function applyLanguage(){
   document.documentElement.lang=language;
   document.querySelector('#footer-channel-label').textContent=language==='en'?'telegram channel':'канал в тг';
   document.querySelector('#footer-top-label').textContent=language==='en'?'message me':'написать';
-  document.title='Nikita Mosolov — Design Engineer';
+  document.title='Никита Мосолов';
   [...translatedNodes,...teamNames,...companyNames].forEach(item=>item.element.textContent=item[language]);
   const intro=document.querySelector('.profile-heading p');
   if(language==='ru'){

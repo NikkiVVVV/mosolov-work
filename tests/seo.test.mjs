@@ -4,7 +4,7 @@ import {readFile,access} from 'node:fs/promises';
 import {projects} from '../site/projects.js';
 const html=await readFile(new URL('../site/index.html',import.meta.url),'utf8');
 test('portfolio identity, canonical and share assets are present before JS runs',async()=>{
- assert.match(html,/<title>Nikita Mosolov — Design Engineer<\/title>/);
+ assert.match(html,/<title>Никита Мосолов<\/title>/);
  assert.match(html,/rel="canonical" href="https:\/\/mosolov.work\/"/);
  assert.match(html,/дизайн-инженер/);
  for(const file of ['portfolio-face-v211.png','portfolio-og-v210.png']){
