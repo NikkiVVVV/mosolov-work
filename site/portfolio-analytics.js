@@ -1,6 +1,6 @@
 export const COUNTER_ID=113296360;
 export const GOAL_ID='portfolio_action';
-const actions=new Set(['filter_change','project_open','contact_open','contact_link','resume_download','experience_open','theme_change','language_change','pendant_open','pendant_close','pendant_drag','pendant_shape','pendant_color','pendant_apply','game_start','game_over','video_play','video_complete']);
+const actions=new Set(['bookmarks_open','menu_open','filter_change','project_open','contact_open','contact_link','resume_download','experience_open','theme_change','language_change','pendant_open','pendant_close','pendant_drag','pendant_shape','pendant_color','pendant_apply','game_start','game_over','video_play','video_complete']);
 const fields=['filter','project_id','destination','format','theme','language','shape','color','direction','source'];
 
 // Separate from /paket/'s bindings; reuse the same counter without changing that site.
@@ -27,7 +27,9 @@ export function createAnalytics({window,document,location,now=Date.now}){
       if(recent.has(key)&&time-recent.get(key)<500)return false;
       recent.set(key,time);
       if(recent.size>100)recent.delete(recent.keys().next().value);
-      try{window.ym(COUNTER_ID,'reachGoal',GOAL_ID,params);return true;}catch{return false;}
+      try{window.ym(COUNTER_ID,'reachGoal',GOAL_ID,params);
+        if(['bookmarks_open','project_open','contact_link'].includes(action))window.ym(COUNTER_ID,'reachGoal','portfolio_'+action,params);
+        window.ym(COUNTER_ID,'params',{portfolio_clicks:{[action]:{[params.project_id||params.destination||params.filter||params.source||'default']:1}}});return true;}catch{return false;}
     },
   };
 }
@@ -37,7 +39,10 @@ export const track=(action,details)=>analytics?.track(action,details)||false;
 export function bindAnalytics(){
   document.addEventListener('click',event=>{
     const target=event.target.closest?.('a,button');if(!target)return;
-    if(target.id==='open-contact')track('contact_open');
+    if(target.matches('a[href]')&&new URL(target.href,location.href).pathname==='/links/')track('bookmarks_open',{source:target.className||target.id||'link'});
+    else if(target.id==='mobile-menu-toggle')track('menu_open');
+    else if(target.matches('#mobile-menu-panel a,.portfolio-footer a'))track('contact_link',{destination:new URL(target.href,location.href).hostname});
+    else if(target.id==='open-contact')track('contact_open');
     else if(target.matches('.contact-links a'))track('contact_link',{destination:target.querySelector('.contact-label').textContent.toLowerCase()});
     else if(target.matches('.resume-download'))track('resume_download',{format:target.download.endsWith('.pdf')?'pdf':'md'});
     else if(target.matches('.current-project-link'))track('project_open',{project_id:target.id.replace('current-','').replace('-link',''),source:'profile'});
@@ -49,5 +54,5 @@ export function bindAnalytics(){
       track('pendant_apply',{shape:dialog.querySelector('[data-shape][aria-pressed=true]').dataset.shape,color:dialog.querySelector('[data-color][aria-pressed=true]').dataset.color});
     }else if(target.matches('.pendant-config [data-close],.pendant-config [data-dismiss]'))track('pendant_close');
   });
-  document.querySelector('.experience').addEventListener('toggle',event=>{if(event.target.open)track('experience_open');});
+  document.querySelector('.experience')?.addEventListener('toggle',event=>{if(event.target.open)track('experience_open');});
 }

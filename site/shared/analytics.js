@@ -3,16 +3,17 @@
   const id=113296360,root=document.documentElement;
   const project=root.dataset.analyticsProject||location.pathname.split('/').filter(Boolean)[0]||'home';
   const enabled=['mosolov.work','www.mosolov.work'].includes(location.hostname);
-  const allowed=new Set(['photo_open','photo_flip','environment_change','bag_interact','telegram_click','outbound_click','section_view','telegram_redirect']);
+  const allowed=new Set(['bookmark_open','bookmark_filter','photo_open','photo_flip','environment_change','bag_interact','telegram_click','outbound_click','section_view','telegram_redirect']);
   const recent=new Map();
   function track(name,details={},callback){
     if(!enabled||!allowed.has(name))return false;
     const params={project};
-    for(const key of ['photo','face','environment','section','link'])if(typeof details[key]==='string')params[key]=details[key].slice(0,100);
+    for(const key of ['photo','face','environment','section','link','category'])if(typeof details[key]==='string')params[key]=details[key].slice(0,100);
     const key=name+JSON.stringify(params),now=Date.now();
     if(now-(recent.get(key)||0)<1100)return false;
     recent.set(key,now);
-    try{window.ym(id,'reachGoal',name,params,callback);return true;}catch{return false;}
+    try{window.ym(id,'reachGoal',name,params,callback);
+      if(project==='bookmarks')window.ym(id,'params',{bookmark_clicks:{[name]:{[params.link||params.category||'default']:1}}});return true;}catch{return false;}
   }
   window.siteAnalytics={track};
   if(!enabled)return;
@@ -22,10 +23,12 @@
   window.ym(id,'init',{triggerEvent:true,clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false,ecommerce:false,disableYtm:true,params:{project}});
   const script=document.createElement('script');script.async=true;script.src='https://mc.yandex.ru/metrika/tag.js?id='+id;script.onerror=()=>{root.dataset.analytics='unavailable';};document.head.append(script);
   document.addEventListener('click',event=>{
+    const filter=event.target.closest?.('.filter-button');
+    if(project==='bookmarks'&&filter)track('bookmark_filter',{category:filter.textContent.trim()});
     const link=event.target.closest?.('a[href]');if(!link)return;
     const url=new URL(link.href,location.href);
     if(!['http:','https:'].includes(url.protocol)||url.origin===location.origin)return;
-    track(url.hostname==='t.me'?'telegram_click':'outbound_click',{link:url.hostname+url.pathname});
+    track(project==='bookmarks'&&link.matches('.site-link')?'bookmark_open':url.hostname==='t.me'?'telegram_click':'outbound_click',{link:url.hostname+url.pathname});
   });
   const seen=new Set();
   if('IntersectionObserver' in window){

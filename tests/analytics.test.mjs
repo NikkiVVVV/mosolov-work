@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 const source=await readFile(new URL('../site/shared/analytics.js',import.meta.url),'utf8');
-function boot(host='mosolov.work',redirect){
+function boot(host='mosolov.work',redirect,project='paket'){
  const calls=[],scripts=[],timers=[],listeners={};
- const document={documentElement:{dataset:{analyticsProject:'paket',analyticsRedirect:redirect}},head:{append:s=>scripts.push(s)},createElement:()=>({}),addEventListener:(n,fn)=>listeners[n]=fn};
+ const document={documentElement:{dataset:{analyticsProject:project,analyticsRedirect:redirect}},head:{append:s=>scripts.push(s)},createElement:()=>({}),addEventListener:(n,fn)=>listeners[n]=fn};
  const window={ym:(...args)=>calls.push(args)},location={hostname:host,pathname:'/paket/',origin:'https://'+host,href:'https://'+host+'/paket/',replace:url=>calls.push(['redirect',url])};
  vm.runInNewContext(source,{window,document,location,URL,Date,setTimeout:(fn,ms)=>timers.push({fn,ms})});
  return {window,document,calls,scripts,timers,listeners};
@@ -23,4 +23,14 @@ test('root redirect has a bounded fallback when analytics cannot load',()=>{
  const p=boot('mosolov.work','https://t.me/nikir_public');assert.equal(p.timers[0].ms,600);p.timers[0].fn();
  assert.equal(p.calls.at(-1)[0],'redirect');assert.equal(p.calls.at(-1)[1],'https://t.me/nikir_public');
  const count=p.calls.length;p.timers[0].fn();assert.equal(p.calls.length,count);
+});
+
+test('bookmark clicks include destination and category, without search text or personal fields',()=>{
+ const p=boot('mosolov.work',undefined,'bookmarks');
+ p.window.siteAnalytics.track('bookmark_open',{link:'typedump.com/',category:'Рефы',query:'private text'});
+ const goal=p.calls.find(c=>c[1]==='reachGoal');
+ assert.equal(goal[2],'bookmark_open');assert.equal(goal[3].project,'bookmarks');
+ assert.equal(goal[3].link,'typedump.com/');assert.equal(goal[3].query,undefined);
+ assert.ok(p.calls.some(c=>c[1]==='params'));
+ assert.equal(p.calls[0][2].clickmap,true);
 });
