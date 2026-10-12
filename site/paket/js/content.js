@@ -1,4 +1,4 @@
-import { albumAdditions } from './album-additions.js?v=20261002-captions';
+import { albumAdditions } from './album-additions.js?v=20261012-gorge';
 import { renderGallery } from './gallery.js?v=20261003-hero-permission';
 // Dates and travel count supplied by the owner. Bag age intentionally omitted by agreement.
 export const content = {
