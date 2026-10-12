@@ -42,12 +42,13 @@ export function createProjectVideos(root = document.documentElement, {initialSta
   // Stagger only the first page entrance; later viewport resumes are immediate.
   function startupWait(entry) {
     if (!initialStagger) return 0;
-    const delay = entry.project.id === '01' ? 0 : entry.project.id === '11' ? 4500 : 5500;
+    const delay = 0;
     return Math.max(0, readyAt + delay - Date.now());
   }
   function load(entry) {
     if (!ready || entry.loading || (!entry.near&&!entry.visible) || !entry.video.isConnected) return;
     entry.loading=true;
+    entry.video.poster=entry.project.poster || '';
     const generation=entry.generation;
     chooseVideoSource(sourceProject(entry),entry.video).then(source=>{
       if (generation!==entry.generation) return;
@@ -113,7 +114,7 @@ export function createProjectVideos(root = document.documentElement, {initialSta
       let entry = entries.get(project.id);
       if (!entry) {
         const video = document.createElement('video');
-        video.poster = project.poster || '';
+        // Posters are requested only near the viewport, alongside the video.
         if (project.videoWidth && project.videoHeight) {
           video.width = project.videoWidth;
           video.height = project.videoHeight;
