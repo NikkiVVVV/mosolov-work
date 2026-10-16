@@ -219,8 +219,20 @@
 .tour-assistant-copy>span,.tour-assistant-copy>span+span{grid-area:1/1;display:block;font-size:14px;line-height:20px;opacity:0;animation:assistant-phrase 3500ms both;animation-delay:calc(var(--message)*3500ms)}
 .tour-markup-orb{height:auto;align-items:center;min-height:64px;margin-bottom:16px}
 .tour-grouping .tour-markup-orb{min-height:48px}
-.tour-note,.tour-note-skeleton{animation-duration:1000ms;animation-delay:calc(4000ms + var(--row)*550ms)}
-.tour-row-tags{animation-delay:calc(7500ms + var(--row)*300ms);animation-duration:800ms}
+.tour-note,.tour-note-skeleton{animation-duration:600ms;animation-delay:calc(10500ms + var(--row)*300ms)}
+.tour-row-tags{animation-delay:calc(10500ms + var(--row)*300ms);animation-duration:600ms}
+.tour-assistant-copy>span:nth-child(3){animation-duration:6200ms;animation-delay:7000ms}
+.tour-assistant-copy>span:nth-child(4){animation:tour-enter 400ms 13200ms both}
+.tour-file-icon{width:28px;height:36px;flex:none;stroke:currentColor;stroke-width:2}
+.tour-attachment{max-width:100%;box-sizing:border-box;min-width:0;gap:12px}
+.tour-attachment>span{min-width:0;overflow-wrap:anywhere}
+.tour-results-stream{animation:none}
+.tour-result-item a{color:inherit;text-decoration:none}
+.collection-tour .preview-close{width:32px;height:32px;padding:0;border-radius:8px;background:transparent!important;box-shadow:none;color:var(--muted);display:grid;place-items:center;line-height:32px}
+.collection-tour .preview-close:hover{color:var(--ink);background:transparent!important}
+.collection-tour .preview-close:focus{outline:none}
+.collection-tour .preview-close:focus-visible{outline:2px solid #8b9297;outline-offset:2px}
+@media(max-width:600px){.tour-travel-file{font-size:11px;padding:8px;gap:8px}.tour-travel-file svg{width:24px;height:32px}.tour-travel-file small{font-size:9px;line-height:12px}.tour-travel-file>span{white-space:normal;overflow-wrap:anywhere}.tour-table-row>span{min-width:0;overflow-wrap:anywhere}.tour-assistant-copy>span{font-size:12px;line-height:18px}.tour-attachment{font-size:12px}}
 .tour-topic{animation-delay:calc(400ms + var(--row)*700ms);animation-duration:700ms}
 .tour-attachment{animation:tour-enter 400ms both}
 .tour-export-menu{position:absolute;left:50%;top:156px;transform:translateX(-50%);width:220px;background:#343638;border:1px solid #55595c;border-radius:12px;padding:8px;box-shadow:0 12px 32px #0004;animation:export-menu 8000ms both}

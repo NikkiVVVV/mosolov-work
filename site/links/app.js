@@ -1,8 +1,8 @@
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261016l';
+import { initSearchDiscovery } from './search-discovery.js?v=20261016m';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
-import { siteCard, quickReplies } from './site-card.js?v=20261016l';
+import { siteCard, quickReplies } from './site-card.js?v=20261016m';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
