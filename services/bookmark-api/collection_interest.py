@@ -10,8 +10,13 @@ from pathlib import Path
 from ai_search import NoRedirect
 
 def record_interest(payload, client):
-    if not isinstance(payload,dict) or set(payload)!={'answer'} or payload['answer'] not in ('yes','no'):
+    if not isinstance(payload,dict) or set(payload) not in ({'answer'},{'answer','reason'}) or payload.get('answer') not in ('yes','no'):
         return 400, 'invalid'
+    reason=payload.get('reason','')
+    if not isinstance(reason,str) or len(reason)>500 or (reason and payload['answer']!='no'):
+        return 400, 'invalid'
+    if any(marker in reason.lower() for marker in ('sk-','bearer ','password=','пароль:','tvly-')):
+        reason='[Текст скрыт: возможные секретные данные]'
     token=os.environ.get('SURVEY_BOT_TOKEN')
     chat=os.environ.get('SURVEY_CHAT_ID','')
     thread=os.environ.get('SURVEY_THREAD_ID','')
@@ -34,6 +39,7 @@ def record_interest(payload, client):
         db.execute('INSERT INTO votes VALUES(?,?,?)',(identity,now,'pending'))
     answer='Да, пригодилась бы' if payload['answer']=='yes' else 'Пока нет'
     text='Закладки · интерес к личной коллекции\n\n'+answer
+    if reason.strip(): text+='\n\nПочему: '+reason.strip()
     body=json.dumps({'chat_id':chat,'message_thread_id':int(thread),'text':text,'link_preview_options':{'is_disabled':True}},ensure_ascii=False).encode()
     request=urllib.request.Request('https://api.telegram.org/bot'+token+'/sendMessage',data=body,headers={'Content-Type':'application/json'})
     try:

@@ -66,7 +66,7 @@ def load_env(path=Path('.env.local')):
 
 
 def validate_request(payload):
-    if not isinstance(payload, dict) or set(payload) - {'query', 'history'}:
+    if not isinstance(payload, dict) or set(payload) - {'query', 'history', 'web'} or ('web' in payload and not isinstance(payload['web'], bool)):
         raise SearchError('Некорректный запрос.', 400, 'invalid_request')
     query, history = payload.get('query'), payload.get('history', [])
     if not isinstance(query, str) or not 1 <= len(query.strip()) <= MAX_QUERY:

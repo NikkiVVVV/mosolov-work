@@ -54,6 +54,6 @@ def search_web(query):
         return [], 'unavailable'
 
 def augment_search(result, payload):
-    if result.get('intent') != 'search': return result
+    if result.get('intent') != 'search' or payload.get('web') is not True: return result
     links,status=search_web(payload['query'])
     return {**result,'external':links,'webStatus':status}
