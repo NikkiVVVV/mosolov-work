@@ -247,3 +247,15 @@
 @keyframes assistant-phrase{0%{opacity:0;transform:translateY(4px)}14%,86%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
 @keyframes file-into-dropzone{0%,20%{opacity:1;transform:translate(0,16px)}60%,85%{opacity:1;transform:translate(-50%,40px) scale(.9)}100%{opacity:0;transform:translate(-50%,48px) scale(.85)}}
 @media(prefers-reduced-motion:reduce){.tour-chrome-logo,.tour-assistant-copy>span{animation:none;opacity:1}.tour-assistant-copy>span+span{display:none}.tour-export-pointer,.tour-export-menu,.tour-travel-file{display:none!important}}
+/* Shared file silhouette, a single alignment axis, and shimmer until resolution. */
+.tour-travel-file,.tour-attachment{height:64px;box-sizing:border-box}
+.tour-visual[data-step="0"] .tour-travel-file{top:128px}
+.tour-travel-file .tour-file-icon,.tour-attachment .tour-file-icon{width:20px;height:24px;stroke:none;flex:none}
+.tour-travel-file>span{font-size:12px;line-height:16px}.tour-travel-file small{font-size:10px;line-height:14px}
+.tour-note-skeleton{background:linear-gradient(100deg,#33383b 20%,#60686c 45%,#33383b 70%);background-size:250% 100%;animation:tour-skeleton-out 600ms calc(10500ms + var(--row)*300ms) both,tour-shimmer 1400ms linear infinite}
+.tour-site-name{display:flex;align-items:center;gap:6px;min-width:0}.tour-site-name .site-icon,.tour-site-name .site-icon img{width:16px;height:16px;flex:none}
+.tour-result-item a{display:flex;align-items:center;gap:8px}.tour-result-item .site-icon,.tour-result-item .site-icon img{width:16px;height:16px;flex:none}
+.tour-visual[data-step="1"] .tour-travel-file{top:128px;transition:left 1000ms 200ms cubic-bezier(.22,1,.36,1),top 1000ms 200ms cubic-bezier(.22,1,.36,1)}
+@keyframes file-into-dropzone{0%,12%{opacity:1;transform:translate(8px,0)}68%,86%{opacity:1;transform:translate(-50%,24px) scale(.92)}100%{opacity:0;transform:translate(-50%,28px) scale(.9)}}
+@media(max-width:600px){.tour-travel-file>span{font-size:10px;line-height:14px}.tour-travel-file small{font-size:8px;line-height:12px}.tour-travel-file .tour-file-icon{width:16px;height:20px}.tour-site-name{gap:4px}}
+@media(prefers-reduced-motion:reduce){.tour-note-skeleton{display:none;animation:none}}

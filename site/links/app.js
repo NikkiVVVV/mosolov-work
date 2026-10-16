@@ -1,8 +1,8 @@
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261016n';
+import { initSearchDiscovery } from './search-discovery.js?v=20261016p';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
-import { siteCard, quickReplies } from './site-card.js?v=20261016n';
+import { siteCard, quickReplies } from './site-card.js?v=20261016p';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
@@ -204,7 +204,7 @@ function showAnswer(answer, message, items, options = {}) {
     const template=document.createElement('template');template.innerHTML=assistantReply(message,options);
     answer.querySelector('.assistant-bubble').replaceWith(template.content.querySelector('.assistant-bubble'));
   }
-  answer.querySelector('.chat-site-results').innerHTML=items.map(item=>siteCard({url:item.url,title:cleanDomain(item.domain),category:categoryLabel(item),note:item.ownerNote||item.aiNote||item.description,source:'Из коллекции'})).join('');
+  answer.querySelector('.chat-site-results').innerHTML=items.map(item=>siteCard({url:item.url,title:cleanDomain(item.domain),category:categoryLabel(item),note:item.ownerNote||item.aiNote||item.description,source:'Из коллекции',icon:state.icons[item.domain]||state.icons['www.'+item.domain]})).join('');
   answer.querySelector('.chat-quick-replies').replaceChildren();
 }
 
