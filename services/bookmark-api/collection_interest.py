@@ -5,6 +5,7 @@ import os
 import sqlite3
 import time
 import urllib.request
+from contextlib import closing
 from pathlib import Path
 from ai_search import NoRedirect
 
@@ -20,7 +21,7 @@ def record_interest(payload, client):
     path.parent.mkdir(parents=True,exist_ok=True)
     identity=hashlib.sha256((token+client).encode()).hexdigest()
     now=int(time.time())
-    with sqlite3.connect(path,timeout=5) as db:
+    with closing(sqlite3.connect(path,timeout=5)) as db, db:
         db.execute('CREATE TABLE IF NOT EXISTS votes(client TEXT PRIMARY KEY, ts INTEGER, status TEXT)')
         db.execute('BEGIN IMMEDIATE')
         db.execute('DELETE FROM votes WHERE ts < ?', (now-86400,))
@@ -38,8 +39,8 @@ def record_interest(payload, client):
     try:
         with urllib.request.build_opener(NoRedirect()).open(request,timeout=5) as response:
             if not json.load(response).get('ok'): raise ValueError()
-        with sqlite3.connect(path,timeout=5) as db: db.execute('UPDATE votes SET status=? WHERE client=?',('sent',identity))
+        with closing(sqlite3.connect(path,timeout=5)) as db, db: db.execute('UPDATE votes SET status=? WHERE client=?',('sent',identity))
         return 202,'sent'
     except Exception:
-        with sqlite3.connect(path,timeout=5) as db: db.execute('UPDATE votes SET status=? WHERE client=?',('failed',identity))
+        with closing(sqlite3.connect(path,timeout=5)) as db, db: db.execute('UPDATE votes SET status=? WHERE client=?',('failed',identity))
         return 503,'delivery_failed'

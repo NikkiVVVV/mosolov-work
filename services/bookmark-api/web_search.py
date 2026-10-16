@@ -6,6 +6,7 @@ import os
 import sqlite3
 import time
 import urllib.request
+from contextlib import closing
 from pathlib import Path
 from urllib.parse import urlsplit
 from ai_search import NoRedirect
@@ -18,7 +19,7 @@ def search_web(query):
     path.parent.mkdir(parents=True,exist_ok=True)
     digest = hashlib.sha256(query.casefold().encode()).hexdigest()
     now = int(time.time())
-    with sqlite3.connect(path,timeout=5) as db:
+    with closing(sqlite3.connect(path,timeout=5)) as db, db:
         db.execute('CREATE TABLE IF NOT EXISTS budget(month TEXT PRIMARY KEY, count INTEGER)')
         db.execute('CREATE TABLE IF NOT EXISTS cache(id TEXT PRIMARY KEY, expires INTEGER, data TEXT)')
         db.execute('BEGIN IMMEDIATE')
@@ -46,7 +47,7 @@ def search_web(query):
                 if not ipaddress.ip_address(u.hostname).is_global: continue
             except ValueError: pass
             results.append({'url':url[:2048],'title':str(item.get('title',u.hostname))[:160],'description':str(item.get('content',''))[:300]})
-        with sqlite3.connect(path,timeout=5) as db:
+        with closing(sqlite3.connect(path,timeout=5)) as db, db:
             db.execute('INSERT OR REPLACE INTO cache VALUES(?,?,?)',(digest,now+3600,json.dumps(results)))
         return results, 'ready'
     except Exception:
