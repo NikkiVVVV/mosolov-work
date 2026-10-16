@@ -207,3 +207,21 @@
 @media(max-width:600px){.collection-tour{grid-template-rows:minmax(180px,1fr) 160px 0px}.collection-tour.has-actions{grid-template-rows:minmax(180px,1fr) 160px 60px}.collection-tour.is-reason{grid-template-rows:minmax(0,1fr) 0px 60px}.tour-chrome-menu{font-size:8px;line-height:12px}.tour-bookmark{font-size:11px}.tour-chrome-menu span,.tour-chrome-menu strong{padding:5px 6px}.tour-travel-file{font-size:13px}.tour-travel-file svg{width:32px;height:40px}}
 @media(max-height:560px){.collection-tour{grid-template-rows:minmax(120px,1fr) 132px 0px}.collection-tour.has-actions{grid-template-rows:minmax(120px,1fr) 132px 60px}.collection-tour.is-reason{grid-template-rows:minmax(0,1fr) 0px 60px}}
 @media(prefers-reduced-motion:reduce){.tour-results-stream,.tour-result-item,.tour-launch *,.tour-cursor,.tour-chrome-menu strong{animation:none}.tour-result-item{opacity:1}.tour-assistant-copy>span{animation:none;opacity:1}.tour-assistant-copy>span+span{display:none}}
+/* Clear shared-file handoff and cumulative assistant messages. */
+.tour-chrome-logo{animation:chrome-to-file 4500ms cubic-bezier(.22,1,.36,1) both}
+.tour-visual[data-step="0"] .tour-travel-file{left:56%;top:120px;opacity:1;animation:file-from-chrome 4500ms both;transition:none}
+.tour-visual[data-step="1"] .tour-travel-file{left:50%;top:104px;opacity:1;transform:translateX(-50%);animation:file-into-dropzone 3200ms both;transition:left 900ms 400ms,top 900ms 400ms}
+.tour-visual[data-step="2"] .tour-travel-file{opacity:0;animation:none;transition:opacity 200ms}
+.tour-visual[data-step="0"] .tour-travel-file,.tour-visual[data-step="1"] .tour-travel-file{display:flex}
+.tour-assistant-copy{display:grid;gap:6px}
+.tour-assistant-copy>span,.tour-assistant-copy>span+span{grid-area:auto;display:block;font-size:12px;line-height:16px;animation:tour-enter 400ms both;animation-delay:calc(var(--message)*1800ms)}
+.tour-markup-orb{height:auto;align-items:flex-start;min-height:100px}
+.tour-grouping .tour-markup-orb{min-height:48px}
+.tour-note,.tour-note-skeleton{animation-duration:700ms;animation-delay:calc(2000ms + var(--row)*450ms)}
+.tour-row-tags{animation-delay:calc(4000ms + var(--row)*250ms);animation-duration:600ms}
+.tour-topic{animation-delay:calc(400ms + var(--row)*700ms);animation-duration:700ms}
+.tour-attachment{animation:tour-enter 400ms both}
+@keyframes chrome-to-file{0%,20%{transform:none}45%,100%{transform:translateX(-112px) scale(.8)}}
+@keyframes file-from-chrome{0%,25%{opacity:0;transform:translate(-60%,0) scale(.8)}50%,100%{opacity:1;transform:translate(-20%,0) scale(1)}}
+@keyframes file-into-dropzone{0%,20%{opacity:1;transform:translate(-20%,0)}60%,85%{opacity:1;transform:translate(-50%,40px) scale(.9)}100%{opacity:0;transform:translate(-50%,48px) scale(.85)}}
+@media(prefers-reduced-motion:reduce){.tour-chrome-logo,.tour-assistant-copy>span,.tour-assistant-copy>span+span{animation:none;opacity:1}.tour-travel-file{display:none!important}}
