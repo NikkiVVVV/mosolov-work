@@ -1,4 +1,4 @@
-import { initPersonalLibrary } from './personal-library.js?v=20261016';
+import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
 import { initSearchMotion } from './search-motion.js?v=195';
@@ -126,6 +126,7 @@ function searchScore(item, query) {
   const fields = [
     [item.ownerNote, 9],
     [item.aiNote, 8],
+    [item.aiCategory, 8],
     [(item.aiTags || []).join(' '), 8],
     [(item.tags || []).join(' '), 8],
     [displayTitle(item), 7],
@@ -168,6 +169,7 @@ const shortCategories = {
 };
 
 function categoryLabel(item) {
+  if (item.privacyHint === 'personal') return item.aiCategory || 'Без категории';
   if (['Рефы', 'Инструменты', 'Медиа', 'AI', 'Дизайн'].includes(item.tags?.[0])) return item.tags[0];
   return shortCategories[item.tags?.[0]] || ({
     'Референс': 'Рефы', 'Инструмент': 'Инструменты'
@@ -181,7 +183,10 @@ function row(item) {
   const icon = state.icons[item.domain];
   const monogram = siteMonogram(item.domain);
   const favicon = `<span class="site-icon${icon ? ' has-icon' : ''}" style="--icon-color:${monogram.color}" aria-hidden="true"><span class="site-monogram">${escapeHTML(monogram.letters)}</span>${icon ? `<img src="${escapeHTML(icon)}" alt="" width="20" height="20" loading="lazy">` : ''}</span>`;
-  return `<tr><td><a class="site-link" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(title)}" aria-label="${escapeHTML(title)}">${favicon}<span>${escapeHTML(title)}</span></a></td><td>${escapeHTML(categoryLabel(item))}</td><td>${escapeHTML(note)}</td></tr>`;
+  const pending = item.privacyHint === 'personal' && ['pending','processing'].includes(item.annotationStatus) && !item.aiNote;
+  const category = pending ? '<span class="annotation-skeleton short" aria-label="Категория определяется"></span>' : escapeHTML(categoryLabel(item));
+  const details = pending ? '<span class="annotation-skeleton" aria-label="Описание готовится"></span><span class="annotation-skeleton medium" aria-hidden="true"></span>' : `${escapeHTML(note)}${item.privacyHint === 'personal' ? `<span class="bookmark-tags">${(item.aiTags || []).map(escapeHTML).join(' · ')}</span>${item.annotationStatus === 'error' ? `<span class="annotation-error">${escapeHTML(item.annotationError || 'Не удалось разметить')}</span>` : ''}` : ''}`;
+  return `<tr><td><a class="site-link" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(title)}" aria-label="${escapeHTML(title)}">${favicon}<span>${escapeHTML(title)}</span></a></td><td>${category}</td><td>${details}</td></tr>`;
 }
 
 function resultTable(body, loading = false) {
@@ -269,7 +274,7 @@ function renderForm() {
 
 function render() {
   renderForm();
-  const categories=[...new Set(state.items.filter(item=>isReady(item)&&isVisible(item)).map(categoryLabel))];
+  const categories=[...new Set(state.items.filter(item=>isReady(item)&&isVisible(item)&&!(item.privacyHint==='personal'&&!item.aiCategory)).map(categoryLabel))];
   const categoryOrder = ['Анимация', 'Видео', 'Инструменты', 'Рефы', 'Интерактив', 'Контекст', 'Курсор', 'Медиа', 'AI', 'Наклон', 'Пасхалки', 'Подборки', 'Скролл'];
   const rank = label => categoryOrder.includes(label) ? categoryOrder.indexOf(label) : categoryOrder.length;
   const filterOptions=[{id:'all',label:'Все'},...categories.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
@@ -277,7 +282,7 @@ function render() {
   const items = filteredItems();
   list.innerHTML = items.map(row).join('');
   status.textContent = items.length ? '' : 'Ничего не найдено. Попробуйте другое слово или фильтр.';
-  status.hidden = items.length > 0;
+  status.hidden = items.length > 0 || (library === 'personal' && !state.items.length);
 }
 
 function resetSearch() {
@@ -391,10 +396,11 @@ async function loadBookmarks() {
   }
 }
 renderForm();
-initPersonalLibrary({onChange(items) {
+initPersonalLibrary({onChange(items, {activate = false} = {}) {
   personalItems = items;
-  if (state.loaded) {
-    selectLibrary('personal');
+  if (state.loaded && (activate || library === 'personal')) {
+    if (activate) selectLibrary('personal');
+    else {state.items = items; render();}
   }
 }});
 loadBookmarks();

@@ -17,6 +17,30 @@ body .search-section{padding-top:104px}
 .import-dropzone.drag-over{background:#292b2d}
 
 /* Shared highlight, rather than two independently flashing button backgrounds. */
+.library-navigation{display:flex;align-items:center;gap:8px;pointer-events:auto}
+body .library-tabs{position:relative;top:auto;left:auto;transform:none;display:flex;gap:8px;padding:0;width:auto;max-width:none;border:0;background:transparent;border-radius:0;box-shadow:none}
+body .library-tabs button{padding:8px 12px;min-height:36px;height:36px;border-radius:8px;font-size:14px;line-height:20px;background:var(--subtle);color:var(--muted);white-space:nowrap}
+body .library-tabs button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+body .library-highlight{display:none}
+.annotation-progress{display:flex;align-items:center;gap:12px;padding:16px 0;color:var(--ink)}
+.annotation-progress>div{flex:1;min-width:0}
+.annotation-progress strong{font-size:16px;font-weight:500}
+.annotation-progress p{margin:4px 0!important}
+.annotation-progress progress{width:100%;height:4px;accent-color:var(--ink);border:0;display:block;margin-top:12px}
+.annotation-progress progress::-webkit-progress-bar{background:var(--line);border-radius:4px}
+.annotation-progress progress::-webkit-progress-value{background:var(--ink);border-radius:4px}
+.annotation-progress progress::-moz-progress-bar{background:var(--ink);border-radius:4px}
+.annotation-progress:not(.is-working) .reply-orb-sphere{animation-play-state:paused}
+.library-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.personal-library .library-actions button{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--subtle);color:var(--ink);cursor:pointer}
+.personal-library .library-actions button:disabled{opacity:.5;cursor:wait}
+.import-privacy{max-width:440px;color:var(--muted);font-size:12px!important;line-height:16px!important;text-wrap:balance}
+.annotation-skeleton{display:block;width:90%;height:12px;margin:6px 0;border-radius:4px;background:var(--line);opacity:.6;animation:annotation-pulse 1.8s ease-in-out infinite}
+.annotation-skeleton.short{width:72px}.annotation-skeleton.medium{width:60%}
+.bookmark-tags,.annotation-error{display:block;margin-top:8px;font-size:12px;line-height:16px;color:var(--muted)}
+@keyframes annotation-pulse{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.annotation-skeleton{animation:none}}
+@media(max-width:600px){body[data-library=personal] .table-wrap table{min-width:0;width:100%;table-layout:fixed}body[data-library=personal] .site-column{width:34%}body[data-library=personal] .category-column{width:24%}body[data-library=personal] th,body[data-library=personal] td{padding:12px 8px;font-size:14px;line-height:20px;overflow-wrap:anywhere}body[data-library=personal] .site-link{gap:6px;min-width:0}body[data-library=personal] .site-link span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 .library-tabs{gap:0;padding:8px;width:auto;max-width:calc(100% - 32px);border:0;border-radius:0 0 24px 24px;background:var(--search-surface);box-shadow:none}
 .library-tabs button{position:relative;z-index:1;padding:12px 16px;border-radius:16px;font-size:14px;line-height:20px;min-height:44px;transition:color 150ms ease-out}
 .library-tabs button[aria-pressed=true]{background:transparent}
