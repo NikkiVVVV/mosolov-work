@@ -14,7 +14,7 @@ export function createCollectionTour(trigger) {
     `<div class="tour-launch"><svg class="tour-chrome-logo" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="46" fill="#ea4335"/><path d="M48 48 87 25a46 46 0 0 1-39 69Z" fill="#fbbc05"/><path d="m48 48 0 46A46 46 0 0 1 8 25Z" fill="#34a853"/><circle cx="48" cy="48" r="22" fill="#4285f4" stroke="#fff" stroke-width="5"/></svg><div class="tour-export-menu"><span>Закладки Chrome</span><strong>Скачать закладки <span>↓</span></strong></div><svg class="tour-export-pointer" viewBox="0 0 24 32" aria-hidden="true"><path d="M3 2v24l6-6 5 10 4-2-5-10h9L3 2Z" fill="white" stroke="#191a1b" stroke-width="1.5"/></svg></div>`,
     `<div class="tour-upload"><div class="tour-upload-zone"><span>↓</span><strong>Перетащи файл закладок</strong></div></div>`,
     `<div class="tour-markup"><div class="tour-attachment"><svg class="tour-file-icon" viewBox="0 0 40 48" fill="none" aria-hidden="true"><path d="M8 2h16l12 12v30a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M24 2v12h12M13 26h16M13 33h12"/></svg><span>bookmarks.html<small>Закладки из Chrome</small></span></div><div class="tour-markup-orb">${replyOrb()}<span class="tour-assistant-copy"><span style="--message:0">Читаю названия и содержимое сайтов.</span><span style="--message:1">Добавляю короткие описания: что здесь полезного.</span><span style="--message:2">Подбираю теги: 3D, дизайн, шрифты, анимация.</span><span style="--message:3">Готово</span></span></div><div class="tour-table"><div class="tour-table-header"><span>Сайт</span><span>Описание</span></div>${[['blender.org','Редактор 3D-моделей и анимации','3D · анимация'],['figma.com','Дизайн интерфейсов и прототипы','дизайн · прототипы'],['fonts.google.com','Шрифты для проектов','шрифты · типографика'],['spline.design','3D-сцены в браузере','3D · инструменты'],['unsplash.com','Фотографии для проектов','фото · материалы'],['coolors.co','Цветовые палитры','цвет · палитры'],['rive.app','Интерактивная анимация','анимация · интерактив'],['excalidraw.com','Схемы и наброски','схемы · наброски']].map(([name,note,tag],i)=>`<div class="tour-table-row" style="--row:${i}"><span>${name}</span><span><i class="tour-note-skeleton"></i><span class="tour-note">${note}<small class="tour-row-tags">${tag}</small></span></span></div>`).join('')}</div></div>`,
-    `<div class="tour-grouping"><div class="tour-markup-orb">${replyOrb()}<span>Собираю похожие сайты в группы</span></div><div class="tour-topic" style="--row:0"><strong>3D и анимация</strong><span>blender.org · spline.design · rive.app</span></div><div class="tour-topic" style="--row:1"><strong>Дизайн и материалы</strong><span>figma.com · unsplash.com · coolors.co</span></div><div class="tour-topic" style="--row:2"><strong>Шрифты</strong><span>fonts.google.com</span></div></div>`,
+    `<div class="tour-grouping"><div class="tour-markup-orb">${replyOrb()}<span>Собираю похожие сайты в подборки</span></div><div class="tour-topic" style="--row:0"><strong>3D и анимация</strong><span>blender.org · spline.design · rive.app</span></div><div class="tour-topic" style="--row:1"><strong>Дизайн и материалы</strong><span>figma.com · unsplash.com · coolors.co</span></div><div class="tour-topic" style="--row:2"><strong>Шрифты</strong><span>fonts.google.com</span></div></div>`,
     `<div class="tour-library"><div class="tour-mini-search">✦ <span class="tour-typed">Шрифтовые пары</span></div><div class="tour-mini-tags"><span>Все</span><span class="selected">Шрифты</span><span>Подборки</span></div><div class="tour-search-skeleton"><i></i><i></i><i></i></div><div class="tour-results-window"><div class="tour-results-stream"><div class="tour-result-item" style="--result:0"><strong><a href="https://fontpair.co/" target="_blank" rel="noopener noreferrer">fontpair.co</a></strong><span>Шрифты · подборки</span><p>Готовые сочетания шрифтов</p></div><div class="tour-result-item" style="--result:1"><strong><a href="https://fontjoy.com/" target="_blank" rel="noopener noreferrer">fontjoy.com</a></strong><span>Шрифты · генератор</span><p>Подбор шрифтовых пар</p></div><div class="tour-result-item" style="--result:2"><strong><a href="https://typ.io/" target="_blank" rel="noopener noreferrer">typ.io</a></strong><span>Шрифты · референсы</span><p>Шрифтовые сочетания на реальных сайтах</p></div></div></div></div>`
   ];
   let step = 0;
@@ -31,7 +31,7 @@ export function createCollectionTour(trigger) {
       if(!modal.open)return;
       if(step===scenes.length-1){finished=true;renderActions();return;}
       step++;render();schedule();
-    },[8000,3200,15500,4500,6000][step]);
+    },[8000,2800,15500,3600,6000][step]);
   }
   function render() {
     const previous=stage.firstElementChild;
@@ -39,9 +39,9 @@ export function createCollectionTour(trigger) {
     if(previous) {
       previous.setAttribute('aria-hidden','true');
       if(reducedMotion.matches)previous.remove();
-      else {previous.animate([{opacity:1,transform:'translateX(0)'},{opacity:0,transform:'translateX(-40px)'}],{duration:440,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>previous.remove();}
+      else {previous.animate([{opacity:1,transform:'translateX(0)'},{opacity:0,transform:'translateX(-20px)'}],{duration:400,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>previous.remove();}
     }
-    if(!reducedMotion.matches)next.animate([{opacity:0,transform:'translateX(40px)'},{opacity:1,transform:'translateX(0)'}],{duration:520,easing:'cubic-bezier(.22,1,.36,1)'});
+    if(!reducedMotion.matches)next.animate([{opacity:0,transform:'translateX(20px)'},{opacity:1,transform:'translateX(0)'}],{duration:480,easing:'cubic-bezier(.22,1,.36,1)'});
     stage.dataset.step = String(step);
     visual.dataset.step=String(step);
     renderActions();

@@ -212,11 +212,11 @@
 .tour-visual[data-step="0"] .tour-travel-file{left:calc(50% + 8px);top:120px;opacity:1;animation:file-from-chrome 8000ms both;transition:none}
 .tour-travel-file{box-sizing:border-box;width:calc(50% - 32px);max-width:188px;padding:12px;gap:8px;font-size:13px;line-height:20px}
 .tour-travel-file svg{width:32px;height:40px}.tour-travel-file>span{min-width:0;overflow-wrap:anywhere}
-.tour-visual[data-step="1"] .tour-travel-file{left:50%;top:104px;opacity:1;transform:translateX(-50%);animation:file-into-dropzone 3200ms both;transition:left 900ms 400ms,top 900ms 400ms}
+.tour-visual[data-step="1"] .tour-travel-file{left:50%;top:104px;opacity:1;transform:translateX(-50%);animation:file-into-dropzone 2800ms cubic-bezier(.22,1,.36,1) both;transition:left 800ms 300ms,top 800ms 300ms}
 .tour-visual[data-step="2"] .tour-travel-file{opacity:0;animation:none;transition:opacity 200ms}
 .tour-visual[data-step="0"] .tour-travel-file,.tour-visual[data-step="1"] .tour-travel-file{display:flex}
 .tour-assistant-copy{display:grid;gap:0;flex:1;min-height:48px;align-items:center}
-.tour-assistant-copy>span,.tour-assistant-copy>span+span{grid-area:1/1;display:block;font-size:14px;line-height:20px;opacity:0;animation:assistant-phrase 3500ms both;animation-delay:calc(var(--message)*3500ms)}
+.tour-assistant-copy>span,.tour-assistant-copy>span+span{grid-area:1/1;display:block;font-size:14px;line-height:20px;opacity:0;animation:assistant-phrase 3500ms cubic-bezier(.4,0,.2,1) both;animation-delay:calc(var(--message)*3500ms)}
 .tour-markup-orb{height:auto;align-items:center;min-height:64px;margin-bottom:16px}
 .tour-grouping .tour-markup-orb{min-height:48px}
 .tour-note,.tour-note-skeleton{animation-duration:600ms;animation-delay:calc(10500ms + var(--row)*300ms)}
@@ -233,7 +233,7 @@
 .collection-tour .preview-close:focus{outline:none}
 .collection-tour .preview-close:focus-visible{outline:2px solid #8b9297;outline-offset:2px}
 @media(max-width:600px){.tour-travel-file{font-size:11px;padding:8px;gap:8px}.tour-travel-file svg{width:24px;height:32px}.tour-travel-file small{font-size:9px;line-height:12px}.tour-travel-file>span{white-space:normal;overflow-wrap:anywhere}.tour-table-row>span{min-width:0;overflow-wrap:anywhere}.tour-assistant-copy>span{font-size:12px;line-height:18px}.tour-attachment{font-size:12px}}
-.tour-topic{animation-delay:calc(400ms + var(--row)*700ms);animation-duration:700ms}
+.tour-topic{animation-delay:calc(320ms + var(--row)*480ms);animation-duration:600ms;animation-timing-function:cubic-bezier(.22,1,.36,1)}
 .tour-attachment{animation:tour-enter 400ms both}
 .tour-export-menu{position:absolute;left:50%;top:156px;transform:translateX(-50%);width:220px;background:#343638;border:1px solid #55595c;border-radius:12px;padding:8px;box-shadow:0 12px 32px #0004;animation:export-menu 8000ms both}
 .tour-export-menu>span{display:block;color:var(--muted);font-size:12px;line-height:16px;padding:8px}
@@ -244,6 +244,6 @@
 @keyframes export-menu{0%,18%{opacity:0;transform:translate(-50%,8px)}24%,55%{opacity:1;transform:translate(-50%,0)}64%,100%{opacity:0;transform:translate(-50%,8px)}}
 @keyframes export-selection{0%,40%,60%,100%{background:transparent}46%,55%{background:#62686c}}
 @keyframes export-clicks{0%{opacity:0;transform:translate(48px,32px)}8%,20%{opacity:1;transform:none}14%{transform:scale(.8)}40%,55%{opacity:1;transform:translate(28px,96px)}48%{transform:translate(28px,96px) scale(.8)}62%,100%{opacity:0;transform:translate(28px,96px)}}
-@keyframes assistant-phrase{0%{opacity:0;transform:translateY(8px);filter:blur(3px)}14%,86%{opacity:1;transform:none;filter:blur(0)}100%{opacity:0;transform:translateY(-8px);filter:blur(3px)}}
+@keyframes assistant-phrase{0%{opacity:0;transform:translateY(4px)}14%,86%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
 @keyframes file-into-dropzone{0%,20%{opacity:1;transform:translate(0,16px)}60%,85%{opacity:1;transform:translate(-50%,40px) scale(.9)}100%{opacity:0;transform:translate(-50%,48px) scale(.85)}}
 @media(prefers-reduced-motion:reduce){.tour-chrome-logo,.tour-assistant-copy>span{animation:none;opacity:1}.tour-assistant-copy>span+span{display:none}.tour-export-pointer,.tour-export-menu,.tour-travel-file{display:none!important}}
