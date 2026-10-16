@@ -6,6 +6,7 @@ from http import HTTPStatus
 from pathlib import Path
 from ai_search import SearchEngine, SearchError, eligible
 from query_notifications import QueryNotifications
+from annotate_bookmark import annotate
 
 
 def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=False, notifier=None):
@@ -34,8 +35,8 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
         if host not in hosts and not (host == 'healthcheck.railway.app' and path == '/api/health' and method == 'GET'):
             return send(403, {'error':'Неизвестный хост.'})
         if path == '/api/health' and method == 'GET':
-            return send(200, {'ok':True,'aiSearch':enabled,'items':len(public_items),'queryNotifications':notifier is not None})
-        if path not in {'/api/search', '/api/query-event'}:
+            return send(200, {'ok':True,'aiSearch':enabled,'annotation':os.environ.get('ANNOTATION_ENABLED') == 'true' and bool(os.environ.get('SILICONFLOW_API_KEY')),'items':len(public_items),'queryNotifications':notifier is not None})
+        if path not in {'/api/search', '/api/query-event', '/api/annotate'}:
             return send(404, {'error':'not found'})
         if not allowed_origin:
             return send(403, {'error':'Этот сайт не подключён к поиску.'})
@@ -64,6 +65,13 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
         except (ValueError, OSError):
             return send(400, {'error':'Некорректный запрос.'})
         try:
+            if path == '/api/annotate':
+                if os.environ.get('ANNOTATION_ENABLED') != 'true':
+                    return send(503, {'error':'Разметка пока не включена.'})
+                try:
+                    return send(200, annotate(payload, client))
+                except ValueError as error:
+                    return send(422, {'error':str(error)})
             if path == '/api/query-event':
                 if notifier is None:
                     return send(503, {'code':'disabled'})
