@@ -101,3 +101,29 @@
 @media(max-width:600px){.collection-tour{grid-template-rows:minmax(180px,1fr) 148px 88px}.tour-stage{padding:40px 20px 36px}.tour-copy{padding:20px 20px 8px}.tour-controls{padding:8px 20px 16px}.collection-tour .tour-copy h2{font-size:24px;line-height:28px}.tour-actions button{padding:12px 8px;font-size:11px}.tour-table-row,.tour-table-header{padding:8px}.tour-chrome-menu{font-size:8px}.tour-chrome-search{display:none}}
 @media(max-height:560px){.collection-tour{grid-template-rows:minmax(120px,1fr) 112px 72px}.tour-copy{padding-top:12px}.collection-tour .tour-copy h2{font-size:20px;line-height:24px;margin-bottom:8px}.collection-tour .tour-copy p{font-size:12px;line-height:16px}.tour-stage{padding-top:24px}.tour-browser{transform:scale(.8);transform-origin:top center}.tour-controls{padding-top:4px}}
 @media(prefers-reduced-motion:reduce){.tour-stage *,.tour-actions button{animation:none!important}.tour-cursor,.tour-note-skeleton,.tour-upload-file,.tour-search-skeleton{display:none}.tour-note,.tour-download,.tour-upload-check,.tour-found{opacity:1}.tour-typed{width:auto;border:0}}
+.collection-tour{width:min(364px,calc(100% - 32px));grid-template-rows:minmax(180px,1fr) 104px 88px;border-radius:20px}
+.tour-copy{padding:20px 24px 8px}.collection-tour .tour-copy h2{font-size:24px;line-height:28px;margin:0;text-wrap:initial}
+.tour-stage{padding:40px 20px 24px}.tour-controls{padding:8px 20px 16px}
+.tour-actions button{font-size:11px;padding:12px 8px}
+.tour-travel-file{position:absolute;z-index:2;left:28px;top:256px;padding:10px 12px;border:1px solid #677076;background:#363c40;border-radius:8px;font-size:11px;line-height:16px;pointer-events:none;opacity:0;transition:top 1200ms cubic-bezier(.22,1,.36,1),left 1200ms cubic-bezier(.22,1,.36,1),transform 1200ms cubic-bezier(.22,1,.36,1),opacity 500ms}
+.tour-visual[data-step="0"] .tour-travel-file{animation:tour-file-export 5s both}
+.tour-visual[data-step="1"] .tour-travel-file{left:50%;top:116px;transform:translateX(-50%);opacity:1;animation:tour-file-land 5s both}
+.tour-chrome-search{display:none}.tour-chrome-toolbar{justify-content:space-between}.tour-chrome-menu{font-size:8px}
+.tour-upload{height:240px;align-self:center}.tour-upload-zone{height:152px;border-radius:12px}.tour-upload-zone strong{font-size:12px}
+.tour-markup{max-height:360px;mask-image:linear-gradient(#000 72%,transparent)}
+.tour-markup-orb{align-items:center;height:40px;margin-bottom:16px;gap:8px;font-size:11px;line-height:16px}
+.tour-assistant-copy{display:grid}.tour-assistant-copy>span{grid-area:1/1;animation:tour-explain-first 5s both}.tour-assistant-copy>span+span{animation:tour-explain-second 5s both}
+.tour-note{animation-delay:calc(1100ms + var(--row)*350ms);animation-duration:700ms}
+.tour-note-skeleton{animation-delay:calc(1100ms + var(--row)*350ms);animation-duration:700ms}
+.tour-table-header,.tour-table-row{padding:10px 8px;grid-template-columns:minmax(0,38%) minmax(0,1fr);font-size:9px;line-height:14px}
+.tour-row-tags{display:block;color:var(--muted);font-size:8px;line-height:12px;margin-top:4px;animation:tour-enter 600ms 3s both}
+.tour-found{animation-delay:3000ms}.tour-search-skeleton{animation-duration:3100ms}.tour-typed{animation-duration:1800ms}
+@keyframes tour-file-export{0%,65%{opacity:0;transform:translateY(8px)}75%,100%{opacity:1;transform:none}}
+@keyframes tour-file-land{0%,60%{opacity:1}75%,100%{opacity:0}}
+@keyframes tour-explain-first{0%,45%{opacity:1}55%,100%{opacity:0}}
+@keyframes tour-explain-second{0%,45%{opacity:0}55%,100%{opacity:1}}
+@media(max-width:600px){.collection-tour{grid-template-rows:minmax(180px,1fr) 104px 88px}.tour-copy{padding:20px 24px 8px}.tour-stage{padding:40px 20px 24px}}
+@media(max-height:560px){.collection-tour{grid-template-rows:minmax(120px,1fr) 88px 72px}.tour-copy{padding-top:12px}.collection-tour .tour-copy h2{font-size:20px;line-height:24px}.tour-travel-file{top:180px}}
+@media(prefers-reduced-motion:reduce){.tour-travel-file{display:none}.tour-assistant-copy>span+span{display:none}.tour-assistant-copy>span{opacity:1}.tour-row-tags{animation:none}}
+.tour-grouping{width:100%}.tour-topic{display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 12px;margin-top:12px;animation:tour-enter 900ms both;animation-delay:calc(500ms + var(--row)*900ms)}
+.tour-topic strong{font-size:12px;line-height:16px;font-weight:500}.tour-topic>span{font-size:9px;line-height:14px;color:var(--muted)}
