@@ -27,6 +27,15 @@ export function createCollectionTour(trigger) {
   let sending = false;
   let timer;
   let finished = false;
+  let openEventSent=false,openEventPending=false;
+  function notifyOpen(){
+    const base=document.documentElement.dataset.surveyBase;
+    if(!base||openEventSent||openEventPending)return;
+    openEventPending=true;
+    fetch(`${base}/api/collection-interest`,{method:'POST',credentials:'omit',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'opened'}),signal:AbortSignal.timeout(10000)})
+      .then(async response=>{const data=await response.json();if(response.ok&&['sent','duplicate'].includes(data.status))openEventSent=true;})
+      .catch(()=>{}).finally(()=>{openEventPending=false;});
+  }
   const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
   const toast=document.createElement('div');toast.className='collection-feedback-toast';toast.setAttribute('role','status');toast.hidden=true;document.body.append(toast);
   let toastTimer;
@@ -89,5 +98,5 @@ export function createCollectionTour(trigger) {
   modal.querySelector('.preview-close').addEventListener('click',()=>modal.close());
   modal.addEventListener('click',event=>{if(event.target===modal)modal.close();});
   modal.addEventListener('close',()=>{stop();trigger.focus({preventScroll:true});});
-  trigger.addEventListener('click',()=>{step=0;finished=false;modal.setAttribute('aria-labelledby','collection-preview-title');modal.classList.remove('is-reason');stage.replaceChildren();render();modal.showModal();schedule();});
+  trigger.addEventListener('click',()=>{step=0;finished=false;modal.setAttribute('aria-labelledby','collection-preview-title');modal.classList.remove('is-reason');stage.replaceChildren();render();modal.showModal();notifyOpen();schedule();});
 }

@@ -1,6 +1,6 @@
 import { initSearchG2 } from './search-g2.js?v=20261016r';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261016u';
+import { initSearchDiscovery } from './search-discovery.js?v=20261016v';
 import { createTabGroup } from './tab-group.js';
 import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261016u';
 import { siteCard, quickReplies } from './site-card.js?v=20261016q';

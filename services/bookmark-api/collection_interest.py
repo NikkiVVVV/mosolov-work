@@ -9,7 +9,7 @@ from contextlib import closing
 from pathlib import Path
 from ai_search import NoRedirect
 
-def record_interest(payload, client):
+def _record_interest(payload, client, opened=False):
     if not isinstance(payload,dict) or set(payload) not in ({'answer'},{'answer','reason'}) or payload.get('answer') not in ('yes','no'):
         return 400, 'invalid'
     reason=payload.get('reason','')
@@ -22,14 +22,15 @@ def record_interest(payload, client):
     thread=os.environ.get('SURVEY_THREAD_ID','')
     if os.environ.get('SURVEY_ENABLED')!='true' or not token or not chat.lstrip('-').isdigit() or not thread.isdigit():
         return 503, 'disabled'
-    path=Path(os.environ.get('RAILWAY_VOLUME_MOUNT_PATH') or os.environ.get('STATE_DIR','data'))/'collection-interest.sqlite'
+    filename='collection-opens.sqlite' if opened else 'collection-interest.sqlite'
+    path=Path(os.environ.get('RAILWAY_VOLUME_MOUNT_PATH') or os.environ.get('STATE_DIR','data'))/filename
     path.parent.mkdir(parents=True,exist_ok=True)
     identity=hashlib.sha256((token+client).encode()).hexdigest()
     now=int(time.time())
     with closing(sqlite3.connect(path,timeout=5)) as db, db:
         db.execute('CREATE TABLE IF NOT EXISTS votes(client TEXT PRIMARY KEY, ts INTEGER, status TEXT)')
         db.execute('BEGIN IMMEDIATE')
-        db.execute('DELETE FROM votes WHERE ts < ?', (now-86400,))
+        db.execute('DELETE FROM votes WHERE ts < ?', (now-(3600 if opened else 86400),))
         hit=db.execute('SELECT status,ts FROM votes WHERE client=?',(identity,)).fetchone()
         if hit:
             if hit[0]=='sent': return 202,'duplicate'
@@ -38,7 +39,7 @@ def record_interest(payload, client):
         if db.execute('SELECT count(*) FROM votes').fetchone()[0]>=100: return 429,'limited'
         db.execute('INSERT INTO votes VALUES(?,?,?)',(identity,now,'pending'))
     answer='Да, пригодилась бы' if payload['answer']=='yes' else 'Пока нет'
-    text='Закладки · интерес к личной коллекции\n\n'+answer
+    text='Закладки · открыта вкладка «Мои закладки»' if opened else 'Закладки · интерес к личной коллекции\n\n'+answer
     if reason.strip(): text+='\n\nПочему: '+reason.strip()
     body=json.dumps({'chat_id':chat,'message_thread_id':int(thread),'text':text,'link_preview_options':{'is_disabled':True}},ensure_ascii=False).encode()
     request=urllib.request.Request('https://api.telegram.org/bot'+token+'/sendMessage',data=body,headers={'Content-Type':'application/json'})
@@ -50,3 +51,8 @@ def record_interest(payload, client):
     except Exception:
         with closing(sqlite3.connect(path,timeout=5)) as db, db: db.execute('UPDATE votes SET status=? WHERE client=?',('failed',identity))
         return 503,'delivery_failed'
+
+def record_interest(payload, client):
+    if isinstance(payload,dict) and payload == {'event':'opened'}:
+        return _record_interest({'answer':'yes'},client,opened=True)
+    return _record_interest(payload,client)
