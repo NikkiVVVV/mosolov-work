@@ -53,6 +53,7 @@ document.querySelector('.library-tabs').addEventListener('click', event => {
   if (button) selectLibrary(button.dataset.library);
 });
 function positionLibraryHighlight() {
+  if (document.querySelector('.library-tabs').hidden) return;
   const active = document.querySelector('.library-tabs button[aria-pressed="true"]');
   const highlight = document.querySelector('.library-highlight');
   highlight.style.width = `${active.offsetWidth}px`;
