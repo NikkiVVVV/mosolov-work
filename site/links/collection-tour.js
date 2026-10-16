@@ -24,7 +24,7 @@ export function createCollectionTour(trigger) {
   const stop = () => clearTimeout(timer);
   function schedule() {
     stop();
-    timer=setTimeout(()=>{if(!modal.open)return;step=(step+1)%4;furthest=Math.max(furthest,step);render();schedule();},3500);
+    timer=setTimeout(()=>{if(!modal.open)return;if(step===3)finished=true;step=(step+1)%4;furthest=Math.max(furthest,step);render();schedule();},3500);
   }
   function render() {
     stage.innerHTML = scenes[step];
@@ -35,10 +35,12 @@ export function createCollectionTour(trigger) {
       dot.type='button';dot.setAttribute('aria-label',`Шаг ${i+1}`);dot.setAttribute('aria-pressed',String(i===step));
       dot.addEventListener('click',()=>{step=i;render();schedule();});pagination.append(dot);
     }
-    if(step===3)finished=true;
-    actions.innerHTML = finished ? '<button type="button" data-vote="no">Не пользовался бы</button><button type="button" data-vote="yes">Я бы пользовался</button>' : '';
-    actions.querySelector('[data-vote=yes]')?.addEventListener('click',()=>send('yes'));
-    actions.querySelector('[data-vote=no]')?.addEventListener('click',reasonStep);
+    if(!finished)actions.replaceChildren();
+    else if(!actions.querySelector('[data-vote]')) {
+      actions.innerHTML='<button type="button" data-vote="no">Не пользовался бы</button><button type="button" data-vote="yes">Я бы пользовался</button>';
+      actions.querySelector('[data-vote=yes]').addEventListener('click',()=>send('yes'));
+      actions.querySelector('[data-vote=no]').addEventListener('click',reasonStep);
+    }
     status.textContent='';
   }
   function reasonStep() {
