@@ -259,3 +259,8 @@
 @keyframes file-into-dropzone{0%,12%{opacity:1;transform:translate(8px,0)}68%,86%{opacity:1;transform:translate(-50%,24px) scale(.92)}100%{opacity:0;transform:translate(-50%,28px) scale(.9)}}
 @media(max-width:600px){.tour-travel-file>span{font-size:10px;line-height:14px}.tour-travel-file small{font-size:8px;line-height:12px}.tour-travel-file .tour-file-icon{width:16px;height:20px}.tour-site-name{gap:4px}}
 @media(prefers-reduced-motion:reduce){.tour-note-skeleton{display:none;animation:none}}
+.collection-tour .tour-assistant-copy>span,.collection-tour .tour-grouping .tour-markup-orb>span{font-family:inherit;font-size:14px;line-height:20px;font-weight:400;color:var(--muted)}
+.tour-result-item a{align-items:center;line-height:20px;min-height:20px}
+.tour-result-item a .site-icon,.tour-site-name .site-icon{display:inline-flex;position:relative;align-items:center;justify-content:center;flex:0 0 16px;width:16px;height:16px;margin:0;padding:0;line-height:0;vertical-align:middle;transform:none;border-radius:4px;background:transparent}
+.tour-result-item a .site-icon img,.tour-site-name .site-icon img{position:absolute;inset:0;width:16px;height:16px;object-fit:contain;background:transparent;margin:0}
+.tour-result-item a>span:last-child{display:block;line-height:20px}
