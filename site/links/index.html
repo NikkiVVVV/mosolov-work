@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-catalog="./bookmarks.json" data-analytics-project="bookmarks">
+<html lang="ru" data-catalog="./bookmarks.json" data-analytics-project="bookmarks" data-annotation-base="https://bookmark-search-api-production.up.railway.app">
 <head>
   <script defer src="/shared/analytics.js?v=223"></script>
   <meta charset="UTF-8">
@@ -29,8 +29,9 @@
   <meta name="twitter:image" content="https://mosolov.work/assets/brand/bookmarks-og-v197.png">
 
   <link rel="stylesheet" href="./styles.css?v=221">
+  <link rel="stylesheet" href="./library-polish.css?v=20261016">
   <script type="module" src="./mobile-navigation.js?v=186"></script>
-  <script type="module" src="./app.js?v=221"></script>
+  <script type="module" src="./app.js?v=20261016"></script>
   <link rel="stylesheet" href="/page-navigation.css?v=186">
   <script type="module" src="/page-navigation.js?v=186"></script>
 </head>
@@ -47,6 +48,11 @@
       </div>
     </details>
   </nav>
+      <nav class="library-tabs" aria-label="Выбор библиотеки">
+        <span class="library-highlight" aria-hidden="true"></span>
+        <button type="button" data-library="public" aria-pressed="true">Коллекция</button>
+        <button type="button" data-library="personal" aria-pressed="false">Мои закладки</button>
+      </nav>
   <main class="page-shell">
     <section class="search-section" aria-label="Поиск по закладкам">
       <canvas id="search-wave" aria-hidden="true"></canvas>
@@ -63,6 +69,16 @@
       <p id="query-notice" class="query-notice" hidden>Отправляя запрос, вы передаёте его владельцу сайта в Telegram. Не вводите личные данные.</p>
     </section>
     <section id="catalog" aria-label="Сохранённые сайты">
+      <div id="personal-library" class="personal-library" hidden>
+        <label class="import-dropzone">
+          <svg class="import-symbol" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="10" y="6" width="28" height="36" rx="8"/><path d="M24 16v16m-6-6 6 6 6-6"/></svg>
+          <strong>Перетащите файл закладок</strong>
+          <span class="import-help">HTML из Chrome: Диспетчер закладок → ⋮ → Экспорт.</span>
+          <span class="import-choose">Выбрать файл <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6"/></svg></span>
+          <input class="sr-only" type="file" accept=".html,.htm,text/html">
+        </label>
+        <p role="status" aria-live="polite"></p>
+      </div>
       <div id="filters" class="filters" role="group" aria-label="Фильтры"></div>
       <div class="table-wrap" tabindex="0" role="region" aria-label="Закладки, таблица с горизонтальной прокруткой">
         <table>

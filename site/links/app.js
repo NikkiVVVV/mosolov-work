@@ -1,3 +1,4 @@
+import { initPersonalLibrary } from './personal-library.js?v=20261016';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
 import { initSearchMotion } from './search-motion.js?v=195';
@@ -21,6 +22,45 @@ queryNotice.before(noticeHome);
 queryNotice.hidden = !notifyBase;
 const status = $('#list-status');
 const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
+let personalItems = null;
+let publicItems = [];
+let library = 'public';
+let publicAIEnabled = false;
+function selectLibrary(next) {
+  cancelPendingSearch();
+  library = next;
+  state.items = library === 'personal' ? (personalItems || []) : publicItems;
+  state.aiEnabled = library === 'public' && publicAIEnabled;
+  state.filter = 'all';
+  state.history = [];
+  chat.replaceChildren();
+  queryInput.value = '';
+
+  document.body.dataset.library = library;
+  $('#personal-library').hidden = library !== 'personal';
+  const empty = library === 'personal' && !state.items.length;
+  form.hidden = empty;
+  filters.hidden = empty;
+  $('#catalog > .table-wrap').hidden = empty;
+  queryNotice.hidden = library === 'personal' || !notifyBase;
+  document.querySelectorAll('.library-tabs button[data-library]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.library === library)));
+  positionLibraryHighlight();
+  if (state.loaded) render();
+  renderForm();
+}
+document.querySelector('.library-tabs').addEventListener('click', event => {
+  const button = event.target.closest('[data-library]');
+  if (button) selectLibrary(button.dataset.library);
+});
+function positionLibraryHighlight() {
+  const active = document.querySelector('.library-tabs button[aria-pressed="true"]');
+  const highlight = document.querySelector('.library-highlight');
+  highlight.style.width = `${active.offsetWidth}px`;
+  highlight.style.transform = `translateX(${active.offsetLeft}px)`;
+}
+requestAnimationFrame(positionLibraryHighlight);
+document.fonts.ready.then(positionLibraryHighlight);
+window.addEventListener('resize', positionLibraryHighlight);
 const chat = $('#chat');
 const modal = $('#chat-modal');
 const formHome = document.createComment('search-form-home');
@@ -85,6 +125,8 @@ function searchScore(item, query) {
   if (!words.length) return 1;
   const fields = [
     [item.ownerNote, 9],
+    [item.aiNote, 8],
+    [(item.aiTags || []).join(' '), 8],
     [(item.tags || []).join(' '), 8],
     [displayTitle(item), 7],
     [(item.bookmarkTitles || []).join(' '), 6],
@@ -135,7 +177,7 @@ function categoryLabel(item) {
 function row(item) {
   // A domain identifies the site without repeating a note or its SEO page title.
   const title = cleanDomain(item.domain);
-  const note = (item.ownerNote || '').replace('Перетекание одной гонки в другую.', 'Перетекание одной в другую.');
+  const note = (item.privacyHint === 'personal' ? [item.ownerNote,item.aiNote || item.description].filter(Boolean).join(' · ') : item.ownerNote || '').replace('Перетекание одной гонки в другую.', 'Перетекание одной в другую.');
   const icon = state.icons[item.domain];
   const monogram = siteMonogram(item.domain);
   const favicon = `<span class="site-icon${icon ? ' has-icon' : ''}" style="--icon-color:${monogram.color}" aria-hidden="true"><span class="site-monogram">${escapeHTML(monogram.letters)}</span>${icon ? `<img src="${escapeHTML(icon)}" alt="" width="20" height="20" loading="lazy">` : ''}</span>`;
@@ -297,7 +339,7 @@ form.addEventListener('submit', event => {
     .map(item => ({item, score: searchScore(item, query)})).filter(result => result.score > 0)
     .sort((a, b) => b.score - a.score || compareSiteNames(a.item, b.item)).map(result => result.item);
   answerQuery(query, answer, [...state.history], keyword);
-  if (notifyBase) {
+  if (notifyBase && library === 'public') {
     // Best effort: no retries, no cookies and no dependency of search on Telegram.
     fetch(`${notifyBase}/api/query-event`, {
       method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit',
@@ -333,11 +375,14 @@ async function loadBookmarks() {
   try {
     const response = await fetch(document.documentElement.dataset.catalog || '/api/bookmarks', { cache: 'no-store' });
     if (!response.ok) throw new Error('Каталог недоступен');
-    state.items = (await response.json()).items || [];
+    publicItems = (await response.json()).items || [];
+    state.items = library === 'personal' ? (personalItems || []) : publicItems;
     state.icons = await fetch('./favicons/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));
     if (!document.documentElement.dataset.catalog || apiBase) {
       state.aiEnabled = await fetch(`${apiBase}/api/health`, {cache:'no-store', signal:AbortSignal.timeout(5000)}).then(r => r.json()).then(data => data.aiSearch === true).catch(() => false);
     }
+    publicAIEnabled = state.aiEnabled;
+    if (library === 'personal') state.aiEnabled = false;
     state.loaded = true;
     render();
   } catch {
@@ -346,6 +391,12 @@ async function loadBookmarks() {
   }
 }
 renderForm();
+initPersonalLibrary({onChange(items) {
+  personalItems = items;
+  if (state.loaded) {
+    selectLibrary('personal');
+  }
+}});
 loadBookmarks();
 document.addEventListener('error', event => {
   if (event.target.matches?.('.site-icon img')) {
