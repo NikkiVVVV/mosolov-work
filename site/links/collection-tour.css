@@ -264,3 +264,4 @@
 .tour-result-item a .site-icon,.tour-site-name .site-icon{display:inline-flex;position:relative;align-items:center;justify-content:center;flex:0 0 16px;width:16px;height:16px;margin:0;padding:0;line-height:0;vertical-align:middle;transform:none;border-radius:4px;background:transparent}
 .tour-result-item a .site-icon img,.tour-site-name .site-icon img{position:absolute;inset:0;width:16px;height:16px;object-fit:contain;background:transparent;margin:0}
 .tour-result-item a>span:last-child{display:block;line-height:20px}
+.collection-tour .tour-markup-orb>.chat-s3{transform:none;margin:0;width:23px;height:23px;flex:0 0 23px}
