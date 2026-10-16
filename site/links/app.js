@@ -1,7 +1,8 @@
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261016d';
+import { initSearchDiscovery } from './search-discovery.js?v=20261016g';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
+import { siteCard, quickReplies } from './site-card.js?v=20261016g';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
@@ -201,8 +202,24 @@ function assistantReply(message, {loading = false, retry = false, sources = ''} 
 }
 
 function showAnswer(answer, message, items, options = {}) {
-  answer.innerHTML = assistantReply(message, options) + (items.length ? resultTable(items.map(row).join('')) : '');
-  answer.querySelector('.assistant-message')?.insertAdjacentHTML('afterbegin', replyOrb());
+  if(!answer.querySelector('.assistant-message')) {
+    answer.innerHTML=assistantReply(message,options)+'<div class="chat-site-results"></div><div class="chat-quick-replies"></div>';
+    answer.querySelector('.assistant-message').insertAdjacentHTML('afterbegin',replyOrb());
+  } else {
+    const template=document.createElement('template');template.innerHTML=assistantReply(message,options);
+    answer.querySelector('.assistant-bubble').replaceWith(template.content.querySelector('.assistant-bubble'));
+  }
+  answer.querySelector('.chat-site-results').innerHTML=items.map(item=>siteCard({url:item.url,title:cleanDomain(item.domain),category:categoryLabel(item),note:item.ownerNote||item.aiNote||item.description,source:'Из коллекции'})).join('');
+  answer.querySelector('.chat-quick-replies').replaceChildren();
+}
+
+function showQuickReplies(answer,query) {
+  const container=answer.querySelector('.chat-quick-replies');
+  for(const item of [...quickReplies(query),{label:'Найти в интернете',query,web:true}]) {
+    const button=document.createElement('button');button.type='button';button.textContent=item.label;
+    button.addEventListener('click',()=>{queryInput.value=item.query;form.dataset.webSearch=String(Boolean(item.web));form.requestSubmit();});
+    container.append(button);
+  }
 }
 
 function cancelPendingSearch() {
@@ -214,7 +231,7 @@ function cancelPendingSearch() {
   pendingSearch = null;
 }
 
-async function answerQuery(query, answer, history, keyword) {
+async function answerQuery(query, answer, history, keyword, web = false) {
   if (!state.aiEnabled) {
     answer.setAttribute('aria-busy', 'true');
     showAnswer(answer, 'Ищу…', []);
@@ -222,6 +239,7 @@ async function answerQuery(query, answer, history, keyword) {
     if (!answer.isConnected) return;
     answer.setAttribute('aria-busy', 'false');
     showAnswer(answer, keywordSearchMessage(keyword.length), keyword);
+    showQuickReplies(answer,query);
     return;
   }
   const controller = new AbortController();
@@ -238,7 +256,7 @@ async function answerQuery(query, answer, history, keyword) {
       }, 8000);
       const response = await fetch(`${apiBase}/api/search`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({query, history}), signal: controller.signal
+        body: JSON.stringify({query, history, web}), signal: controller.signal
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'AI-поиск недоступен.');
@@ -247,21 +265,23 @@ async function answerQuery(query, answer, history, keyword) {
       const itemsById = new Map(state.items.map(item => [item.id, item]));
       const semantic = [...new Set(data.ids)].map(id => itemsById.get(id)).filter(item => item && isReady(item) && isVisible(item));
       const items = mergeResults(semantic, keyword);
-      showAnswer(answer, data.message, items, {sources: `По словам: ${keyword.length} · По смыслу: ${semantic.length} · Без повторов: ${items.length}`});
+      showAnswer(answer, data.message, items);
       const external = (Array.isArray(data.external) ? data.external : []).filter(item => {
         try {const u=new URL(item.url);return u.protocol==='https:'&&!u.username&&!u.password&&!items.some(x=>x.url===item.url);}catch{return false;}
       }).slice(0,3);
-      if(external.length) answer.insertAdjacentHTML('beforeend',`<section class="external-results" aria-label="Внешние результаты"><h3>В интернете · Tavily</h3>${external.map(item=>`<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.title)}</a><p>${escapeHTML(item.description)}</p>`).join('')}</section>`);
+      if(external.length) answer.querySelector('.chat-site-results').insertAdjacentHTML('beforeend',external.map(item=>siteCard({url:item.url,title:cleanDomain(new URL(item.url).hostname),category:item.category||'Медиа',note:item.description||item.title,source:'Из интернета'})).join(''));
       else if(data.webStatus === 'unavailable' || data.webStatus === 'limit') answer.insertAdjacentHTML('beforeend','<p class="search-sources">Веб-поиск сейчас недоступен. Выше — результаты из коллекции.</p>');
       if (data.intent !== 'offtopic') state.history = [...history, query].slice(-4);
+      if(data.intent!=='offtopic')showQuickReplies(answer,query);
     }
   } catch (error) {
     if (pendingSearch !== job) return;
     const notice = controller.signal.aborted ? 'AI не успел ответить.' : error.message;
     showAnswer(answer, `${notice} ${keyword.length ? 'Совпадения по словам остаются ниже.' : 'По словам совпадений нет. Попробуй более короткий запрос.'}`, keyword, {retry:true});
+    showQuickReplies(answer,query);
     answer.querySelector('.retry-search').addEventListener('click', () => {
       cancelPendingSearch();
-      answerQuery(query, answer, history, keyword);
+      answerQuery(query, answer, history, keyword, web);
     }, {once:true});
   } finally {
     clearTimeout(timeout);
@@ -351,7 +371,9 @@ form.addEventListener('submit', event => {
   const keyword = state.items.filter(item => isReady(item) && isVisible(item))
     .map(item => ({item, score: searchScore(item, query)})).filter(result => result.score > 0)
     .sort((a, b) => b.score - a.score || compareSiteNames(a.item, b.item)).map(result => result.item);
-  answerQuery(query, answer, [...state.history], keyword);
+  const web=form.dataset.webSearch==='true';
+  delete form.dataset.webSearch;
+  answerQuery(query, answer, [...state.history], keyword, web);
   if (notifyBase && library === 'public') {
     // Best effort: no retries, no cookies and no dependency of search on Telegram.
     fetch(`${notifyBase}/api/query-event`, {
