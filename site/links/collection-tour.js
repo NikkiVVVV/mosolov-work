@@ -4,7 +4,7 @@ export function createCollectionTour(trigger) {
   const modal = document.createElement('dialog');
   modal.className = 'collection-preview collection-tour';
   modal.setAttribute('aria-labelledby','collection-preview-title');
-  modal.innerHTML = `<button class="preview-close" type="button" aria-label="Закрыть анонс">×</button><div class="tour-visual"><div class="tour-stage" aria-label="Как работает личная коллекция"></div><span class="tour-travel-file" aria-hidden="true">▤ bookmarks.html</span></div><div class="tour-copy"><h2 id="collection-preview-title">Наведи порядок<br>в своих закладках.</h2></div><div class="tour-controls"><div class="tour-actions"></div><p class="preview-status" role="status" aria-live="polite"></p></div>`;
+  modal.innerHTML = `<button class="preview-close" type="button" aria-label="Закрыть анонс">×</button><div class="tour-visual"><div class="tour-stage" aria-label="Как работает личная коллекция"></div><span class="tour-travel-file" aria-hidden="true"><svg viewBox="0 0 40 48" fill="none"><path d="M8 2h16l12 12v30a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M24 2v12h12M13 26h16M13 33h12"/></svg><span>bookmarks.html<small>Закладки Chrome</small></span></span></div><div class="tour-copy"><h2 id="collection-preview-title">Наведи порядок<br>в своих закладках.</h2><p>Добавим описания и теги, сгруппируем сайты по смыслу — чтобы нужное легко находилось.</p></div><div class="tour-controls"><div class="tour-actions"></div><p class="preview-status" role="status" aria-live="polite"></p></div>`;
   document.body.append(modal);
   const stage = modal.querySelector('.tour-stage');
   const actions = modal.querySelector('.tour-actions');
@@ -21,28 +21,46 @@ export function createCollectionTour(trigger) {
   let sending = false;
   let timer;
   let finished = false;
+  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+  const toast=document.createElement('div');toast.className='collection-feedback-toast';toast.setAttribute('role','status');toast.hidden=true;document.body.append(toast);
+  let toastTimer;
   const stop = () => clearTimeout(timer);
   function schedule() {
     stop();
-    timer=setTimeout(()=>{if(!modal.open)return;if(step===scenes.length-1)finished=true;step=(step+1)%scenes.length;render();schedule();},5000);
+    timer=setTimeout(()=>{
+      if(!modal.open)return;
+      if(step===scenes.length-1){finished=true;renderActions();return;}
+      step++;render();schedule();
+    },5000);
   }
   function render() {
-    stage.innerHTML = scenes[step];
+    const previous=stage.firstElementChild;
+    const next=document.createElement('div');next.className='tour-slide';next.innerHTML=scenes[step];stage.append(next);
+    if(previous) {
+      previous.setAttribute('aria-hidden','true');
+      if(reducedMotion.matches)previous.remove();
+      else {previous.animate([{opacity:1,transform:'translateX(0)'},{opacity:0,transform:'translateX(-40px)'}],{duration:440,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>previous.remove();}
+    }
+    if(!reducedMotion.matches)next.animate([{opacity:0,transform:'translateX(40px)'},{opacity:1,transform:'translateX(0)'}],{duration:520,easing:'cubic-bezier(.22,1,.36,1)'});
     stage.dataset.step = String(step);
     visual.dataset.step=String(step);
+    renderActions();
+    status.textContent='';
+  }
+  function renderActions() {
     if(!finished)actions.replaceChildren();
     else if(!actions.querySelector('[data-vote]')) {
-      actions.innerHTML='<button type="button" data-vote="no">Не пользовался бы</button><button type="button" data-vote="yes">Я бы пользовался</button>';
+      actions.innerHTML='<button type="button" data-vote="no">Не пригодится</button><button type="button" data-vote="yes">Мне пригодится</button>';
       actions.querySelector('[data-vote=yes]').addEventListener('click',()=>send('yes'));
       actions.querySelector('[data-vote=no]').addEventListener('click',reasonStep);
     }
-    status.textContent='';
   }
   function reasonStep() {
-    stop();visual.dataset.step="reason";
-    stage.innerHTML='<form id="tour-reason-form" class="tour-reason"><label for="collection-reason">Почему не пользовался бы?</label><textarea id="collection-reason" maxlength="500" placeholder="Расскажи своими словами. Это необязательно."></textarea></form>';
-    actions.innerHTML='<button type="button" class="tour-back">Отмена</button><button type="submit" form="tour-reason-form">Отправить ответ</button>';
-    actions.querySelector('.tour-back').addEventListener('click',()=>{render();schedule();});
+    stop();visual.dataset.step="reason";modal.classList.add('is-reason');status.textContent='';
+    stage.innerHTML='<form id="tour-reason-form" class="tour-reason"><label id="collection-reason-title" for="collection-reason">Почему не пригодится?</label><textarea id="collection-reason" maxlength="500" placeholder="Расскажи своими словами. Необязательно."></textarea></form>';
+    modal.setAttribute('aria-labelledby','collection-reason-title');
+    actions.innerHTML='<button type="button" class="tour-back">Закрыть</button><button type="submit" form="tour-reason-form">Отправить</button>';
+    actions.querySelector('.tour-back').addEventListener('click',()=>modal.close());
     stage.querySelector('form').addEventListener('submit',event=>{event.preventDefault();send('no',stage.querySelector('textarea').value);});
     stage.querySelector('textarea').focus();
   }
@@ -56,12 +74,12 @@ export function createCollectionTour(trigger) {
       const response=await fetch(`${base}/api/collection-interest`,{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify(answer==='no'?{answer,reason:reason.trim()}:{answer}),signal:AbortSignal.timeout(10000)});
       const data=await response.json();
       if(!response.ok||!['sent','duplicate'].includes(data.status))throw Error();
-      actions.innerHTML='<strong class="tour-thanks">Спасибо за ответ!</strong>';status.textContent='';
+      modal.close();toast.textContent='Спасибо за отзыв';toast.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{toast.hidden=true;},4500);
     }catch{status.textContent='Не удалось отправить. Попробуй ещё раз.';actions.querySelectorAll('button').forEach(b=>b.disabled=false);}
     finally{sending=false;}
   }
   modal.querySelector('.preview-close').addEventListener('click',()=>modal.close());
   modal.addEventListener('click',event=>{if(event.target===modal)modal.close();});
   modal.addEventListener('close',()=>{stop();trigger.focus({preventScroll:true});});
-  trigger.addEventListener('click',()=>{step=0;finished=false;render();modal.showModal();schedule();});
+  trigger.addEventListener('click',()=>{step=0;finished=false;modal.setAttribute('aria-labelledby','collection-preview-title');modal.classList.remove('is-reason');stage.replaceChildren();render();modal.showModal();schedule();});
 }

@@ -1,8 +1,8 @@
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261016h';
+import { initSearchDiscovery } from './search-discovery.js?v=20261016i';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
-import { siteCard, quickReplies } from './site-card.js?v=20261016h';
+import { siteCard, quickReplies } from './site-card.js?v=20261016i';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
@@ -19,10 +19,6 @@ const form = $('#search-form');
 initSearchDiscovery(form);
 const apiBase = document.documentElement.dataset.apiBase || '';
 const notifyBase = document.documentElement.dataset.notifyBase || '';
-const queryNotice = $('#query-notice');
-const noticeHome = document.createComment('query-notice-home');
-queryNotice.before(noticeHome);
-queryNotice.hidden = !notifyBase;
 const status = $('#list-status');
 const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
 let personalItems = null;
@@ -45,7 +41,6 @@ function selectLibrary(next) {
   form.hidden = empty;
   filters.hidden = empty;
   $('#catalog > .table-wrap').hidden = empty;
-  queryNotice.hidden = library === 'personal' || !notifyBase;
   document.querySelectorAll('.library-tabs button[data-library]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.library === library)));
   positionLibraryHighlight();
   if (state.loaded) render();
@@ -330,7 +325,6 @@ modal.addEventListener('close', () => {
   state.chatting = false;
   document.body.classList.remove('chat-mode');
   formHome.after(form);
-  noticeHome.after(queryNotice);
   state.query = '';
   queryInput.value = '';
   queryInput.placeholder = 'Необычная типографика';
@@ -359,7 +353,6 @@ form.addEventListener('submit', event => {
   document.body.classList.add('chat-mode');
   if (firstTurn) {
     $('#chat-composer').append(form);
-    $('#chat-composer').append(queryNotice);
     modal.showModal();
   }
   const turn = document.createElement('section');

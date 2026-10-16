@@ -1,4 +1,4 @@
-import { createCollectionTour } from './collection-tour.js?v=20261016h';
+import { createCollectionTour } from './collection-tour.js?v=20261016i';
 export function initSearchDiscovery(form) {
   const modes = document.createElement('div');
   modes.className = 'search-modes';
