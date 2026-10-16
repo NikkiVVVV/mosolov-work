@@ -1,4 +1,5 @@
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
+import { initSearchDiscovery } from './search-discovery.js?v=20261016d';
 import { createTabGroup } from './tab-group.js';
 import { replyOrb } from './reply-orb.js';
 import { initSearchMotion } from './search-motion.js?v=195';
@@ -14,6 +15,7 @@ const tabGroup = createTabGroup(filters, value => {
 });
 const queryInput = $('#search');
 const form = $('#search-form');
+initSearchDiscovery(form);
 const apiBase = document.documentElement.dataset.apiBase || '';
 const notifyBase = document.documentElement.dataset.notifyBase || '';
 const queryNotice = $('#query-notice');
@@ -246,6 +248,11 @@ async function answerQuery(query, answer, history, keyword) {
       const semantic = [...new Set(data.ids)].map(id => itemsById.get(id)).filter(item => item && isReady(item) && isVisible(item));
       const items = mergeResults(semantic, keyword);
       showAnswer(answer, data.message, items, {sources: `По словам: ${keyword.length} · По смыслу: ${semantic.length} · Без повторов: ${items.length}`});
+      const external = (Array.isArray(data.external) ? data.external : []).filter(item => {
+        try {const u=new URL(item.url);return u.protocol==='https:'&&!u.username&&!u.password&&!items.some(x=>x.url===item.url);}catch{return false;}
+      }).slice(0,3);
+      if(external.length) answer.insertAdjacentHTML('beforeend',`<section class="external-results" aria-label="Внешние результаты"><h3>В интернете · Tavily</h3>${external.map(item=>`<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.title)}</a><p>${escapeHTML(item.description)}</p>`).join('')}</section>`);
+      else if(data.webStatus === 'unavailable' || data.webStatus === 'limit') answer.insertAdjacentHTML('beforeend','<p class="search-sources">Веб-поиск сейчас недоступен. Выше — результаты из коллекции.</p>');
       if (data.intent !== 'offtopic') state.history = [...history, query].slice(-4);
     }
   } catch (error) {
@@ -376,6 +383,9 @@ $('#clear-search').addEventListener('click', () => {
 
 
 async function loadBookmarks() {
+  document.body.classList.add('catalog-loading');
+  $('#catalog').setAttribute('aria-busy','true');
+  list.innerHTML = Array.from({length:6},()=>'<tr aria-hidden="true"><td><span class="annotation-skeleton"></span></td><td><span class="annotation-skeleton short"></span></td><td><span class="annotation-skeleton"></span><span class="annotation-skeleton medium"></span></td></tr>').join('');
   status.textContent = 'Загрузка…';
   status.hidden = false;
   try {
@@ -391,9 +401,14 @@ async function loadBookmarks() {
     if (library === 'personal') state.aiEnabled = false;
     state.loaded = true;
     render();
+    document.body.classList.add('catalog-ready');
   } catch {
     status.textContent = 'Не удалось загрузить ссылки. Обновите страницу.';
     status.hidden = false;
+    list.replaceChildren();
+  } finally {
+    document.body.classList.remove('catalog-loading');
+    $('#catalog').setAttribute('aria-busy','false');
   }
 }
 renderForm();
