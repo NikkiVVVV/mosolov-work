@@ -125,7 +125,14 @@ def from_environment():
     chat_id = os.environ.get('BOOKMARK_TELEGRAM_CHAT_ID', '')
     operations.start_sync(token,'bookmarks',state_dir/'operations.sqlite3')
     notifier = None
-    if os.environ.get('NOTIFICATIONS_ENABLED') == 'true' or operations.enabled():
+    if os.environ.get('QUERY_FORWARD_ENABLED') == 'true':
+        query_token=os.environ.get('SURVEY_BOT_TOKEN','')
+        query_chat=os.environ.get('SURVEY_CHAT_ID','')
+        query_thread=os.environ.get('SURVEY_THREAD_ID','')
+        if not query_token or not query_chat.lstrip('-').isdigit() or not query_thread.isdigit():
+            raise RuntimeError('Query forwarding requires a bot, chat and topic.')
+        notifier=QueryNotifications(state_dir/'query-forwards.sqlite',query_token,query_chat,thread_id=int(query_thread),forward_text=True)
+    elif os.environ.get('NOTIFICATIONS_ENABLED') == 'true' or operations.enabled():
         if not token or not chat_id.isdigit() or int(chat_id) <= 0:
             raise RuntimeError('Notifications need a bot token and a private chat ID.')
         notifier = QueryNotifications(state_dir/'query-notifications.sqlite', token, chat_id)

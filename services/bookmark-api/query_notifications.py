@@ -12,10 +12,11 @@ from pathlib import Path
 
 
 class QueryNotifications:
-    def __init__(self, database, token, chat_id, *, sender=None, clock=time.time):
+    def __init__(self, database, token, chat_id, *, sender=None, clock=time.time, thread_id=None, forward_text=False):
         self.database = Path(database)
         self.database.parent.mkdir(parents=True, exist_ok=True)
         self.token, self.chat_id = token, chat_id
+        self.thread_id, self.forward_text = thread_id, forward_text
         self.sender = sender or self._send
         self.clock = clock
         self.slots = threading.BoundedSemaphore(2)
@@ -34,7 +35,7 @@ class QueryNotifications:
             return 400, 'invalid'
         query = query.strip()
         # Suppress common accidentally pasted credentials rather than forward them.
-        if any(marker in query.lower() for marker in ['sk-', 'bearer ', 'password=', 'пароль:']):
+        if any(marker in query.lower() for marker in ['sk-', 'bearer ', 'password=', 'пароль:', 'tvly-']):
             return 202, 'suppressed'
         if not self.slots.acquire(blocking=False):
             return 429, 'busy'
@@ -57,7 +58,8 @@ class QueryNotifications:
                 db.execute('INSERT INTO events VALUES (?,?,?)', (now, who, fingerprint))
             if operations.enabled():
                 operations.record_sync('search.recorded')
-                return 202, 'queued'
+                if not self.forward_text:
+                    return 202, 'queued'
             date = datetime.fromtimestamp(now, timezone.utc).strftime('%d.%m.%Y %H:%M UTC')
             message = f'Закладки · новый запрос\n\n«{query}»\n\nНайдено: {count} ссылок\n{date}'
             try:
@@ -70,8 +72,9 @@ class QueryNotifications:
             self.slots.release()
 
     def _send(self, message):
-        body = json.dumps({'chat_id': self.chat_id, 'text': message,
-                           'link_preview_options': {'is_disabled': True}}, ensure_ascii=False).encode()
+        payload={'chat_id':self.chat_id,'text':message,'link_preview_options':{'is_disabled':True}}
+        if self.thread_id is not None: payload['message_thread_id']=int(self.thread_id)
+        body = json.dumps(payload, ensure_ascii=False).encode()
         request = urllib.request.Request('https://api.telegram.org/bot' + self.token + '/sendMessage',
                                          data=body, headers={'Content-Type': 'application/json'})
         with urllib.request.urlopen(request, timeout=5) as response:
