@@ -6,7 +6,11 @@ from http import HTTPStatus
 from pathlib import Path
 from ai_search import SearchEngine, SearchError, eligible
 from query_notifications import QueryNotifications
+import ops_notifications as operations
 from annotate_bookmark import annotate
+from web_search import augment_search
+from collection_interest import record_interest
+from search_diagnostics import run as provider_diagnostic
 
 
 def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=False, notifier=None):
@@ -36,7 +40,7 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
             return send(403, {'error':'Неизвестный хост.'})
         if path == '/api/health' and method == 'GET':
             return send(200, {'ok':True,'aiSearch':enabled,'annotation':os.environ.get('ANNOTATION_ENABLED') == 'true' and bool(os.environ.get('SILICONFLOW_API_KEY')),'items':len(public_items),'queryNotifications':notifier is not None})
-        if path not in {'/api/search', '/api/query-event', '/api/annotate'}:
+        if path not in {'/api/search', '/api/query-event', '/api/annotate', '/api/collection-interest'}:
             return send(404, {'error':'not found'})
         if not allowed_origin:
             return send(403, {'error':'Этот сайт не подключён к поиску.'})
@@ -65,11 +69,16 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
         except (ValueError, OSError):
             return send(400, {'error':'Некорректный запрос.'})
         try:
+            if path == '/api/collection-interest':
+                code,result = record_interest(payload,client)
+                return send(code,{'status':result})
             if path == '/api/annotate':
                 if os.environ.get('ANNOTATION_ENABLED') != 'true':
                     return send(503, {'error':'Разметка пока не включена.'})
                 try:
-                    return send(200, annotate(payload, client))
+                    result = annotate(payload, client)
+                    operations.record_sync('annotation.completed')
+                    return send(200, result)
                 except ValueError as error:
                     return send(422, {'error':str(error)})
             if path == '/api/query-event':
@@ -77,11 +86,16 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
                     return send(503, {'code':'disabled'})
                 code, result = notifier.notify(payload, client, len(public_items))
                 return send(code, {'status':result}, 60 if code == 429 else 0)
-            return send(200, engine.search(payload, public_items, client))
+            result = engine.search(payload, public_items, client)
+            operations.record_sync('ai_search.completed')
+            return send(200, augment_search(result,payload))
         except SearchError as error:
+            if error.status >= 500:
+                operations.record_sync('backend.failed')
             print(f'AI search: {error.code} (HTTP {error.status})', flush=True)
             return send(error.status, {'error':str(error),'code':error.code,'retryAfter':error.retry}, error.retry)
         except Exception:
+            operations.record_sync('backend.failed')
             # Do not serialize exception bodies, prompts, upstream headers or secrets.
             print('AI search: internal_error', flush=True)
             return send(500, {'error':'Ошибка поиска. Попробуй позже.','code':'server_error'})
@@ -90,6 +104,7 @@ def create_app(items, engine, *, origins, hosts, enabled=False, railway_proxy=Fa
 
 
 def from_environment():
+    provider_diagnostic()
     on_railway = bool(os.environ.get('RAILWAY_ENVIRONMENT_ID'))
     mount = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH')
     if on_railway and not mount:
@@ -108,8 +123,9 @@ def from_environment():
     enabled = os.environ.get('AI_ENABLED') == 'true' and bool(os.environ.get('SILICONFLOW_API_KEY'))
     token = os.environ.get('BOOKMARK_TELEGRAM_BOT_TOKEN', '')
     chat_id = os.environ.get('BOOKMARK_TELEGRAM_CHAT_ID', '')
+    operations.start_sync(token,'bookmarks',state_dir/'operations.sqlite3')
     notifier = None
-    if os.environ.get('NOTIFICATIONS_ENABLED') == 'true':
+    if os.environ.get('NOTIFICATIONS_ENABLED') == 'true' or operations.enabled():
         if not token or not chat_id.isdigit() or int(chat_id) <= 0:
             raise RuntimeError('Notifications need a bot token and a private chat ID.')
         notifier = QueryNotifications(state_dir/'query-notifications.sqlite', token, chat_id)

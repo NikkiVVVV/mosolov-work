@@ -1,4 +1,5 @@
 """Best-effort Telegram notifications. Never log tokens, queries or raw IPs."""
+import ops_notifications as operations
 import hashlib
 import json
 import secrets
@@ -54,6 +55,9 @@ class QueryNotifications:
                     return 429, 'limited'
                 # Reserve before sending: limits survive failures and process restarts.
                 db.execute('INSERT INTO events VALUES (?,?,?)', (now, who, fingerprint))
+            if operations.enabled():
+                operations.record_sync('search.recorded')
+                return 202, 'queued'
             date = datetime.fromtimestamp(now, timezone.utc).strftime('%d.%m.%Y %H:%M UTC')
             message = f'Закладки · новый запрос\n\n«{query}»\n\nНайдено: {count} ссылок\n{date}'
             try:
