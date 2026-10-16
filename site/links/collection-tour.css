@@ -208,20 +208,30 @@
 @media(max-height:560px){.collection-tour{grid-template-rows:minmax(120px,1fr) 132px 0px}.collection-tour.has-actions{grid-template-rows:minmax(120px,1fr) 132px 60px}.collection-tour.is-reason{grid-template-rows:minmax(0,1fr) 0px 60px}}
 @media(prefers-reduced-motion:reduce){.tour-results-stream,.tour-result-item,.tour-launch *,.tour-cursor,.tour-chrome-menu strong{animation:none}.tour-result-item{opacity:1}.tour-assistant-copy>span{animation:none;opacity:1}.tour-assistant-copy>span+span{display:none}}
 /* Clear shared-file handoff and cumulative assistant messages. */
-.tour-chrome-logo{animation:chrome-to-file 4500ms cubic-bezier(.22,1,.36,1) both}
-.tour-visual[data-step="0"] .tour-travel-file{left:56%;top:120px;opacity:1;animation:file-from-chrome 4500ms both;transition:none}
+.tour-chrome-logo{animation:chrome-to-file 8000ms cubic-bezier(.22,1,.36,1) both}
+.tour-visual[data-step="0"] .tour-travel-file{left:calc(50% + 8px);top:120px;opacity:1;animation:file-from-chrome 8000ms both;transition:none}
+.tour-travel-file{box-sizing:border-box;width:calc(50% - 32px);max-width:188px;padding:12px;gap:8px;font-size:13px;line-height:20px}
+.tour-travel-file svg{width:32px;height:40px}.tour-travel-file>span{min-width:0;overflow-wrap:anywhere}
 .tour-visual[data-step="1"] .tour-travel-file{left:50%;top:104px;opacity:1;transform:translateX(-50%);animation:file-into-dropzone 3200ms both;transition:left 900ms 400ms,top 900ms 400ms}
 .tour-visual[data-step="2"] .tour-travel-file{opacity:0;animation:none;transition:opacity 200ms}
 .tour-visual[data-step="0"] .tour-travel-file,.tour-visual[data-step="1"] .tour-travel-file{display:flex}
-.tour-assistant-copy{display:grid;gap:6px}
-.tour-assistant-copy>span,.tour-assistant-copy>span+span{grid-area:auto;display:block;font-size:12px;line-height:16px;animation:tour-enter 400ms both;animation-delay:calc(var(--message)*1800ms)}
-.tour-markup-orb{height:auto;align-items:flex-start;min-height:100px}
+.tour-assistant-copy{display:grid;gap:0;flex:1;min-height:48px;align-items:center}
+.tour-assistant-copy>span,.tour-assistant-copy>span+span{grid-area:1/1;display:block;font-size:14px;line-height:20px;opacity:0;animation:assistant-phrase 3500ms both;animation-delay:calc(var(--message)*3500ms)}
+.tour-markup-orb{height:auto;align-items:center;min-height:64px;margin-bottom:16px}
 .tour-grouping .tour-markup-orb{min-height:48px}
-.tour-note,.tour-note-skeleton{animation-duration:700ms;animation-delay:calc(2000ms + var(--row)*450ms)}
-.tour-row-tags{animation-delay:calc(4000ms + var(--row)*250ms);animation-duration:600ms}
+.tour-note,.tour-note-skeleton{animation-duration:1000ms;animation-delay:calc(4000ms + var(--row)*550ms)}
+.tour-row-tags{animation-delay:calc(7500ms + var(--row)*300ms);animation-duration:800ms}
 .tour-topic{animation-delay:calc(400ms + var(--row)*700ms);animation-duration:700ms}
 .tour-attachment{animation:tour-enter 400ms both}
-@keyframes chrome-to-file{0%,20%{transform:none}45%,100%{transform:translateX(-112px) scale(.8)}}
-@keyframes file-from-chrome{0%,25%{opacity:0;transform:translate(-60%,0) scale(.8)}50%,100%{opacity:1;transform:translate(-20%,0) scale(1)}}
-@keyframes file-into-dropzone{0%,20%{opacity:1;transform:translate(-20%,0)}60%,85%{opacity:1;transform:translate(-50%,40px) scale(.9)}100%{opacity:0;transform:translate(-50%,48px) scale(.85)}}
-@media(prefers-reduced-motion:reduce){.tour-chrome-logo,.tour-assistant-copy>span,.tour-assistant-copy>span+span{animation:none;opacity:1}.tour-travel-file{display:none!important}}
+.tour-export-menu{position:absolute;left:50%;top:156px;transform:translateX(-50%);width:220px;background:#343638;border:1px solid #55595c;border-radius:12px;padding:8px;box-shadow:0 12px 32px #0004;animation:export-menu 8000ms both}
+.tour-export-menu>span{display:block;color:var(--muted);font-size:12px;line-height:16px;padding:8px}
+.tour-export-menu strong{display:flex;justify-content:space-between;padding:12px 8px;font-size:14px;line-height:20px;font-weight:400;border-radius:8px;animation:export-selection 8000ms both}
+.tour-export-pointer{position:absolute;width:24px;height:32px;left:calc(50% + 24px);top:124px;animation:export-clicks 8000ms both;z-index:2}
+@keyframes chrome-to-file{0%,10%,60%{transform:none}14%{transform:scale(.92)}76%,100%{transform:translateX(-116px)}}
+@keyframes file-from-chrome{0%,62%{opacity:0;transform:translate(-50%,0) scale(.85)}78%,100%{opacity:1;transform:translate(0,0) scale(1)}}
+@keyframes export-menu{0%,18%{opacity:0;transform:translate(-50%,8px)}24%,55%{opacity:1;transform:translate(-50%,0)}64%,100%{opacity:0;transform:translate(-50%,8px)}}
+@keyframes export-selection{0%,40%,60%,100%{background:transparent}46%,55%{background:#62686c}}
+@keyframes export-clicks{0%{opacity:0;transform:translate(48px,32px)}8%,20%{opacity:1;transform:none}14%{transform:scale(.8)}40%,55%{opacity:1;transform:translate(28px,96px)}48%{transform:translate(28px,96px) scale(.8)}62%,100%{opacity:0;transform:translate(28px,96px)}}
+@keyframes assistant-phrase{0%{opacity:0;transform:translateY(8px);filter:blur(3px)}14%,86%{opacity:1;transform:none;filter:blur(0)}100%{opacity:0;transform:translateY(-8px);filter:blur(3px)}}
+@keyframes file-into-dropzone{0%,20%{opacity:1;transform:translate(0,16px)}60%,85%{opacity:1;transform:translate(-50%,40px) scale(.9)}100%{opacity:0;transform:translate(-50%,48px) scale(.85)}}
+@media(prefers-reduced-motion:reduce){.tour-chrome-logo,.tour-assistant-copy>span{animation:none;opacity:1}.tour-assistant-copy>span+span{display:none}.tour-export-pointer,.tour-export-menu,.tour-travel-file{display:none!important}}
