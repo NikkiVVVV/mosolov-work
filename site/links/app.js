@@ -1,3 +1,4 @@
+import { initSearchG2 } from './search-g2.js?v=20261016r';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261016q';
 import { createTabGroup } from './tab-group.js';
@@ -7,6 +8,7 @@ import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
 
+initSearchG2();
 const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');
 const filters = $('#filters');
