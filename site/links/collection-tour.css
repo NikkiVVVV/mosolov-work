@@ -163,3 +163,4 @@
 .collection-tour.is-reason:has(.preview-status:not(:empty)){grid-template-rows:minmax(0,1fr) 0px 80px}
 @media(max-width:600px){.collection-tour{grid-template-rows:minmax(180px,1fr) 164px 60px}.collection-tour:has(.preview-status:not(:empty)){grid-template-rows:minmax(180px,1fr) 164px 80px}.collection-tour.is-reason{grid-template-rows:minmax(0,1fr) 0px 60px}.collection-tour.is-reason:has(.preview-status:not(:empty)){grid-template-rows:minmax(0,1fr) 0px 80px}}
 @media(max-height:560px){.collection-tour{grid-template-rows:minmax(120px,1fr) 132px 60px}.collection-tour.is-reason{grid-template-rows:minmax(0,1fr) 0px 60px}}
+.tour-topic{padding:8px 12px;gap:4px;margin-top:8px}
