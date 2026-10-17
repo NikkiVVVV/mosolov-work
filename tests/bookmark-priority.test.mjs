@@ -6,7 +6,7 @@ const {items}=JSON.parse(await readFile(new URL('../site/links/bookmarks.json',i
 test('the 33 selected bookmarks lead the catalog in screenshot order',()=>{
  const sorted=items.slice().sort(compareSiteNames);
  assert.deepEqual(sorted.slice(0,33).map(x=>x.priorityRank),Array.from({length:33},(_,i)=>i+1));
- assert.equal(sorted[0].url,'https://www.typedump.com/');
+ assert.deepEqual(sorted.slice(0,4).map(x=>x.domain),['bencho.dev','www.typedump.com','kombai.com','demos.gsap.com']);
  assert.equal(sorted[32].url,'https://bricxlabs.com/');
  for(const x of sorted.slice(0,33)){assert.ok(x.ownerNote.trim());assert.ok(x.tags.length);}
  assert.equal(new Set(sorted.slice(0,33).map(x=>x.url)).size,33);
