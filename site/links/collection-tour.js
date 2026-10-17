@@ -1,4 +1,4 @@
-import { chatS3 as replyOrb } from './chat-s3.js?v=20261016u';
+import { chatS3 as replyOrb } from './chat-s3.js?v=20261017b';
 import { siteFavicon } from './site-card.js?v=20261016q';
 
 export function createCollectionTour(trigger) {
@@ -19,9 +19,8 @@ export function createCollectionTour(trigger) {
   const scenes = [
     `<div class="tour-launch"><svg class="tour-chrome-logo" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="46" fill="#ea4335"/><path d="M48 48 87 25a46 46 0 0 1-39 69Z" fill="#fbbc05"/><path d="m48 48 0 46A46 46 0 0 1 8 25Z" fill="#34a853"/><circle cx="48" cy="48" r="22" fill="#4285f4" stroke="#fff" stroke-width="5"/></svg><div class="tour-export-menu"><span>Закладки Chrome</span><strong>Скачать закладки <span>↓</span></strong></div><svg class="tour-export-pointer" viewBox="0 0 24 32" aria-hidden="true"><path d="M3 2v24l6-6 5 10 4-2-5-10h9L3 2Z" fill="white" stroke="#191a1b" stroke-width="1.5"/></svg></div>`,
     `<div class="tour-upload"><div class="tour-upload-zone"><span>↓</span><strong>Перетащи файл закладок</strong></div></div>`,
-    `<div class="tour-markup"><div class="tour-attachment"><svg class="tour-file-icon" viewBox="0 0 40 48" fill="currentColor" aria-hidden="true"><path d="M8 2h16v12h12v30a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="m27 3 8 8h-8Z"/></svg><span>bookmarks.html<small>Закладки из Chrome</small></span></div><div class="tour-markup-orb">${replyOrb()}<span class="tour-assistant-copy"><span style="--message:0">Читаю названия и содержимое сайтов.</span><span style="--message:1">Добавляю короткие описания: что здесь полезного.</span><span style="--message:2">Подбираю теги, например, типографика</span><span style="--message:3">Готово</span></span></div><div class="tour-table"><div class="tour-table-header"><span>Сайт</span><span>Описание</span></div>${typographySites.map(([name,note,tag,icon],i)=>`<div class="tour-table-row" style="--row:${i}"><span class="tour-site-name">${siteFavicon(`https://${name}`,icon)}${name}</span><span><i class="tour-note-skeleton"></i><span class="tour-note">${note}<small class="tour-row-tags">${tag}</small></span></span></div>`).join('')}</div></div>`,
-    `<div class="tour-grouping"><div class="tour-markup-orb">${replyOrb()}<span>Собираю похожие сайты в подборки</span></div><div class="tour-topic" style="--row:0"><strong>Типографика</strong><span>fontpair.co · fontjoy.com · typ.io</span></div></div>`,
-    `<div class="tour-library"><div class="tour-mini-search">✦ <span class="tour-typed">Шрифтовые пары</span></div><div class="tour-mini-tags"><span>Все</span><span class="selected">Шрифты</span><span>Подборки</span></div><div class="tour-search-skeleton"><i></i><i></i><i></i></div><div class="tour-results-window"><div class="tour-results-stream">${typographySites.map(([name,note,tag,icon],i)=>`<div class="tour-result-item" style="--result:${i}"><strong><a href="https://${name}/" target="_blank" rel="noopener noreferrer">${siteFavicon(`https://${name}`,icon)}<span>${name}</span></a></strong><span>${tag}</span><p>${note}</p></div>`).join('')}</div></div></div>`
+    `<div class="tour-markup"><div class="tour-attachment"><svg class="tour-file-icon" viewBox="0 0 40 48" fill="currentColor" aria-hidden="true"><path d="M8 2h16v12h12v30a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="m27 3 8 8h-8Z"/></svg><span>bookmarks.html<small>Закладки из Chrome</small></span></div><div class="tour-markup-orb">${replyOrb()}<span class="tour-assistant-copy"><span style="--message:0">Анализирую закладки</span><span style="--message:1">Группирую</span><span style="--message:2">Готовлю описание</span></span></div><div class="tour-table"><div class="tour-table-header"><span>Сайт</span><span>Описание</span></div>${typographySites.map(([name,note,tag,icon],i)=>`<div class="tour-table-row" style="--row:${i}"><span class="tour-site-name">${siteFavicon(`https://${name}`,icon)}${name}</span><span><i class="tour-note-skeleton"></i><span class="tour-note">${note}<small class="tour-row-tags">${tag}</small></span></span></div>`).join('')}</div></div>`,
+    `<div class="tour-library"><div class="tour-mini-search">${replyOrb('S2')} <span class="tour-typed">Шрифтовые пары</span></div><div class="tour-mini-tags"><span>Все</span><span class="selected">Шрифты</span><span>Подборки</span></div><div class="tour-search-skeleton"><i></i><i></i><i></i></div><div class="tour-results-window"><div class="tour-results-stream">${typographySites.map(([name,note,tag,icon],i)=>`<div class="tour-result-item" style="--result:${i}"><strong><a href="https://${name}/" target="_blank" rel="noopener noreferrer">${siteFavicon(`https://${name}`,icon)}<span>${name}</span></a></strong><span>${tag}</span><p>${note}</p></div>`).join('')}</div></div></div>`
   ];
   let step = 0;
   let sending = false;
@@ -46,7 +45,7 @@ export function createCollectionTour(trigger) {
       if(!modal.open)return;
       if(step===scenes.length-1){finished=true;renderActions();return;}
       step++;render();schedule();
-    },[8000,2800,15500,3600,6000][step]);
+    },[5600,2200,6500,6000][step]);
   }
   function render() {
     const previous=stage.firstElementChild;

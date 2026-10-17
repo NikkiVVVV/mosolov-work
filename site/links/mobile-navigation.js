@@ -16,7 +16,7 @@ function sync(){
  frame=0;
  const y=Math.max(0,Math.min(scrollY,document.documentElement.scrollHeight-innerHeight));
  const state=headerScrollState(anchor,y,hidden);anchor=state.anchor;hidden=state.hidden;
- if(menu.open||bar.querySelector(':focus-visible'))hidden=false;
- bar.dataset.scrollHidden=String(hidden);bar.inert=hidden;
+ if(hidden&&menu.open)close();
+ bar.dataset.scrollHidden=String(hidden);bar.inert=hidden;bar.hidden=hidden;
 }
 window.addEventListener('scroll',()=>{if(!frame)frame=requestAnimationFrame(sync);},{passive:true});

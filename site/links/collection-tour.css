@@ -265,3 +265,18 @@
 .tour-result-item a .site-icon img,.tour-site-name .site-icon img{position:absolute;inset:0;width:16px;height:16px;object-fit:contain;background:transparent;margin:0}
 .tour-result-item a>span:last-child{display:block;line-height:20px}
 .collection-tour .tour-markup-orb>.chat-s3{transform:none;margin:0;width:23px;height:23px;flex:0 0 23px}
+/* Short narrative: export → upload → three 1.5 s phrases → search. */
+.collection-tour .tour-chrome-logo,.collection-tour .tour-export-menu,.collection-tour .tour-export-menu strong,.collection-tour .tour-export-pointer,.collection-tour .tour-visual[data-step="0"] .tour-travel-file{animation-duration:5600ms}
+.collection-tour .tour-visual[data-step="1"] .tour-travel-file{animation-duration:2200ms}
+.collection-tour .tour-assistant-copy>span{animation-duration:1500ms;animation-delay:calc(var(--message)*1500ms)}
+.collection-tour .tour-assistant-copy>span:nth-child(3){animation:tour-enter 300ms 3000ms both}
+.collection-tour .tour-note,.collection-tour .tour-row-tags{animation-delay:calc(4500ms + var(--row)*300ms);animation-duration:600ms}
+.collection-tour .tour-note-skeleton{overflow:hidden;background:#3f4549;animation:tour-skeleton-out 600ms calc(4500ms + var(--row)*300ms) both}
+.tour-note-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent,#929b9f99,transparent);animation:tour-visible-shimmer 1100ms linear infinite;transform:translateX(-100%)}
+@keyframes tour-visible-shimmer{to{transform:translateX(100%)}}
+.collection-tour .tour-mini-search>.chat-s3{transform:none;margin:0;width:23px;height:23px;flex:0 0 23px}
+.collection-tour.has-actions{height:min(564px,calc(100dvh - 32px));grid-template-rows:minmax(180px,1fr) 148px 64px}
+.collection-tour.has-actions .tour-controls{padding-bottom:20px}
+@media(max-width:600px){.collection-tour.has-actions{grid-template-rows:minmax(180px,1fr) 160px 64px}}
+.collection-tour.is-reason.has-actions{grid-template-rows:minmax(0,1fr) 0px 64px;height:300px}
+@media(prefers-reduced-motion:reduce){.tour-note-skeleton::after{animation:none}.collection-tour .tour-assistant-copy>span{animation:none}}

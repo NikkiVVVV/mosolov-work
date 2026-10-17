@@ -3484,7 +3484,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 1
+      "priorityRank": 2
     },
     {
       "id": "6fdb13c271893e3e",
@@ -3506,7 +3506,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 2
+      "priorityRank": 3
     },
     {
       "id": "dd5e5998e23daefc",
@@ -3528,7 +3528,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 3
+      "priorityRank": 4
     },
     {
       "id": "bfd3d4ae70439c67",
@@ -3550,7 +3550,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 4
+      "priorityRank": 1
     },
     {
       "id": "45e6f7e98a9afdbf",

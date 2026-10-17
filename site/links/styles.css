@@ -54,6 +54,7 @@ h1{font:500 48px/56px 'Golos Text',sans-serif;letter-spacing:-.02em;text-align:c
 .site-icon img{position:absolute;inset:0;width:20px;height:20px;object-fit:contain;background:var(--surface)}
 .site-monogram{letter-spacing:0;font-variation-settings:normal}
 .site-icon.has-icon .site-monogram{visibility:hidden}
+.site-link[href*="typedump.com"] .site-icon,.site-link[href*="typedump.com"] .site-icon img{background:#fff}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
 .site-column{width:200px}
 .category-column{width:160px}

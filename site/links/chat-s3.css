@@ -8,3 +8,6 @@
 .chat-composer #search-form>.chat-s3{display:block}
 .assistant-message>.chat-s3{align-self:flex-end}
 @media(prefers-reduced-motion:reduce){.chat-s3 .chat-s3-cell{animation:none}}
+.chat-s3[data-variant="S2"] .chat-s3-cell{animation-name:chat-s2-wave;animation-duration:1.7s;animation-timing-function:cubic-bezier(.66,0,.34,1)}
+@keyframes chat-s2-wave{0%,56%,100%{opacity:.2;transform:scale(1)}28%{opacity:1;transform:scale(1.18)}}
+@media(prefers-reduced-motion:reduce){.chat-s3[data-variant="S2"] .chat-s3-cell{animation:none}}
