@@ -239,8 +239,8 @@
 .tour-export-menu>span{display:block;color:var(--muted);font-size:12px;line-height:16px;padding:8px}
 .tour-export-menu strong{display:flex;justify-content:space-between;padding:12px 8px;font-size:14px;line-height:20px;font-weight:400;border-radius:8px;animation:export-selection 8000ms both}
 .tour-export-pointer{position:absolute;width:24px;height:32px;left:calc(50% + 24px);top:124px;animation:export-clicks 8000ms both;z-index:2}
-@keyframes chrome-to-file{0%,10%,60%{transform:none}14%{transform:scale(.92)}76%,100%{transform:translateX(-116px)}}
-@keyframes file-from-chrome{0%,62%{opacity:0;transform:translate(-50%,0) scale(.85)}78%,100%{opacity:1;transform:translate(0,0) scale(1)}}
+@keyframes chrome-to-file{0%,10%,60%{transform:none}14%{transform:scale(.92)}70%,100%{transform:translateX(-116px)}}
+@keyframes file-from-chrome{0%,62%{opacity:0;transform:translate(-50%,0) scale(.85)}72%,100%{opacity:1;transform:translate(0,0) scale(1)}}
 @keyframes export-menu{0%,18%{opacity:0;transform:translate(-50%,8px)}24%,55%{opacity:1;transform:translate(-50%,0)}64%,100%{opacity:0;transform:translate(-50%,8px)}}
 @keyframes export-selection{0%,40%,60%,100%{background:transparent}46%,55%{background:#62686c}}
 @keyframes export-clicks{0%{opacity:0;transform:translate(48px,32px)}8%,20%{opacity:1;transform:none}14%{transform:scale(.8)}40%,55%{opacity:1;transform:translate(28px,96px)}48%{transform:translate(28px,96px) scale(.8)}62%,100%{opacity:0;transform:translate(28px,96px)}}
@@ -266,7 +266,13 @@
 .tour-result-item a>span:last-child{display:block;line-height:20px}
 .collection-tour .tour-markup-orb>.chat-s3{transform:none;margin:0;width:23px;height:23px;flex:0 0 23px}
 /* Short narrative: export → upload → three 1.5 s phrases → search. */
-.collection-tour .tour-chrome-logo,.collection-tour .tour-export-menu,.collection-tour .tour-export-menu strong,.collection-tour .tour-export-pointer,.collection-tour .tour-visual[data-step="0"] .tour-travel-file{animation-duration:5600ms}
+.tour-visual[data-step="0"] .tour-slide{inset:0}
+.tour-visual[data-step="0"] .tour-launch{height:100%}
+.tour-visual[data-step="0"] .tour-chrome-logo{position:absolute;left:calc(50% - 44px);top:calc(50% - 44px)}
+.collection-tour .tour-visual[data-step="0"] .tour-travel-file{top:calc(50% - 32px)}
+.tour-visual[data-step="0"] .tour-export-menu{top:calc(50% + 36px)}
+.tour-visual[data-step="0"] .tour-export-pointer{top:calc(50% + 4px)}
+.collection-tour .tour-chrome-logo,.collection-tour .tour-export-menu,.collection-tour .tour-export-menu strong,.collection-tour .tour-export-pointer,.collection-tour .tour-visual[data-step="0"] .tour-travel-file{animation-duration:3800ms}
 .collection-tour .tour-visual[data-step="1"] .tour-travel-file{animation-duration:2200ms}
 .collection-tour .tour-assistant-copy>span{animation-duration:1500ms;animation-delay:calc(var(--message)*1500ms)}
 .collection-tour .tour-assistant-copy>span:nth-child(3){animation:tour-enter 300ms 3000ms both}

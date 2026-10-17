@@ -45,7 +45,7 @@ export function createCollectionTour(trigger) {
       if(!modal.open)return;
       if(step===scenes.length-1){finished=true;renderActions();return;}
       step++;render();schedule();
-    },[5600,2200,6500,6000][step]);
+    },[3800,2200,6500,6000][step]);
   }
   function render() {
     const previous=stage.firstElementChild;
