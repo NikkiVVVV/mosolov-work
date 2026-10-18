@@ -1,0 +1,11 @@
+.startup{display:none}
+.startup-pending body{overflow:hidden}
+.startup-pending .page-shell,.startup-pending .links-mobile-bar{visibility:hidden}
+.startup-pending .startup{opacity:1;visibility:visible}
+.startup{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;background:#191a1b;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 300ms ease,visibility 300ms}
+.startup .search-g2{transform:scale(2.4);margin:20px}
+.startup-copy{min-height:24px;margin:0 16px;text-align:center;font:400 16px/24px 'Golos Text',sans-serif;color:#a6a8a2;opacity:1;transform:translateY(0);transition:opacity 120ms ease,transform 120ms ease}
+.startup-copy.is-changing{opacity:0;transform:translateY(4px)}
+html:not(.startup-pending) .page-shell{animation:startup-reveal 320ms ease-out}
+@keyframes startup-reveal{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.startup,.startup-copy{transition:none}.startup .search-g2-dot,.page-shell{animation:none}}

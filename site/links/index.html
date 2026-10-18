@@ -2,6 +2,12 @@
 <html lang="ru" data-catalog="./bookmarks.json" data-analytics-project="bookmarks" data-api-base="https://bookmark-search-api-production.up.railway.app" data-annotation-base="https://bookmark-search-api-production.up.railway.app" data-survey-base="https://bookmark-search-api-production.up.railway.app" data-notify-base="https://bookmark-search-api-production.up.railway.app">
 <head>
   <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('startup-pending');setTimeout(()=>document.documentElement.classList.remove('startup-pending'),4500);</script>
+  <style>.startup-pending body{visibility:hidden}.startup-pending #startup{visibility:visible}</style>
+  <link rel="preload" href="./assets/GolosText-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/GolosText-Medium.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./startup.css?v=20261018d">
+  <script type="module" src="./startup.js?v=20261018d"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://mosolov.work/links/">
   <meta name="robots" content="index,follow,max-image-preview:large">
@@ -39,6 +45,10 @@
   <script type="module" src="/page-navigation.js?v=186"></script>
 </head>
 <body>
+  <div id="startup" class="startup" role="status" aria-label="Загрузка закладок">
+    <span class="search-g2" aria-hidden="true"><span class="search-g2-stage"></span></span>
+    <p class="startup-copy">Храните полезные сайты</p>
+  </div>
   <nav class="links-mobile-bar" aria-label="Мобильная навигация">
     <div class="library-navigation">
       <nav class="library-tabs" aria-label="Выбор библиотеки" hidden>
