@@ -2,9 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const read=path=>readFileSync(new URL(`../site/${path}`,import.meta.url),'utf8');
-test('mobile pages link to each other in the same tab',()=>{
+test('portfolio links to bookmarks; independent product keeps menu without home',()=>{
  assert.match(read('index.html'),/class="mobile-page-link" href="\/links\/" aria-label="Открыть закладки"/);
- assert.match(read('links/index.html'),/class="links-bar-icon" href="\/" aria-label="На главную"/);
+ assert.doesNotMatch(read('links/index.html'),/aria-label="На главную"/);
+ assert.match(read('links/index.html'),/class="links-bar-icon" aria-label="Меню"/);
  assert.match(read('links/index.html'),/mobile-navigation\.js\?v=\d+/);
 });
 test('footer uses correct brand and contact destination',()=>{
