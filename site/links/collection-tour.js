@@ -62,8 +62,9 @@ export function createCollectionTour(trigger) {
     status.textContent='';
   }
   function renderActions() {
-    modal.classList.toggle('has-actions',finished);
-    if(!finished)actions.replaceChildren();
+    const showActions=finished||step===scenes.length-1;
+    modal.classList.toggle('has-actions',showActions);
+    if(!showActions)actions.replaceChildren();
     else if(!actions.querySelector('[data-vote]')) {
       actions.innerHTML='<button type="button" data-vote="no">Не пригодится</button><button type="button" data-vote="yes">Мне пригодится</button>';
       actions.querySelector('[data-vote=yes]').addEventListener('click',()=>send('yes'));
