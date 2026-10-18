@@ -17,6 +17,7 @@ export function siteCard({url, title, category, note, source, icon}) {
 
 export function quickReplies(query) {
   const topics = [
+    [/плат[её]ж|оплат|пейвол|paywall|pricing|тариф/i, ['Пейволлы','Страницы тарифов']],
     [/шрифт|типограф|font/i, ['С поддержкой кириллицы','Бесплатные шрифты']],
     [/анимац|animation|motion/i, ['Анимация интерфейсов','Библиотеки анимации']],
     [/3d|3д|модел|blender/i, ['3D в браузере','Бесплатные 3D-инструменты']],

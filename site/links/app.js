@@ -1,9 +1,10 @@
 import { initSearchG2 } from './search-g2.js?v=20261016r';
+import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018i';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
 import { createTabGroup } from './tab-group.js';
 import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261018b';
-import { siteCard, quickReplies } from './site-card.js?v=20261018f';
+import { siteCard, quickReplies } from './site-card.js?v=20261018i';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
@@ -82,7 +83,7 @@ const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char => ({
 const normalize = value => String(value ?? '').toLocaleLowerCase('ru').replace(/ё/g, 'е').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 const stem = word => /^[а-я]+$/.test(word) && word.length > 5 ? word.slice(0, 5) : word;
 const wordsFor = query => {
-  const words = normalize(query).split(/\s+/).filter(word => word && !stopwords.has(word));
+  const words = normalize(conceptQuery(query)).split(/\s+/).filter(word => word && !stopwords.has(word) && word!=='поддержкой');
   return words.length ? words : [normalize(query)].filter(Boolean);
 };
 const isReady = item => ['ready', 'curated'].includes(item.reviewHint) && item.privacyHint !== 'restricted';
@@ -140,8 +141,8 @@ function searchScore(item, query) {
     [item.excerpt, 1]
   ].map(([value, weight]) => [normalize(value), weight]);
   const wordScores = words.map(word => {
-    const needle = stem(word);
-    return fields.reduce((sum, [text, weight]) => sum + (text.includes(needle) ? weight : 0), 0);
+    const needles = conceptTerms(word).map(stem);
+    return fields.reduce((sum, [text, weight]) => sum + (needles.some(needle=>text.includes(needle)) ? weight : 0), 0);
   });
   return wordScores.every(Boolean) ? wordScores.reduce((sum, score) => sum + score, 0) : 0;
 }
@@ -233,7 +234,7 @@ function cancelPendingSearch() {
 }
 
 async function answerQuery(query, answer, history, keyword, web = false) {
-  if (!state.aiEnabled) {
+  if (!state.aiEnabled || keyword.length > 0) {
     answer.setAttribute('aria-busy', 'false');
     showAnswer(answer, keywordSearchMessage(keyword.length), keyword);
     showQuickReplies(answer,query);
