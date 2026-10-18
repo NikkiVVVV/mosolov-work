@@ -1,8 +1,8 @@
 import { initSearchG2 } from './search-g2.js?v=20261016r';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261017c';
+import { initSearchDiscovery } from './search-discovery.js?v=20261018a';
 import { createTabGroup } from './tab-group.js';
-import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261017b';
+import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261018a';
 import { siteCard, quickReplies } from './site-card.js?v=20261016q';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
@@ -382,7 +382,8 @@ form.addEventListener('submit', event => {
   renderForm();
   // Keep the question and the first results visible, even for a long answer.
   chat.scrollTo({ top: Math.max(0, turn.offsetTop - chat.offsetTop - 16), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
-  queryInput.focus({ preventScroll: true });
+  queryInput.blur();
+  $('#close-chat').focus({preventScroll:true});
 });
 queryInput.addEventListener('input', () => {
   renderForm();

@@ -267,7 +267,7 @@
 .collection-tour .tour-markup-orb>.chat-s3{transform:none;margin:0;width:23px;height:23px;flex:0 0 23px}
 /* Short narrative: export → upload → three 1.5 s phrases → search. */
 .tour-visual[data-step="0"] .tour-slide{inset:0}
-.tour-visual[data-step="0"] .tour-launch{height:100%}
+.tour-visual[data-step="0"] .tour-launch{position:absolute;inset:0;height:auto}
 .tour-visual[data-step="0"] .tour-chrome-logo{position:absolute;left:calc(50% - 44px);top:calc(50% - 44px)}
 .collection-tour .tour-visual[data-step="0"] .tour-travel-file{top:calc(50% - 32px)}
 .tour-visual[data-step="0"] .tour-export-menu{top:calc(50% + 36px)}

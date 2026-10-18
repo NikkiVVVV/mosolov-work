@@ -40,7 +40,8 @@ animation evidence in that entry's note or title; gradients or shapes alone do n
 If none match, use search with []. For an unclear request use clarify.
 Return JSON only with EXACT keys: intent, ids, language, message. intent is search, clarify or offtopic;
 language is ru or en; ids is an array of exact catalog id strings.
-message is a brief conversational reply in the user's language, 1-2 sentences, maximum 300 characters.
+message is a brief conversational reply in Russian, 1-2 sentences, maximum 300 characters.
+The product interface is Russian. Latin product names and acronyms such as SaaS, AI or UX do not switch the reply language. Set language to ru.
 Explain what you found using only the selected entries' notes, or ask one useful clarifying question.
 Be casual and concise. No URLs, Markdown, code or HTML. Never claim to have browsed the sites.
 For offtopic, politely say you only find saved sites. Never fulfil the unrelated request in message.
@@ -154,7 +155,7 @@ def build_messages(items, query, history):
     return [{'role':'system','content':RULES}, {'role':'user','content':content}]
 
 
-def validated_result(data, items):
+def validated_result(data, items, preferred_language=None):
     if not isinstance(data, dict) or not {'intent', 'ids', 'language'} <= set(data) or set(data) - {'intent', 'ids', 'language', 'message'}:
         raise SearchError('AI вернул некорректный ответ.', 502, 'invalid_response')
     intent, ids, language = data['intent'], data['ids'], data['language']
@@ -168,7 +169,9 @@ def validated_result(data, items):
     if reply is not None and (not isinstance(reply, str) or not 1 <= len(reply.strip()) <= 300 or re.search(r'https?://|www\.|```|<[^>]*>', reply, re.I)):
         raise SearchError('AI вернул некорректный текст.', 502, 'invalid_response')
     # Off-topic replies stay fixed; relevant plain text is escaped by the frontend.
-    ru = language == 'ru'
+    ru = preferred_language == 'ru' or language == 'ru'
+    if preferred_language == 'ru' and reply and not re.search('[а-яё]', reply, re.I):
+        reply = None
     if intent == 'offtopic':
         message = 'Я ищу только сайты из этой коллекции. Опиши, какой инструмент или референс нужен.' if ru else 'I only search this saved collection. Describe the tool or reference you need.'
     elif intent == 'clarify':
@@ -239,7 +242,7 @@ class SearchEngine:
             if hit:
                 return {**cached[1], 'cached': True}
             data, usage = self.provider(messages)
-            result = validated_result(data, items)
+            result = validated_result(data, items, preferred_language='ru')
             actual = usage.get('total_tokens')
             if type(actual) is int and actual > 0:
                 with self.connect() as db:

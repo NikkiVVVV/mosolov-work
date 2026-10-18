@@ -71,3 +71,8 @@ body[data-library=personal] h1{margin-bottom:24px}
  .library-tabs button:not(:disabled):active{scale:.96;transition:scale 150ms ease-out}
 }
 @media(max-width:600px){body .search-section{padding-top:144px;min-height:360px}.personal-library .import-dropzone{min-height:224px;padding:24px 16px}.import-dropzone strong{font-size:18px;line-height:24px}}
+
+/* Product navigation and quiet chat header. */
+.links-mobile-bar>.library-navigation{display:none}
+.links-mobile-bar .links-bar-panel{left:0;right:auto;align-items:flex-start}
+.chat-modal-header{justify-content:flex-end}

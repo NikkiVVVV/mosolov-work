@@ -12,8 +12,6 @@ export function chatS3(variant='S3') {
  return `<span class="reply-orb chat-s3" data-variant="${variant}" aria-hidden="true"><span class="chat-s3-grid">${cells}</span></span>`;
 }
 export function initChatS3(){
- const star=document.querySelector('.chat-modal-header .search-spark');
- if(star)star.outerHTML=chatS3();
  const g2=document.querySelector('#search-form .search-g2');
  if(g2)g2.insertAdjacentHTML('afterend',chatS3());
 }

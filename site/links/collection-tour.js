@@ -1,4 +1,4 @@
-import { chatS3 as replyOrb } from './chat-s3.js?v=20261017b';
+import { chatS3 as replyOrb } from './chat-s3.js?v=20261018a';
 import { siteFavicon } from './site-card.js?v=20261016q';
 
 export function createCollectionTour(trigger) {
