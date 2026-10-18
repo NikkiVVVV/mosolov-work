@@ -6,8 +6,8 @@
   <style>.startup-pending body{visibility:hidden}.startup-pending #startup{visibility:visible}</style>
   <link rel="preload" href="./assets/GolosText-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="./assets/GolosText-Medium.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="./startup.css?v=20261018d">
-  <script type="module" src="./startup.js?v=20261018d"></script>
+  <link rel="stylesheet" href="./startup.css?v=20261018e">
+  <script type="module" src="./startup.js?v=20261018e"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://mosolov.work/links/">
   <meta name="robots" content="index,follow,max-image-preview:large">
@@ -46,8 +46,8 @@
 </head>
 <body>
   <div id="startup" class="startup" role="status" aria-label="Загрузка закладок">
-    <span class="search-g2" aria-hidden="true"><span class="search-g2-stage"></span></span>
-    <p class="startup-copy">Храните полезные сайты</p>
+    <span class="startup-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <p class="startup-copy">Навожу порядок в закладках</p>
   </div>
   <nav class="links-mobile-bar" aria-label="Мобильная навигация">
     <div class="library-navigation">
@@ -68,7 +68,7 @@
     </details>
   </nav>
 
-  <main class="page-shell">
+  <main id="top" class="page-shell">
     <section class="search-section" aria-label="Поиск по закладкам">
       <canvas id="search-wave" aria-hidden="true"></canvas>
       <h1>Избранные<br>закладки</h1>
@@ -105,10 +105,8 @@
       <p id="list-status" role="status" aria-live="polite" hidden></p>
     </section>
       <footer class="portfolio-footer">
-        <a class="footer-channel" href="https://t.me/nikir_public" target="_blank" rel="noopener noreferrer"><span id="footer-channel-label">канал в тг</span></a>
-        <a class="footer-social" href="https://x.com/nikmos_pd" target="_blank" rel="noopener noreferrer">x.com</a>
-        <a class="footer-social" href="https://www.linkedin.com/in/nikita-mosolov-985b0828a/" target="_blank" rel="noopener noreferrer">linkedin</a>
-        <a class="footer-top" href="https://t.me/nikir_nikir" target="_blank" rel="noopener noreferrer"><span id="footer-top-label">написать</span></a>
+        <a href="https://t.me/nikir_nikir" target="_blank" rel="noopener noreferrer">Обратная связь</a>
+        <a href="#top">Наверх</a>
       </footer>
   </main>
   <dialog id="chat-modal" class="chat-modal" aria-label="Поиск по закладкам">
