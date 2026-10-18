@@ -229,15 +229,25 @@ function cancelPendingSearch() {
   pendingSearch.controller?.abort();
   pendingSearch.answer.setAttribute('aria-busy', 'false');
   clearTimeout(pendingSearch.slowTimer);
-  showAnswer(pendingSearch.answer, 'AI-поиск остановлен. Совпадения по словам сохранены.', pendingSearch.keyword);
+  showAnswer(pendingSearch.answer, 'Поиск остановлен. Найденные совпадения сохранены.', pendingSearch.keyword);
   pendingSearch = null;
 }
 
 async function answerQuery(query, answer, history, keyword, web = false) {
   if (!state.aiEnabled || keyword.length > 0) {
+    const job={answer,keyword};
+    pendingSearch=job;
+    answer.setAttribute('aria-busy', 'true');
+    showAnswer(answer,'Ищу в закладках…',[],{loading:true});
+    await new Promise(resolve=>setTimeout(resolve,1500));
+    if(pendingSearch!==job || !answer.isConnected)return;
+    showAnswer(answer,keywordSearchMessage(keyword.length),[]);
+    await new Promise(resolve=>setTimeout(resolve,280));
+    if(pendingSearch!==job || !answer.isConnected)return;
     answer.setAttribute('aria-busy', 'false');
     showAnswer(answer, keywordSearchMessage(keyword.length), keyword);
     showQuickReplies(answer,query);
+    pendingSearch=null;
     return;
   }
   const controller = new AbortController();
