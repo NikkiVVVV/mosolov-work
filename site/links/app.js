@@ -202,11 +202,14 @@ function assistantReply(message, {loading = false, retry = false, sources = ''} 
 function showAnswer(answer, message, items, options = {}) {
   if(!answer.querySelector('.assistant-message')) {
     answer.innerHTML=assistantReply(message,options)+'<div class="chat-site-results"></div><div class="chat-quick-replies"></div>';
-    answer.querySelector('.assistant-message').insertAdjacentHTML('afterbegin',replyOrb());
   } else {
     const template=document.createElement('template');template.innerHTML=assistantReply(message,options);
     answer.querySelector('.assistant-bubble').replaceWith(template.content.querySelector('.assistant-bubble'));
   }
+  const assistant=answer.querySelector('.assistant-message');
+  assistant.classList.toggle('is-loading',Boolean(options.loading));
+  if(options.loading && !assistant.querySelector('.chat-s3')) assistant.insertAdjacentHTML('afterbegin',replyOrb());
+  if(!options.loading) assistant.querySelector('.chat-s3')?.remove();
   answer.querySelector('.chat-site-results').innerHTML=items.map(item=>siteCard({url:item.url,title:cleanDomain(item.domain),category:categoryLabel(item),note:item.ownerNote||item.aiNote||item.description,source:'Из коллекции',icon:state.icons[item.domain]||state.icons['www.'+item.domain]})).join('');
   answer.querySelector('.chat-quick-replies').replaceChildren();
 }
@@ -232,7 +235,7 @@ function cancelPendingSearch() {
 async function answerQuery(query, answer, history, keyword, web = false) {
   if (!state.aiEnabled) {
     answer.setAttribute('aria-busy', 'true');
-    showAnswer(answer, 'Ищу…', []);
+    showAnswer(answer, 'Ищу…', [], {loading:true});
     await new Promise(resolve => setTimeout(resolve, 1200));
     if (!answer.isConnected) return;
     answer.setAttribute('aria-busy', 'false');
@@ -383,7 +386,9 @@ form.addEventListener('submit', event => {
   // Keep the question and the first results visible, even for a long answer.
   chat.scrollTo({ top: Math.max(0, turn.offsetTop - chat.offsetTop - 16), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
   queryInput.blur();
-  $('#close-chat').focus({preventScroll:true});
+  const chatRegion=$('#chat');
+  chatRegion.setAttribute('tabindex','-1');
+  chatRegion.focus({preventScroll:true});
 });
 queryInput.addEventListener('input', () => {
   renderForm();

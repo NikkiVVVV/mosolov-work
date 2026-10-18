@@ -1,5 +1,5 @@
 /* AICSS G2 animation; MIT notice is included in search-g2.js. */
-.search-form>.search-g2{transform:scale(1.1);transform-origin:center}
+.search-form>.search-g2{transform:scale(1.2);transform-origin:center;align-self:center}
 .search-g2{position:relative;display:block;width:23px;height:23px;flex:0 0 23px;color:#a6a8a2}
 .search-g2-stage{position:absolute;left:0;top:0;width:28px;height:28px;transform-origin:0 0;transform:scale(.821428571)}
 .search-g2-dot{position:absolute;left:50%;top:50%;width:2px;height:2px;margin:-1px 0 0 -1px;border-radius:50%;background:currentColor;animation:search-g2-spin 3.6s linear infinite both}
