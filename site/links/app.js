@@ -197,7 +197,7 @@ function resultTable(body, loading = false) {
 }
 
 function assistantReply(message, {loading = false, retry = false, sources = ''} = {}) {
-  return `<div class="assistant-message"><div class="assistant-bubble"><p class="chat-response">${escapeHTML(message)}</p>${loading ? '<p class="search-loading-label" role="status"><span class="loading-dot" aria-hidden="true"></span>Ищу по смыслу…</p>' : ''}${sources ? `<p class="search-sources">${escapeHTML(sources)}</p>` : ''}${retry ? '<button class="retry-search" type="button">Повторить AI-поиск</button>' : ''}</div></div>`;
+  return `<div class="assistant-message"><div class="assistant-bubble"><p class="chat-response">${escapeHTML(message)}</p>${sources ? `<p class="search-sources">${escapeHTML(sources)}</p>` : ''}${retry ? '<button class="retry-search" type="button">Повторить AI-поиск</button>' : ''}</div></div>`;
 }
 
 function showAnswer(answer, message, items, options = {}) {
@@ -239,7 +239,7 @@ async function answerQuery(query, answer, history, keyword, web = false) {
     pendingSearch=job;
     answer.setAttribute('aria-busy', 'true');
     showAnswer(answer,'Ищу в закладках…',[],{loading:true});
-    await new Promise(resolve=>setTimeout(resolve,1500));
+    await new Promise(resolve=>setTimeout(resolve,2000));
     if(pendingSearch!==job || !answer.isConnected)return;
     showAnswer(answer,keywordSearchMessage(keyword.length),[]);
     await new Promise(resolve=>setTimeout(resolve,280));
@@ -254,13 +254,13 @@ async function answerQuery(query, answer, history, keyword, web = false) {
   const job = {controller, answer, keyword};
   pendingSearch = job;
   answer.setAttribute('aria-busy', 'true');
-  showAnswer(answer, keyword.length ? `По словам уже нашёл ${keyword.length}. Проверяю, что ещё подходит по смыслу.` : 'Ищу подходящие сайты в твоих закладках.', keyword, {loading: state.aiEnabled});
+  showAnswer(answer, 'Ищу в закладках…', keyword, {loading: state.aiEnabled});
   let timeout;
   try {
     if (state.aiEnabled) {
       timeout = setTimeout(() => controller.abort('timeout'), 45000);
       job.slowTimer = setTimeout(() => {
-        if (pendingSearch === job) showAnswer(answer, 'AI отвечает дольше обычного. Продолжаю искать; совпадения по словам уже доступны.', keyword, {loading:true});
+        if (pendingSearch === job) showAnswer(answer, 'Ищу в закладках…', keyword, {loading:true});
       }, 8000);
       const response = await fetch(`${apiBase}/api/search`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
