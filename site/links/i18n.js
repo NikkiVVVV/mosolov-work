@@ -72,6 +72,7 @@ export function registerCatalog(items){
 }
 
 export function initI18n(){
+ let transition,revision=0;
  const originals=new WeakMap();
  const attributes=new WeakMap();
  const attrs=['placeholder','aria-label','title'];
@@ -111,8 +112,11 @@ export function initI18n(){
   const box=button.getBoundingClientRect();
   document.documentElement.style.setProperty('--language-x',`${box.x+box.width/2}px`);
   document.documentElement.style.setProperty('--language-y',`${box.y+box.height/2}px`);
-  if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.startViewTransition(()=>apply(button.lang));
-  else apply(button.lang);
+  const requested=button.lang,current=++revision;
+  const update=()=>{if(current===revision)apply(requested);};
+  transition?.skipTransition();
+  if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches)transition=document.startViewTransition(update);
+  else update();
  });
  const observer=new MutationObserver(records=>{
   for(const record of records){
