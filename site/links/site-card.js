@@ -26,5 +26,5 @@ export function quickReplies(query) {
     [/референс|вдохнов|дизайн|design/i, ['Примеры интерфейсов','Инструменты для дизайна']]
   ];
   const pair=topics.find(([pattern])=>pattern.test(query))?.[1] || ['Покажи инструменты','Покажи примеры'];
-  return pair.map(label=>({label,query:`${query}. ${label}`}));
+  return pair.map(label=>({label,query:label.replace(/^Покажи /,'')}));
 }

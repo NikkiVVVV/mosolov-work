@@ -1,9 +1,9 @@
 import { initSearchG2 } from './search-g2.js?v=20261016r';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
-import { initSearchDiscovery } from './search-discovery.js?v=20261018b';
+import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
 import { createTabGroup } from './tab-group.js';
 import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261018b';
-import { siteCard, quickReplies } from './site-card.js?v=20261016q';
+import { siteCard, quickReplies } from './site-card.js?v=20261018f';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
@@ -216,9 +216,9 @@ function showAnswer(answer, message, items, options = {}) {
 
 function showQuickReplies(answer,query) {
   const container=answer.querySelector('.chat-quick-replies');
-  for(const item of [...quickReplies(query),{label:'Найти в интернете',query,web:true}]) {
+  for(const item of quickReplies(query)) {
     const button=document.createElement('button');button.type='button';button.textContent=item.label;
-    button.addEventListener('click',()=>{queryInput.value=item.query;form.dataset.webSearch=String(Boolean(item.web));form.requestSubmit();});
+    button.addEventListener('click',()=>{queryInput.value=item.query;form.requestSubmit();});
     container.append(button);
   }
 }
@@ -234,10 +234,6 @@ function cancelPendingSearch() {
 
 async function answerQuery(query, answer, history, keyword, web = false) {
   if (!state.aiEnabled) {
-    answer.setAttribute('aria-busy', 'true');
-    showAnswer(answer, 'Ищу…', [], {loading:true});
-    await new Promise(resolve => setTimeout(resolve, 1200));
-    if (!answer.isConnected) return;
     answer.setAttribute('aria-busy', 'false');
     showAnswer(answer, keywordSearchMessage(keyword.length), keyword);
     showQuickReplies(answer,query);
@@ -418,9 +414,8 @@ async function loadBookmarks() {
     publicItems = (await response.json()).items || [];
     state.items = library === 'personal' ? (personalItems || []) : publicItems;
     state.icons = await fetch('./favicons/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));
-    if (!document.documentElement.dataset.catalog || apiBase) {
-      state.aiEnabled = await fetch(`${apiBase}/api/health`, {cache:'no-store', signal:AbortSignal.timeout(5000)}).then(r => r.json()).then(data => data.aiSearch === true).catch(() => false);
-    }
+    // Archive-only mode: do not probe or enable remote AI search.
+    state.aiEnabled = false;
     publicAIEnabled = state.aiEnabled;
     if (library === 'personal') state.aiEnabled = false;
     state.loaded = true;
