@@ -216,7 +216,7 @@ function showAnswer(answer, message, items, options = {}) {
 
 function showQuickReplies(answer,query) {
   const container=answer.querySelector('.chat-quick-replies');
-  for(const item of quickReplies(query)) {
+  for(const item of quickReplies(query).map(item=>({...item,query:`${query} ${item.query}`})).filter(item=>state.items.some(site=>isReady(site)&&isVisible(site)&&searchScore(site,item.query)>0))) {
     const button=document.createElement('button');button.type='button';button.textContent=item.label;
     button.addEventListener('click',()=>{queryInput.value=item.query;form.requestSubmit();});
     container.append(button);
@@ -253,7 +253,7 @@ async function answerQuery(query, answer, history, keyword, web = false) {
       }, 8000);
       const response = await fetch(`${apiBase}/api/search`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({query, history, web}), signal: controller.signal
+        body: JSON.stringify({query, history, web:false}), signal: controller.signal
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'AI-поиск недоступен.');
@@ -266,8 +266,6 @@ async function answerQuery(query, answer, history, keyword, web = false) {
       const external = (Array.isArray(data.external) ? data.external : []).filter(item => {
         try {const u=new URL(item.url);return u.protocol==='https:'&&!u.username&&!u.password&&!items.some(x=>x.url===item.url);}catch{return false;}
       }).slice(0,3);
-      if(external.length) answer.querySelector('.chat-site-results').insertAdjacentHTML('beforeend',external.map(item=>siteCard({url:item.url,title:cleanDomain(new URL(item.url).hostname),category:item.category||'Медиа',note:item.description||item.title,source:'Из интернета'})).join(''));
-      else if(data.webStatus === 'unavailable' || data.webStatus === 'limit') answer.insertAdjacentHTML('beforeend','<p class="search-sources">Веб-поиск сейчас недоступен. Выше — результаты из коллекции.</p>');
       if (data.intent !== 'offtopic') state.history = [...history, query].slice(-4);
       if(data.intent!=='offtopic')showQuickReplies(answer,query);
     }
@@ -414,8 +412,8 @@ async function loadBookmarks() {
     publicItems = (await response.json()).items || [];
     state.items = library === 'personal' ? (personalItems || []) : publicItems;
     state.icons = await fetch('./favicons/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));
-    // Archive-only mode: do not probe or enable remote AI search.
-    state.aiEnabled = false;
+    // Enable semantic selection only for the configured public catalog; no health request blocks rendering.
+    state.aiEnabled = Boolean(apiBase);
     publicAIEnabled = state.aiEnabled;
     if (library === 'personal') state.aiEnabled = false;
     state.loaded = true;

@@ -3,6 +3,8 @@
 .startup-pending .startup{opacity:1;visibility:visible}
 .startup{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;gap:12px;padding:24px;background:#191a1b;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 300ms ease,visibility 300ms}
 .startup-copy{margin:0;font:400 16px/24px 'Golos Text',sans-serif;color:#a6a8a2}
+.startup-ellipsis{display:inline-block;width:16px;text-align:left}
+.startup-dots{display:none!important}
 .startup-dots{display:flex;gap:4px;flex:0 0 auto}
 .startup-dots i{display:block;width:4px;height:4px;border-radius:50%;background:#a6a8a2;opacity:0;animation:startup-dot 900ms steps(1,end) infinite}
 .startup-dots i:nth-child(2){animation-name:startup-dot-two}
