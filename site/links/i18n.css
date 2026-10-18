@@ -1,9 +1,2 @@
-.language-switch{position:relative;display:flex;align-items:center;flex:0 0 auto;height:36px;padding:4px;border:1px solid #3d4041;border-radius:12px;background:#252729;pointer-events:auto;isolation:isolate}
-.language-switch button{position:relative;z-index:1;width:36px;height:28px;padding:0;border:0;border-radius:8px;background:transparent;color:#a6a8a2;font:500 12px/16px 'Golos Text',sans-serif;transition:color 220ms ease}
-.language-switch button[aria-pressed=true]{color:#eeefeb}
-.language-pill{position:absolute;inset:4px auto 4px 4px;width:36px;border-radius:8px;background:#484b4c;transition:transform 440ms cubic-bezier(.22,1,.36,1)}
-.language-switch[data-language=en] .language-pill{transform:translateX(36px)}
-::view-transition-old(root){animation:none}
-::view-transition-new(root){animation:language-wave 520ms cubic-bezier(.22,1,.36,1) both}
-@keyframes language-wave{from{clip-path:circle(0 at var(--language-x,95%) var(--language-y,32px))}to{clip-path:circle(150vmax at var(--language-x,95%) var(--language-y,32px))}}
-@media(prefers-reduced-motion:reduce){.language-pill,.language-switch button{transition:none}::view-transition-new(root){animation:none}}
+.language-switch{flex:0 0 36px;padding:0;font:500 12px/16px 'Golos Text',sans-serif;overflow:hidden;perspective:80px}
+.language-switch span{display:block;transform-origin:center;backface-visibility:hidden}

@@ -72,7 +72,7 @@ export function registerCatalog(items){
 }
 
 export function initI18n(){
- let transition,revision=0;
+ let labelAnimation;
  const originals=new WeakMap();
  const attributes=new WeakMap();
  const attrs=['placeholder','aria-label','title'];
@@ -97,26 +97,25 @@ export function initI18n(){
   }
   for(const child of root.childNodes)visit(child);
  }
- const toggle=document.createElement('div');toggle.className='language-switch';toggle.setAttribute('role','group');toggle.setAttribute('aria-label','Language / Язык');
- toggle.innerHTML='<span class="language-pill" aria-hidden="true"></span><button type="button" lang="ru" aria-pressed="true">RU</button><button type="button" lang="en" aria-pressed="false">EN</button>';
+ const toggle=document.createElement('button');toggle.type='button';toggle.id='language-toggle';toggle.className='links-bar-icon language-switch';toggle.dataset.noTranslate='true';
+ toggle.innerHTML='<span>EN</span>';
  document.querySelector('.links-mobile-bar').append(toggle);
  function apply(lang){
   language=lang;document.documentElement.lang=lang;
   document.title=lang==='ru'?'Избранные закладки — Nikita Mosolov':'Selected bookmarks — Nikita Mosolov';
-  toggle.dataset.language=lang;
-  toggle.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.lang===lang)));
+  toggle.lang=lang==='ru'?'en':'ru';
+  toggle.querySelector('span').textContent=lang==='ru'?'EN':'RU';
+  toggle.setAttribute('aria-label',lang==='ru'?'Switch to English':'Переключить на русский');
   visit(document.body);
  }
- toggle.addEventListener('click',event=>{
-  const button=event.target.closest('button');if(!button||button.lang===language)return;
-  const box=button.getBoundingClientRect();
-  document.documentElement.style.setProperty('--language-x',`${box.x+box.width/2}px`);
-  document.documentElement.style.setProperty('--language-y',`${box.y+box.height/2}px`);
-  const requested=button.lang,current=++revision;
-  const update=()=>{if(current===revision)apply(requested);};
-  transition?.skipTransition();
-  if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches)transition=document.startViewTransition(update);
-  else update();
+ toggle.addEventListener('click',()=>{
+  labelAnimation?.cancel();
+  apply(language==='ru'?'en':'ru');
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)labelAnimation=toggle.querySelector('span').animate([
+   {opacity:0,transform:'translateY(6px) rotateX(-70deg)'},
+   {opacity:1,transform:'translateY(-2px) rotateX(8deg)',offset:.7},
+   {opacity:1,transform:'translateY(0) rotateX(0)'}
+  ],{duration:360,easing:'cubic-bezier(.22,1,.36,1)'});
  });
  const observer=new MutationObserver(records=>{
   for(const record of records){

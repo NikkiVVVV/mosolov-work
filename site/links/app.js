@@ -1,5 +1,5 @@
 import { initSearchG2 } from './search-g2.js?v=20261016r';
-import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261018m';
+import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261018n';
 import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018l';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
