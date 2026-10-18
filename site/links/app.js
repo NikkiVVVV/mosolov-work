@@ -1,14 +1,16 @@
 import { initSearchG2 } from './search-g2.js?v=20261016r';
-import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018i';
+import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261018l';
+import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018l';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
 import { createTabGroup } from './tab-group.js';
 import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261018b';
-import { siteCard, quickReplies } from './site-card.js?v=20261018i';
+import { siteCard, quickReplies } from './site-card.js?v=20261018l';
 import { initSearchMotion } from './search-motion.js?v=195';
 import { siteMonogram } from './site-icon.js';
 import { mergeResults, keywordSearchMessage, compareSiteNames } from './search-results.js?v=221';
 
+initI18n();
 initSearchG2();
 initChatS3();
 const $ = selector => document.querySelector(selector);
@@ -128,6 +130,7 @@ function searchScore(item, query) {
   if (!words.length) return 1;
   const fields = [
     [item.ownerNote, 9],
+    [item.noteEN, 9],
     [item.aiNote, 8],
     [item.aiCategory, 8],
     [(item.aiTags || []).join(' '), 8],
@@ -273,7 +276,7 @@ async function answerQuery(query, answer, history, keyword, web = false) {
       const itemsById = new Map(state.items.map(item => [item.id, item]));
       const semantic = [...new Set(data.ids)].map(id => itemsById.get(id)).filter(item => item && isReady(item) && isVisible(item));
       const items = mergeResults(semantic, keyword);
-      showAnswer(answer, data.message, items);
+      showAnswer(answer, getLanguage()==='en'?keywordSearchMessage(items.length):data.message, items);
       const external = (Array.isArray(data.external) ? data.external : []).filter(item => {
         try {const u=new URL(item.url);return u.protocol==='https:'&&!u.username&&!u.password&&!items.some(x=>x.url===item.url);}catch{return false;}
       }).slice(0,3);
@@ -283,7 +286,7 @@ async function answerQuery(query, answer, history, keyword, web = false) {
   } catch (error) {
     if (pendingSearch !== job) return;
     const notice = controller.signal.aborted ? 'AI не успел ответить.' : error.message;
-    showAnswer(answer, `${notice} ${keyword.length ? 'Совпадения по словам остаются ниже.' : 'По словам совпадений нет. Попробуй более короткий запрос.'}`, keyword, {retry:true});
+    showAnswer(answer, getLanguage()==='en' ? `Search is temporarily unavailable. ${keyword.length?'Your matches are still available below.':'Try a shorter query or try again.'}` : `${notice} ${keyword.length ? 'Совпадения по словам остаются ниже.' : 'По словам совпадений нет. Попробуй более короткий запрос.'}`, keyword, {retry:true});
     showQuickReplies(answer,query);
     answer.querySelector('.retry-search').addEventListener('click', () => {
       cancelPendingSearch();
@@ -421,6 +424,7 @@ async function loadBookmarks() {
     const response = await fetch(document.documentElement.dataset.catalog || '/api/bookmarks', { cache: 'no-store' });
     if (!response.ok) throw new Error('Каталог недоступен');
     publicItems = (await response.json()).items || [];
+    registerCatalog(publicItems);
     state.items = library === 'personal' ? (personalItems || []) : publicItems;
     state.icons = await fetch('./favicons/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).catch(() => ({}));
     // Enable semantic selection only for the configured public catalog; no health request blocks rendering.
