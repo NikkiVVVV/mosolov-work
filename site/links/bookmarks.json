@@ -140,7 +140,22 @@
       ],
       "ownerNote": "Галерея-аккордеон: панели раскрываются при наведении, картинки двигаются с параллаксом.",
       "tags": [
-        "Анимация"
+        "Анимация",
+        "Рефы",
+        "Инструменты",
+        "React",
+        "Галереи",
+        "Аккордеон",
+        "Карточки",
+        "Параллакс",
+        "Ховер",
+        "Интерактив",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI-кодинг"
       ],
       "folderPaths": [
         "Рефы"
@@ -4112,7 +4127,24 @@
       ],
       "ownerNote": "Библиотека анимированных компонентов React.",
       "tags": [
-        "Инструменты"
+        "Инструменты",
+        "Рефы",
+        "Анимация",
+        "Интерактив",
+        "React",
+        "UI",
+        "Компоненты",
+        "Фоны",
+        "Текст",
+        "Микроинтеракции",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг"
       ],
       "folderPaths": [
         "Рефы"
@@ -4145,6 +4177,264 @@
       "status": "kept",
       "featuredRank": 0,
       "priorityRank": 33
+    },
+    {
+      "id": "107d986a5cba79cf",
+      "featuredRank": 0,
+      "url": "https://reactbits.dev/backgrounds/gradient-waves",
+      "domain": "reactbits.dev",
+      "title": "React Bits — Gradient Waves",
+      "bookmarkTitles": [
+        "React Bits — Gradient Waves"
+      ],
+      "ownerNote": "Градиентные волны: мягкий свет следует за курсором и усиливается по клику. Настраиваемый фон для React с исходниками.",
+      "tags": [
+        "Анимация",
+        "Рефы",
+        "Инструменты",
+        "React",
+        "Фоны",
+        "Градиенты",
+        "Волны",
+        "Интерактив",
+        "Курсор",
+        "Клик",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг"
+      ],
+      "folderPaths": [
+        "Рефы",
+        "Инструменты",
+        "AI"
+      ],
+      "description": "Gradient waves with soft light that follows the cursor and intensifies on click. A customizable React background with source code.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "4a716bbac668cedb",
+      "featuredRank": 0,
+      "url": "https://reactbits.dev/c/text-animations",
+      "domain": "reactbits.dev",
+      "title": "React Bits — Text Animations",
+      "bookmarkTitles": [
+        "React Bits — Text Animations"
+      ],
+      "ownerNote": "Анимации текста для React: появление букв и слов, печатная машинка, морфинг, частицы, градиенты и эффекты курсора. Демо и исходники.",
+      "tags": [
+        "Анимация",
+        "Рефы",
+        "Инструменты",
+        "React",
+        "Текст",
+        "Типографика",
+        "Заголовки",
+        "Морфинг",
+        "Частицы",
+        "Градиенты",
+        "Курсор",
+        "Печатная машинка",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг"
+      ],
+      "folderPaths": [
+        "Рефы",
+        "Инструменты",
+        "AI"
+      ],
+      "description": "React text animations: letter and word reveals, typewriter effects, morphing, particles, gradients, and cursor effects. Demos and source code.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "c30b5fb7ea4ffae7",
+      "featuredRank": 0,
+      "url": "https://reactbits.dev/c/components",
+      "domain": "reactbits.dev",
+      "title": "React Bits — Components",
+      "bookmarkTitles": [
+        "React Bits — Components"
+      ],
+      "ownerNote": "Интерактивные React-компоненты: карточки, карусели, галереи, кнопки, меню, списки и навигация. Референсы взаимодействий и готовые исходники.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Анимация",
+        "Интерактив",
+        "React",
+        "UI",
+        "Компоненты",
+        "Карточки",
+        "Карусели",
+        "Галереи",
+        "Кнопки",
+        "Меню",
+        "Навигация",
+        "Списки",
+        "Скролл",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг"
+      ],
+      "folderPaths": [
+        "Рефы",
+        "Инструменты",
+        "AI"
+      ],
+      "description": "Interactive React components: cards, carousels, galleries, buttons, menus, lists, and navigation. Interaction references and ready-to-use source code.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "3b39072cde3a3cd1",
+      "featuredRank": 0,
+      "url": "https://reactbits.dev/c/micro",
+      "domain": "reactbits.dev",
+      "title": "React Bits — Micro Interactions",
+      "bookmarkTitles": [
+        "React Bits — Micro Interactions"
+      ],
+      "ownerNote": "Микроинтеракции для React: пружинные кнопки, перевороты карточек, папки, тосты, переключатели, поля чата и состояния AI-интерфейсов. Демо и исходники.",
+      "tags": [
+        "Интерактив",
+        "Рефы",
+        "Инструменты",
+        "Анимация",
+        "Микроинтеракции",
+        "React",
+        "Кнопки",
+        "Карточки",
+        "Пружинная анимация",
+        "Переключатели",
+        "Тосты",
+        "Формы",
+        "Чат",
+        "AI",
+        "AI-интерфейсы",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники"
+      ],
+      "folderPaths": [
+        "Рефы",
+        "Инструменты",
+        "AI"
+      ],
+      "description": "React microinteractions: spring buttons, card flips, folders, toasts, toggles, chat inputs, and AI interface states. Demos and source code.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "969f53e947a5ea9f",
+      "featuredRank": 0,
+      "url": "https://reactbits.dev/c/animations",
+      "domain": "reactbits.dev",
+      "title": "React Bits — Animations",
+      "bookmarkTitles": [
+        "React Bits — Animations"
+      ],
+      "ownerNote": "Визуальные эффекты для React: свечение, частицы, курсоры, водные искажения, упругие сетки, пиксельные переходы и появление блоков при скролле. Исходники для разработки.",
+      "tags": [
+        "Анимация",
+        "Рефы",
+        "Инструменты",
+        "React",
+        "Эффекты",
+        "Частицы",
+        "Свечение",
+        "Курсор",
+        "Вода",
+        "Искажения",
+        "Переходы",
+        "Пиксели",
+        "Скролл",
+        "Интерактив",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг"
+      ],
+      "folderPaths": [
+        "Рефы",
+        "Инструменты",
+        "AI"
+      ],
+      "description": "React visual effects: glow, particles, cursors, water distortion, elastic meshes, pixel transitions, and scroll reveals. Source code for development.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "e38e6932229d85d8",
+      "featuredRank": 0,
+      "url": "https://reactbits.dev/c/backgrounds",
+      "domain": "reactbits.dev",
+      "title": "React Bits — Backgrounds",
+      "bookmarkTitles": [
+        "React Bits — Backgrounds"
+      ],
+      "ownerNote": "Анимированные фоны для React: градиенты, волны, частицы, ASCII, сетки, свечение и интерактивные эффекты курсора. Настройки, демо и исходники.",
+      "tags": [
+        "Анимация",
+        "Рефы",
+        "Инструменты",
+        "React",
+        "Фоны",
+        "Градиенты",
+        "Волны",
+        "Частицы",
+        "ASCII",
+        "Сетки",
+        "Свечение",
+        "Курсор",
+        "Интерактив",
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "Tailwind",
+        "Исходники",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг"
+      ],
+      "folderPaths": [
+        "Рефы",
+        "Инструменты",
+        "AI"
+      ],
+      "description": "Animated React backgrounds: gradients, waves, particles, ASCII, grids, glow, and interactive cursor effects. Controls, demos, and source code.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
     }
   ]
 }

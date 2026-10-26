@@ -199,5 +199,11 @@ export const catalogEN={
 '32b887927bb715bd':'Experimental interface primitives and interactions.',
 'fae33e480635d810':'Animated UI components for React and Tailwind.',
 '4954943e6cf75804':'A library of animated React components.',
-'1bc44271ade0590d':'Bricx design agency: SaaS interfaces and websites.'
+'1bc44271ade0590d':'Bricx design agency: SaaS interfaces and websites.',
+"107d986a5cba79cf":"Gradient waves with soft light that follows the cursor and intensifies on click. A customizable React background with source code.",
+"4a716bbac668cedb":"React text animations: letter and word reveals, typewriter effects, morphing, particles, gradients, and cursor effects. Demos and source code.",
+"c30b5fb7ea4ffae7":"Interactive React components: cards, carousels, galleries, buttons, menus, lists, and navigation. Interaction references and ready-to-use source code.",
+"3b39072cde3a3cd1":"React microinteractions: spring buttons, card flips, folders, toasts, toggles, chat inputs, and AI interface states. Demos and source code.",
+"969f53e947a5ea9f":"React visual effects: glow, particles, cursors, water distortion, elastic meshes, pixel transitions, and scroll reveals. Source code for development.",
+"e38e6932229d85d8":"Animated React backgrounds: gradients, waves, particles, ASCII, grids, glow, and interactive cursor effects. Controls, demos, and source code."
 };
