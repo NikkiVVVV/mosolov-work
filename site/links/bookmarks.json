@@ -1310,18 +1310,30 @@
     {
       "id": "ee7645df77e6593f",
       "featuredRank": 0,
-      "url": "https://savee.it/",
-      "domain": "savee.it",
+      "url": "https://savee.com/",
+      "domain": "savee.com",
       "title": "SAVEE",
       "bookmarkTitles": [
         "SAVEE"
       ],
-      "ownerNote": "Собирать визуальные рефы и мудборды.",
-      "tags": [],
+      "ownerNote": "Сохранение визуальных референсов и организация по доскам. Подборки от дизайнеров, обмен вдохновением и командная работа.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Доски",
+        "Командная работа",
+        "Визуальные референсы",
+        "Графический дизайн"
+      ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "Savee is a curated place for visual inspiration. Discover references chosen by designers, collect what matters, and build a sharper eye without ads or clutter.",
+      "description": "Save visual references and organize them into boards, with designer-curated collections, inspiration sharing, and teamwork.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -3123,21 +3135,33 @@
       "featuredRank": 89,
       "url": "https://smoothui.dev/",
       "domain": "smoothui.dev",
-      "title": "smoothui.dev",
+      "title": "SmoothUI",
       "bookmarkTitles": [
-        "smoothui.dev"
+        "smoothui.dev",
+        "SmoothUI"
       ],
-      "ownerNote": "Анимированные React-компоненты на Motion и Tailwind для shadcn/ui.",
+      "ownerNote": "Анимированные примитивы, React-компоненты, блоки и шаблоны на Motion и Tailwind для shadcn/ui.",
       "tags": [
+        "Анимация",
         "Инструменты",
+        "Рефы",
         "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
         "Motion",
-        "компоненты"
+        "shadcn/ui",
+        "Блоки",
+        "Шаблоны",
+        "Формы",
+        "Карточки"
       ],
       "folderPaths": [
-        "Инструменты"
+        "Инструменты",
+        "Рефы"
       ],
-      "description": "",
+      "description": "Animated primitives, React components, blocks, and templates built with Motion and Tailwind for shadcn/ui.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -4435,6 +4459,1982 @@
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
+    },
+    {
+      "id": "e5ee5d203d3bc72a",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.onorca.dev/",
+      "domain": "www.onorca.dev",
+      "title": "Orca",
+      "bookmarkTitles": [
+        "Orca"
+      ],
+      "ownerNote": "Среда для параллельной работы Claude Code, Codex и других кодинг-агентов: отдельные Git worktree, терминалы, диффы и браузер.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "IDE",
+        "Claude Code",
+        "Codex",
+        "Git",
+        "Worktree",
+        "Терминал"
+      ],
+      "description": "A workspace for parallel Claude Code, Codex, and other coding agents, with separate Git worktrees, terminals, diffs, and a browser.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "74a74f63b9bc77c6",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://hyperframes.heygen.com/",
+      "domain": "hyperframes.heygen.com",
+      "title": "HyperFrames",
+      "bookmarkTitles": [
+        "HyperFrames"
+      ],
+      "ownerNote": "Видеоредактор для работы с агентами: создание и монтаж роликов, анимация, титры и визуальные эффекты.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "Видео",
+        "Видеоредактор",
+        "Монтаж",
+        "Анимация",
+        "Моушн-дизайн",
+        "HeyGen"
+      ],
+      "description": "A video editor built for agent workflows: create and edit videos, animation, titles, and visual effects.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "6a061622067f3dfe",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.agentastic.dev/",
+      "domain": "www.agentastic.dev",
+      "title": "Agentastic",
+      "bookmarkTitles": [
+        "Agentastic"
+      ],
+      "ownerNote": "Мультиагентная IDE для Claude Code, Codex и других агентов: задачи, рабочие окружения и проверка изменений.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "IDE",
+        "Claude Code",
+        "Codex",
+        "Задачи",
+        "Git",
+        "Командная работа"
+      ],
+      "description": "A multi-agent IDE for Claude Code, Codex, and other agents, with tasks, development environments, and change review.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "d8dbbbea556f7d76",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://opcode.sh/",
+      "domain": "opcode.sh",
+      "title": "Opcode",
+      "bookmarkTitles": [
+        "Opcode"
+      ],
+      "ownerNote": "Десктопный интерфейс-компаньон для работы с Claude Code.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "Claude Code",
+        "Десктоп",
+        "IDE"
+      ],
+      "description": "A desktop companion interface for working with Claude Code.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "c9bc18a3f4d4f829",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://emdash.com/",
+      "domain": "emdash.com",
+      "title": "Emdash",
+      "bookmarkTitles": [
+        "Emdash"
+      ],
+      "ownerNote": "Открытая среда разработки с параллельными агентами, Git worktree, предпросмотром приложений и управлением промптами, навыками и MCP.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "IDE",
+        "Open Source",
+        "Git",
+        "Worktree",
+        "MCP",
+        "Промпты",
+        "Автоматизация"
+      ],
+      "description": "An open-source development environment with parallel agents, Git worktrees, app previews, and management of prompts, skills, and MCP tools.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "a902131005767696",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://nimbalyst.com/",
+      "domain": "nimbalyst.com",
+      "title": "Nimbalyst",
+      "bookmarkTitles": [
+        "Nimbalyst"
+      ],
+      "ownerNote": "Рабочее пространство и агентская wiki для Claude Code и Codex: организация решений, вопросов и контекста проекта.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "Wiki",
+        "Заметки",
+        "Контекст",
+        "Claude Code",
+        "Codex",
+        "MCP",
+        "Open Source"
+      ],
+      "description": "A workspace and agent wiki for Claude Code and Codex to organize project decisions, questions, and context.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "7bcc59c959e5b179",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://happy.engineering/",
+      "domain": "happy.engineering",
+      "title": "Happy",
+      "bookmarkTitles": [
+        "Happy"
+      ],
+      "ownerNote": "Открытая оболочка для Claude Code, Codex и других агентов. Продолжение сессий с телефона и совместная работа.",
+      "tags": [
+        "AI",
+        "Инструменты",
+        "Разработка",
+        "AI-агенты",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "Open Source",
+        "Claude Code",
+        "Codex",
+        "Мобильное приложение",
+        "Командная работа"
+      ],
+      "description": "An open-source harness for Claude Code, Codex, and other agents, with mobile session access and collaboration.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "57a1274e0134e982",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.shapr3d.com/",
+      "domain": "www.shapr3d.com",
+      "title": "Shapr3D",
+      "bookmarkTitles": [
+        "Shapr3D"
+      ],
+      "ownerNote": "CAD-моделирование на Mac, Windows и iPad: эскизы, точные 3D-модели, чертежи, визуализация и экспорт для производства.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "CAD",
+        "iPad",
+        "macOS",
+        "Windows",
+        "Чертежи",
+        "Промышленный дизайн",
+        "3D-печать"
+      ],
+      "description": "CAD modeling on Mac, Windows, and iPad: sketches, precise 3D models, drawings, visualization, and manufacturing exports.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "cbfe176ced3fc47b",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.plasticity.xyz/",
+      "domain": "www.plasticity.xyz",
+      "title": "Plasticity",
+      "bookmarkTitles": [
+        "Plasticity"
+      ],
+      "ownerNote": "Инструмент 3D-моделирования для дизайнеров: работа с кривыми, поверхностями и твёрдыми телами.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "CAD",
+        "Поверхности",
+        "Кривые",
+        "Промышленный дизайн",
+        "Hard Surface"
+      ],
+      "description": "A 3D modeling tool for designers, with curves, surfaces, and solid modeling.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "4fac1cca87d56091",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://spline.design/",
+      "domain": "spline.design",
+      "title": "Spline",
+      "bookmarkTitles": [
+        "Spline"
+      ],
+      "ownerNote": "Создание интерактивных 3D-сцен для сайтов и приложений в браузере. Совместная работа, AI-инструменты и MCP.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "Браузер",
+        "Интерактив",
+        "Веб-дизайн",
+        "Анимация",
+        "AI",
+        "MCP",
+        "Командная работа"
+      ],
+      "description": "Create interactive 3D scenes for websites and apps in the browser, with collaboration, AI tools, and MCP.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "12e6a5e10b02ab56",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://poly.cam/",
+      "domain": "poly.cam",
+      "title": "Polycam",
+      "bookmarkTitles": [
+        "Polycam"
+      ],
+      "ownerNote": "3D-сканирование объектов и пространств: фотограмметрия, пространственный захват, планы помещений и экспорт моделей.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "Сканирование",
+        "Фотограмметрия",
+        "Архитектура",
+        "Интерьеры",
+        "Планы помещений",
+        "AI"
+      ],
+      "description": "Scan objects and spaces in 3D using photogrammetry and spatial capture, with floor plans and model exports.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "aad383e4f92c0c33",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://marmoset.co/",
+      "domain": "marmoset.co",
+      "title": "Marmoset Toolbag",
+      "bookmarkTitles": [
+        "Marmoset Toolbag"
+      ],
+      "ownerNote": "Инструменты для запекания карт, текстурирования и рендера 3D-моделей. Подходит для презентации персонажей и игровых ассетов.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "Рендер",
+        "Текстуры",
+        "Baking",
+        "Материалы",
+        "Персонажи",
+        "Игровые ассеты"
+      ],
+      "description": "Tools for baking maps, texturing, and rendering 3D models, including character and game asset presentation.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "44f20475c284f15c",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://womp.com/",
+      "domain": "womp.com",
+      "title": "Womp",
+      "bookmarkTitles": [
+        "Womp"
+      ],
+      "ownerNote": "Браузерное 3D-моделирование: создание объектов, работа с материалами и подготовка изделий к 3D-печати.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "Браузер",
+        "Материалы",
+        "3D-печать",
+        "Персонажи",
+        "SVG"
+      ],
+      "description": "Browser-based 3D modeling for creating objects, working with materials, and preparing designs for 3D printing.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "bde5b2f24e5d7c39",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.mixamo.com/",
+      "domain": "www.mixamo.com",
+      "title": "Mixamo",
+      "bookmarkTitles": [
+        "Mixamo"
+      ],
+      "ownerNote": "Adobe Mixamo: автоматический риггинг гуманоидных персонажей и библиотека готовых 3D-анимаций.",
+      "tags": [
+        "Инструменты",
+        "3D",
+        "Моделирование",
+        "Дизайн",
+        "Adobe",
+        "Риггинг",
+        "Персонажи",
+        "Анимация",
+        "Игры",
+        "FBX"
+      ],
+      "description": "Adobe Mixamo provides automatic rigging for humanoid characters and a library of ready-made 3D animations.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "8b8abf6868d18c0b",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://divmagic.com/",
+      "domain": "divmagic.com",
+      "title": "DivMagic",
+      "bookmarkTitles": [
+        "DivMagic"
+      ],
+      "ownerNote": "Копирование элементов сайта в HTML, CSS или Tailwind. Расширение для разбора интерфейсов и повторного использования компонентов; есть MCP.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "HTML",
+        "CSS",
+        "Tailwind",
+        "Компоненты",
+        "Разработка",
+        "MCP",
+        "Рефы"
+      ],
+      "description": "Copy website elements as HTML, CSS, or Tailwind. A browser extension for inspecting interfaces and reusing components, with MCP support.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "40b1fcffe6dfbdfa",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://gofullpage.com/",
+      "domain": "gofullpage.com",
+      "title": "GoFullPage",
+      "bookmarkTitles": [
+        "GoFullPage"
+      ],
+      "ownerNote": "Расширение Chrome для создания скриншота веб-страницы целиком, включая область ниже первого экрана.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "Скриншоты",
+        "Полная страница",
+        "Документация",
+        "Рефы"
+      ],
+      "description": "A Chrome extension for capturing an entire webpage, including content below the initial viewport.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "f0c08d4d2927d870",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://muz.li/",
+      "domain": "muz.li",
+      "title": "Muzli",
+      "bookmarkTitles": [
+        "Muzli"
+      ],
+      "ownerNote": "Лента дизайн-вдохновения и материалов в новой вкладке браузера. Подборки сайтов, визуальных идей и дизайн-историй.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "Вдохновение",
+        "Подборки",
+        "Рефы",
+        "Новая вкладка",
+        "Мудборды"
+      ],
+      "description": "Design inspiration and stories in your browser’s new tab, with curated websites and visual ideas.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "3a99dabd531a4c1e",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://responsiveviewer.org/",
+      "domain": "responsiveviewer.org",
+      "title": "Responsive Viewer",
+      "bookmarkTitles": [
+        "Responsive Viewer"
+      ],
+      "ownerNote": "Одновременный предпросмотр сайта на разных размерах экранов. Проверка адаптива, синхронный скролл, скриншоты и аннотации.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "Адаптив",
+        "Тестирование",
+        "Мобильные интерфейсы",
+        "Скриншоты",
+        "Аннотации",
+        "Веб-разработка"
+      ],
+      "description": "Preview a site at multiple screen sizes simultaneously, with responsive testing, synchronized scrolling, screenshots, and annotations.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "25a3a3870e0cdf81",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://screenity.io/",
+      "domain": "screenity.io",
+      "title": "Screenity",
+      "bookmarkTitles": [
+        "Screenity"
+      ],
+      "ownerNote": "Запись экрана и видеоредактор в браузере: сцены, камера, приближение кликов, титры, экспорт и ссылка на запись.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "Видео",
+        "Запись экрана",
+        "Видеоредактор",
+        "Монтаж",
+        "Демо",
+        "Презентации"
+      ],
+      "description": "Browser-based screen recording and video editing with scenes, camera capture, click zooms, captions, exports, and sharing links.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "c0e2c0b4040aef89",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://darkreader.org/",
+      "domain": "darkreader.org",
+      "title": "Dark Reader",
+      "bookmarkTitles": [
+        "Dark Reader"
+      ],
+      "ownerNote": "Расширение для тёмной темы на сайтах: настройка яркости, контраста и сепии для отдельных доменов или всего браузера.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "Тёмная тема",
+        "Доступность",
+        "Контраст",
+        "Firefox",
+        "Safari",
+        "Open Source"
+      ],
+      "description": "A dark-mode browser extension with brightness, contrast, and sepia controls for individual sites or the whole browser.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "03c3f71284382df2",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://bonjourr.fr/",
+      "domain": "bonjourr.fr",
+      "title": "Bonjourr",
+      "bookmarkTitles": [
+        "Bonjourr"
+      ],
+      "ownerNote": "Минималистичная новая вкладка браузера: фоновые фотографии, часы, быстрые ссылки и персонализация оформления.",
+      "tags": [
+        "Инструменты",
+        "Браузер",
+        "Расширения",
+        "Chrome",
+        "Дизайн",
+        "Новая вкладка",
+        "Минимализм",
+        "Персонализация",
+        "Фотографии",
+        "Продуктивность"
+      ],
+      "description": "A minimalist browser start page with background photography, a clock, quick links, and appearance customization.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "352a0af57ed766f9",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://skiper-ui.com/",
+      "domain": "skiper-ui.com",
+      "title": "Skiper UI",
+      "bookmarkTitles": [
+        "Skiper UI"
+      ],
+      "ownerNote": "Необычные компоненты для shadcn/ui: интерактивные карточки, эффекты курсора, анимации и готовый код. Есть бесплатные и платные компоненты.",
+      "tags": [
+        "Анимация",
+        "Инструменты",
+        "Рефы",
+        "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
+        "shadcn/ui",
+        "Карточки",
+        "Курсор",
+        "Ховер",
+        "Микроинтеракции"
+      ],
+      "description": "Unusual shadcn/ui components with interactive cards, cursor effects, animations, and source code. Includes free and paid components.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "ec43dbba1b81b45c",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://kokonutui.com/",
+      "domain": "kokonutui.com",
+      "title": "Kokonut UI",
+      "bookmarkTitles": [
+        "Kokonut UI"
+      ],
+      "ownerNote": "Открытые React-компоненты на Tailwind, Motion и shadcn/ui: формы, карточки, элементы чата и состояния AI-интерфейсов.",
+      "tags": [
+        "Анимация",
+        "Инструменты",
+        "Рефы",
+        "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
+        "Motion",
+        "shadcn/ui",
+        "Open Source",
+        "Формы",
+        "Карточки",
+        "Чат",
+        "AI-интерфейсы"
+      ],
+      "description": "Open-source React components using Tailwind, Motion, and shadcn/ui, including forms, cards, chat controls, and AI interface states.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "ce89a07477db7b43",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.cult-ui.com/",
+      "domain": "www.cult-ui.com",
+      "title": "Cult UI",
+      "bookmarkTitles": [
+        "Cult UI"
+      ],
+      "ownerNote": "Компоненты, блоки и шаблоны для shadcn/ui. Есть отдельные материалы и компоненты для AI-интерфейсов.",
+      "tags": [
+        "Анимация",
+        "Инструменты",
+        "Рефы",
+        "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
+        "shadcn/ui",
+        "Блоки",
+        "Шаблоны",
+        "AI-интерфейсы",
+        "AI-кодинг"
+      ],
+      "description": "Components, blocks, and templates for shadcn/ui, with dedicated resources and components for AI interfaces.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "2697e17912505a2c",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://animata.design/",
+      "domain": "animata.design",
+      "title": "Animata",
+      "bookmarkTitles": [
+        "Animata"
+      ],
+      "ownerNote": "Бесплатные открытые анимированные React-компоненты: кнопки, карточки, фоны, скелетоны, текст, вкладки и эффекты скролла.",
+      "tags": [
+        "Анимация",
+        "Инструменты",
+        "Рефы",
+        "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
+        "Open Source",
+        "Бесплатно",
+        "Кнопки",
+        "Карточки",
+        "Фоны",
+        "Скелетоны",
+        "Текст",
+        "Скролл"
+      ],
+      "description": "Free open-source animated React components, including buttons, cards, backgrounds, skeletons, text, tabs, and scroll effects.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "a5a4f4fa8a3e8b58",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.eldoraui.site/",
+      "domain": "www.eldoraui.site",
+      "title": "Eldora UI",
+      "bookmarkTitles": [
+        "Eldora UI"
+      ],
+      "ownerNote": "Открытая библиотека анимированных компонентов и эффектов на React, TypeScript, Tailwind и Motion для дизайн-инженеров.",
+      "tags": [
+        "Анимация",
+        "Инструменты",
+        "Рефы",
+        "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
+        "TypeScript",
+        "Motion",
+        "shadcn/ui",
+        "Open Source",
+        "Бесплатно",
+        "Дизайн-инжиниринг"
+      ],
+      "description": "An open-source library of animated components and effects built with React, TypeScript, Tailwind, and Motion for design engineers.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "a0000bb0c5baa554",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.hover.dev/",
+      "domain": "www.hover.dev",
+      "title": "Hover.dev",
+      "bookmarkTitles": [
+        "Hover.dev"
+      ],
+      "ownerNote": "Интерактивные анимированные компоненты и шаблоны на React, Tailwind и Motion: формы, карточки, меню, таблицы и вкладки.",
+      "tags": [
+        "Анимация",
+        "Инструменты",
+        "Рефы",
+        "React",
+        "UI",
+        "Компоненты",
+        "Tailwind",
+        "Исходники",
+        "Motion",
+        "Формы",
+        "Карточки",
+        "Меню",
+        "Таблицы",
+        "Шаблоны",
+        "Ховер"
+      ],
+      "description": "Interactive animated components and templates using React, Tailwind, and Motion, including forms, cards, menus, tables, and tabs.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "5e2ef20a8e75ef8b",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://shotbase.com/",
+      "domain": "shotbase.com",
+      "title": "Shotbase",
+      "bookmarkTitles": [
+        "Shotbase"
+      ],
+      "ownerNote": "Скриншоты и запись экрана на Mac: редактирование, организация и публикация материалов, с локальными AI-функциями.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "Скриншоты",
+        "Запись экрана",
+        "Видео",
+        "Редактор",
+        "AI",
+        "Локальный AI"
+      ],
+      "description": "Capture screenshots and screen recordings on Mac, then edit, organize, and share them, with local AI features.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "045fa6f763bd4d01",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://getdroppy.app/",
+      "domain": "getdroppy.app",
+      "title": "Droppy",
+      "bookmarkTitles": [
+        "Droppy"
+      ],
+      "ownerNote": "Dynamic Island для Mac: полка файлов у выреза экрана, история буфера обмена, управление музыкой и виджеты.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "Dynamic Island",
+        "Notch",
+        "Файлы",
+        "Буфер обмена",
+        "Музыка",
+        "Виджеты"
+      ],
+      "description": "A Dynamic Island for Mac with a notch file shelf, clipboard history, music controls, and widgets.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "6488edbd46397794",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://parcse.com/looq",
+      "domain": "parcse.com",
+      "title": "Looq",
+      "bookmarkTitles": [
+        "Looq"
+      ],
+      "ownerNote": "Расширенный Quick Look в Finder: предпросмотр Markdown, кода, таблиц, SQLite, архивов и папок по пробелу.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "Quick Look",
+        "Finder",
+        "Предпросмотр",
+        "Markdown",
+        "Код",
+        "SQLite",
+        "Архивы"
+      ],
+      "description": "Enhanced Quick Look in Finder: preview Markdown, code, tables, SQLite databases, archives, and folders with the space bar.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "79daf56828763286",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://parcse.com/ajar",
+      "domain": "parcse.com",
+      "title": "Ajar",
+      "bookmarkTitles": [
+        "Ajar"
+      ],
+      "ownerNote": "Связывает яркость экрана, подсветку клавиатуры и громкость с углом крышки MacBook. Есть режим удержания компьютера без сна.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "MacBook",
+        "Яркость",
+        "Клавиатура",
+        "Громкость",
+        "Режим сна",
+        "Автоматизация"
+      ],
+      "description": "Links display brightness, keyboard backlight, and volume to the MacBook lid angle, with a keep-awake mode.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "c0616f64f07c2381",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://voicetypr.com/",
+      "domain": "voicetypr.com",
+      "title": "Voicetypr",
+      "bookmarkTitles": [
+        "Voicetypr"
+      ],
+      "ownerNote": "Голосовой ввод в любых приложениях на Mac и Windows. Локальное распознавание речи; облачная обработка и AI-редактура доступны отдельно.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "Windows",
+        "Диктовка",
+        "Голос",
+        "Распознавание речи",
+        "AI",
+        "Локальный AI",
+        "Текст"
+      ],
+      "description": "Voice dictation in any Mac or Windows app, with local speech recognition and optional cloud processing and AI cleanup.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "bbe8c1dd6c7eac13",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.theodorehq.com/atlas/",
+      "domain": "www.theodorehq.com",
+      "title": "Atlas",
+      "bookmarkTitles": [
+        "Atlas"
+      ],
+      "ownerNote": "Мировые часы и планирование встреч по часовым поясам: время участников, поиск общего окна и добавление встречи в календарь.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "Часовые пояса",
+        "Мировые часы",
+        "Календарь",
+        "Встречи",
+        "Командная работа",
+        "Планирование"
+      ],
+      "description": "World clocks and time-zone scheduling: see everyone’s local time, find overlapping availability, and add meetings to a calendar.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "74a656b7af9ec17f",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://sindresorhus.com/dato",
+      "domain": "sindresorhus.com",
+      "title": "Dato",
+      "bookmarkTitles": [
+        "Dato"
+      ],
+      "ownerNote": "Календарь и мировые часы в строке меню Mac: ближайшие события, часовые пояса и полноэкранные уведомления о встречах.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Продуктивность",
+        "Календарь",
+        "Строка меню",
+        "Часовые пояса",
+        "Мировые часы",
+        "Встречи",
+        "Уведомления"
+      ],
+      "description": "A Mac menu bar calendar and world clock with upcoming events, time zones, and full-screen meeting notifications.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "0262ce5e11c2b07d",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://clarity.microsoft.com/",
+      "domain": "clarity.microsoft.com",
+      "title": "Microsoft Clarity",
+      "bookmarkTitles": [
+        "Microsoft Clarity"
+      ],
+      "ownerNote": "Анализ поведения на сайте: записи сессий, тепловые карты и AI-сводки для поиска проблем пользовательского опыта.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "Microsoft",
+        "UX",
+        "Тепловые карты",
+        "Записи сессий",
+        "Поведение пользователей",
+        "AI"
+      ],
+      "description": "Analyze website behavior with session recordings, heatmaps, and AI summaries to uncover user experience issues.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "13e1e72b5ea15bdb",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://posthog.com/",
+      "domain": "posthog.com",
+      "title": "PostHog",
+      "bookmarkTitles": [
+        "PostHog"
+      ],
+      "ownerNote": "Платформа для продуктовых данных: аналитика событий, записи сессий, ошибки и контекст для работы команды и AI-агентов.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "События",
+        "Записи сессий",
+        "Ошибки",
+        "Разработка",
+        "AI",
+        "AI-агенты"
+      ],
+      "description": "A product data platform for event analytics, session replays, errors, and context for teams and AI agents.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "e17b32563f53872f",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://getsleek.io/",
+      "domain": "getsleek.io",
+      "title": "Sleek Analytics",
+      "bookmarkTitles": [
+        "Sleek Analytics"
+      ],
+      "ownerNote": "Веб-аналитика источников трафика, действий посетителей и конверсий. Альтернатива Google Analytics с компактным скриптом.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "Трафик",
+        "Конверсия",
+        "Источники трафика",
+        "Google Analytics",
+        "Дашборды"
+      ],
+      "description": "Website analytics for traffic sources, visitor activity, and conversions, as a lightweight Google Analytics alternative.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "980cf0b0c76e3513",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://mixpanel.com/",
+      "domain": "mixpanel.com",
+      "title": "Mixpanel",
+      "bookmarkTitles": [
+        "Mixpanel"
+      ],
+      "ownerNote": "Продуктовая аналитика поведения пользователей: события, воронки, записи сессий и эксперименты, с AI-функциями анализа.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "Поведение пользователей",
+        "События",
+        "Воронки",
+        "Конверсия",
+        "Эксперименты",
+        "AI"
+      ],
+      "description": "Product analytics for user behavior, with events, funnels, session replays, experiments, and AI analysis features.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "60ff4e19aba5b51a",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://plausible.io/",
+      "domain": "plausible.io",
+      "title": "Plausible",
+      "bookmarkTitles": [
+        "Plausible"
+      ],
+      "ownerNote": "Лёгкая открытая веб-аналитика: показатели посещаемости на одном дашборде и возможность самостоятельного размещения.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "Open Source",
+        "Self-hosted",
+        "Трафик",
+        "Дашборды",
+        "Google Analytics"
+      ],
+      "description": "Lightweight open-source web analytics with traffic metrics on one dashboard and a self-hosting option.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "fba171f14e0c42c8",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://seline.com/",
+      "domain": "seline.com",
+      "title": "Seline",
+      "bookmarkTitles": [
+        "Seline"
+      ],
+      "ownerNote": "Веб-аналитика посетителей, пользовательских путей и воронок. Сервис для отслеживания действий и конверсий на сайте.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "Пути пользователей",
+        "Воронки",
+        "Конверсия",
+        "Трафик",
+        "Дашборды"
+      ],
+      "description": "Web analytics for visitors, user journeys, and funnels, helping track website activity and conversions.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "f0777286749cfda5",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.databuddy.cc/",
+      "domain": "www.databuddy.cc",
+      "title": "Databuddy",
+      "bookmarkTitles": [
+        "Databuddy"
+      ],
+      "ownerNote": "Аналитика трафика, событий и воронок с отслеживанием ошибок и Web Vitals. Есть AI-аналитик и MCP для агентских сценариев.",
+      "tags": [
+        "Инструменты",
+        "Аналитика",
+        "Веб-аналитика",
+        "Продукт",
+        "Метрики",
+        "SaaS",
+        "События",
+        "Воронки",
+        "Ошибки",
+        "Web Vitals",
+        "AI",
+        "MCP",
+        "Производительность"
+      ],
+      "description": "Traffic, event, and funnel analytics with error tracking and Web Vitals, plus an AI analyst and MCP for agent workflows.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "7bb713456e30e65f",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://redlamp.app/",
+      "domain": "redlamp.app",
+      "title": "Redlamp",
+      "bookmarkTitles": [
+        "Redlamp"
+      ],
+      "ownerNote": "Открытый RAW-фоторедактор для Mac на Swift и Metal: обработка фотографий с сохранением оригиналов.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "Open Source",
+        "macOS",
+        "Фотография",
+        "RAW",
+        "Фоторедактор",
+        "Swift",
+        "Metal"
+      ],
+      "description": "An open-source RAW photo editor for Mac built with Swift and Metal, preserving original image files.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "28eeea3c52d5d6a7",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://trypowermove.com/",
+      "domain": "trypowermove.com",
+      "title": "Powermove",
+      "bookmarkTitles": [
+        "Powermove"
+      ],
+      "ownerNote": "Видео- и моушн-редактор для Mac со слоями, ключевыми кадрами и эффектами. Кодинг-агент может добавлять функции и расширения.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "Видео",
+        "Видеоредактор",
+        "Моушн-дизайн",
+        "Анимация",
+        "macOS",
+        "AI",
+        "AI-кодинг"
+      ],
+      "description": "A video and motion editor for Mac with layers, keyframes, and effects, extendable through a coding agent.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "edbda51b66b72232",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.haikuanimator.com/",
+      "domain": "www.haikuanimator.com",
+      "title": "Haiku Animator",
+      "bookmarkTitles": [
+        "Haiku Animator"
+      ],
+      "ownerNote": "Открытый инструмент для создания анимаций для приложений и сайтов. Визуальный редактор и исходники на GitHub.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "Open Source",
+        "Анимация",
+        "Моушн-дизайн",
+        "Веб-дизайн",
+        "Визуальный редактор"
+      ],
+      "description": "An open-source tool for creating app and website animations, with a visual editor and source code on GitHub.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "889515960bd8ecb4",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://motion-canvas.io/",
+      "domain": "motion-canvas.io",
+      "title": "Motion Canvas",
+      "bookmarkTitles": [
+        "Motion Canvas"
+      ],
+      "ownerNote": "Создание анимированных видео кодом на TypeScript с предпросмотром и веб-редактором для синхронизации со звуком.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "Анимация",
+        "Видео",
+        "TypeScript",
+        "Canvas",
+        "Звук",
+        "Визуализация",
+        "Разработка"
+      ],
+      "description": "Create animated videos in TypeScript, with live previews and a web editor for audio synchronization.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "22901f670efb09a4",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.blockbench.net/",
+      "domain": "www.blockbench.net",
+      "title": "Blockbench",
+      "bookmarkTitles": [
+        "Blockbench"
+      ],
+      "ownerNote": "Редактор low-poly 3D-моделей: моделирование, рисование текстур, UV-развёртка, риггинг и анимация персонажей.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "3D",
+        "Low Poly",
+        "Моделирование",
+        "Текстуры",
+        "UV",
+        "Риггинг",
+        "Анимация",
+        "Minecraft"
+      ],
+      "description": "A low-poly 3D editor for modeling, texture painting, UV mapping, rigging, and character animation.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "6ad198093fa1de65",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://materialmaker.org/",
+      "domain": "materialmaker.org",
+      "title": "Material Maker",
+      "bookmarkTitles": [
+        "Material Maker"
+      ],
+      "ownerNote": "Открытый нодовый редактор процедурных PBR-материалов и текстур с экспортом для игровых движков и 3D-проектов.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "Open Source",
+        "3D",
+        "PBR",
+        "Материалы",
+        "Текстуры",
+        "Ноды",
+        "Godot",
+        "Unity",
+        "Unreal Engine"
+      ],
+      "description": "An open-source node-based editor for procedural PBR materials and textures, with exports for game engines and 3D projects.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "7910a521869df773",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.mypaint.app/",
+      "domain": "www.mypaint.app",
+      "title": "MyPaint",
+      "bookmarkTitles": [
+        "MyPaint"
+      ],
+      "ownerNote": "Открытая программа для цифрового рисования и живописи с поддержкой графических планшетов.",
+      "tags": [
+        "Инструменты",
+        "Творчество",
+        "Дизайн",
+        "Исходники",
+        "Open Source",
+        "Рисование",
+        "Живопись",
+        "Кисти",
+        "Иллюстрация",
+        "Графический планшет"
+      ],
+      "description": "An open-source digital drawing and painting application with graphics tablet support.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "e8d58646df3d48c9",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://github.com/noahelhadedy/double-shot",
+      "domain": "github.com",
+      "title": "Double Shot",
+      "bookmarkTitles": [
+        "Double Shot"
+      ],
+      "ownerNote": "Утилита строки меню, которая не даёт Mac уснуть, в том числе с закрытой крышкой и во время работы AI-агентов.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Строка меню",
+        "Режим сна",
+        "MacBook",
+        "AI-агенты",
+        "Продуктивность",
+        "GitHub"
+      ],
+      "description": "A menu bar utility that keeps a Mac awake, including with its lid closed and while AI agents are working.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "565a8b2c084a8e20",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://icemenubar.app/",
+      "domain": "icemenubar.app",
+      "title": "Ice",
+      "bookmarkTitles": [
+        "Ice"
+      ],
+      "ownerNote": "Управление строкой меню Mac: скрытие значков, перестановка перетаскиванием, поиск и настройка расстояния между элементами.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Строка меню",
+        "Значки",
+        "Персонализация",
+        "Продуктивность"
+      ],
+      "description": "Manage the Mac menu bar: hide icons, rearrange them by dragging, search items, and customize spacing.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "903c48284cf12a13",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://maccy.app/",
+      "domain": "maccy.app",
+      "title": "Maccy",
+      "bookmarkTitles": [
+        "Maccy"
+      ],
+      "ownerNote": "Лёгкая история буфера обмена для Mac с быстрым поиском и управлением с клавиатуры. Данные хранятся локально.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Буфер обмена",
+        "Поиск",
+        "Клавиатура",
+        "Продуктивность",
+        "Локальные данные"
+      ],
+      "description": "A lightweight Mac clipboard history manager with fast search and keyboard controls, storing data locally.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "9719bc91bbb30016",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://rectangleapp.com/",
+      "domain": "rectangleapp.com",
+      "title": "Rectangle",
+      "bookmarkTitles": [
+        "Rectangle"
+      ],
+      "ownerNote": "Расположение и изменение размеров окон Mac с помощью горячих клавиш и перетаскивания к краям экрана.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Окна",
+        "Горячие клавиши",
+        "Рабочий стол",
+        "Продуктивность",
+        "Snap"
+      ],
+      "description": "Move and resize Mac windows using keyboard shortcuts and snapping to screen edges.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "9154b6e7b87211e2",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://iina.io/",
+      "domain": "iina.io",
+      "title": "IINA",
+      "bookmarkTitles": [
+        "IINA"
+      ],
+      "ownerNote": "Медиаплеер для Mac на базе mpv: видео, субтитры, Picture in Picture, жесты трекпада и расширения.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Видео",
+        "Медиаплеер",
+        "Субтитры",
+        "mpv",
+        "Picture in Picture",
+        "Расширения"
+      ],
+      "description": "An mpv-based Mac media player with video, subtitles, Picture in Picture, trackpad gestures, and plugins.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "d92a20acd486acdb",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://ghostty.org/",
+      "domain": "ghostty.org",
+      "title": "Ghostty",
+      "bookmarkTitles": [
+        "Ghostty"
+      ],
+      "ownerNote": "Терминальный эмулятор с нативным интерфейсом и GPU-ускорением. Работает на macOS и Linux, поддерживает темы и горячие клавиши.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Терминал",
+        "Linux",
+        "GPU",
+        "Разработка",
+        "Командная строка",
+        "Горячие клавиши"
+      ],
+      "description": "A terminal emulator with native UI and GPU acceleration for macOS and Linux, with themes and configurable keyboard shortcuts.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "cafbf07e2db8cfb9",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://mowglii.com/itsycal/",
+      "domain": "mowglii.com",
+      "title": "Itsycal",
+      "bookmarkTitles": [
+        "Itsycal"
+      ],
+      "ownerNote": "Компактный календарь в строке меню Mac: события, создание встреч, переход к видеозвонкам и управление с клавиатуры.",
+      "tags": [
+        "Инструменты",
+        "macOS",
+        "Mac",
+        "Приложения",
+        "Open Source",
+        "Календарь",
+        "Строка меню",
+        "Встречи",
+        "Клавиатура",
+        "Продуктивность"
+      ],
+      "description": "A compact Mac menu bar calendar with events, meeting creation, video meeting links, and keyboard navigation.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "e57a39c9c73b82be",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.cosmos.so/",
+      "domain": "www.cosmos.so",
+      "title": "Cosmos",
+      "bookmarkTitles": [
+        "Cosmos"
+      ],
+      "ownerNote": "Сбор визуальных референсов в коллекции: поиск по цвету и похожим изображениям, сохранение из браузера и совместные подборки.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Визуальный поиск",
+        "Цвет",
+        "Похожие изображения",
+        "Командная работа",
+        "Браузер"
+      ],
+      "description": "Collect visual references with color and similar-image search, browser saving, and collaborative collections.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "32eeeca860823227",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://mymind.com/",
+      "domain": "mymind.com",
+      "title": "mymind",
+      "bookmarkTitles": [
+        "mymind"
+      ],
+      "ownerNote": "Личное пространство для заметок, закладок, статей и изображений. Сохранение вдохновения и материалов через приложения и расширение браузера.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Заметки",
+        "Закладки",
+        "Статьи",
+        "Расширения",
+        "Личная библиотека"
+      ],
+      "description": "A personal space for notes, bookmarks, articles, and images, with apps and a browser extension for saving inspiration and resources.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "3f15e5373f5c5f4f",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.are.na/",
+      "domain": "www.are.na",
+      "title": "Are.na",
+      "bookmarkTitles": [
+        "Are.na"
+      ],
+      "ownerNote": "Сбор и связывание изображений, заметок, файлов и веб-страниц в каналы. Организация исследований, идей и визуальных подборок.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Исследования",
+        "Заметки",
+        "Каналы",
+        "Командная работа",
+        "Связи",
+        "Закладки"
+      ],
+      "description": "Collect and connect images, notes, files, and webpages in channels for research, ideas, and visual collections.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "c496ff3675805d0d",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://milanote.com/",
+      "domain": "milanote.com",
+      "title": "Milanote",
+      "bookmarkTitles": [
+        "Milanote"
+      ],
+      "ownerNote": "Визуальные доски для творческих проектов: заметки, изображения, видео, скетчи, исследования, задачи и совместная работа.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Доски",
+        "Заметки",
+        "Задачи",
+        "Исследования",
+        "Командная работа",
+        "Сториборды"
+      ],
+      "description": "Visual boards for creative projects, combining notes, images, video, sketches, research, tasks, and collaboration.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "900ee3c67ea30ae8",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://eagle.cool/",
+      "domain": "eagle.cool",
+      "title": "Eagle",
+      "bookmarkTitles": [
+        "Eagle"
+      ],
+      "ownerNote": "Менеджер дизайн-ассетов для Mac и Windows: сбор, поиск и организация изображений, шрифтов, иконок, аудио и видео.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Ассеты",
+        "macOS",
+        "Windows",
+        "Поиск",
+        "Шрифты",
+        "Иконки",
+        "Аудио",
+        "Видео"
+      ],
+      "description": "A design asset manager for Mac and Windows to collect, search, and organize images, fonts, icons, audio, and video.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "3a81b1e5a03c959f",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.pureref.com/",
+      "domain": "www.pureref.com",
+      "title": "PureRef",
+      "bookmarkTitles": [
+        "PureRef"
+      ],
+      "ownerNote": "Отдельная доска для изображений-референсов на Windows, Mac и Linux. Удобна для иллюстрации, живописи и 3D-моделирования.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Мудборды",
+        "Вдохновение",
+        "Коллекции",
+        "Изображения",
+        "Доски",
+        "Windows",
+        "macOS",
+        "Linux",
+        "Иллюстрация",
+        "Живопись",
+        "3D"
+      ],
+      "description": "A standalone reference image board for Windows, Mac, and Linux, suited to illustration, painting, and 3D modeling.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
     }
   ]
 }
