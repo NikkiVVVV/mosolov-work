@@ -68,7 +68,7 @@ export const catalogEN = {
   "7c37ebcc8a7d788b": "Articles about products, AI, and design.",
   "69979d461779c64f": "Short breakdowns of effective UX decisions.",
   "3d6a322ed6e30d09": "AI for UX flows and Figma mockups.",
-  "3e11236d4c9f17a7": "A collection of website footers.",
+  "3e11236d4c9f17a7": "A gallery of real website footers filtered by style, including typography, grids, illustration, cards, and animation, for footer and navigation inspiration.",
   "1fd50fc0040661ea": "A large collection of designer portfolios organized by country.",
   "c626405258667c77": "Email and newsletter references.",
   "4097e63132bdeea3": "Interesting packaging design references.",
@@ -139,7 +139,7 @@ export const catalogEN = {
   "5c0fc3fbc1c72e6c": "Generate 3D assets with Rodin.",
   "cb54df126bff175e": "Run open AI models through an API.",
   "92cc5570564594f2": "Russian startups and side projects.",
-  "7dffe094a29be837": "Styles from real websites: colors, fonts, spacing, and DESIGN.md files.",
+  "7dffe094a29be837": "A library of product website styles covering colors, typography, spacing, and components, with DESIGN.md files for design context in Cursor, Claude Code, Codex, and other AI tools.",
   "8590c059929bfa04": "An MCP server directory for AI tools.",
   "0e7efba0bd1d8092": "Publish a website folder or ZIP on Cloudflare.",
   "fb4a899e784ccb3b": "Deploy a website quickly with Vercel.",
@@ -162,7 +162,7 @@ export const catalogEN = {
   "c3149d723bff86fe": "404 page references: make an error page more than a dead end.",
   "539e0a348d95424a": "Websites, individual sections, and font pairing references.",
   "bf9922f3d5841339": "Websites organized by topic: portfolios, studios, shops, and products.",
-  "0335d0682f514e21": "Call-to-action section references.",
+  "0335d0682f514e21": "A call-to-action gallery covering buttons, forms, subscriptions, pricing, and modals, with CTA design and copy inspiration for landing pages and product interfaces.",
   "60d9a1a2058b7cef": "Minimalist websites: grids, typography, and whitespace.",
   "139c5b7a30e97616": "Website details: hero sections, footers, buttons, and navigation.",
   "2a42bf2d1b2277b3": "A filterable website inspiration gallery.",
@@ -266,5 +266,7 @@ export const catalogEN = {
   "3f15e5373f5c5f4f": "Collect and connect images, notes, files, and webpages in channels for research, ideas, and visual collections.",
   "c496ff3675805d0d": "Visual boards for creative projects, combining notes, images, video, sketches, research, tasks, and collaboration.",
   "900ee3c67ea30ae8": "A design asset manager for Mac and Windows to collect, search, and organize images, fonts, icons, audio, and video.",
-  "3a81b1e5a03c959f": "A standalone reference image board for Windows, Mac, and Linux, suited to illustration, painting, and 3D modeling."
+  "3a81b1e5a03c959f": "A standalone reference image board for Windows, Mac, and Linux, suited to illustration, painting, and 3D modeling.",
+  "a7b82865c1632a0d": "A library of scroll-driven website templates and AI prompts, with interactive page references and starting points for development.",
+  "1d471d334f5f21d3": "A library of looping WebGL backgrounds and shader components, including gradients, grain, liquid metal, glass, and 3D, with React, HTML, and MP4 exports."
 };

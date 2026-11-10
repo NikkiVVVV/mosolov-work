@@ -203,5 +203,7 @@
   "www.pureref.com": "./favicons/www.pureref.com.ico",
   "eagle.cool": "./favicons/eagle.cool.png",
   "savee.com": "./favicons/savee.com.ico",
-  "mymind.com": "./favicons/mymind.com.png"
+  "mymind.com": "./favicons/mymind.com.png",
+  "scrollshaders.com": "./favicons/scrollshaders.com.svg",
+  "scrolltide.co": "./favicons/scrolltide.co.png"
 }

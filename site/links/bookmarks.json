@@ -1438,20 +1438,32 @@
       "featuredRank": 108,
       "url": "https://www.footer.design/",
       "domain": "www.footer.design",
-      "title": "Footer — The only footer gallery on earth.",
+      "title": "Footer Design",
       "bookmarkTitles": [
-        "Footer — The only footer gallery on earth."
+        "Footer — The only footer gallery on earth.",
+        "Footer Design"
       ],
-      "ownerNote": "Подборка футеров сайтов.",
+      "ownerNote": "Галерея футеров реальных сайтов с фильтрами по стилю: типографика, сетки, иллюстрации, карточки и анимация. Референсы нижней части страницы и навигации.",
       "tags": [
         "Рефы",
-        "футеры",
-        "блоки"
+        "Инструменты",
+        "Дизайн",
+        "Веб-дизайн",
+        "UI",
+        "Подборки",
+        "Галереи",
+        "Футеры",
+        "Навигация",
+        "Типографика",
+        "Сетки",
+        "Анимация",
+        "Вдохновение"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "Footer is a curated gallery of the top website footer inspiration on earth. Find the footers you need and sort by type and style.",
+      "description": "A gallery of real website footers filtered by style, including typography, grids, illustration, cards, and animation, for footer and navigation inspiration.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -2804,12 +2816,32 @@
       "bookmarkTitles": [
         "Refero Styles"
       ],
-      "ownerNote": "Стили реальных сайтов: цвета, шрифты, отступы и файлы DESIGN.md.",
-      "tags": [],
-      "folderPaths": [
-        "AI"
+      "ownerNote": "Библиотека стилей продуктовых сайтов: цвета, типографика, отступы и компоненты. Файлы DESIGN.md передают дизайн-контекст в Cursor, Claude Code, Codex и другие AI-инструменты.",
+      "tags": [
+        "Рефы",
+        "Инструменты",
+        "Дизайн",
+        "Веб-дизайн",
+        "UI",
+        "Подборки",
+        "Дизайн-системы",
+        "Типографика",
+        "Цвет",
+        "Компоненты",
+        "DESIGN.md",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "Промпты",
+        "Cursor",
+        "Claude Code",
+        "Codex"
       ],
-      "description": "Explore real website styles and their AI-readable DESIGN.md files. Compare screenshots, colors, typography, and spacing to find a direction for your project.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ],
+      "description": "A library of product website styles covering colors, typography, spacing, and components, with DESIGN.md files for design context in Cursor, Claude Code, Codex, and other AI tools.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -3340,21 +3372,36 @@
       "featuredRank": 106,
       "url": "https://cta.gallery/",
       "domain": "cta.gallery",
-      "title": "cta.gallery",
+      "title": "CTA.gallery",
       "bookmarkTitles": [
-        "cta.gallery"
+        "cta.gallery",
+        "CTA.gallery"
       ],
-      "ownerNote": "Рефы блоков с призывом к действию.",
+      "ownerNote": "Галерея призывов к действию: кнопки, формы, подписки, тарифы и модальные окна. Примеры оформления CTA и текстов для лендингов и продуктовых интерфейсов.",
       "tags": [
         "Рефы",
+        "Инструменты",
+        "Дизайн",
+        "Веб-дизайн",
+        "UI",
+        "Подборки",
+        "Галереи",
         "CTA",
-        "блоки",
-        "кнопки"
+        "Кнопки",
+        "Формы",
+        "Подписки",
+        "Тарифы",
+        "Модальные окна",
+        "Лендинги",
+        "UX",
+        "Конверсия",
+        "Копирайтинг"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "",
+      "description": "A call-to-action gallery covering buttons, forms, subscriptions, pricing, and modals, with CTA design and copy inspiration for landing pages and product interfaces.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -6431,6 +6478,79 @@
         "3D"
       ],
       "description": "A standalone reference image board for Windows, Mac, and Linux, suited to illustration, painting, and 3D modeling.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "a7b82865c1632a0d",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://scrolltide.co/",
+      "domain": "scrolltide.co",
+      "title": "Scrolltide",
+      "bookmarkTitles": [
+        "Scrolltide"
+      ],
+      "ownerNote": "Библиотека шаблонов сайтов со скролл-анимацией и AI-промптов для их создания. Референсы интерактивных страниц и готовые отправные точки для разработки.",
+      "tags": [
+        "Рефы",
+        "Инструменты",
+        "Дизайн",
+        "Веб-дизайн",
+        "UI",
+        "Анимация",
+        "Скролл",
+        "Интерактив",
+        "Шаблоны",
+        "Промпты",
+        "AI",
+        "AI-кодинг",
+        "Вайбкодинг",
+        "Лендинги"
+      ],
+      "description": "A library of scroll-driven website templates and AI prompts, with interactive page references and starting points for development.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "1d471d334f5f21d3",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://scrollshaders.com/",
+      "domain": "scrollshaders.com",
+      "title": "Scroll Shaders",
+      "bookmarkTitles": [
+        "Scroll Shaders"
+      ],
+      "ownerNote": "Библиотека зацикленных WebGL-фонов и шейдерных компонентов: градиенты, зерно, жидкий металл, стекло и 3D. Экспорт кода React, HTML или видео MP4.",
+      "tags": [
+        "Рефы",
+        "Инструменты",
+        "Дизайн",
+        "Веб-дизайн",
+        "UI",
+        "Анимация",
+        "Шейдеры",
+        "WebGL",
+        "Фоны",
+        "Градиенты",
+        "3D",
+        "React",
+        "HTML",
+        "Компоненты",
+        "Видео",
+        "Текстуры",
+        "Интерактив"
+      ],
+      "description": "A library of looping WebGL backgrounds and shader components, including gradients, grain, liquid metal, glass, and 3D, with React, HTML, and MP4 exports.",
       "folderPaths": [
         "Инструменты",
         "Рефы"
