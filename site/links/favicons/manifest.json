@@ -205,5 +205,13 @@
   "savee.com": "./favicons/savee.com.ico",
   "mymind.com": "./favicons/mymind.com.png",
   "scrollshaders.com": "./favicons/scrollshaders.com.svg",
-  "scrolltide.co": "./favicons/scrolltide.co.png"
+  "scrolltide.co": "./favicons/scrolltide.co.png",
+  "magicui.design": "./favicons/magicui.design.png",
+  "text.ru": "./favicons/text.ru.ico",
+  "threejs.org": "./favicons/threejs.org.ico",
+  "shadergradient.co": "./favicons/shadergradient.co.png",
+  "uiverse.io": "./favicons/uiverse.io.ico",
+  "pagespeed.web.dev": "./favicons/pagespeed.web.dev.png",
+  "builtwith.com": "./favicons/builtwith.com.ico",
+  "supahero.io": "./favicons/supahero.io.ico"
 }

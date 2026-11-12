@@ -367,22 +367,31 @@
       "featuredRank": 88,
       "url": "https://recent.design/",
       "domain": "recent.design",
-      "title": "База постов с вау- механиками",
+      "title": "Recent",
       "bookmarkTitles": [
         "База постов с вау- механиками",
-        "Recent — Design Inspiration"
+        "Recent — Design Inspiration",
+        "Recent"
       ],
-      "ownerNote": "Свежие рефы сайтов, приложений и отдельных UI-деталей.",
+      "ownerNote": "Галерея современного дизайна: сайты, интерфейсы, анимация, брендинг и иллюстрации. Визуальные референсы и ссылки на оригинальные проекты.",
       "tags": [
         "Рефы",
-        "референсы",
-        "сайты",
-        "UI"
+        "Вдохновение",
+        "Веб-дизайн",
+        "Подборки",
+        "Анимация",
+        "Интерактив",
+        "UI",
+        "Брендинг",
+        "Иллюстрации",
+        "Галереи",
+        "Сайты"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "The best design inspiration on the Internet.",
+      "description": "A contemporary design gallery featuring websites, interfaces, motion, branding, and illustration, with visual references and links to original projects.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept",
@@ -886,19 +895,35 @@
       "featuredRank": 0,
       "url": "https://tympanus.net/codrops/hub/all",
       "domain": "tympanus.net",
-      "title": "Креатив хаб",
+      "title": "Codrops",
       "bookmarkTitles": [
         "Креатив хаб",
-        "Creative Hub"
+        "Creative Hub",
+        "Codrops"
       ],
-      "ownerNote": "Codrops: коллекция демо, UI-эффектов и креативных экспериментов.",
+      "ownerNote": "Экспериментальные веб-эффекты с демонстрациями и исходным кодом: кинетическая типографика, 3D-галереи, переходы, курсоры и WebGL.",
       "tags": [
-        "Базовые места вдохновения"
+        "Рефы",
+        "Вдохновение",
+        "Веб-дизайн",
+        "Подборки",
+        "Инструменты",
+        "Анимация",
+        "Интерактив",
+        "WebGL",
+        "3D",
+        "Шейдеры",
+        "Курсор",
+        "Переходы",
+        "Типографика",
+        "Текстовые анимации",
+        "Исходники"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "",
+      "description": "Experimental web effects with live demos and source code, including kinetic typography, 3D galleries, transitions, cursors, and WebGL.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -1065,16 +1090,30 @@
       "featuredRank": 0,
       "url": "https://bentogrids.com/",
       "domain": "bentogrids.com",
-      "title": "БЕНТО",
+      "title": "Bento Grids",
       "bookmarkTitles": [
-        "БЕНТО"
+        "БЕНТО",
+        "Bento Grids"
       ],
-      "ownerNote": "Рефы бенто-сеток и карточных композиций.",
-      "tags": [],
+      "ownerNote": "Подборка интерфейсов с модульными bento-сетками: карточки разных размеров, изображения, статистика и продуктовые блоки. Референсы композиции сложного контента.",
+      "tags": [
+        "Рефы",
+        "Вдохновение",
+        "Веб-дизайн",
+        "Подборки",
+        "Bento",
+        "Сетки",
+        "Карточки",
+        "Композиция",
+        "UI",
+        "Продуктовые блоки",
+        "Галереи"
+      ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "BentoGrids is a curated collection of bento designs for your inspiration.",
+      "description": "A collection of interfaces using modular bento grids, with varied card sizes, imagery, statistics, and product blocks for organizing complex content.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -3532,20 +3571,30 @@
       "featuredRank": 104,
       "url": "https://supahero.io/",
       "domain": "supahero.io",
-      "title": "supahero.io",
+      "title": "Supahero",
       "bookmarkTitles": [
-        "supahero.io"
+        "supahero.io",
+        "Supahero"
       ],
-      "ownerNote": "Подборка первых экранов сайтов.",
+      "ownerNote": "Галерея первых экранов сайтов: композиция, типографика, цвет и визуальные акценты. Референсы hero-блоков для главных страниц и лендингов.",
       "tags": [
         "Рефы",
-        "первые экраны",
-        "hero"
+        "Вдохновение",
+        "Веб-дизайн",
+        "Подборки",
+        "Первые экраны",
+        "Hero",
+        "Лендинги",
+        "Композиция",
+        "Типографика",
+        "Цвет",
+        "Галереи"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "",
+      "description": "A gallery of website hero sections featuring composition, typography, color, and visual accents, for homepages and landing pages.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
@@ -4170,18 +4219,33 @@
       "id": "fae33e480635d810",
       "url": "https://ui.aceternity.com/components",
       "domain": "ui.aceternity.com",
-      "title": "ui блоков",
+      "title": "Aceternity UI",
       "bookmarkTitles": [
-        "ui блоков"
+        "ui блоков",
+        "Aceternity UI"
       ],
-      "ownerNote": "Готовые UI-компоненты с анимациями для React и Tailwind.",
+      "ownerNote": "Интерактивные React-компоненты: 3D-карточки, анимированные фоны, параллакс, ховеры и текстовые эффекты. Готовый код для сайтов и продуктовых интерфейсов.",
       "tags": [
-        "Инструменты"
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Анимация",
+        "React",
+        "Tailwind",
+        "3D",
+        "Фоны",
+        "Параллакс",
+        "Ховер",
+        "Текстовые анимации",
+        "Исходники",
+        "AI-кодинг"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "",
+      "description": "Interactive React components including 3D cards, animated backgrounds, parallax, hover effects, and text animations, with code for websites and product interfaces.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept",
@@ -4192,35 +4256,35 @@
       "id": "4954943e6cf75804",
       "url": "https://reactbits.dev/",
       "domain": "reactbits.dev",
-      "title": "Библиотека React компонентов.",
+      "title": "React Bits",
       "bookmarkTitles": [
-        "Библиотека React компонентов."
+        "Библиотека React компонентов.",
+        "React Bits"
       ],
-      "ownerNote": "Библиотека анимированных компонентов React.",
+      "ownerNote": "Анимированные React-компоненты с настройками и исходным кодом: магнитные кнопки, курсоры, текстовые эффекты, градиенты, 3D-галереи и интерактивные фоны.",
       "tags": [
         "Инструменты",
         "Рефы",
-        "Анимация",
-        "Интерактив",
-        "React",
         "UI",
         "Компоненты",
+        "Анимация",
+        "React",
+        "Курсор",
+        "Ховер",
+        "Кнопки",
+        "Текстовые анимации",
+        "Градиенты",
+        "3D",
         "Фоны",
-        "Текст",
-        "Микроинтеракции",
-        "JavaScript",
-        "TypeScript",
-        "CSS",
-        "Tailwind",
+        "Интерактив",
         "Исходники",
-        "AI",
-        "AI-кодинг",
-        "Вайбкодинг"
+        "AI-кодинг"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "",
+      "description": "Animated React components with adjustable settings and source code, including magnetic buttons, cursors, text effects, gradients, 3D galleries, and interactive backgrounds.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept",
@@ -6551,6 +6615,235 @@
         "Интерактив"
       ],
       "description": "A library of looping WebGL backgrounds and shader components, including gradients, grain, liquid metal, glass, and 3D, with React, HTML, and MP4 exports.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "d367e4b4939b761e",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://magicui.design/",
+      "domain": "magicui.design",
+      "title": "Magic UI",
+      "bookmarkTitles": [
+        "Magic UI"
+      ],
+      "ownerNote": "Библиотека анимированных компонентов на React, TypeScript, Tailwind и Motion: глобусы, частицы, орбиты, световые линии и появление текста для лендингов.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Анимация",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Motion",
+        "Частицы",
+        "Текстовые анимации",
+        "Лендинги",
+        "Исходники",
+        "shadcn/ui"
+      ],
+      "description": "Animated components built with React, TypeScript, Tailwind, and Motion, including globes, particles, orbits, light beams, and text reveals for landing pages.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "ece76af5ddb66bbb",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://shadergradient.co/",
+      "domain": "shadergradient.co",
+      "title": "ShaderGradient",
+      "bookmarkTitles": [
+        "ShaderGradient"
+      ],
+      "ownerNote": "Генератор анимированных градиентов с настройкой цветов, формы, текстуры и движения. Абстрактные поверхности и 3D-фоны для сайтов и макетов.",
+      "tags": [
+        "Инструменты",
+        "Веб-разработка",
+        "Градиенты",
+        "Генераторы",
+        "Анимация",
+        "3D",
+        "Шейдеры",
+        "Фоны",
+        "Цвет",
+        "Текстуры",
+        "Рефы"
+      ],
+      "description": "An animated gradient generator with controls for colors, shape, texture, and motion, creating abstract surfaces and 3D backgrounds for websites and designs.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "be9e40b9672b7d79",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://threejs.org/",
+      "domain": "threejs.org",
+      "title": "Three.js",
+      "bookmarkTitles": [
+        "Three.js"
+      ],
+      "ownerNote": "JavaScript-библиотека интерактивной 3D-графики. Документация, редактор и примеры сцен, частиц, материалов, шейдеров и анимаций с исходным кодом.",
+      "tags": [
+        "Инструменты",
+        "Веб-разработка",
+        "JavaScript",
+        "3D",
+        "WebGL",
+        "Шейдеры",
+        "Частицы",
+        "Материалы",
+        "Анимация",
+        "Интерактив",
+        "Исходники",
+        "Open Source"
+      ],
+      "description": "A JavaScript library for interactive 3D graphics, with documentation, an editor, and source-code examples of scenes, particles, materials, shaders, and animation.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "b21916cb5d271e64",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://builtwith.com/",
+      "domain": "builtwith.com",
+      "title": "BuiltWith",
+      "bookmarkTitles": [
+        "BuiltWith"
+      ],
+      "ownerNote": "Анализ технологий сайта: CMS, библиотеки, аналитика и другие сервисы. Помогает изучить технологический стек понравившегося проекта.",
+      "tags": [
+        "Инструменты",
+        "Веб-разработка",
+        "Анализ сайтов",
+        "Технологии",
+        "CMS",
+        "Аналитика",
+        "Библиотеки",
+        "Исследование",
+        "Стек"
+      ],
+      "description": "Website technology lookup covering CMS platforms, libraries, analytics, and other services, helping identify a project's technology stack.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "d94d9be67a4dcc70",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://pagespeed.web.dev/",
+      "domain": "pagespeed.web.dev",
+      "title": "PageSpeed Insights",
+      "bookmarkTitles": [
+        "PageSpeed Insights"
+      ],
+      "ownerNote": "Проверка скорости и производительности страниц на мобильных устройствах и компьютерах. Метрики загрузки, Core Web Vitals и рекомендации по оптимизации.",
+      "tags": [
+        "Инструменты",
+        "Веб-разработка",
+        "Google",
+        "Производительность",
+        "Скорость сайта",
+        "Core Web Vitals",
+        "Lighthouse",
+        "Оптимизация",
+        "Тестирование",
+        "Аудит"
+      ],
+      "description": "Analyze page speed and performance on mobile and desktop, with loading metrics, Core Web Vitals, and optimization recommendations.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "bcfaa133dc4094f2",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://text.ru/",
+      "domain": "text.ru",
+      "title": "Text.ru",
+      "bookmarkTitles": [
+        "Text.ru"
+      ],
+      "ownerNote": "Проверка уникальности и анализ текста: совпадения с другими источниками, заспамленность, водность и орфография. Инструмент для подготовки текстов сайта.",
+      "tags": [
+        "Инструменты",
+        "Веб-разработка",
+        "Текст",
+        "Копирайтинг",
+        "Редактура",
+        "Уникальность",
+        "Антиплагиат",
+        "SEO",
+        "Орфография",
+        "Контент"
+      ],
+      "description": "Text originality checking and analysis, covering matches with other sources, keyword stuffing, filler, and spelling, for preparing website copy.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "e3be301663ccfdb6",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://uiverse.io/",
+      "domain": "uiverse.io",
+      "title": "Uiverse",
+      "bookmarkTitles": [
+        "Uiverse"
+      ],
+      "ownerNote": "Библиотека UI-элементов от сообщества: кнопки, переключатели, чекбоксы, формы и лоадеры. Примеры с кодом HTML/CSS, Tailwind и React.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Анимация",
+        "HTML",
+        "CSS",
+        "Tailwind",
+        "React",
+        "Кнопки",
+        "Переключатели",
+        "Чекбоксы",
+        "Формы",
+        "Лоадеры",
+        "Исходники",
+        "Open Source"
+      ],
+      "description": "A community-built UI library of buttons, toggles, checkboxes, forms, and loaders, with HTML/CSS, Tailwind, and React code.",
       "folderPaths": [
         "Инструменты",
         "Рефы"
