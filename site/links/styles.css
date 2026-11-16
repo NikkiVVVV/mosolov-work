@@ -178,5 +178,5 @@ th:first-child,td:first-child{padding-right:16px}
 .filters{max-width:none;min-width:0;height:auto;overflow:visible}
 .filters .filter-button{white-space:nowrap;flex-shrink:0}
 
-.channel-avatar{display:flex;align-items:center;justify-content:center;align-self:center;padding:0;border:0;border-radius:50%;overflow:visible;background:transparent;flex:none}
-.channel-avatar img{display:block;width:30.9px;height:30.9px;object-fit:cover;border-radius:50%;transform:translateY(4.05px)}
+.channel-avatar{position:relative;display:block;align-self:flex-start;margin:0 auto 0 0;padding:0;border:0;border-radius:50%;overflow:visible;background:transparent;flex:0 0 36px}
+.channel-avatar img{position:absolute;left:50%;bottom:-1.5px;display:block;width:30.9px;height:30.9px;max-width:none;object-fit:cover;border-radius:50%;transform:translateX(-50%)}
