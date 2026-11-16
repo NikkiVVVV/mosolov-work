@@ -213,5 +213,9 @@
   "uiverse.io": "./favicons/uiverse.io.ico",
   "pagespeed.web.dev": "./favicons/pagespeed.web.dev.png",
   "builtwith.com": "./favicons/builtwith.com.ico",
-  "supahero.io": "./favicons/supahero.io.ico"
+  "supahero.io": "./favicons/supahero.io.ico",
+  "lottiefiles.com": "./favicons/lottiefiles.com.ico",
+  "www.pinterest.com": "./favicons/www.pinterest.com.png",
+  "motion.dev": "./favicons/motion.dev.png",
+  "www.awwwards.com": "./favicons/www.awwwards.com.ico"
 }

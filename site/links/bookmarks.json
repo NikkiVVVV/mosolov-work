@@ -371,7 +371,9 @@
       "bookmarkTitles": [
         "База постов с вау- механиками",
         "Recent — Design Inspiration",
-        "Recent"
+        "Recent",
+        "Godly",
+        "godly.website"
       ],
       "ownerNote": "Галерея современного дизайна: сайты, интерфейсы, анимация, брендинг и иллюстрации. Визуальные референсы и ссылки на оригинальные проекты.",
       "tags": [
@@ -408,7 +410,8 @@
       ],
       "ownerNote": "Объект двигается по мере скролла. Реф связи анимации с прокруткой.",
       "tags": [
-        "Скролл"
+        "Скролл",
+        "Анимация"
       ],
       "folderPaths": [
         "Рефы"
@@ -880,7 +883,8 @@
       ],
       "ownerNote": "Генеративные SVG-паттерны: настроить рисунок и скачать.",
       "tags": [
-        "Базовые места вдохновения"
+        "Базовые места вдохновения",
+        "Анимация"
       ],
       "folderPaths": [
         "Рефы"
@@ -962,7 +966,9 @@
         "Анимация красного заголовка."
       ],
       "ownerNote": "Шейдерные эффекты для текста, картинок и видео.",
-      "tags": [],
+      "tags": [
+        "Анимация"
+      ],
       "folderPaths": [
         "Инструменты"
       ],
@@ -1057,7 +1063,9 @@
         "React Components | ObsidianUI"
       ],
       "ownerNote": "Интерактивные React-компоненты на Motion и Tailwind. Демо и исходники.",
-      "tags": [],
+      "tags": [
+        "Анимация"
+      ],
       "folderPaths": [
         "Инструменты"
       ],
@@ -1809,7 +1817,9 @@
         "Креативные видосы"
       ],
       "ownerNote": "Много рефов анимации и кино.",
-      "tags": [],
+      "tags": [
+        "Анимация"
+      ],
       "folderPaths": [
         "Рефы"
       ],
@@ -2874,7 +2884,8 @@
         "Промпты",
         "Cursor",
         "Claude Code",
-        "Codex"
+        "Codex",
+        "Анимация"
       ],
       "folderPaths": [
         "Инструменты",
@@ -2999,7 +3010,8 @@
         "Инструменты",
         "React",
         "компоненты",
-        "чат"
+        "чат",
+        "Анимация"
       ],
       "folderPaths": [
         "Инструменты"
@@ -3071,7 +3083,8 @@
         "Инструменты",
         "React",
         "Motion",
-        "компоненты"
+        "компоненты",
+        "Анимация"
       ],
       "folderPaths": [
         "Инструменты"
@@ -3191,7 +3204,8 @@
         "Инструменты",
         "компоненты",
         "пружины",
-        "шейдеры"
+        "шейдеры",
+        "Анимация"
       ],
       "folderPaths": [
         "Инструменты"
@@ -3895,7 +3909,8 @@
       ],
       "ownerNote": "Скриншоты и пользовательские сценарии iOS-приложений.",
       "tags": [
-        "Рефы"
+        "Рефы",
+        "Анимация"
       ],
       "folderPaths": [
         "Рефы"
@@ -3939,7 +3954,8 @@
       ],
       "ownerNote": "Необычные детали, взаимодействия и анимации интерфейсов.",
       "tags": [
-        "Интерактив"
+        "Интерактив",
+        "Анимация"
       ],
       "folderPaths": [
         "Рефы"
@@ -3983,7 +3999,8 @@
       ],
       "ownerNote": "Промпты для создания сайтов и первых экранов с анимацией.",
       "tags": [
-        "AI"
+        "AI",
+        "Анимация"
       ],
       "folderPaths": [
         "Рефы"
@@ -6848,6 +6865,291 @@
         "Инструменты",
         "Рефы"
       ]
+    },
+    {
+      "id": "c1ca07c6f0261f38",
+      "featuredRank": 0,
+      "url": "https://lottiefiles.com/",
+      "domain": "lottiefiles.com",
+      "title": "LottieFiles",
+      "bookmarkTitles": [
+        "LottieFiles"
+      ],
+      "ownerNote": "Библиотека Lottie-анимаций: иконки, персонажи и сцены. Просмотр, настройка и скачивание файлов для сайтов и приложений.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Lottie",
+        "JSON",
+        "Иконки",
+        "Персонажи",
+        "Готовые анимации"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "A library of Lottie animations, icons, characters, and scenes, with previews, customization, and downloads for websites and apps.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "c09c2eaedcd58560",
+      "featuredRank": 0,
+      "url": "https://rive.app/marketplace/",
+      "domain": "rive.app",
+      "title": "Rive Marketplace",
+      "bookmarkTitles": [
+        "Rive Marketplace"
+      ],
+      "ownerNote": "Готовые интерактивные анимации и персонажи от сообщества Rive. Файлы можно изучать и использовать как референсы.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Rive",
+        "Персонажи",
+        "Интерактив",
+        "State Machine"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "Community-made interactive animations and characters for Rive, with files to explore and use as references.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "f09c21614e7f6aba",
+      "featuredRank": 0,
+      "url": "https://www.pinterest.com/",
+      "domain": "www.pinterest.com",
+      "title": "Pinterest",
+      "bookmarkTitles": [
+        "Pinterest"
+      ],
+      "ownerNote": "Визуальные референсы и тематические доски: моушн-дизайн, анимация, композиции и визуальные метафоры.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Вдохновение",
+        "Мудборды",
+        "Моушн-дизайн",
+        "Композиция",
+        "Визуальные метафоры"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "Visual references and themed boards for motion design, animation, composition, and visual metaphors.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "ef930eed8bcfaff7",
+      "featuredRank": 0,
+      "url": "https://dribbble.com/",
+      "domain": "dribbble.com",
+      "title": "Dribbble",
+      "bookmarkTitles": [
+        "Dribbble"
+      ],
+      "ownerNote": "Работы дизайнеров: микроанимации интерфейсов, переходы, анимированные иконки и моушн-концепции.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "UI",
+        "Микроанимации",
+        "Переходы",
+        "Иконки",
+        "Моушн-дизайн"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "Designer portfolios featuring UI microinteractions, transitions, animated icons, and motion concepts.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "1027afe26b4ca5f4",
+      "featuredRank": 0,
+      "url": "https://www.behance.net/",
+      "domain": "www.behance.net",
+      "title": "Behance",
+      "bookmarkTitles": [
+        "Behance"
+      ],
+      "ownerNote": "Дизайн-кейсы и моушн-проекты: анимация интерфейсов, персонажей, типографики и брендинга.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Кейсы",
+        "Моушн-дизайн",
+        "Персонажи",
+        "Типографика",
+        "Брендинг"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "Design case studies and motion projects covering interface, character, typography, and brand animation.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "3bb690a206a51974",
+      "featuredRank": 0,
+      "url": "https://www.awwwards.com/",
+      "domain": "www.awwwards.com",
+      "title": "Awwwards",
+      "bookmarkTitles": [
+        "Awwwards"
+      ],
+      "ownerNote": "Галерея сайтов с анимациями, переходами, скролл-эффектами и интерактивными сценами. Ссылки ведут к оригинальным проектам.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Веб-дизайн",
+        "Скролл",
+        "Переходы",
+        "Интерактив",
+        "Галереи"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "description": "A website gallery featuring animation, transitions, scroll effects, and interactive scenes, with links to original projects.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "6c668d3c43d8be3a",
+      "featuredRank": 0,
+      "url": "https://gsap.com/",
+      "domain": "gsap.com",
+      "title": "GSAP",
+      "bookmarkTitles": [
+        "GSAP"
+      ],
+      "ownerNote": "JavaScript-библиотека анимации: последовательности, скролл, SVG и текстовые эффекты. Документация, демо и исходный код примеров.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Анимация",
+        "JavaScript",
+        "SVG",
+        "Скролл",
+        "Переходы",
+        "Текстовые анимации",
+        "Документация",
+        "Исходники"
+      ],
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ],
+      "description": "A JavaScript animation library for timelines, scroll, SVG, and text effects, with documentation, demos, and example source code.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "2f2b909d5b4bee78",
+      "featuredRank": 0,
+      "url": "https://motion.dev/docs",
+      "domain": "motion.dev",
+      "title": "Motion",
+      "bookmarkTitles": [
+        "Motion"
+      ],
+      "ownerNote": "Библиотека анимации для JavaScript, React и Vue: пружины, жесты, переходы, последовательности и скролл. Документация и примеры кода.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Анимация",
+        "JavaScript",
+        "React",
+        "Vue",
+        "Пружины",
+        "Жесты",
+        "Переходы",
+        "Документация",
+        "Исходники"
+      ],
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ],
+      "description": "An animation library for JavaScript, React, and Vue, covering springs, gestures, transitions, sequences, and scroll, with documentation and code examples.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "180f80d4379b2dc9",
+      "featuredRank": 0,
+      "url": "https://codepen.io/",
+      "domain": "codepen.io",
+      "title": "CodePen",
+      "bookmarkTitles": [
+        "CodePen"
+      ],
+      "ownerNote": "Живые HTML/CSS/JS-примеры с доступным кодом: анимация, лоудеры, переходы, частицы и интерактивные эффекты.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Анимация",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Лоадеры",
+        "Переходы",
+        "Частицы",
+        "Исходники"
+      ],
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ],
+      "description": "Live HTML, CSS, and JavaScript examples with editable code, including animation, loaders, transitions, particles, and interactive effects.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
+    },
+    {
+      "id": "d9f7f7dd0a7cae3c",
+      "featuredRank": 0,
+      "url": "https://github.com/yihui-dev/awesome-opus5-5-videos",
+      "domain": "github.com",
+      "title": "awesome-opus5-5-videos",
+      "bookmarkTitles": [
+        "awesome-opus5-5-videos"
+      ],
+      "ownerNote": "Подборка видео и кодовых анимаций, созданных с Claude: оригиналы, промпты и ссылки на воссозданные примеры.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "Анимация",
+        "Claude",
+        "Промпты",
+        "AI-кодинг",
+        "Видео",
+        "GitHub",
+        "Примеры"
+      ],
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ],
+      "description": "A collection of videos and code-based animations made with Claude, with originals, prompts, and links to recreated examples.",
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept"
     }
   ]
 }

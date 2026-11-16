@@ -1,4 +1,4 @@
-import {catalogEN} from './catalog-en.js?v=20261112a';
+import {catalogEN} from './catalog-en.js?v=20261116a';
 
 export const dictionary=new Map(Object.entries({
  'Избранные':'Selected','закладки':'bookmarks','Все':'All','Создать подборку':'Create a collection',

@@ -275,5 +275,15 @@ export const catalogEN = {
   "b21916cb5d271e64": "Website technology lookup covering CMS platforms, libraries, analytics, and other services, helping identify a project's technology stack.",
   "d94d9be67a4dcc70": "Analyze page speed and performance on mobile and desktop, with loading metrics, Core Web Vitals, and optimization recommendations.",
   "bcfaa133dc4094f2": "Text originality checking and analysis, covering matches with other sources, keyword stuffing, filler, and spelling, for preparing website copy.",
-  "e3be301663ccfdb6": "A community-built UI library of buttons, toggles, checkboxes, forms, and loaders, with HTML/CSS, Tailwind, and React code."
+  "e3be301663ccfdb6": "A community-built UI library of buttons, toggles, checkboxes, forms, and loaders, with HTML/CSS, Tailwind, and React code.",
+  "c1ca07c6f0261f38": "A library of Lottie animations, icons, characters, and scenes, with previews, customization, and downloads for websites and apps.",
+  "c09c2eaedcd58560": "Community-made interactive animations and characters for Rive, with files to explore and use as references.",
+  "f09c21614e7f6aba": "Visual references and themed boards for motion design, animation, composition, and visual metaphors.",
+  "ef930eed8bcfaff7": "Designer portfolios featuring UI microinteractions, transitions, animated icons, and motion concepts.",
+  "1027afe26b4ca5f4": "Design case studies and motion projects covering interface, character, typography, and brand animation.",
+  "3bb690a206a51974": "A website gallery featuring animation, transitions, scroll effects, and interactive scenes, with links to original projects.",
+  "6c668d3c43d8be3a": "A JavaScript animation library for timelines, scroll, SVG, and text effects, with documentation, demos, and example source code.",
+  "2f2b909d5b4bee78": "An animation library for JavaScript, React, and Vue, covering springs, gestures, transitions, sequences, and scroll, with documentation and code examples.",
+  "180f80d4379b2dc9": "Live HTML, CSS, and JavaScript examples with editable code, including animation, loaders, transitions, particles, and interactive effects.",
+  "d9f7f7dd0a7cae3c": "A collection of videos and code-based animations made with Claude, with originals, prompts, and links to recreated examples."
 };
