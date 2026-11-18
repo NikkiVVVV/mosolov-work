@@ -285,5 +285,6 @@ export const catalogEN = {
   "6c668d3c43d8be3a": "A JavaScript animation library for timelines, scroll, SVG, and text effects, with documentation, demos, and example source code.",
   "2f2b909d5b4bee78": "An animation library for JavaScript, React, and Vue, covering springs, gestures, transitions, sequences, and scroll, with documentation and code examples.",
   "180f80d4379b2dc9": "Live HTML, CSS, and JavaScript examples with editable code, including animation, loaders, transitions, particles, and interactive effects.",
-  "d9f7f7dd0a7cae3c": "A collection of videos and code-based animations made with Claude, with originals, prompts, and links to recreated examples."
+  "d9f7f7dd0a7cae3c": "A collection of videos and code-based animations made with Claude, with originals, prompts, and links to recreated examples.",
+  "0e3e17d3bc16fbae": "A live gallery of animated UI components, including buttons, inputs, navigation, cards, and text effects, with code for integration using Claude and Codex."
 };

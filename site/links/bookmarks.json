@@ -397,7 +397,7 @@
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept",
-      "priorityRank": 5
+      "priorityRank": 6
     },
     {
       "id": "79c7411df4c7a943",
@@ -3274,7 +3274,7 @@
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept",
-      "priorityRank": 13
+      "priorityRank": 14
     },
     {
       "id": "abffc4d71e9b32e7",
@@ -3633,7 +3633,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 2
+      "priorityRank": 3
     },
     {
       "id": "6fdb13c271893e3e",
@@ -3655,7 +3655,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 3
+      "priorityRank": 4
     },
     {
       "id": "dd5e5998e23daefc",
@@ -3677,7 +3677,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 4
+      "priorityRank": 5
     },
     {
       "id": "bfd3d4ae70439c67",
@@ -3699,7 +3699,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 1
+      "priorityRank": 2
     },
     {
       "id": "45e6f7e98a9afdbf",
@@ -3721,7 +3721,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 6
+      "priorityRank": 7
     },
     {
       "id": "43ab8ae441bb99ee",
@@ -3743,7 +3743,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 7
+      "priorityRank": 8
     },
     {
       "id": "3fc1bbdc29d225a1",
@@ -3765,7 +3765,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 8
+      "priorityRank": 9
     },
     {
       "id": "86e8cae20824919f",
@@ -3787,7 +3787,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 9
+      "priorityRank": 10
     },
     {
       "id": "8287c8181a0bd3c4",
@@ -3809,7 +3809,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 10
+      "priorityRank": 11
     },
     {
       "id": "9611562fcf3795e7",
@@ -3831,7 +3831,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 11
+      "priorityRank": 12
     },
     {
       "id": "6ac510bc5fb66415",
@@ -3853,7 +3853,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 12
+      "priorityRank": 13
     },
     {
       "id": "0168b1c1a52fb648",
@@ -3875,7 +3875,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 14
+      "priorityRank": 15
     },
     {
       "id": "67bf731caad0791f",
@@ -3897,7 +3897,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 15
+      "priorityRank": 16
     },
     {
       "id": "2f57a1307d006e00",
@@ -3920,7 +3920,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 16
+      "priorityRank": 17
     },
     {
       "id": "084bc43395035359",
@@ -3942,7 +3942,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 17
+      "priorityRank": 18
     },
     {
       "id": "17e97c7ec15f656a",
@@ -3965,7 +3965,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 18
+      "priorityRank": 19
     },
     {
       "id": "ee8caa59fe9db0ab",
@@ -3987,7 +3987,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 19
+      "priorityRank": 20
     },
     {
       "id": "739b5d19add9c579",
@@ -4010,7 +4010,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 20
+      "priorityRank": 21
     },
     {
       "id": "dd455598100d7fd8",
@@ -4032,7 +4032,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 21
+      "priorityRank": 22
     },
     {
       "id": "1e7fa1230acf992f",
@@ -4054,7 +4054,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 22
+      "priorityRank": 23
     },
     {
       "id": "bd021b473bb16766",
@@ -4076,7 +4076,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 23
+      "priorityRank": 24
     },
     {
       "id": "2bd73695eccb9066",
@@ -4098,7 +4098,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 24
+      "priorityRank": 25
     },
     {
       "id": "21e11ffc75137e88",
@@ -4120,7 +4120,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 25
+      "priorityRank": 26
     },
     {
       "id": "315b3481bd2c8102",
@@ -4142,7 +4142,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 26
+      "priorityRank": 27
     },
     {
       "id": "df6609c7cd1f4f0b",
@@ -4164,7 +4164,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 27
+      "priorityRank": 28
     },
     {
       "id": "7d71981376847eb4",
@@ -4186,7 +4186,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 28
+      "priorityRank": 29
     },
     {
       "id": "9fa32ddf9cd22e7c",
@@ -4208,7 +4208,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 29
+      "priorityRank": 30
     },
     {
       "id": "32b887927bb715bd",
@@ -4230,7 +4230,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 30
+      "priorityRank": 31
     },
     {
       "id": "fae33e480635d810",
@@ -4267,7 +4267,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 31
+      "priorityRank": 32
     },
     {
       "id": "4954943e6cf75804",
@@ -4306,7 +4306,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 32
+      "priorityRank": 33
     },
     {
       "id": "1bc44271ade0590d",
@@ -4328,7 +4328,7 @@
       "privacyHint": "public",
       "status": "kept",
       "featuredRank": 0,
-      "priorityRank": 33
+      "priorityRank": 34
     },
     {
       "id": "107d986a5cba79cf",
@@ -7150,6 +7150,45 @@
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept"
+    },
+    {
+      "id": "0e3e17d3bc16fbae",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://designbookmark.com/motion",
+      "domain": "designbookmark.com",
+      "title": "DesignBookmark — Motion",
+      "bookmarkTitles": [
+        "DesignBookmark — Motion"
+      ],
+      "ownerNote": "Живая галерея анимированных UI-компонентов: кнопки, поля ввода, навигация, карточки и текстовые эффекты. Примеры с кодом для интеграции через Claude и Codex.",
+      "tags": [
+        "Рефы",
+        "Инструменты",
+        "Анимация",
+        "UI",
+        "Компоненты",
+        "Микроанимации",
+        "Интерактив",
+        "Кнопки",
+        "Формы",
+        "Навигация",
+        "Карточки",
+        "Текстовые анимации",
+        "Лоадеры",
+        "Исходники",
+        "AI-кодинг",
+        "Claude",
+        "Codex"
+      ],
+      "description": "A live gallery of animated UI components, including buttons, inputs, navigation, cards, and text effects, with code for integration using Claude and Codex.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ],
+      "priorityRank": 1
     }
   ]
 }
