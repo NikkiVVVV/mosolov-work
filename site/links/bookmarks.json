@@ -3683,18 +3683,31 @@
       "id": "bfd3d4ae70439c67",
       "url": "https://bencho.dev/",
       "domain": "bencho.dev",
-      "title": "Bencho - UI interactive blocks",
+      "title": "Bencho",
       "bookmarkTitles": [
-        "Bencho - UI interactive blocks"
+        "Bencho - UI interactive blocks",
+        "Bencho"
       ],
-      "ownerNote": "Интерактивные UI-блоки: кнопки, карточки и физические взаимодействия.",
+      "ownerNote": "Галерея интерактивных UI-блоков: кнопки, карточки, наведение, нажатие и перетаскивание. Живые примеры микроанимаций и физических взаимодействий.",
       "tags": [
-        "Интерактив"
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "Ховер",
+        "Перетаскивание",
+        "Кнопки",
+        "Карточки"
       ],
       "folderPaths": [
+        "Инструменты",
         "Рефы"
       ],
-      "description": "",
+      "description": "A gallery of interactive UI blocks, including buttons, cards, hover, press, and drag effects, with live micro-animation and physical interaction examples.",
       "reviewHint": "curated",
       "privacyHint": "public",
       "status": "kept",
@@ -4247,10 +4260,11 @@
         "Рефы",
         "UI",
         "Компоненты",
-        "Анимация",
+        "Веб-разработка",
         "React",
         "Tailwind",
         "3D",
+        "Анимация",
         "Фоны",
         "Параллакс",
         "Ховер",
@@ -4284,8 +4298,9 @@
         "Рефы",
         "UI",
         "Компоненты",
-        "Анимация",
+        "Веб-разработка",
         "React",
+        "Анимация",
         "Курсор",
         "Ховер",
         "Кнопки",
@@ -6649,24 +6664,23 @@
       "bookmarkTitles": [
         "Magic UI"
       ],
-      "ownerNote": "Библиотека анимированных компонентов на React, TypeScript, Tailwind и Motion: глобусы, частицы, орбиты, световые линии и появление текста для лендингов.",
+      "ownerNote": "Анимированные React-компоненты на Tailwind и Motion: частицы, световые линии, орбиты и текстовые эффекты для лендингов и продуктовых страниц.",
       "tags": [
         "Инструменты",
         "Рефы",
         "UI",
         "Компоненты",
-        "Анимация",
+        "Веб-разработка",
         "React",
-        "TypeScript",
         "Tailwind",
         "Motion",
+        "Анимация",
+        "Лендинги",
         "Частицы",
         "Текстовые анимации",
-        "Лендинги",
-        "Исходники",
-        "shadcn/ui"
+        "Исходники"
       ],
-      "description": "Animated components built with React, TypeScript, Tailwind, and Motion, including globes, particles, orbits, light beams, and text reveals for landing pages.",
+      "description": "Animated React components built with Tailwind and Motion, including particles, light beams, orbits, and text effects for landing and product pages.",
       "folderPaths": [
         "Инструменты",
         "Рефы"
@@ -7189,6 +7203,209 @@
         "Рефы"
       ],
       "priorityRank": 1
+    },
+    {
+      "id": "11217e97399022d9",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://ui.shadcn.com/",
+      "domain": "ui.shadcn.com",
+      "title": "shadcn/ui",
+      "bookmarkTitles": [
+        "shadcn/ui"
+      ],
+      "ownerNote": "Доступные настраиваемые UI-компоненты с исходным кодом. Основа для собственной дизайн-системы: формы, таблицы, диалоги, графики и готовые блоки.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "React",
+        "Tailwind",
+        "Дизайн-системы",
+        "Исходники",
+        "Open Source",
+        "Формы",
+        "Таблицы"
+      ],
+      "description": "Accessible, customizable UI components with source code, providing a foundation for design systems with forms, tables, dialogs, charts, and blocks.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "e7430ab3df44ce7e",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://coss.com/ui",
+      "domain": "coss.com",
+      "title": "coss ui",
+      "bookmarkTitles": [
+        "coss ui"
+      ],
+      "ownerNote": "Открытые React-компоненты команды Cal.com на Base UI и Tailwind CSS. Доступные элементы для продуктовых интерфейсов с кодом для доработки.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "React",
+        "Base UI",
+        "Tailwind",
+        "Cal.com",
+        "Дизайн-системы",
+        "Доступность",
+        "Open Source",
+        "Исходники"
+      ],
+      "description": "Open-source React components from Cal.com, powered by Base UI and Tailwind CSS, with accessible building blocks and customizable source code.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "69a08bf13d7bfde8",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.kibo-ui.com/",
+      "domain": "www.kibo-ui.com",
+      "title": "Kibo UI",
+      "bookmarkTitles": [
+        "Kibo UI"
+      ],
+      "ownerNote": "Расширяемые компоненты для shadcn/ui: загрузка файлов, редакторы, таблицы, выбор цвета и блоки для сложных интерфейсов. Открытый исходный код.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "React",
+        "shadcn/ui",
+        "Таблицы",
+        "Формы",
+        "Загрузка файлов",
+        "Редакторы",
+        "Open Source",
+        "Исходники"
+      ],
+      "description": "Extensible components for shadcn/ui, including file dropzones, editors, tables, color pickers, and complex interface blocks, with open-source code.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "9a0bf80066fd6b6e",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://www.radix-ui.com/primitives",
+      "domain": "www.radix-ui.com",
+      "title": "Radix Primitives",
+      "bookmarkTitles": [
+        "Radix Primitives"
+      ],
+      "ownerNote": "Доступные React-примитивы без визуальных стилей: диалоги, меню, вкладки, переключатели и другие базовые элементы дизайн-системы.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "React",
+        "Доступность",
+        "Дизайн-системы",
+        "Headless UI",
+        "Open Source",
+        "Диалоги",
+        "Навигация",
+        "Исходники"
+      ],
+      "description": "Accessible, unstyled React primitives for design systems, including dialogs, menus, tabs, toggles, and other foundational interface elements.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "ed44d5920e2bb463",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://preline.co/",
+      "domain": "preline.co",
+      "title": "Preline UI",
+      "bookmarkTitles": [
+        "Preline UI"
+      ],
+      "ownerNote": "Библиотека UI-компонентов, блоков и шаблонов на Tailwind CSS с HTML и JavaScript. Подходит для разных фреймворков, есть материалы для AI-инструментов.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "Tailwind",
+        "HTML",
+        "JavaScript",
+        "Шаблоны",
+        "Блоки",
+        "Open Source",
+        "AI-кодинг",
+        "Исходники"
+      ],
+      "description": "A Tailwind CSS library of UI components, blocks, and templates using HTML and JavaScript, supporting multiple frameworks and AI-assisted workflows.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
+    },
+    {
+      "id": "4e5ec22852d992ce",
+      "featuredRank": 0,
+      "reviewHint": "curated",
+      "privacyHint": "public",
+      "status": "kept",
+      "url": "https://tactileui.dev/",
+      "domain": "tactileui.dev",
+      "title": "Tactile UI",
+      "bookmarkTitles": [
+        "Tactile UI"
+      ],
+      "ownerNote": "Интерактивные компоненты с ощущением настоящих устройств: кнопки, регуляторы, поля, индикаторы и блоки страниц. Живые примеры нажатия, вращения и перетаскивания.",
+      "tags": [
+        "Инструменты",
+        "Рефы",
+        "UI",
+        "Компоненты",
+        "Веб-разработка",
+        "Анимация",
+        "Интерактив",
+        "Микроанимации",
+        "Скевоморфизм",
+        "Кнопки",
+        "Регуляторы",
+        "Перетаскивание",
+        "Дизайн-системы"
+      ],
+      "description": "Interactive components inspired by physical hardware, including buttons, knobs, inputs, meters, and page blocks, with live press, turn, and drag interactions.",
+      "folderPaths": [
+        "Инструменты",
+        "Рефы"
+      ]
     }
   ]
 }

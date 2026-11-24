@@ -218,5 +218,9 @@
   "www.pinterest.com": "./favicons/www.pinterest.com.png",
   "motion.dev": "./favicons/motion.dev.png",
   "www.awwwards.com": "./favicons/www.awwwards.com.ico",
-  "designbookmark.com": "./favicons/designbookmark.com.ico"
+  "designbookmark.com": "./favicons/designbookmark.com.ico",
+  "ui.shadcn.com": "./favicons/ui.shadcn.com.png",
+  "www.radix-ui.com": "./favicons/www.radix-ui.com.png",
+  "coss.com": "./favicons/coss.com.ico",
+  "preline.co": "./favicons/preline.co.ico"
 }

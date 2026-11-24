@@ -172,7 +172,7 @@ export const catalogEN = {
   "ea7e247a1ef2f9dd": "Free fonts for design projects.",
   "6fdb13c271893e3e": "A gallery of web interfaces and individual UI elements.",
   "dd5e5998e23daefc": "A GSAP magnetic button demo with several animation modes.",
-  "bfd3d4ae70439c67": "Interactive UI blocks: buttons, cards, and physics-based interactions.",
+  "bfd3d4ae70439c67": "A gallery of interactive UI blocks, including buttons, cards, hover, press, and drag effects, with live micro-animation and physical interaction examples.",
   "45e6f7e98a9afdbf": "Interface details and examples of polished execution.",
   "43ab8ae441bb99ee": "Web and mobile interface references.",
   "3fc1bbdc29d225a1": "Videos of interactions and animations in mobile apps.",
@@ -269,7 +269,7 @@ export const catalogEN = {
   "3a81b1e5a03c959f": "A standalone reference image board for Windows, Mac, and Linux, suited to illustration, painting, and 3D modeling.",
   "a7b82865c1632a0d": "A library of scroll-driven website templates and AI prompts, with interactive page references and starting points for development.",
   "1d471d334f5f21d3": "A library of looping WebGL backgrounds and shader components, including gradients, grain, liquid metal, glass, and 3D, with React, HTML, and MP4 exports.",
-  "d367e4b4939b761e": "Animated components built with React, TypeScript, Tailwind, and Motion, including globes, particles, orbits, light beams, and text reveals for landing pages.",
+  "d367e4b4939b761e": "Animated React components built with Tailwind and Motion, including particles, light beams, orbits, and text effects for landing and product pages.",
   "ece76af5ddb66bbb": "An animated gradient generator with controls for colors, shape, texture, and motion, creating abstract surfaces and 3D backgrounds for websites and designs.",
   "be9e40b9672b7d79": "A JavaScript library for interactive 3D graphics, with documentation, an editor, and source-code examples of scenes, particles, materials, shaders, and animation.",
   "b21916cb5d271e64": "Website technology lookup covering CMS platforms, libraries, analytics, and other services, helping identify a project's technology stack.",
@@ -286,5 +286,11 @@ export const catalogEN = {
   "2f2b909d5b4bee78": "An animation library for JavaScript, React, and Vue, covering springs, gestures, transitions, sequences, and scroll, with documentation and code examples.",
   "180f80d4379b2dc9": "Live HTML, CSS, and JavaScript examples with editable code, including animation, loaders, transitions, particles, and interactive effects.",
   "d9f7f7dd0a7cae3c": "A collection of videos and code-based animations made with Claude, with originals, prompts, and links to recreated examples.",
-  "0e3e17d3bc16fbae": "A live gallery of animated UI components, including buttons, inputs, navigation, cards, and text effects, with code for integration using Claude and Codex."
+  "0e3e17d3bc16fbae": "A live gallery of animated UI components, including buttons, inputs, navigation, cards, and text effects, with code for integration using Claude and Codex.",
+  "11217e97399022d9": "Accessible, customizable UI components with source code, providing a foundation for design systems with forms, tables, dialogs, charts, and blocks.",
+  "e7430ab3df44ce7e": "Open-source React components from Cal.com, powered by Base UI and Tailwind CSS, with accessible building blocks and customizable source code.",
+  "69a08bf13d7bfde8": "Extensible components for shadcn/ui, including file dropzones, editors, tables, color pickers, and complex interface blocks, with open-source code.",
+  "9a0bf80066fd6b6e": "Accessible, unstyled React primitives for design systems, including dialogs, menus, tabs, toggles, and other foundational interface elements.",
+  "ed44d5920e2bb463": "A Tailwind CSS library of UI components, blocks, and templates using HTML and JavaScript, supporting multiple frameworks and AI-assisted workflows.",
+  "4e5ec22852d992ce": "Interactive components inspired by physical hardware, including buttons, knobs, inputs, meters, and page blocks, with live press, turn, and drag interactions."
 };
