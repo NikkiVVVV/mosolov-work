@@ -1,0 +1,350 @@
+{
+  "source": "https://www.figma.com/design/v7aKgF6uRDqpCGLowgnSqt/?node-id=5462-198",
+  "groups": [
+    {
+      "name": "Референсы",
+      "items": [
+        {
+          "title": "60fps.design",
+          "url": "https://60fps.design/",
+          "note": "Видео взаимодействий и анимаций мобильных приложений."
+        },
+        {
+          "title": "Mobbin",
+          "url": "https://mobbin.com/discover/apps/ios",
+          "note": "Скриншоты и пользовательские сценарии iOS-приложений."
+        },
+        {
+          "title": "Design Spells",
+          "url": "https://www.designspells.com/",
+          "note": "Необычные детали, взаимодействия и анимации интерфейсов."
+        },
+        {
+          "title": "LottieFiles",
+          "url": "https://lottiefiles.com/",
+          "note": "Библиотека готовых Lottie-анимаций, персонажей, иконок и сцен."
+        },
+        {
+          "title": "Rive Marketplace",
+          "url": "https://rive.app/marketplace/",
+          "note": "Готовые интерактивные сцены, персонажи и анимации для изучения в Rive."
+        },
+        {
+          "title": "Pinterest",
+          "url": "https://www.pinterest.com/",
+          "note": "Визуальные метафоры, композиции и подборки моушн-дизайна."
+        },
+        {
+          "title": "Dribbble",
+          "url": "https://dribbble.com/",
+          "note": "Микроанимации интерфейсов и моушн-концепции дизайнеров."
+        },
+        {
+          "title": "Behance",
+          "url": "https://www.behance.net/",
+          "note": "Дизайн-кейсы, моушн-проекты и разбор визуальных решений."
+        },
+        {
+          "title": "10000refs.me",
+          "url": "https://10000refs.me/library",
+          "note": "Много рефов анимации и кино."
+        },
+        {
+          "title": "Showreel.design",
+          "url": "https://showreel.design/",
+          "note": "Подборка работ и примеров моушн-дизайна."
+        },
+        {
+          "title": "Recent",
+          "url": "https://recent.design/",
+          "note": "Галерея сайтов, интерфейсов и анимаций со ссылками на оригиналы."
+        },
+        {
+          "title": "Awwwards",
+          "url": "https://www.awwwards.com/",
+          "note": "Сайты с анимациями, интерактивами и переходами."
+        },
+        {
+          "title": "Footer Design",
+          "url": "https://www.footer.design/",
+          "note": "Футеры реальных сайтов: композиции, навигация и анимация."
+        },
+        {
+          "title": "Refero Styles",
+          "url": "https://styles.refero.design/",
+          "note": "Стили продуктовых сайтов и файлы DESIGN.md для передачи контекста ИИ."
+        },
+        {
+          "title": "Locomotive",
+          "url": "https://locomotive.ca/en",
+          "note": "Появление карточки проекта при наведении на текст"
+        },
+        {
+          "title": "Five into One",
+          "url": "https://tech100-five-into-one.vercel.app/",
+          "note": "Классное появление карточек."
+        },
+        {
+          "title": "Noman · Stickers",
+          "url": "https://iamnoman.com/stickers",
+          "note": "Стикеры отклеиваются при взаимодействии. Реф тактильной анимации."
+        },
+        {
+          "title": "Arkon · Wavy Cubes",
+          "url": "https://projects.arkon.digital/threejs/wavy-cubes",
+          "note": "Волна из 3D-кубиков. Реф анимированного фона."
+        },
+        {
+          "title": "Music Player",
+          "url": "https://gobzzzmusicplayer2024.vercel.app/",
+          "note": "Карточки для плеера."
+        },
+        {
+          "title": "Measured",
+          "url": "https://www.measured.site/",
+          "note": "Объект двигается по мере скролла. Реф связи анимации с прокруткой."
+        },
+        {
+          "title": "Twitter / X",
+          "url": "https://x.com/explore",
+          "note": "Микроанимации, UI-эксперименты и работы дизайнеров."
+        },
+        {
+          "title": "Threads",
+          "url": "https://www.threads.com/",
+          "note": "Работы дизайнеров, короткие демо и обсуждения UI-анимации."
+        }
+      ]
+    },
+    {
+      "name": "Код и компоненты",
+      "items": [
+        {
+          "title": "React Bits",
+          "url": "https://reactbits.dev/",
+          "note": "Карточки, фоны, курсоры и текстовые эффекты. В том числе Pixel Blast."
+        },
+        {
+          "title": "Codrops",
+          "url": "https://tympanus.net/codrops/hub/all",
+          "note": "Экспериментальные веб-эффекты, переходы, 3D-галереи. Демо и код."
+        },
+        {
+          "title": "GSAP",
+          "url": "https://gsap.com/",
+          "note": "Библиотека веб-анимаций, плагины, документация и примеры с кодом."
+        },
+        {
+          "title": "Motion",
+          "url": "https://motion.dev/docs",
+          "note": "Анимации, пружины и последовательности для JS, React и Vue."
+        },
+        {
+          "title": "transitions.dev",
+          "url": "https://transitions.dev/",
+          "note": "Переходы с кодом: смена текста, раскрытие меню и изменение размеров карточек."
+        },
+        {
+          "title": "Dot Matrix Loaders",
+          "url": "https://dotmatrix.zzzzshawn.cloud/",
+          "note": "Анимированные точечные лоудеры."
+        },
+        {
+          "title": "Jelly UI",
+          "url": "https://jelly-ui.com/#jelly-button",
+          "note": "Коллекция резиновых кнопок и элементов."
+        },
+        {
+          "title": "Framer · Confidential Folder",
+          "url": "https://www.framer.com/marketplace/components/confidential-folder",
+          "note": "Интерактивная папка с плавным раскрытием. Компонент для Framer."
+        },
+        {
+          "title": "Obsidian UI",
+          "url": "https://www.obsidianui.dev/components#component-gallery",
+          "note": "Интерактивные React-компоненты на Motion и Tailwind. Демо и код."
+        },
+        {
+          "title": "metalforge.xyz",
+          "url": "https://metalforge.xyz/",
+          "note": "Шейдеры, анимации и цветные потоки Light Drip для веба и приложений."
+        },
+        {
+          "title": "kobra.systems",
+          "url": "https://kobra.systems/",
+          "note": "React-компоненты: формы, таблицы, меню и интерфейсы чата."
+        },
+        {
+          "title": "uiarc.dev",
+          "url": "https://uiarc.dev/",
+          "note": "Анимированные React-компоненты: чат, галереи, док и готовые блоки."
+        },
+        {
+          "title": "kinetics.colorion.co",
+          "url": "https://kinetics.colorion.co/",
+          "note": "Пружинные кнопки, карточки и переходы для интерфейса."
+        },
+        {
+          "title": "beui.dev",
+          "url": "https://beui.dev/",
+          "note": "React-компоненты на Motion: анимированные формы, списки и графики."
+        },
+        {
+          "title": "reverseui.com",
+          "url": "https://reverseui.com/",
+          "note": "Частицы, радиальное меню, док и светящиеся фоны."
+        },
+        {
+          "title": "DevClub UI",
+          "url": "https://ui.devclubxnst.com/",
+          "note": "Упругие анимации, шейдеры и микроинтеракции с готовым кодом."
+        },
+        {
+          "title": "SmoothUI",
+          "url": "https://smoothui.dev/",
+          "note": "Анимированные React-компоненты и блоки на Motion и Tailwind."
+        },
+        {
+          "title": "vengeanceui.com",
+          "url": "https://vengeanceui.com/",
+          "note": "Эффекты наведения, подсказки и блоки со скролл-анимацией."
+        },
+        {
+          "title": "Aceternity UI",
+          "url": "https://ui.aceternity.com/components",
+          "note": "3D-карточки, фоны, параллакс, ховеры и текстовые эффекты. React-код."
+        },
+        {
+          "title": "Skiper UI",
+          "url": "https://skiper-ui.com/",
+          "note": "Интерактивные карточки, курсоры и микроанимации. Демо и код."
+        },
+        {
+          "title": "Kokonut UI",
+          "url": "https://kokonutui.com/",
+          "note": "React-компоненты на Motion: формы, карточки, чат и AI-интерфейсы."
+        },
+        {
+          "title": "Cult UI",
+          "url": "https://www.cult-ui.com/",
+          "note": "Компоненты, блоки и шаблоны для shadcn/ui и AI-интерфейсов."
+        },
+        {
+          "title": "Animata",
+          "url": "https://animata.design/",
+          "note": "Анимированные кнопки, карточки, фоны, текст и вкладки. React-код."
+        },
+        {
+          "title": "Eldora UI",
+          "url": "https://www.eldoraui.site/",
+          "note": "Анимированные компоненты на React, TypeScript, Tailwind и Motion."
+        },
+        {
+          "title": "Hover.dev",
+          "url": "https://www.hover.dev/",
+          "note": "Анимированные формы, карточки, меню, таблицы и вкладки. React-код."
+        },
+        {
+          "title": "Magic UI",
+          "url": "https://magicui.design/",
+          "note": "Частицы, орбиты, световые линии и анимации текста. React-код."
+        },
+        {
+          "title": "Three.js",
+          "url": "https://threejs.org/",
+          "note": "Примеры интерактивных 3D-сцен, шейдеров и анимаций с исходным кодом."
+        },
+        {
+          "title": "Uiverse",
+          "url": "https://uiverse.io/",
+          "note": "Кнопки, переключатели, формы и лоудеры. HTML/CSS, Tailwind и React."
+        },
+        {
+          "title": "CodePen",
+          "url": "https://codepen.io/",
+          "note": "Живые HTML/CSS/JS-эксперименты с доступным кодом."
+        },
+        {
+          "title": "awesome-opus5-5-videos",
+          "url": "https://github.com/yihui-dev/awesome-opus5-5-videos",
+          "note": "Кодовые анимации и промпты из подборки для кейса запроса предложений."
+        },
+        {
+          "title": "Morphicons",
+          "url": "https://www.morphicons.com/",
+          "note": "SVG-иконки превращаются друг в друга с пружинной анимацией."
+        }
+      ]
+    },
+    {
+      "name": "Инструменты",
+      "items": [
+        {
+          "title": "Animos",
+          "url": "https://animos.app/editor",
+          "note": "Шаблоны для показа дизайна в движении. Загрузить макет и экспортировать видео."
+        },
+        {
+          "title": "HyperFrames",
+          "url": "https://hyperframes.heygen.com/",
+          "note": "Видеоредактор для агентов: монтаж, анимация, титры и эффекты."
+        },
+        {
+          "title": "Spline",
+          "url": "https://spline.design/",
+          "note": "Редактор интерактивных 3D-сцен для сайтов и приложений."
+        },
+        {
+          "title": "Mixamo",
+          "url": "https://www.mixamo.com/",
+          "note": "Готовые 3D-анимации персонажей и автоматический риггинг."
+        },
+        {
+          "title": "Powermove",
+          "url": "https://trypowermove.com/",
+          "note": "Моушн-редактор для Mac: слои, ключевые кадры, эффекты и расширения."
+        },
+        {
+          "title": "Motion Canvas",
+          "url": "https://motion-canvas.io/",
+          "note": "Создание анимированных видео кодом на TypeScript с предпросмотром."
+        },
+        {
+          "title": "Blockbench",
+          "url": "https://www.blockbench.net/",
+          "note": "Редактор low-poly 3D-моделей, риггинга и анимации персонажей."
+        },
+        {
+          "title": "Scrolltide",
+          "url": "https://scrolltide.co/",
+          "note": "Шаблоны сайтов со скролл-анимацией и промпты для их создания."
+        },
+        {
+          "title": "Scroll Shaders",
+          "url": "https://scrollshaders.com/",
+          "note": "WebGL-фоны и шейдеры. Экспорт React, HTML или видео MP4."
+        },
+        {
+          "title": "ShaderGradient",
+          "url": "https://shadergradient.co/",
+          "note": "Генератор анимированных градиентов, абстрактных поверхностей и 3D-фонов."
+        },
+        {
+          "title": "Book of Shapes",
+          "url": "https://bookofshapes.com/",
+          "note": "Генеративные SVG-паттерны: настроить рисунок и скачать."
+        },
+        {
+          "title": "Basement · Shader Lab",
+          "url": "https://eng.basement.studio/tools/shader-lab",
+          "note": "Шейдерные эффекты для текста, картинок и видео."
+        },
+        {
+          "title": "MotionSites",
+          "url": "https://motionsites.ai/",
+          "note": "Промпты для создания сайтов и первых экранов с анимацией."
+        }
+      ]
+    }
+  ]
+}

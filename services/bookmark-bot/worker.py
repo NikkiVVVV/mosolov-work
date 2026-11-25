@@ -6,9 +6,11 @@ import os
 import re
 import time
 import urllib.request
+import urllib.error
 from urllib.parse import quote
 from pathlib import Path
 from store import Store, search
+from workshop import widget_html, fallback as workshop_fallback
 
 MAX_IMAGE = 8 * 1024 * 1024
 
@@ -21,13 +23,21 @@ def request_json(url, payload, headers=None, timeout=35, maximum=2*1024*1024):
         raise ValueError('Ответ слишком большой')
     return json.loads(raw)
 
+class TelegramAPIError(RuntimeError):
+    def __init__(self, code):
+        self.code=code
+        super().__init__('Telegram API request failed')
+
 class Telegram:
     def __init__(self, token):
         self.token = token
     def call(self, method, payload):
-        data = request_json('https://api.telegram.org/bot'+self.token+'/'+method, payload, timeout=40)
+        try:
+            data = request_json('https://api.telegram.org/bot'+self.token+'/'+method, payload, timeout=40)
+        except urllib.error.HTTPError as error:
+            raise TelegramAPIError(error.code) from None
         if not data.get('ok'):
-            raise RuntimeError('Telegram request failed')
+            raise TelegramAPIError(data.get('error_code',500))
         return data['result']
     def send(self, chat, text, keyboard=None):
         payload = {'chat_id':chat, 'text':text[:4000], 'link_preview_options':{'is_disabled':True}}
@@ -94,13 +104,28 @@ HELP = 'Помогу найти нужные сайты в закладках. �
 OWNER_HELP = '\n\nТы также можешь прислать скриншот со ссылками для добавления. /export — выгрузить сохранённые ссылки.'
 START_MENU = [
     [{'text':'Найти закладки','callback_data':'find'}],
-    [{'text':'Материалы с воркшопа','url':'https://links.mosolov.dev/'}],
+    [{'text':'Материалы с воркшопа','callback_data':'workshop'}],
     [{'text':'Уютный ТГ','url':'https://t.me/nikir_public'}],
 ]
 
 class Bot:
-    def __init__(self, store, telegram, catalog, allowed, vision=None):
+    def __init__(self, store, telegram, catalog, allowed, vision=None, workshop_zip=None):
         self.store, self.telegram, self.catalog, self.allowed, self.vision = store, telegram, catalog, set(allowed), vision
+        self.workshop_zip=workshop_zip
+    def materials(self, chat_id, section=None, page=0):
+        extra=[[{'text':'Скачать ZIP','callback_data':'workshop_zip'}]] if self.workshop_zip else None
+        if section is None:
+            payload={'chat_id':chat_id,'html':widget_html(),'width':0,'height':0,'allow_queries':False,
+                     'caption':'Материалы с воркшопа'}
+            if extra:payload['reply_markup']={'inline_keyboard':extra}
+            try:
+                self.telegram.call('sendWidget',payload)
+                print('Workshop widget delivered',flush=True)
+                return
+            except TelegramAPIError as error:
+                if error.code not in (400,404):raise
+        text,keyboard=workshop_fallback(section or 0,page)
+        self.telegram.send(chat_id,text,keyboard+(extra or []))
     def handle(self, update):
         callback = update.get('callback_query')
         message = callback.get('message', {}) if callback else update.get('message', {})
@@ -112,6 +137,17 @@ class Bot:
         chat_id = chat['id']
         if callback:
             data = callback.get('data', '')
+            if data == 'workshop' or re.fullmatch(r'workshop:[0-2]:[0-9]{1,2}',data):
+                self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
+                if data=='workshop':self.materials(chat_id)
+                else:
+                    _,section,page=data.split(':')
+                    self.materials(chat_id,int(section),int(page))
+                return
+            if data == 'workshop_zip':
+                self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
+                if self.workshop_zip:self.telegram.call('sendDocument',{'chat_id':chat_id,'document':self.workshop_zip})
+                return
             if data == 'find':
                 self.telegram.call('answerCallbackQuery', {'callback_query_id':callback['id']})
                 self.telegram.send(chat_id, 'Какие закладки найти? Например: «анимация кнопок», «шрифты» или «платёжный экран».')
@@ -194,7 +230,7 @@ def main():
     vision = None
     if os.environ.get('BOT_VISION_API_KEY'):
         vision = Vision(os.environ.get('BOT_VISION_BASE_URL',''), os.environ['BOT_VISION_API_KEY'], os.environ.get('BOT_VISION_MODEL',''))
-    bot = Bot(store, telegram, catalog, allowed, vision)
+    bot = Bot(store, telegram, catalog, allowed, vision,os.environ.get('WORKSHOP_ZIP_FILE_ID') or None)
     print('Bookmark bot started: catalog='+str(len(catalog))+', vision='+str(vision is not None), flush=True)
     while True:
         try:
