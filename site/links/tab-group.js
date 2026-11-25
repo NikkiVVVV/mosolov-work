@@ -23,7 +23,7 @@ export function createTabGroup(element, onChange) {
           const card=document.createElement('span'); card.className='workshop-icon-card';
           for (const side of ['front','back']) {
             const image=document.createElement('img'); image.className='workshop-icon-face '+side;
-            image.src='./assets/workshop-citydrive.png'; image.alt=''; image.width=20; image.height=20; image.draggable=false;
+            image.src='./assets/workshop-citydrive.png'; image.alt=''; image.width=18; image.height=18; image.draggable=false;
             card.append(image);
           }
           for (const side of ['left','right','top','bottom']) {
