@@ -56,6 +56,7 @@ class Store:
             CREATE TABLE IF NOT EXISTS saved (url TEXT PRIMARY KEY, payload TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS limits (owner INTEGER NOT NULL, day TEXT NOT NULL, count INTEGER NOT NULL,
               PRIMARY KEY(owner,day));
+            CREATE TABLE IF NOT EXISTS search_limits (owner INTEGER PRIMARY KEY, minute INTEGER NOT NULL, count INTEGER NOT NULL);
             """)
     @contextmanager
     def connect(self):
@@ -83,6 +84,15 @@ class Store:
             if count >= maximum:
                 raise ValueError('Лимит скриншотов на сегодня исчерпан')
             db.execute('UPDATE limits SET count=count+1 WHERE owner=? AND day=?', (owner, day))
+    def allow_search(self, owner, maximum=15):
+        minute = int(time.time() // 60)
+        with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            db.execute('DELETE FROM search_limits WHERE minute<?', (minute-2,))
+            db.execute('INSERT INTO search_limits VALUES(?,?,1) ON CONFLICT(owner) DO UPDATE SET '
+                       'count=CASE WHEN minute=excluded.minute THEN count+1 ELSE 1 END, minute=excluded.minute',
+                       (owner,minute))
+            return db.execute('SELECT count FROM search_limits WHERE owner=?',(owner,)).fetchone()[0] <= maximum
     def preview(self, owner, update_id, entries):
         if not isinstance(entries, list) or not 1 <= len(entries) <= 20:
             raise ValueError('На скрине не найдены ссылки или их больше 20')

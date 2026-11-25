@@ -41,10 +41,39 @@ class BotTests(unittest.TestCase):
         self.bot=Bot(self.store,self.telegram,[record(ENTRY)],{42},FakeVision())
     def tearDown(self):
         self.temp.cleanup()
-    def test_unapproved_user_and_group_cannot_ingest_or_search(self):
+    def test_public_user_can_search_but_group_is_ignored(self):
         self.bot.handle(update('font',actor=99))
+        self.assertIn('https://example.com',self.telegram.messages[0][1])
+        self.telegram.messages.clear()
         u=update('font');u['message']['chat']['type']='group';self.bot.handle(u)
         self.assertEqual(self.telegram.messages,[])
+    def test_start_menu_and_owner_only_help(self):
+        self.bot.handle(update('/start',actor=99))
+        self.assertNotIn('/export',self.telegram.messages[-1][1])
+        keyboard=self.telegram.messages[-1][2]
+        self.assertEqual([r[0]['text'] for r in keyboard],['Найти закладки','Закладки с воркшопа','Уютный ТГ'])
+        self.bot.handle(update('/start'))
+        self.assertIn('/export',self.telegram.messages[-1][1])
+    def test_public_cannot_upload_export_or_confirm_even_forged_callback(self):
+        token=self.store.preview(42,1,[ENTRY])
+        with patch.object(self.telegram,'image',side_effect=AssertionError('must not download')):
+            self.bot.handle(update(photo=[{'file_id':'a'}],actor=99))
+        self.bot.handle(update('/export',actor=99))
+        self.bot.handle({'callback_query':{'id':'c','from':{'id':99},'data':'save:'+token,
+            'message':{'message_id':4,'chat':{'id':99,'type':'private'}}}})
+        self.assertEqual(self.store.items(),[])
+        self.assertEqual(self.telegram.exports,[])
+    def test_owner_imports_are_not_exposed_to_public_search(self):
+        token=self.store.preview(42,1,[{**ENTRY,'url':'https://draft.example.com','ownerNote':'privatewordxyz','noteEN':'privatewordxyz'}])
+        self.store.confirm(token,42,True)
+        self.bot.handle(update('privatewordxyz',actor=99))
+        self.assertIn('Ничего не нашёл',self.telegram.messages[-1][1])
+        self.bot.handle(update('privatewordxyz'))
+        self.assertIn('draft.example.com',self.telegram.messages[-1][1])
+    def test_search_limit_is_per_user(self):
+        self.assertTrue(self.store.allow_search(99,maximum=1))
+        self.assertFalse(self.store.allow_search(99,maximum=1))
+        self.assertTrue(self.store.allow_search(42,maximum=1))
     def test_archive_search_without_model_and_payment_synonyms(self):
         self.bot.vision=None;self.bot.handle(update('типографика'))
         self.assertIn('https://example.com',self.telegram.messages[0][1])

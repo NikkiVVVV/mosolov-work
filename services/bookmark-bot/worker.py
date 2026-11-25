@@ -90,9 +90,13 @@ class Vision:
         content = re.sub(r'^\s*```(?:json)?\s*|\s*```\s*$', '', content)
         return json.loads(content)['items']
 
-HELP = ('Напиши, какой сайт ищешь, например «платёжный экран» или «анимация кнопок».\n'
-        'Или пришли скриншот со ссылками: я подготовлю теги и описания и покажу их перед сохранением.\n'
-        '/search запрос — поиск\n/export — файл с сохранёнными ссылками')
+HELP = 'Помогу найти нужные сайты в закладках. Напиши, что ищешь, или выбери действие ниже.'
+OWNER_HELP = '\n\nТы также можешь прислать скриншот со ссылками для добавления. /export — выгрузить сохранённые ссылки.'
+START_MENU = [
+    [{'text':'Найти закладки','callback_data':'find'}],
+    [{'text':'Закладки с воркшопа','url':'https://links.mosolov.dev/'}],
+    [{'text':'Уютный ТГ','url':'https://t.me/nikir_public'}],
+]
 
 class Bot:
     def __init__(self, store, telegram, catalog, allowed, vision=None):
@@ -102,13 +106,21 @@ class Bot:
         message = callback.get('message', {}) if callback else update.get('message', {})
         actor = (callback or message).get('from', {}).get('id')
         chat = message.get('chat', {})
-        if actor not in self.allowed or chat.get('type') != 'private' or chat.get('id') != actor:
-            return  # Fail closed; no public ingestion or messages to unrelated chats.
+        if not isinstance(actor, int) or chat.get('type') != 'private' or chat.get('id') != actor:
+            return
+        owner = actor in self.allowed
         chat_id = chat['id']
         if callback:
             data = callback.get('data', '')
+            if data == 'find':
+                self.telegram.call('answerCallbackQuery', {'callback_query_id':callback['id']})
+                self.telegram.send(chat_id, 'Какие закладки найти? Например: «анимация кнопок», «шрифты» или «платёжный экран».')
+                return
             match = re.fullmatch(r'(save|cancel):([a-f0-9]{24})', data)
             if match:
+                if not owner:
+                    self.telegram.call('answerCallbackQuery', {'callback_query_id':callback['id'],'text':'Добавление доступно только автору'})
+                    return
                 count = self.store.confirm(match[2], actor, match[1]=='save')
                 self.telegram.call('answerCallbackQuery', {'callback_query_id':callback['id'], 'text':'Готово'})
                 self.telegram.call('editMessageReplyMarkup', {'chat_id':chat_id,'message_id':message['message_id'],'reply_markup':{'inline_keyboard':[]}})
@@ -116,9 +128,12 @@ class Bot:
             return
         text = message.get('text', '').strip()
         if text.startswith(('/start','/help')):
-            self.telegram.send(chat_id, HELP)
+            self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), START_MENU)
             return
         if text == '/export':
+            if not owner:
+                self.telegram.send(chat_id, 'Добавление и экспорт доступны только автору. Напиши, какие закладки найти.')
+                return
             items = self.store.items()
             if not items:
                 self.telegram.send(chat_id, 'Сохранённых ссылок пока нет')
@@ -129,6 +144,9 @@ class Bot:
         document = message.get('document', {})
         image = max(photos, key=lambda p:p.get('width',0)*p.get('height',0)) if photos else document
         if photos or document:
+            if not owner:
+                self.telegram.send(chat_id, 'Здесь можно искать закладки. Напиши, какой сайт тебе нужен.')
+                return
             if not self.vision:
                 self.telegram.send(chat_id, 'Приём скриншотов пока не подключён. Поиск работает')
                 return
@@ -149,9 +167,12 @@ class Bot:
             return
         query = re.sub(r'^/search(?:@\w+)?\s*', '', text)[:500]
         if not query:
-            self.telegram.send(chat_id, HELP)
+            self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), START_MENU)
             return
-        results = search(query, self.catalog, self.store.items())
+        if not self.store.allow_search(actor):
+            self.telegram.send(chat_id, 'Слишком много запросов. Попробуй через минуту.')
+            return
+        results = search(query, self.catalog, self.store.items() if owner else [])
         if not results:
             self.telegram.send(chat_id, 'Ничего не нашёл. Попробуй другое слово или название сайта')
             return
@@ -160,9 +181,10 @@ class Bot:
 
 def main():
     token = os.environ.get('BOOKMARK_BOT_TOKEN', '')
-    allowed = {int(x.strip()) for x in os.environ.get('BOOKMARK_BOT_ALLOWED_USERS','').split(',') if x.strip()}
+    owner_ids = os.environ.get('BOOKMARK_BOT_OWNER_ID') or os.environ.get('BOOKMARK_BOT_ALLOWED_USERS','')
+    allowed = {int(x.strip()) for x in owner_ids.split(',') if x.strip()}
     if not token or not allowed:
-        raise RuntimeError('Set BOOKMARK_BOT_TOKEN and BOOKMARK_BOT_ALLOWED_USERS')
+        raise RuntimeError('Set BOOKMARK_BOT_TOKEN and BOOKMARK_BOT_OWNER_ID')
     mount = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH') or os.environ.get('BOT_STATE_DIR')
     if not mount:
         raise RuntimeError('Set a persistent BOT_STATE_DIR or Railway volume')
@@ -184,7 +206,7 @@ def main():
                     logging.warning('Bot update could not be completed: id=%s', update.get('update_id'))
                     message = update.get('message', {})
                     actor = message.get('from',{}).get('id')
-                    if actor in allowed and message.get('chat',{}).get('id') == actor:
+                    if isinstance(actor,int) and message.get('chat',{}).get('type') == 'private' and message.get('chat',{}).get('id') == actor:
                         telegram.send(actor, 'Не удалось обработать запрос. Попробуй ещё раз')
                 store.advance(update['update_id']+1)
         except Exception:
