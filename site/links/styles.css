@@ -185,6 +185,11 @@ th:first-child,td:first-child{padding-right:16px}
 .workshop-filter{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;isolation:isolate}
 .workshop-filter::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.18) 48%,transparent 70%);transform:translateX(-140%);animation:workshop-shine 7s ease-in-out 2}
 .filters .filter-button.workshop-filter[aria-pressed="true"]{background:#e2e7d4;color:#20251c}
-.workshop-spark{font-size:14px;line-height:16px;color:inherit}
+.workshop-icon{display:inline-block;width:20px;height:20px;flex:0 0 20px;perspective:100px;pointer-events:none}
+.workshop-icon-card{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;animation:workshop-turn 14s linear infinite}
+.workshop-icon-face{position:absolute;inset:0;display:block;width:20px;height:20px;object-fit:cover;border-radius:4px;backface-visibility:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),1px 1px 2px rgba(0,0,0,.25)}
+.workshop-icon-face.front{transform:translateZ(1px)}
+.workshop-icon-face.back{transform:rotateY(180deg) translateZ(1px)}
+@keyframes workshop-turn{from{transform:rotateX(12deg) rotateY(0deg) rotateZ(-6deg)}to{transform:rotateX(12deg) rotateY(360deg) rotateZ(-6deg)}}
 @keyframes workshop-shine{0%,65%{transform:translateX(-140%)}90%,100%{transform:translateX(140%)}}
-@media(prefers-reduced-motion:reduce){.workshop-filter::after{animation:none}}
+@media(prefers-reduced-motion:reduce){.workshop-filter::after,.workshop-icon-card{animation:none}}

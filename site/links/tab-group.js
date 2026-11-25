@@ -19,7 +19,14 @@ export function createTabGroup(element, onChange) {
         button.textContent = label;
         if (featured) {
           button.classList.add('workshop-filter');
-          const star=document.createElement('span'); star.className='workshop-spark'; star.textContent='✦'; star.setAttribute('aria-hidden','true'); button.append(star);
+          const icon=document.createElement('span'); icon.className='workshop-icon'; icon.setAttribute('aria-hidden','true');
+          const card=document.createElement('span'); card.className='workshop-icon-card';
+          for (const side of ['front','back']) {
+            const image=document.createElement('img'); image.className='workshop-icon-face '+side;
+            image.src='./assets/workshop-citydrive.png'; image.alt=''; image.width=20; image.height=20; image.draggable=false;
+            card.append(image);
+          }
+          icon.append(card); button.append(icon);
         }
         button.setAttribute('aria-pressed', String(Array.isArray(selected) ? selected.includes(id) : id === selected));
         return button;
