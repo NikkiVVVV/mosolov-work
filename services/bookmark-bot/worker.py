@@ -195,6 +195,7 @@ def main():
     if os.environ.get('BOT_VISION_API_KEY'):
         vision = Vision(os.environ.get('BOT_VISION_BASE_URL',''), os.environ['BOT_VISION_API_KEY'], os.environ.get('BOT_VISION_MODEL',''))
     bot = Bot(store, telegram, catalog, allowed, vision)
+    print('Bookmark bot started: catalog='+str(len(catalog))+', vision='+str(vision is not None), flush=True)
     while True:
         try:
             updates = telegram.call('getUpdates', {'offset':store.offset(),'timeout':25,'limit':10,'allowed_updates':['message','callback_query']})
