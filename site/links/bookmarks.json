@@ -7454,6 +7454,726 @@
       "status": "kept",
       "privacyHint": "public",
       "reviewHint": "curated"
+    },
+    {
+      "id": "153d9d999d8b6059",
+      "url": "https://60fps.design/shots/lego-package-address-highlight-interaction",
+      "domain": "60fps.design",
+      "title": "LEGO · Адрес на посылке",
+      "bookmarkTitles": [
+        "LEGO · Адрес на посылке"
+      ],
+      "ownerNote": "При вводе адреса подпись на LEGO-посылке обновляется и подсвечивается. Связь формы с объектом.",
+      "noteEN": "Interactive search input rapidly updates an address label on a LEGO shipping package visual.",
+      "description": "Interactive search input rapidly updates an address label on a LEGO shipping package visual.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Формы",
+        "Обратная связь",
+        "LEGO",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/lego-package-address-highlight-interaction"
+    },
+    {
+      "id": "b9c29ccb82fc6233",
+      "url": "https://60fps.design/shots/intowallet-onboarding-torch-focus-effect",
+      "domain": "60fps.design",
+      "title": "IntoWallet · Подсветка в онбординге",
+      "bookmarkTitles": [
+        "IntoWallet · Подсветка в онбординге"
+      ],
+      "ownerNote": "Световая маска выделяет части цифровой карты по шагам онбординга.",
+      "noteEN": "An onboarding carousel that uses a spotlight mask effect to highlight specific sections of a digital wallet card as the user steps through features.",
+      "description": "An onboarding carousel that uses a spotlight mask effect to highlight specific sections of a digital wallet card as the user steps through features.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Онбординг",
+        "Свет",
+        "Маски",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/intowallet-onboarding-torch-focus-effect"
+    },
+    {
+      "id": "7a2ac53756b4c164",
+      "url": "https://60fps.design/shots/airbnb-identity-verification-card-flip-scan-interaction",
+      "domain": "60fps.design",
+      "title": "Airbnb · Карта проверки личности",
+      "bookmarkTitles": [
+        "Airbnb · Карта проверки личности"
+      ],
+      "ownerNote": "Наклон, переворот и голографический блеск карты в сценарии проверки личности.",
+      "noteEN": "A 3D holographic card tilt and shimmer effect used for identity verification.",
+      "description": "A 3D holographic card tilt and shimmer effect used for identity verification.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "3D",
+        "Карточки",
+        "Блеск",
+        "Верификация",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/airbnb-identity-verification-card-flip-scan-interaction"
+    },
+    {
+      "id": "5b8f0761bc940cad",
+      "url": "https://60fps.design/shots/not-boring-camera-customize-tabs-swipe-interaction",
+      "domain": "60fps.design",
+      "title": "Not Boring Camera · Настройка камеры",
+      "bookmarkTitles": [
+        "Not Boring Camera · Настройка камеры"
+      ],
+      "ownerNote": "Переключение вкладок поворачивает и приближает 3D-камеру к выбранной детали.",
+      "noteEN": "A 3D camera customization interface where swiping through tabs dynamically pans, rotates, and zooms the 3D model to focus on selected components.",
+      "description": "A 3D camera customization interface where swiping through tabs dynamically pans, rotates, and zooms the 3D model to focus on selected components.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "3D",
+        "Вкладки",
+        "Камера",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/not-boring-camera-customize-tabs-swipe-interaction"
+    },
+    {
+      "id": "84b1fad96e83310b",
+      "url": "https://60fps.design/shots/mileways-passbook",
+      "domain": "60fps.design",
+      "title": "Mileways · Посадочный талон",
+      "bookmarkTitles": [
+        "Mileways · Посадочный талон"
+      ],
+      "ownerNote": "Горизонтальный переворот 3D-карточки открывает посадочный талон на обороте.",
+      "noteEN": "A 3D horizontal card flip interaction revealing a skeuomorphic boarding pass on the back.",
+      "description": "A 3D horizontal card flip interaction revealing a skeuomorphic boarding pass on the back.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "3D",
+        "Карточки",
+        "Переворот",
+        "Скевоморфизм",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/mileways-passbook"
+    },
+    {
+      "id": "23abd79b33fef29e",
+      "url": "https://60fps.design/shots/waymo-pulse-animation",
+      "domain": "60fps.design",
+      "title": "Waymo · Пульсация автомобиля",
+      "bookmarkTitles": [
+        "Waymo · Пульсация автомобиля"
+      ],
+      "ownerNote": "Мягкие радиальные волны расходятся от 3D-автомобиля на пустом экране.",
+      "noteEN": "A subtle, futuristic radial pulse radiating outward from a 3D car illustration on an empty state screen.",
+      "description": "A subtle, futuristic radial pulse radiating outward from a 3D car illustration on an empty state screen.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Пустой экран",
+        "Пульсация",
+        "Автомобили",
+        "3D",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/waymo-pulse-animation"
+    },
+    {
+      "id": "146f81e0b00c8905",
+      "url": "https://60fps.design/shots/not-boring-camera-dial-swipe-interaction",
+      "domain": "60fps.design",
+      "title": "Not Boring Camera · Тактильные регуляторы",
+      "bookmarkTitles": [
+        "Not Boring Camera · Тактильные регуляторы"
+      ],
+      "ownerNote": "Вращающиеся 3D-диски, упругие ползунки и звуки в интерфейсе камеры.",
+      "noteEN": "A highly tactile camera interface featuring 3D rotating dials, springy sliders, and playful sound effects.",
+      "description": "A highly tactile camera interface featuring 3D rotating dials, springy sliders, and playful sound effects.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Регуляторы",
+        "Слайдеры",
+        "Скевоморфизм",
+        "Звук",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/not-boring-camera-dial-swipe-interaction"
+    },
+    {
+      "id": "02a9f2a05d02609a",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/playing-haptics",
+      "domain": "developer.apple.com",
+      "title": "Apple HIG · Тактильный отклик",
+      "bookmarkTitles": [
+        "Apple HIG · Тактильный отклик"
+      ],
+      "ownerNote": "Рекомендации Apple по тактильному отклику: когда применять вибрацию и как сочетать её с визуальным и звуковым ответом.",
+      "noteEN": "Apple guidelines for choosing haptic feedback and combining it with visual and audio responses.",
+      "description": "Apple guidelines for choosing haptic feedback and combining it with visual and audio responses.",
+      "tags": [
+        "Контекст",
+        "Тактильность",
+        "Haptics",
+        "iOS",
+        "Apple HIG",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/playing-haptics"
+    },
+    {
+      "id": "3b65259a4715640c",
+      "url": "https://developer.apple.com/videos/play/wwdc2021/10278/?time=485",
+      "domain": "developer.apple.com",
+      "title": "WWDC21 · Practice audio haptic design",
+      "bookmarkTitles": [
+        "WWDC21 · Practice audio haptic design"
+      ],
+      "ownerNote": "Практика проектирования звука и тактильного отклика. Ссылка ведёт к фрагменту на 8:05.",
+      "noteEN": "Practical audio-haptic design, linked to the workshop excerpt at 8:05.",
+      "description": "Practical audio-haptic design, linked to the workshop excerpt at 8:05.",
+      "tags": [
+        "Видео",
+        "Тактильность",
+        "Звук",
+        "Haptics",
+        "WWDC",
+        "iOS",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://developer.apple.com/videos/play/wwdc2021/10278/?time=485"
+    },
+    {
+      "id": "9e8e772920f77474",
+      "url": "https://developer.apple.com/videos/play/wwdc2019/810/?time=377",
+      "domain": "developer.apple.com",
+      "title": "WWDC19 · Designing Audio-Haptic Experiences",
+      "bookmarkTitles": [
+        "WWDC19 · Designing Audio-Haptic Experiences"
+      ],
+      "ownerNote": "Проектирование аудиотактильных взаимодействий. Ссылка ведёт к фрагменту на 6:17.",
+      "noteEN": "Designing audio-haptic experiences, linked to the workshop excerpt at 6:17.",
+      "description": "Designing audio-haptic experiences, linked to the workshop excerpt at 6:17.",
+      "tags": [
+        "Видео",
+        "Тактильность",
+        "Звук",
+        "Haptics",
+        "WWDC",
+        "iOS",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://developer.apple.com/videos/play/wwdc2019/810/?time=377"
+    },
+    {
+      "id": "1578e37be6d29ec6",
+      "url": "https://60fps.design/shots/shuteye-time-picker-interaction",
+      "domain": "60fps.design",
+      "title": "ShutEye · Выбор времени",
+      "bookmarkTitles": [
+        "ShutEye · Выбор времени"
+      ],
+      "ownerNote": "Цилиндрический селектор времени с масштабированием значений и упругим откликом.",
+      "noteEN": "A smooth, tactile custom time picker with springy physical feedback and cylindrical scaling.",
+      "description": "A smooth, tactile custom time picker with springy physical feedback and cylindrical scaling.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Выбор времени",
+        "Селекторы",
+        "Тактильность",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/shuteye-time-picker-interaction"
+    },
+    {
+      "id": "d586017310d1310d",
+      "url": "https://www.jeffkliu.com/projects/advertising/porsche",
+      "domain": "jeffkliu.com",
+      "title": "Jeffrey Liu · Porsche",
+      "bookmarkTitles": [
+        "Jeffrey Liu · Porsche"
+      ],
+      "ownerNote": "Полноэкранный рекламный креатив Porsche: покадровая анимация, последовательное появление текста и GSAP-таймлайн.",
+      "noteEN": "A Porsche page-grab ad with frame-by-frame animation, staggered text, and a GSAP timeline.",
+      "description": "A Porsche page-grab ad with frame-by-frame animation, staggered text, and a GSAP timeline.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "GSAP",
+        "Реклама",
+        "Автомобили",
+        "Веб-разработка",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://www.jeffkliu.com/projects/client-porsche"
+    },
+    {
+      "id": "993e1dec4a5ae3d9",
+      "url": "https://60fps.design/shots/cred-credit-card-full-page-offers-swipe-interaction",
+      "domain": "60fps.design",
+      "title": "CRED · Карта и предложения",
+      "bookmarkTitles": [
+        "CRED · Карта и предложения"
+      ],
+      "ownerNote": "Кредитная карта меняется при прокрутке и закрепляется в шапке, отмечая текущий раздел.",
+      "noteEN": "A scroll-driven product showcase where a central credit card morphs and pins to the header, dynamically updating to track page sections.",
+      "description": "A scroll-driven product showcase where a central credit card morphs and pins to the header, dynamically updating to track page sections.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Скролл",
+        "Карточки",
+        "Финтех",
+        "Морфинг",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/cred-credit-card-full-page-offers-swipe-interaction"
+    },
+    {
+      "id": "ef69caa1f21dd634",
+      "url": "https://60fps.design/shots/tesseract-3d-swirl-scroll-interaction",
+      "domain": "60fps.design",
+      "title": "Tesseract · Спираль карточек",
+      "bookmarkTitles": [
+        "Tesseract · Спираль карточек"
+      ],
+      "ownerNote": "При прокрутке карточки меню расходятся веером и поворачиваются в 3D-пространстве.",
+      "noteEN": "A highly tactile 3D swirl scroll interaction where menu cards fan out and rotate in 3D space as the user scrolls.",
+      "description": "A highly tactile 3D swirl scroll interaction where menu cards fan out and rotate in 3D space as the user scrolls.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "3D",
+        "Скролл",
+        "Карточки",
+        "Меню",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/tesseract-3d-swirl-scroll-interaction"
+    },
+    {
+      "id": "ad500d7ca48e21b5",
+      "url": "https://60fps.design/shots/wabi-animated-app-icons-in-featured-cards",
+      "domain": "60fps.design",
+      "title": "Wabi · Живые иконки в карточках",
+      "bookmarkTitles": [
+        "Wabi · Живые иконки в карточках"
+      ],
+      "ownerNote": "Стеклянные 3D-иконки поворачиваются вместе с горизонтальной прокруткой карусели.",
+      "noteEN": "Horizontal card carousel featuring interactive 3D glass-morphic icons that rotate in response to scroll position",
+      "description": "Horizontal card carousel featuring interactive 3D glass-morphic icons that rotate in response to scroll position",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "3D",
+        "Иконки",
+        "Стекло",
+        "Карусель",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/wabi-animated-app-icons-in-featured-cards"
+    },
+    {
+      "id": "32e52c4cc172a49f",
+      "url": "https://60fps.design/shots/district-weekend-pick-card-scroll-snap-selection-interaction",
+      "domain": "60fps.design",
+      "title": "District · Выбор направления",
+      "bookmarkTitles": [
+        "District · Выбор направления"
+      ],
+      "ownerNote": "Карточки направлений расширяются, показывают изображения и фиксируются в фокусе при прокрутке.",
+      "noteEN": "A vertical list of destination cards dynamically expands, reveals imagery, and snaps into focus as the user scrolls.",
+      "description": "A vertical list of destination cards dynamically expands, reveals imagery, and snaps into focus as the user scrolls.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Скролл",
+        "Карточки",
+        "Scroll Snap",
+        "Путешествия",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/district-weekend-pick-card-scroll-snap-selection-interaction"
+    },
+    {
+      "id": "9acfb9ecad5d8380",
+      "url": "https://masonobegi.com/demos/exploded-view",
+      "domain": "masonobegi.com",
+      "title": "Mason Obegi · Exploded View",
+      "bookmarkTitles": [
+        "Mason Obegi · Exploded View"
+      ],
+      "ownerNote": "3D-модель камеры разбирается на подписанные детали при прокрутке и собирается обратно.",
+      "noteEN": "A camera model separates into labeled parts as the page scrolls, then assembles again.",
+      "description": "A camera model separates into labeled parts as the page scrolls, then assembles again.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "3D",
+        "Скролл",
+        "Exploded View",
+        "Продуктовые страницы",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://masonobegi.com/demos/exploded-view"
+    },
+    {
+      "id": "4586b57be006fe68",
+      "url": "https://www.pinterest.com/pin/love-the-jeep-willys-easter-egg-on-the-front-windshield--571816483940647917/",
+      "domain": "pinterest.com",
+      "title": "Jeep · Пасхалка на стекле",
+      "bookmarkTitles": [
+        "Jeep · Пасхалка на стекле"
+      ],
+      "ownerNote": "Силуэт Jeep Willys у края лобового стекла. Пример небольшой скрытой детали в продукте из презентации.",
+      "noteEN": "A Jeep Willys silhouette near the windshield edge, a small hidden product detail from the presentation.",
+      "description": "A Jeep Willys silhouette near the windshield edge, a small hidden product detail from the presentation.",
+      "tags": [
+        "Рефы",
+        "Пасхалки",
+        "Автомобили",
+        "Детали",
+        "Продуктовый дизайн",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://www.pinterest.com/pin/love-the-jeep-willys-easter-egg-on-the-front-windshield--571816483940647917/"
+    },
+    {
+      "id": "b4404b1740ad780d",
+      "url": "https://www.completecar.ie/car-reviews/article/Tesla/Model_3/Model_3_Highland_(2024)/2270/12948/2023-Tesla-Model-3-Highland-(2024)-review.html",
+      "domain": "completecar.ie",
+      "title": "Tesla Model 3 Highland · Обзор",
+      "bookmarkTitles": [
+        "Tesla Model 3 Highland · Обзор"
+      ],
+      "ownerNote": "Обзор Tesla Model 3 Highland: интерьер, сенсорное управление и световые функции. Контекст к примеру Tesla из презентации.",
+      "noteEN": "A Tesla Model 3 Highland review covering the interior, touchscreen controls, and lighting features. Context for the presentation’s Tesla example.",
+      "description": "A Tesla Model 3 Highland review covering the interior, touchscreen controls, and lighting features. Context for the presentation’s Tesla example.",
+      "tags": [
+        "Рефы",
+        "Автомобили",
+        "Интерфейсы",
+        "Продуктовый дизайн",
+        "Tesla",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://www.completecar.ie/car-reviews/article/Tesla/Model_3/Model_3_%27Highland%27_%282024%29/2270/12948/2023-Tesla-Model-3-%27Highland%27-%282024%29-review.html"
+    },
+    {
+      "id": "486134bd1aeee556",
+      "url": "https://www.youtube.com/watch?v=8zxQpYYSvTM",
+      "domain": "youtube.com",
+      "title": "Tesla · Light Show",
+      "bookmarkTitles": [
+        "Tesla · Light Show"
+      ],
+      "ownerNote": "Видео Tesla Light Show из презентации: световое шоу автомобиля под музыку.",
+      "noteEN": "Tesla Light Show video from the presentation, showing car lights set to music.",
+      "description": "Tesla Light Show video from the presentation, showing car lights set to music.",
+      "tags": [
+        "Видео",
+        "Анимация",
+        "Звук",
+        "Свет",
+        "Автомобили",
+        "Tesla",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://www.youtube.com/watch?v=8zxQpYYSvTM"
+    },
+    {
+      "id": "2d39f4bd1ed290d5",
+      "url": "https://60fps.design/shots/citymapper-scroll-to-view-hidden-art",
+      "domain": "60fps.design",
+      "title": "Citymapper · Скрытые иллюстрации",
+      "bookmarkTitles": [
+        "Citymapper · Скрытые иллюстрации"
+      ],
+      "ownerNote": "Прокрутка пустого экрана открывает спрятанные линейные иллюстрации и пасхалки.",
+      "noteEN": "A playful vertical scroll interaction that reveals hidden line-art illustrations and Easter eggs on an empty state screen.",
+      "description": "A playful vertical scroll interaction that reveals hidden line-art illustrations and Easter eggs on an empty state screen.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Пасхалки",
+        "Скролл",
+        "Пустой экран",
+        "Иллюстрации",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/citymapper-scroll-to-view-hidden-art"
+    },
+    {
+      "id": "2c3fbb89314e6a47",
+      "url": "https://60fps.design/shots/arc-search-fidget-spinner",
+      "domain": "60fps.design",
+      "title": "Arc Search · Логотип-спиннер",
+      "bookmarkTitles": [
+        "Arc Search · Логотип-спиннер"
+      ],
+      "ownerNote": "Логотип можно раскрутить жестом, как фиджет-спиннер. Игровая микроинтеракция.",
+      "noteEN": "A playful interactive logo that spins like a fidget spinner when flicked or dragged.",
+      "description": "A playful interactive logo that spins like a fidget spinner when flicked or dragged.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Пасхалки",
+        "Жесты",
+        "Вращение",
+        "Игровые механики",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/arc-search-fidget-spinner"
+    },
+    {
+      "id": "2df84a7bd3dad1cf",
+      "url": "https://60fps.design/shots/x-2025-celebration-balloon-slide-animation",
+      "domain": "60fps.design",
+      "title": "X · Праздничные шары",
+      "bookmarkTitles": [
+        "X · Праздничные шары"
+      ],
+      "ownerNote": "Цветные воздушные шары поднимаются при переключении вкладок профиля.",
+      "noteEN": "A playful celebration easter egg where colorful balloons float up from the bottom of the screen as the user swipes through profile tabs.",
+      "description": "A playful celebration easter egg where colorful balloons float up from the bottom of the screen as the user swipes through profile tabs.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Интерактив",
+        "iOS",
+        "60fps",
+        "Пасхалки",
+        "Праздник",
+        "Вкладки",
+        "Частицы",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Материалы с воркшопа"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated",
+      "showTitle": true,
+      "sourceUrl": "https://60fps.design/shots/x-2025-celebration-balloon-slide-animation"
     }
   ]
 }

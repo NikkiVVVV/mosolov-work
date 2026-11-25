@@ -1,6 +1,6 @@
-import {inWorkshop,workshopFromURL} from './workshop-filter.js';
+import {inWorkshop,workshopFromURL} from './workshop-filter.js?v=20261125x';
 import { initSearchG2 } from './search-g2.js?v=20261016r';
-import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261125w';
+import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261125x';
 import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018l';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
@@ -190,7 +190,7 @@ function categoryLabel(item) {
 
 function row(item) {
   // A domain identifies the site without repeating a note or its SEO page title.
-  const title = cleanDomain(item.domain);
+  const title = item.showTitle ? displayTitle(item) : cleanDomain(item.domain);
   const note = (item.privacyHint === 'personal' ? [item.ownerNote,item.aiNote || item.description].filter(Boolean).join(' · ') : item.ownerNote || '').replace('Перетекание одной гонки в другую.', 'Перетекание одной в другую.');
   const icon = state.icons[item.domain];
   const monogram = siteMonogram(item.domain);

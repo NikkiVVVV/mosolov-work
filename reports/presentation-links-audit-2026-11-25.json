@@ -1,0 +1,1006 @@
+{
+  "source": "https://www.figma.com/design/v7aKgF6uRDqpCGLowgnSqt/?node-id=5462-198",
+  "page": "Ситидрайв итог",
+  "sourceHyperlinks": 90,
+  "selfLinkExcluded": 1,
+  "alreadyPresent": 66,
+  "added": 23,
+  "workshopTotal": 89,
+  "catalogTotal": 318,
+  "mapping": [
+    {
+      "node": "5462:216",
+      "sourceURL": "https://60fps.design/",
+      "catalogURL": "https://60fps.design/",
+      "id": "3fc1bbdc29d225a1"
+    },
+    {
+      "node": "5462:225",
+      "sourceURL": "https://mobbin.com/discover/apps/ios",
+      "catalogURL": "https://mobbin.design/browse/ios/apps",
+      "id": "2f57a1307d006e00"
+    },
+    {
+      "node": "5462:234",
+      "sourceURL": "https://www.designspells.com/",
+      "catalogURL": "https://www.designspells.com/",
+      "id": "17e97c7ec15f656a"
+    },
+    {
+      "node": "5462:243",
+      "sourceURL": "https://lottiefiles.com/",
+      "catalogURL": "https://lottiefiles.com/",
+      "id": "c1ca07c6f0261f38"
+    },
+    {
+      "node": "5462:250",
+      "sourceURL": "https://rive.app/marketplace/",
+      "catalogURL": "https://rive.app/marketplace/",
+      "id": "c09c2eaedcd58560"
+    },
+    {
+      "node": "5462:259",
+      "sourceURL": "https://www.pinterest.com/",
+      "catalogURL": "https://www.pinterest.com/",
+      "id": "f09c21614e7f6aba"
+    },
+    {
+      "node": "5462:266",
+      "sourceURL": "https://dribbble.com/",
+      "catalogURL": "https://dribbble.com/",
+      "id": "ef930eed8bcfaff7"
+    },
+    {
+      "node": "5462:273",
+      "sourceURL": "https://www.behance.net/",
+      "catalogURL": "https://www.behance.net/",
+      "id": "1027afe26b4ca5f4"
+    },
+    {
+      "node": "5462:280",
+      "sourceURL": "https://10000refs.me/library",
+      "catalogURL": "https://10000refs.me/library",
+      "id": "8a9499a9adf6f1a2"
+    },
+    {
+      "node": "5462:287",
+      "sourceURL": "https://showreel.design/",
+      "catalogURL": "https://showreel.design/",
+      "id": "dd455598100d7fd8"
+    },
+    {
+      "node": "5462:298",
+      "sourceURL": "https://recent.design/",
+      "catalogURL": "https://recent.design/",
+      "id": "c38bfbac2984424c"
+    },
+    {
+      "node": "5462:307",
+      "sourceURL": "https://www.awwwards.com/",
+      "catalogURL": "https://www.awwwards.com/",
+      "id": "3bb690a206a51974"
+    },
+    {
+      "node": "5462:316",
+      "sourceURL": "https://www.footer.design/",
+      "catalogURL": "https://www.footer.design/",
+      "id": "3e11236d4c9f17a7"
+    },
+    {
+      "node": "5462:325",
+      "sourceURL": "https://styles.refero.design/",
+      "catalogURL": "https://styles.refero.design/",
+      "id": "7dffe094a29be837"
+    },
+    {
+      "node": "5462:332",
+      "sourceURL": "https://locomotive.ca/en",
+      "catalogURL": "https://locomotive.ca/en",
+      "id": "4516d9fdc1ccc9fd"
+    },
+    {
+      "node": "5462:339",
+      "sourceURL": "https://tech100-five-into-one.vercel.app/",
+      "catalogURL": "https://tech100-five-into-one.vercel.app/",
+      "id": "3793b1e05b1d51fe"
+    },
+    {
+      "node": "5462:346",
+      "sourceURL": "https://iamnoman.com/stickers",
+      "catalogURL": "https://iamnoman.com/stickers",
+      "id": "9bc4b20c383db47f"
+    },
+    {
+      "node": "5462:353",
+      "sourceURL": "https://projects.arkon.digital/threejs/wavy-cubes",
+      "catalogURL": "https://projects.arkon.digital/threejs/wavy-cubes",
+      "id": "0cc6d2ba682be9ff"
+    },
+    {
+      "node": "5462:360",
+      "sourceURL": "https://gobzzzmusicplayer2024.vercel.app/",
+      "catalogURL": "https://gobzzzmusicplayer2024.vercel.app/",
+      "id": "e16f6b12ea91b3d7"
+    },
+    {
+      "node": "5462:367",
+      "sourceURL": "https://www.measured.site/",
+      "catalogURL": "https://www.measured.site/",
+      "id": "79c7411df4c7a943"
+    },
+    {
+      "node": "5462:374",
+      "sourceURL": "https://x.com/explore",
+      "catalogURL": "https://x.com/explore",
+      "id": "927dc5858ab90f84"
+    },
+    {
+      "node": "5462:381",
+      "sourceURL": "https://www.threads.com/",
+      "catalogURL": "https://www.threads.com/",
+      "id": "81658ed309e9298c"
+    },
+    {
+      "node": "5462:393",
+      "sourceURL": "https://reactbits.dev/",
+      "catalogURL": "https://reactbits.dev/",
+      "id": "4954943e6cf75804"
+    },
+    {
+      "node": "5462:400",
+      "sourceURL": "https://tympanus.net/codrops/hub/all",
+      "catalogURL": "https://tympanus.net/codrops/hub/all",
+      "id": "42c404fb72ebbf19"
+    },
+    {
+      "node": "5462:407",
+      "sourceURL": "https://gsap.com/",
+      "catalogURL": "https://gsap.com/",
+      "id": "6c668d3c43d8be3a"
+    },
+    {
+      "node": "5462:414",
+      "sourceURL": "https://motion.dev/docs",
+      "catalogURL": "https://motion.dev/docs",
+      "id": "2f2b909d5b4bee78"
+    },
+    {
+      "node": "5462:421",
+      "sourceURL": "https://transitions.dev/",
+      "catalogURL": "https://transitions.dev/",
+      "id": "b6cea785590f66a0"
+    },
+    {
+      "node": "5462:448",
+      "sourceURL": "https://dotmatrix.zzzzshawn.cloud/",
+      "catalogURL": "https://dotmatrix.zzzzshawn.cloud/",
+      "id": "51c7b475f51e9df9"
+    },
+    {
+      "node": "5462:455",
+      "sourceURL": "https://jelly-ui.com/#jelly-button",
+      "catalogURL": "https://jelly-ui.com/#jelly-button",
+      "id": "3b37fc49daf4ccb9"
+    },
+    {
+      "node": "5462:462",
+      "sourceURL": "https://www.framer.com/marketplace/components/confidential-folder",
+      "catalogURL": "https://www.framer.com/marketplace/components/confidential-folder",
+      "id": "2e08f930e3f6f512"
+    },
+    {
+      "node": "5462:469",
+      "sourceURL": "https://www.obsidianui.dev/components#component-gallery",
+      "catalogURL": "https://www.obsidianui.dev/components#component-gallery",
+      "id": "a55a52bfc1ba3c12"
+    },
+    {
+      "node": "5462:476",
+      "sourceURL": "https://metalforge.xyz/",
+      "catalogURL": "https://metalforge.xyz/",
+      "id": "379d8f8d5205f195"
+    },
+    {
+      "node": "5462:483",
+      "sourceURL": "https://kobra.systems/",
+      "catalogURL": "https://kobra.systems/",
+      "id": "86b498fd1dab39e6"
+    },
+    {
+      "node": "5462:490",
+      "sourceURL": "https://uiarc.dev/",
+      "catalogURL": "https://uiarc.dev/",
+      "id": "af6d2744a9b6609b"
+    },
+    {
+      "node": "5462:497",
+      "sourceURL": "https://kinetics.colorion.co/",
+      "catalogURL": "https://kinetics.colorion.co/",
+      "id": "1ed6457537d6061d"
+    },
+    {
+      "node": "5462:504",
+      "sourceURL": "https://beui.dev/",
+      "catalogURL": "https://beui.dev/",
+      "id": "54fbaa2967d3f45e"
+    },
+    {
+      "node": "5462:511",
+      "sourceURL": "https://reverseui.com/",
+      "catalogURL": "https://reverseui.com/",
+      "id": "4b078eb16072599f"
+    },
+    {
+      "node": "5462:518",
+      "sourceURL": "https://ui.devclubxnst.com/",
+      "catalogURL": "https://ui.devclubxnst.online/",
+      "id": "dd6b5ea7f215a2e7"
+    },
+    {
+      "node": "5462:525",
+      "sourceURL": "https://smoothui.dev/",
+      "catalogURL": "https://smoothui.dev/",
+      "id": "e64ba29049af817a"
+    },
+    {
+      "node": "5462:532",
+      "sourceURL": "https://vengeanceui.com/",
+      "catalogURL": "https://vengeanceui.com/",
+      "id": "e52a2df38613b6af"
+    },
+    {
+      "node": "5462:539",
+      "sourceURL": "https://ui.aceternity.com/components",
+      "catalogURL": "https://ui.aceternity.com/components",
+      "id": "fae33e480635d810"
+    },
+    {
+      "node": "5462:546",
+      "sourceURL": "https://skiper-ui.com/",
+      "catalogURL": "https://skiper-ui.com/",
+      "id": "352a0af57ed766f9"
+    },
+    {
+      "node": "5462:553",
+      "sourceURL": "https://kokonutui.com/",
+      "catalogURL": "https://kokonutui.com/",
+      "id": "ec43dbba1b81b45c"
+    },
+    {
+      "node": "5462:560",
+      "sourceURL": "https://www.cult-ui.com/",
+      "catalogURL": "https://www.cult-ui.com/",
+      "id": "ce89a07477db7b43"
+    },
+    {
+      "node": "5462:567",
+      "sourceURL": "https://animata.design/",
+      "catalogURL": "https://animata.design/",
+      "id": "2697e17912505a2c"
+    },
+    {
+      "node": "5462:574",
+      "sourceURL": "https://www.eldoraui.site/",
+      "catalogURL": "https://www.eldoraui.site/",
+      "id": "a5a4f4fa8a3e8b58"
+    },
+    {
+      "node": "5462:581",
+      "sourceURL": "https://www.hover.dev/",
+      "catalogURL": "https://www.hover.dev/",
+      "id": "a0000bb0c5baa554"
+    },
+    {
+      "node": "5462:588",
+      "sourceURL": "https://magicui.design/",
+      "catalogURL": "https://magicui.design/",
+      "id": "d367e4b4939b761e"
+    },
+    {
+      "node": "5462:595",
+      "sourceURL": "https://threejs.org/",
+      "catalogURL": "https://threejs.org/",
+      "id": "be9e40b9672b7d79"
+    },
+    {
+      "node": "5462:602",
+      "sourceURL": "https://uiverse.io/",
+      "catalogURL": "https://uiverse.io/",
+      "id": "e3be301663ccfdb6"
+    },
+    {
+      "node": "5462:609",
+      "sourceURL": "https://codepen.io/",
+      "catalogURL": "https://codepen.io/",
+      "id": "180f80d4379b2dc9"
+    },
+    {
+      "node": "5462:616",
+      "sourceURL": "https://github.com/yihui-dev/awesome-opus5-5-videos",
+      "catalogURL": "https://github.com/yihui-dev/awesome-opus5-5-videos",
+      "id": "d9f7f7dd0a7cae3c"
+    },
+    {
+      "node": "5462:623",
+      "sourceURL": "https://www.morphicons.com/",
+      "catalogURL": "https://www.morphicons.com/",
+      "id": "be0a496f877fc6c9"
+    },
+    {
+      "node": "5462:635",
+      "sourceURL": "https://animos.app/editor",
+      "catalogURL": "https://animos.app/editor",
+      "id": "fb34fa5c35ff9a68"
+    },
+    {
+      "node": "5462:642",
+      "sourceURL": "https://hyperframes.heygen.com/",
+      "catalogURL": "https://hyperframes.heygen.com/",
+      "id": "74a74f63b9bc77c6"
+    },
+    {
+      "node": "5462:649",
+      "sourceURL": "https://spline.design/",
+      "catalogURL": "https://spline.design/",
+      "id": "4fac1cca87d56091"
+    },
+    {
+      "node": "5462:656",
+      "sourceURL": "https://www.mixamo.com/",
+      "catalogURL": "https://www.mixamo.com/",
+      "id": "bde5b2f24e5d7c39"
+    },
+    {
+      "node": "5462:664",
+      "sourceURL": "https://trypowermove.com/",
+      "catalogURL": "https://trypowermove.com/",
+      "id": "28eeea3c52d5d6a7"
+    },
+    {
+      "node": "5462:680",
+      "sourceURL": "https://motion-canvas.io/",
+      "catalogURL": "https://motion-canvas.io/",
+      "id": "889515960bd8ecb4"
+    },
+    {
+      "node": "5462:687",
+      "sourceURL": "https://www.blockbench.net/",
+      "catalogURL": "https://www.blockbench.net/",
+      "id": "22901f670efb09a4"
+    },
+    {
+      "node": "5462:694",
+      "sourceURL": "https://scrolltide.co/",
+      "catalogURL": "https://scrolltide.co/",
+      "id": "a7b82865c1632a0d"
+    },
+    {
+      "node": "5462:703",
+      "sourceURL": "https://scrollshaders.com/",
+      "catalogURL": "https://scrollshaders.com/",
+      "id": "1d471d334f5f21d3"
+    },
+    {
+      "node": "5462:710",
+      "sourceURL": "https://shadergradient.co/",
+      "catalogURL": "https://shadergradient.co/",
+      "id": "ece76af5ddb66bbb"
+    },
+    {
+      "node": "5462:720",
+      "sourceURL": "https://bookofshapes.com/",
+      "catalogURL": "https://bookofshapes.com/",
+      "id": "218944a84ddfc800"
+    },
+    {
+      "node": "5462:727",
+      "sourceURL": "https://eng.basement.studio/tools/shader-lab",
+      "catalogURL": "https://eng.basement.studio/tools/shader-lab",
+      "id": "50a80cf37c57edbc"
+    },
+    {
+      "node": "5462:734",
+      "sourceURL": "https://motionsites.ai/",
+      "catalogURL": "https://motionsites.ai/",
+      "id": "739b5d19add9c579"
+    },
+    {
+      "node": "5482:219",
+      "sourceURL": "https://60fps.design/shots/lego-package-address-highlight-interaction",
+      "catalogURL": "https://60fps.design/shots/lego-package-address-highlight-interaction",
+      "id": "153d9d999d8b6059",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:224",
+      "sourceURL": "https://60fps.design/shots/intowallet-onboarding-torch-focus-effect",
+      "catalogURL": "https://60fps.design/shots/intowallet-onboarding-torch-focus-effect",
+      "id": "b9c29ccb82fc6233",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:229",
+      "sourceURL": "https://60fps.design/shots/airbnb-identity-verification-card-flip-scan-interaction",
+      "catalogURL": "https://60fps.design/shots/airbnb-identity-verification-card-flip-scan-interaction",
+      "id": "7a2ac53756b4c164",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:234",
+      "sourceURL": "https://60fps.design/shots/not-boring-camera-customize-tabs-swipe-interaction",
+      "catalogURL": "https://60fps.design/shots/not-boring-camera-customize-tabs-swipe-interaction",
+      "id": "5b8f0761bc940cad",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:239",
+      "sourceURL": "https://60fps.design/shots/mileways-passbook",
+      "catalogURL": "https://60fps.design/shots/mileways-passbook",
+      "id": "84b1fad96e83310b",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:244",
+      "sourceURL": "https://60fps.design/shots/waymo-pulse-animation",
+      "catalogURL": "https://60fps.design/shots/waymo-pulse-animation",
+      "id": "23abd79b33fef29e",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:252",
+      "sourceURL": "https://60fps.design/shots/not-boring-camera-dial-swipe-interaction",
+      "catalogURL": "https://60fps.design/shots/not-boring-camera-dial-swipe-interaction",
+      "id": "146f81e0b00c8905",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:257",
+      "sourceURL": "https://developer.apple.com/design/human-interface-guidelines/playing-haptics",
+      "catalogURL": "https://developer.apple.com/design/human-interface-guidelines/playing-haptics",
+      "id": "02a9f2a05d02609a",
+      "verification": "page reviewed"
+    },
+    {
+      "node": "5482:262",
+      "sourceURL": "https://developer.apple.com/videos/play/wwdc2021/10278/?time=485",
+      "catalogURL": "https://developer.apple.com/videos/play/wwdc2021/10278/?time=485",
+      "id": "3b65259a4715640c",
+      "verification": "page reviewed"
+    },
+    {
+      "node": "5482:267",
+      "sourceURL": "https://developer.apple.com/videos/play/wwdc2019/810/?time=377",
+      "catalogURL": "https://developer.apple.com/videos/play/wwdc2019/810/?time=377",
+      "id": "9e8e772920f77474",
+      "verification": "page reviewed"
+    },
+    {
+      "node": "5482:272",
+      "sourceURL": "https://60fps.design/shots/shuteye-time-picker-interaction",
+      "catalogURL": "https://60fps.design/shots/shuteye-time-picker-interaction",
+      "id": "1578e37be6d29ec6",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:280",
+      "sourceURL": "https://www.jeffkliu.com/projects/client-porsche",
+      "catalogURL": "https://www.jeffkliu.com/projects/advertising/porsche",
+      "id": "d586017310d1310d",
+      "verification": "page reviewed"
+    },
+    {
+      "node": "5482:285",
+      "sourceURL": "https://60fps.design/shots/cred-credit-card-full-page-offers-swipe-interaction",
+      "catalogURL": "https://60fps.design/shots/cred-credit-card-full-page-offers-swipe-interaction",
+      "id": "993e1dec4a5ae3d9",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:290",
+      "sourceURL": "https://60fps.design/shots/tesseract-3d-swirl-scroll-interaction",
+      "catalogURL": "https://60fps.design/shots/tesseract-3d-swirl-scroll-interaction",
+      "id": "ef69caa1f21dd634",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:295",
+      "sourceURL": "https://60fps.design/shots/wabi-animated-app-icons-in-featured-cards",
+      "catalogURL": "https://60fps.design/shots/wabi-animated-app-icons-in-featured-cards",
+      "id": "ad500d7ca48e21b5",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:300",
+      "sourceURL": "https://60fps.design/shots/district-weekend-pick-card-scroll-snap-selection-interaction",
+      "catalogURL": "https://60fps.design/shots/district-weekend-pick-card-scroll-snap-selection-interaction",
+      "id": "32e52c4cc172a49f",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:305",
+      "sourceURL": "https://masonobegi.com/demos/exploded-view",
+      "catalogURL": "https://masonobegi.com/demos/exploded-view",
+      "id": "9acfb9ecad5d8380",
+      "verification": "page reviewed"
+    },
+    {
+      "node": "5482:313",
+      "sourceURL": "https://www.pinterest.com/pin/love-the-jeep-willys-easter-egg-on-the-front-windshield--571816483940647917/",
+      "catalogURL": "https://www.pinterest.com/pin/love-the-jeep-willys-easter-egg-on-the-front-windshield--571816483940647917/",
+      "id": "4586b57be006fe68",
+      "verification": "HTTP 200; description from Figma caption"
+    },
+    {
+      "node": "5482:318",
+      "sourceURL": "https://www.completecar.ie/car-reviews/article/Tesla/Model_3/Model_3_%27Highland%27_%282024%29/2270/12948/2023-Tesla-Model-3-%27Highland%27-%282024%29-review.html",
+      "catalogURL": "https://www.completecar.ie/car-reviews/article/Tesla/Model_3/Model_3_Highland_(2024)/2270/12948/2023-Tesla-Model-3-Highland-(2024)-review.html",
+      "id": "b4404b1740ad780d",
+      "verification": "page reviewed"
+    },
+    {
+      "node": "5482:319",
+      "sourceURL": "https://www.youtube.com/watch?v=8zxQpYYSvTM",
+      "catalogURL": "https://www.youtube.com/watch?v=8zxQpYYSvTM",
+      "id": "486134bd1aeee556",
+      "verification": "network unavailable; description from Figma caption, playback unverified"
+    },
+    {
+      "node": "5482:324",
+      "sourceURL": "https://60fps.design/shots/citymapper-scroll-to-view-hidden-art",
+      "catalogURL": "https://60fps.design/shots/citymapper-scroll-to-view-hidden-art",
+      "id": "2d39f4bd1ed290d5",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:329",
+      "sourceURL": "https://60fps.design/shots/arc-search-fidget-spinner",
+      "catalogURL": "https://60fps.design/shots/arc-search-fidget-spinner",
+      "id": "2c3fbb89314e6a47",
+      "verification": "60fps MCP metadata"
+    },
+    {
+      "node": "5482:334",
+      "sourceURL": "https://60fps.design/shots/x-2025-celebration-balloon-slide-animation",
+      "catalogURL": "https://60fps.design/shots/x-2025-celebration-balloon-slide-animation",
+      "id": "2df84a7bd3dad1cf",
+      "verification": "60fps MCP metadata"
+    }
+  ],
+  "existingHealth": [
+    {
+      "id": "51c7b475f51e9df9",
+      "url": "https://dotmatrix.zzzzshawn.cloud/",
+      "status": 200,
+      "final": "https://dotmatrix.zzzzshawn.cloud/"
+    },
+    {
+      "id": "3b37fc49daf4ccb9",
+      "url": "https://jelly-ui.com/#jelly-button",
+      "status": 200,
+      "final": "https://jelly-ui.com/#jelly-button"
+    },
+    {
+      "id": "4516d9fdc1ccc9fd",
+      "url": "https://locomotive.ca/en",
+      "status": 403
+    },
+    {
+      "id": "be0a496f877fc6c9",
+      "url": "https://www.morphicons.com/",
+      "status": 200,
+      "final": "https://www.morphicons.com/"
+    },
+    {
+      "id": "fb34fa5c35ff9a68",
+      "url": "https://animos.app/editor",
+      "status": 200,
+      "final": "https://animos.app/editor"
+    },
+    {
+      "id": "3793b1e05b1d51fe",
+      "url": "https://tech100-five-into-one.vercel.app/",
+      "status": 200,
+      "final": "https://tech100-five-into-one.vercel.app/"
+    },
+    {
+      "id": "9bc4b20c383db47f",
+      "url": "https://iamnoman.com/stickers",
+      "status": 200,
+      "final": "https://iamnoman.com/stickers"
+    },
+    {
+      "id": "0cc6d2ba682be9ff",
+      "url": "https://projects.arkon.digital/threejs/wavy-cubes",
+      "status": 200,
+      "final": "https://projects.arkon.digital/threejs/wavy-cubes/"
+    },
+    {
+      "id": "e16f6b12ea91b3d7",
+      "url": "https://gobzzzmusicplayer2024.vercel.app/",
+      "status": 200,
+      "final": "https://gobzzzmusicplayer2024.vercel.app/"
+    },
+    {
+      "id": "2e08f930e3f6f512",
+      "url": "https://www.framer.com/marketplace/components/confidential-folder",
+      "status": 429
+    },
+    {
+      "id": "c38bfbac2984424c",
+      "url": "https://recent.design/",
+      "status": 200,
+      "final": "https://recent.design/"
+    },
+    {
+      "id": "79c7411df4c7a943",
+      "url": "https://www.measured.site/",
+      "status": 200,
+      "final": "https://www.measured.site/"
+    },
+    {
+      "id": "b6cea785590f66a0",
+      "url": "https://transitions.dev/",
+      "status": 200,
+      "final": "https://transitions.dev/"
+    },
+    {
+      "id": "218944a84ddfc800",
+      "url": "https://bookofshapes.com/",
+      "status": 200,
+      "final": "https://bookofshapes.com/"
+    },
+    {
+      "id": "42c404fb72ebbf19",
+      "url": "https://tympanus.net/codrops/hub/all",
+      "status": 403
+    },
+    {
+      "id": "50a80cf37c57edbc",
+      "url": "https://eng.basement.studio/tools/shader-lab",
+      "status": 200,
+      "final": "https://eng.basement.studio/tools/shader-lab"
+    },
+    {
+      "id": "a55a52bfc1ba3c12",
+      "url": "https://www.obsidianui.dev/components#component-gallery",
+      "status": 200,
+      "final": "https://www.obsidianui.dev/components#component-gallery"
+    },
+    {
+      "id": "3e11236d4c9f17a7",
+      "url": "https://www.footer.design/",
+      "status": 200,
+      "final": "https://www.footer.design/"
+    },
+    {
+      "id": "8a9499a9adf6f1a2",
+      "url": "https://10000refs.me/library",
+      "status": 200,
+      "final": "https://10000refs.me/library"
+    },
+    {
+      "id": "7dffe094a29be837",
+      "url": "https://styles.refero.design/",
+      "status": 200,
+      "final": "https://styles.refero.design/"
+    },
+    {
+      "id": "379d8f8d5205f195",
+      "url": "https://metalforge.xyz/",
+      "status": 200,
+      "final": "https://metalforge.xyz/"
+    },
+    {
+      "id": "86b498fd1dab39e6",
+      "url": "https://kobra.systems/",
+      "status": 200,
+      "final": "https://kobra.systems/components/input-otp"
+    },
+    {
+      "id": "af6d2744a9b6609b",
+      "url": "https://uiarc.dev/",
+      "status": 200,
+      "final": "https://uiarc.dev/"
+    },
+    {
+      "id": "1ed6457537d6061d",
+      "url": "https://kinetics.colorion.co/",
+      "status": 200,
+      "final": "https://kinetics.colorion.co/"
+    },
+    {
+      "id": "54fbaa2967d3f45e",
+      "url": "https://beui.dev/",
+      "status": 200,
+      "final": "https://beui.dev/"
+    },
+    {
+      "id": "4b078eb16072599f",
+      "url": "https://reverseui.com/",
+      "status": 200,
+      "final": "https://reverseui.com/"
+    },
+    {
+      "id": "dd6b5ea7f215a2e7",
+      "url": "https://ui.devclubxnst.online/",
+      "status": 200,
+      "final": "https://ui.devclubxnst.com/"
+    },
+    {
+      "id": "e64ba29049af817a",
+      "url": "https://smoothui.dev/",
+      "status": 200,
+      "final": "https://smoothui.dev/"
+    },
+    {
+      "id": "e52a2df38613b6af",
+      "url": "https://vengeanceui.com/",
+      "status": 200,
+      "final": "https://www.vengeanceui.com/"
+    },
+    {
+      "id": "3fc1bbdc29d225a1",
+      "url": "https://60fps.design/",
+      "status": 200,
+      "final": "https://60fps.design/"
+    },
+    {
+      "id": "2f57a1307d006e00",
+      "url": "https://mobbin.design/browse/ios/apps",
+      "status": 200,
+      "final": "https://mobbin.com/discover/apps/ios"
+    },
+    {
+      "id": "17e97c7ec15f656a",
+      "url": "https://www.designspells.com/",
+      "status": 429
+    },
+    {
+      "id": "739b5d19add9c579",
+      "url": "https://motionsites.ai/",
+      "status": 200,
+      "final": "https://motionsites.ai/"
+    },
+    {
+      "id": "dd455598100d7fd8",
+      "url": "https://showreel.design/",
+      "status": 200,
+      "final": "https://showreel.design/"
+    },
+    {
+      "id": "fae33e480635d810",
+      "url": "https://ui.aceternity.com/components",
+      "status": 200,
+      "final": "https://ui.aceternity.com/components"
+    },
+    {
+      "id": "4954943e6cf75804",
+      "url": "https://reactbits.dev/",
+      "status": 200,
+      "final": "https://reactbits.dev/"
+    },
+    {
+      "id": "74a74f63b9bc77c6",
+      "url": "https://hyperframes.heygen.com/",
+      "status": 200,
+      "final": "https://hyperframes.heygen.com/"
+    },
+    {
+      "id": "4fac1cca87d56091",
+      "url": "https://spline.design/",
+      "status": 200,
+      "final": "https://spline.design/"
+    },
+    {
+      "id": "bde5b2f24e5d7c39",
+      "url": "https://www.mixamo.com/",
+      "status": 200,
+      "final": "https://www.mixamo.com/"
+    },
+    {
+      "id": "352a0af57ed766f9",
+      "url": "https://skiper-ui.com/",
+      "status": 200,
+      "final": "https://skiper-ui.com/"
+    },
+    {
+      "id": "ec43dbba1b81b45c",
+      "url": "https://kokonutui.com/",
+      "status": 200,
+      "final": "https://kokonutui.com/"
+    },
+    {
+      "id": "ce89a07477db7b43",
+      "url": "https://www.cult-ui.com/",
+      "status": 200,
+      "final": "https://www.cult-ui.com/"
+    },
+    {
+      "id": "2697e17912505a2c",
+      "url": "https://animata.design/",
+      "status": 200,
+      "final": "https://animata.design/"
+    },
+    {
+      "id": "a5a4f4fa8a3e8b58",
+      "url": "https://www.eldoraui.site/",
+      "status": 200,
+      "final": "https://www.eldoraui.site/"
+    },
+    {
+      "id": "a0000bb0c5baa554",
+      "url": "https://www.hover.dev/",
+      "status": 200,
+      "final": "https://www.hover.dev/"
+    },
+    {
+      "id": "28eeea3c52d5d6a7",
+      "url": "https://trypowermove.com/",
+      "status": 200,
+      "final": "https://trypowermove.com/"
+    },
+    {
+      "id": "889515960bd8ecb4",
+      "url": "https://motion-canvas.io/",
+      "status": 200,
+      "final": "https://motion-canvas.io/"
+    },
+    {
+      "id": "22901f670efb09a4",
+      "url": "https://www.blockbench.net/",
+      "status": 200,
+      "final": "https://blockbench.net/"
+    },
+    {
+      "id": "a7b82865c1632a0d",
+      "url": "https://scrolltide.co/",
+      "status": 200,
+      "final": "https://www.scrolltide.co/"
+    },
+    {
+      "id": "1d471d334f5f21d3",
+      "url": "https://scrollshaders.com/",
+      "status": 200,
+      "final": "https://scrollshaders.com/"
+    },
+    {
+      "id": "d367e4b4939b761e",
+      "url": "https://magicui.design/",
+      "status": 200,
+      "final": "https://magicui.design/"
+    },
+    {
+      "id": "ece76af5ddb66bbb",
+      "url": "https://shadergradient.co/",
+      "status": 200,
+      "final": "https://shadergradient.co/"
+    },
+    {
+      "id": "be9e40b9672b7d79",
+      "url": "https://threejs.org/",
+      "status": 200,
+      "final": "https://threejs.org/"
+    },
+    {
+      "id": "e3be301663ccfdb6",
+      "url": "https://uiverse.io/",
+      "status": 403
+    },
+    {
+      "id": "c1ca07c6f0261f38",
+      "url": "https://lottiefiles.com/",
+      "status": 200,
+      "final": "https://lottiefiles.com/"
+    },
+    {
+      "id": "c09c2eaedcd58560",
+      "url": "https://rive.app/marketplace/",
+      "status": 200,
+      "final": "https://rive.app/marketplace/"
+    },
+    {
+      "id": "f09c21614e7f6aba",
+      "url": "https://www.pinterest.com/",
+      "status": 200,
+      "final": "https://www.pinterest.com/"
+    },
+    {
+      "id": "ef930eed8bcfaff7",
+      "url": "https://dribbble.com/",
+      "status": 202,
+      "final": "https://dribbble.com/"
+    },
+    {
+      "id": "1027afe26b4ca5f4",
+      "url": "https://www.behance.net/",
+      "status": 200,
+      "final": "https://www.behance.net/"
+    },
+    {
+      "id": "3bb690a206a51974",
+      "url": "https://www.awwwards.com/",
+      "status": 200,
+      "final": "https://www.awwwards.com/"
+    },
+    {
+      "id": "6c668d3c43d8be3a",
+      "url": "https://gsap.com/",
+      "status": 200,
+      "final": "https://gsap.com/"
+    },
+    {
+      "id": "2f2b909d5b4bee78",
+      "url": "https://motion.dev/docs",
+      "status": 200,
+      "final": "https://motion.dev/docs"
+    },
+    {
+      "id": "180f80d4379b2dc9",
+      "url": "https://codepen.io/",
+      "status": 403
+    },
+    {
+      "id": "d9f7f7dd0a7cae3c",
+      "url": "https://github.com/yihui-dev/awesome-opus5-5-videos",
+      "status": 200,
+      "final": "https://github.com/yihui-dev/awesome-opus5-5-videos"
+    },
+    {
+      "id": "927dc5858ab90f84",
+      "url": "https://x.com/explore",
+      "status": 200,
+      "final": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fexplore&mode=login"
+    },
+    {
+      "id": "81658ed309e9298c",
+      "url": "https://www.threads.com/",
+      "error": "URLError"
+    }
+  ],
+  "newHealth": [
+    {
+      "url": "https://developer.apple.com/design/human-interface-guidelines/playing-haptics",
+      "status": 200,
+      "final": "https://developer.apple.com/design/human-interface-guidelines/playing-haptics"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2021/10278/?time=485",
+      "status": 200,
+      "final": "https://developer.apple.com/videos/play/wwdc2021/10278/?time=485"
+    },
+    {
+      "url": "https://developer.apple.com/videos/play/wwdc2019/810/?time=377",
+      "status": 200,
+      "final": "https://developer.apple.com/videos/play/wwdc2019/810/?time=377"
+    },
+    {
+      "url": "https://www.jeffkliu.com/projects/client-porsche",
+      "status": 200,
+      "final": "https://www.jeffkliu.com/projects/advertising/porsche"
+    },
+    {
+      "url": "https://masonobegi.com/demos/exploded-view",
+      "status": 200,
+      "final": "https://masonobegi.com/demos/exploded-view"
+    },
+    {
+      "url": "https://www.pinterest.com/pin/love-the-jeep-willys-easter-egg-on-the-front-windshield--571816483940647917/",
+      "status": 200,
+      "final": "https://www.pinterest.com/pin/love-the-jeep-willys-easter-egg-on-the-front-windshield--571816483940647917/"
+    },
+    {
+      "url": "https://www.completecar.ie/car-reviews/article/Tesla/Model_3/Model_3_%27Highland%27_%282024%29/2270/12948/2023-Tesla-Model-3-%27Highland%27-%282024%29-review.html",
+      "status": 400
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=8zxQpYYSvTM",
+      "error": "URLError"
+    }
+  ],
+  "notes": [
+    "HEAD 403/429 означает ограничение автоматической проверки, а не доказанную поломку.",
+    "15 примеров 60fps подтверждены данными MCP.",
+    "Видео YouTube сохранено по источнику в Figma; воспроизведение не проверено.",
+    "CompleteCar заменён рабочим URL с тем же article ID 12948; HTTP 200 с браузерным User-Agent."
+  ]
+}
