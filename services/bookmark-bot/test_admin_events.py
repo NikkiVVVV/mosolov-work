@@ -49,6 +49,13 @@ class ArchiveDeliveryTests(unittest.TestCase):
     def click(self,action):
         self.bot.handle({'update_id':10,'callback_query':{'id':'cb','from':{'id':99},'data':action,
             'message':{'message_id':4,'chat':{'id':99,'type':'private'}}}})
+    def test_main_menu_opens_links_and_sends_zip_directly(self):
+        self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
+        self.bot.handle(test_bot.update('Ссылки',actor=99))
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=workshop')
+        with patch.object(self.telegram,'send_file',create=True) as send:
+            self.bot.handle(test_bot.update('Плеер анимации',actor=99))
+            send.assert_called_once_with(99,self.bot.workshop_zip_path)
     def test_materials_menu_lists_presentation_and_real_archive(self):
         self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
         self.click('workshop')
