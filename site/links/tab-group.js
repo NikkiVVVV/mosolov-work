@@ -26,6 +26,10 @@ export function createTabGroup(element, onChange) {
             image.src='./assets/workshop-citydrive.png'; image.alt=''; image.width=20; image.height=20; image.draggable=false;
             card.append(image);
           }
+          for (const side of ['left','right','top','bottom']) {
+            const edge=document.createElement('span'); edge.className='workshop-icon-edge '+side; card.append(edge);
+          }
+          const gloss=document.createElement('span'); gloss.className='workshop-icon-gloss'; card.append(gloss);
           icon.append(card); button.append(icon);
         }
         button.setAttribute('aria-pressed', String(Array.isArray(selected) ? selected.includes(id) : id === selected));
