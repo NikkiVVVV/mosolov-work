@@ -94,7 +94,7 @@ HELP = 'Помогу найти нужные сайты в закладках. �
 OWNER_HELP = '\n\nТы также можешь прислать скриншот со ссылками для добавления. /export — выгрузить сохранённые ссылки.'
 START_MENU = [
     [{'text':'Найти закладки','callback_data':'find'}],
-    [{'text':'Закладки с воркшопа','url':'https://links.mosolov.dev/'}],
+    [{'text':'Материалы с воркшопа','url':'https://links.mosolov.dev/'}],
     [{'text':'Уютный ТГ','url':'https://t.me/nikir_public'}],
 ]
 

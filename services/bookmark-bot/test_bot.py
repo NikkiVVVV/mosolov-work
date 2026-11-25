@@ -51,7 +51,7 @@ class BotTests(unittest.TestCase):
         self.bot.handle(update('/start',actor=99))
         self.assertNotIn('/export',self.telegram.messages[-1][1])
         keyboard=self.telegram.messages[-1][2]
-        self.assertEqual([r[0]['text'] for r in keyboard],['Найти закладки','Закладки с воркшопа','Уютный ТГ'])
+        self.assertEqual([r[0]['text'] for r in keyboard],['Найти закладки','Материалы с воркшопа','Уютный ТГ'])
         self.bot.handle(update('/start'))
         self.assertIn('/export',self.telegram.messages[-1][1])
     def test_public_cannot_upload_export_or_confirm_even_forged_callback(self):
