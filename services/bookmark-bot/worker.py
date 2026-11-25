@@ -25,7 +25,8 @@ def request_json(url, payload, headers=None, timeout=35, maximum=2*1024*1024):
     return json.loads(raw)
 
 class TelegramAPIError(RuntimeError):
-    def __init__(self, code):
+    def __init__(self, code, description=""):
+        self.description=description
         self.code=code
         super().__init__('Telegram API request failed')
 
@@ -36,14 +37,18 @@ class Telegram:
         try:
             data = request_json('https://api.telegram.org/bot'+self.token+'/'+method, payload, timeout=40)
         except urllib.error.HTTPError as error:
-            raise TelegramAPIError(error.code) from None
+            details=json.loads(error.read(8192))
+            description=str(details.get('description','')).replace(self.token,'[redacted]')[:500]
+            raise TelegramAPIError(error.code,description) from None
         if not data.get('ok'):
-            raise TelegramAPIError(data.get('error_code',500))
+            raise TelegramAPIError(data.get('error_code',500),str(data.get('description','')).replace(self.token,'[redacted]')[:500])
         return data['result']
     def send(self, chat, text, keyboard=None):
         payload = {'chat_id':chat, 'text':text[:4000], 'link_preview_options':{'is_disabled':True}}
         if keyboard:
-            payload['reply_markup'] = {'inline_keyboard':keyboard}
+            payload['reply_markup'] = keyboard if isinstance(keyboard,dict) else {'inline_keyboard':keyboard+[[{'text':'Главное меню','callback_data':'menu'}]]}
+        else:
+            payload['reply_markup'] = PERSISTENT_MENU
         return self.call('sendMessage', payload)
     def export(self, chat, items):
         boundary = 'bookmark-export-boundary'
@@ -65,7 +70,7 @@ class Telegram:
         boundary='workshop-archive-boundary'
         header=('--'+boundary+'\r\nContent-Disposition: form-data; name="chat_id"\r\n\r\n'+str(chat)+'\r\n'
                 '--'+boundary+'\r\nContent-Disposition: form-data; name="caption"\r\n\r\n'
-                'Интерфейс для работы с анимацией\r\n'
+                'Плеер анимации\r\n'
                 '--'+boundary+'\r\nContent-Disposition: form-data; name="document"; filename="Animation Player.zip"\r\n'
                 'Content-Type: application/zip\r\n\r\n').encode()
         req=urllib.request.Request('https://api.telegram.org/bot'+self.token+'/sendDocument',
@@ -125,6 +130,8 @@ START_MENU = [
     [{'text':'Уютный ТГ','url':'https://t.me/nikir_public'}],
 ]
 
+PERSISTENT_MENU={'keyboard':[[{'text':'Найти закладки'}],[{'text':'Материалы с воркшопа'},{'text':'Уютный ТГ'}]],'resize_keyboard':True,'is_persistent':True,'one_time_keyboard':False}
+
 class Bot:
     def __init__(self, store, telegram, catalog, allowed, vision=None, workshop_zip=None, workshop_zip_path=None, events=None):
         self.store, self.telegram, self.catalog, self.allowed, self.vision = store, telegram, catalog, set(allowed), vision
@@ -140,7 +147,7 @@ class Bot:
     def send_zip(self,actor):
         if self.workshop_zip:
             self.telegram.call('sendDocument',{'chat_id':actor,'document':self.workshop_zip,
-                'caption':'Интерфейс для работы с анимацией'})
+                'caption':'Плеер анимации'})
         elif self.workshop_zip_path:
             self.telegram.send_file(actor,self.workshop_zip_path)
         else:
@@ -167,12 +174,13 @@ class Bot:
         context={'scope':scope,'query':query,'group':-1,'page':0}
         packed=self.render_search(actor,context)
         links=[[{'text':'Открыть в Figma','url':WORKSHOP_DATA['source']}]] if scope=='workshop' else [[{'text':'Открыть сайт','url':'https://links.mosolov.dev/'}]]
-        if scope=='workshop' and self.zip_ready():links.append([{'text':'Интерфейс для работы с анимацией','callback_data':'workshop_zip'}])
+        if scope=='workshop' and self.zip_ready():links.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
         try:
             message=self.telegram.call('sendWidget',{'chat_id':actor,'html':search_html(),'chat_data':packed,
-                'allow_queries':True,'width':0,'height':0,'caption':'Материалы с воркшопа' if scope=='workshop' else 'Поиск по закладкам',
+                'allow_queries':True,'caption':'Материалы с воркшопа' if scope=='workshop' else 'Поиск по закладкам',
                 'reply_markup':{'inline_keyboard':links}})
         except TelegramAPIError as error:
+            logging.warning('Widget rejected: %s %s',error.code,error.description)
             if error.code not in (400,404):raise
             return False
         self.store.set_widget(actor,message['message_id'],context)
@@ -220,7 +228,7 @@ class Bot:
         self.update_search(actor,message_id,context)
     def materials(self, chat_id, section=None, page=0):
         extra=[[{'text':'Открыть в Figma','url':WORKSHOP_DATA['source']}]]
-        if self.zip_ready():extra.append([{'text':'Интерфейс для работы с анимацией','callback_data':'workshop_zip'}])
+        if self.zip_ready():extra.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
         if section is None:
             if self.open_search(chat_id,'workshop'):return
         text,keyboard=workshop_fallback(section or 0,page)
@@ -240,10 +248,14 @@ class Bot:
         if callback:
             data = callback.get('data', '')
             self.event('menu.selected',update,choice=data)
+            if data == 'menu':
+                self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
+                self.telegram.send(chat_id,HELP,PERSISTENT_MENU)
+                return
             if data == 'workshop':
                 self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
                 buttons=[[{'text':'Ссылки с презентации','callback_data':'workshop_links'}]]
-                if self.zip_ready():buttons.append([{'text':'Интерфейс для работы с анимацией','callback_data':'workshop_zip'}])
+                if self.zip_ready():buttons.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
                 self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
                 return
             if data == 'workshop_links' or re.fullmatch(r'workshop:[0-2]:[0-9]{1,2}',data):
@@ -273,9 +285,20 @@ class Bot:
                 self.telegram.send(chat_id, 'Сохранено ссылок: '+str(count) if count else 'Импорт отменён или уже обработан')
             return
         text = message.get('text', '').strip()
-        if text.startswith(('/start','/help')):
+        if text in ('Найти закладки','Материалы с воркшопа','Уютный ТГ'):
+            action={'Найти закладки':'find','Материалы с воркшопа':'workshop','Уютный ТГ':'channel'}[text]
+            self.event('menu.selected',update,choice=action)
+            if action=='find':
+                if not self.open_search(chat_id):self.telegram.send(chat_id,'Что найти в закладках?')
+            elif action=='workshop':
+                buttons=[[{'text':'Ссылки с презентации','callback_data':'workshop_links'}]]
+                if self.zip_ready():buttons.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
+                self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
+            else:self.telegram.send(chat_id,'Уютный ТГ',[[{'text':'Открыть канал','url':'https://t.me/nikir_public'}]])
+            return
+        if text.startswith(('/start','/help','/menu')):
             self.event('bot.started',update)
-            self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), START_MENU)
+            self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), PERSISTENT_MENU)
             return
         if text == '/export':
             if not owner:
@@ -314,7 +337,7 @@ class Bot:
             return
         query = re.sub(r'^/search(?:@\w+)?\s*', '', text)[:500]
         if not query:
-            self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), START_MENU)
+            self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), PERSISTENT_MENU)
             return
         if not self.store.allow_search(actor):
             self.telegram.send(chat_id, 'Слишком много запросов. Попробуй через минуту.')

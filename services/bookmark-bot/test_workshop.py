@@ -47,9 +47,9 @@ class WorkshopTests(unittest.TestCase):
     def test_zip_button_is_enabled_only_when_file_is_connected(self):
         self.bot.workshop_zip='telegram-file-id'
         self.click('workshop_links')
-        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][-1][0]['text'],'Интерфейс для работы с анимацией')
+        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][-1][0]['text'],'Плеер анимации')
         self.click('workshop_zip')
-        self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id','caption':'Интерфейс для работы с анимацией'}))
+        self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id','caption':'Плеер анимации'}))
     def test_timeout_does_not_create_duplicate_fallback(self):
         original=self.telegram.call
         def fail(method,payload):

@@ -80,3 +80,15 @@ class SearchWidgetTests(unittest.TestCase):
         self.assertIn('example.com',self.telegram.messages[-1][1])
 
 if __name__=='__main__':unittest.main()
+
+class PersistentMenuTests(unittest.TestCase):
+    setUp=test_bot.BotTests.setUp
+    tearDown=test_bot.BotTests.tearDown
+    def test_menu_is_persistent_and_buttons_are_actions(self):
+        from worker import PERSISTENT_MENU
+        self.assertTrue(PERSISTENT_MENU['is_persistent'])
+        self.assertFalse(PERSISTENT_MENU['one_time_keyboard'])
+        self.bot.handle(test_bot.update('Найти закладки',actor=99))
+        self.assertEqual(self.telegram.calls[-1][0],'sendWidget')
+        self.bot.handle(test_bot.update('Уютный ТГ',actor=99))
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://t.me/nikir_public')

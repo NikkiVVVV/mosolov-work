@@ -12,18 +12,23 @@ class AdminEventTests(unittest.TestCase):
         self.telegram=test_bot.FakeTelegram();self.now=1000
         self.events=AdminEvents(self.path,self.telegram,-100123,3,clock=lambda:self.now)
     def tearDown(self):self.tmp.cleanup()
-    def test_events_are_individual_identified_and_deduplicated(self):
-        update=test_bot.update('/start',actor=42)
-        update['message']['from'].update(first_name='Никита',username='nikir')
+    def test_one_message_per_user_is_updated_and_owner_is_excluded(self):
+        self.events.excluded={42}
+        self.events.record('bot.started',test_bot.update('/start',actor=42),{})
+        self.assertFalse(self.events.flush())
+        update=test_bot.update('/start',actor=99)
+        update['message']['from'].update(first_name='Гость',username='guest')
         self.events.record('bot.started',update,{})
         self.events.record('bot.started',update,{})
+        self.assertTrue(self.events.flush())
         self.events.record('search.requested',update,{'query':'шрифты','results':3})
-        self.assertTrue(self.events.flush());self.assertTrue(self.events.flush());self.assertFalse(self.events.flush())
-        first=self.telegram.calls[0][1]
+        self.assertTrue(self.events.flush());self.assertFalse(self.events.flush())
+        self.assertEqual([x[0] for x in self.telegram.calls],['sendMessage','editMessageText'])
+        first=self.telegram.calls[0][1];last=self.telegram.calls[1][1]
         self.assertEqual(first['message_thread_id'],3)
-        self.assertIn('@nikir',first['text']);self.assertIn('ID 42',first['text'])
-        self.assertIn('шрифты',self.telegram.calls[1][1]['text'])
-        self.assertNotIn('сводка',first['text'].lower())
+        self.assertIn('@guest',last['text']);self.assertIn('ID 99',last['text'])
+        self.assertIn('Пользователь запустил бота',last['text']);self.assertIn('шрифты',last['text'])
+        self.assertEqual(last['message_id'],1)
     def test_delivery_retry_survives_restart(self):
         self.events.record('bot.started',test_bot.update('/start'),{})
         original=self.telegram.call
@@ -48,7 +53,7 @@ class ArchiveDeliveryTests(unittest.TestCase):
         self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
         self.click('workshop')
         labels=[r[0]['text'] for r in self.telegram.messages[-1][2]]
-        self.assertEqual(labels,['Ссылки с презентации','Интерфейс для работы с анимацией'])
+        self.assertEqual(labels,['Ссылки с презентации','Плеер анимации'])
     def test_zip_is_sent_only_after_selection(self):
         self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
         with patch.object(self.telegram,'send_file',create=True) as send:
