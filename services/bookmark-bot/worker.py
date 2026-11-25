@@ -10,7 +10,7 @@ import urllib.error
 from urllib.parse import quote
 from pathlib import Path
 from store import Store, search
-from workshop import widget_html, fallback as workshop_fallback
+from workshop import DATA as WORKSHOP_DATA, widget_html, fallback as workshop_fallback
 
 MAX_IMAGE = 8 * 1024 * 1024
 
@@ -113,7 +113,8 @@ class Bot:
         self.store, self.telegram, self.catalog, self.allowed, self.vision = store, telegram, catalog, set(allowed), vision
         self.workshop_zip=workshop_zip
     def materials(self, chat_id, section=None, page=0):
-        extra=[[{'text':'Скачать ZIP','callback_data':'workshop_zip'}]] if self.workshop_zip else None
+        extra=[[{'text':'Открыть в Figma','url':WORKSHOP_DATA['source']}]]
+        if self.workshop_zip:extra.append([{'text':'Скачать ZIP','callback_data':'workshop_zip'}])
         if section is None:
             payload={'chat_id':chat_id,'html':widget_html(),'width':0,'height':0,'allow_queries':False,
                      'caption':'Материалы с воркшопа'}

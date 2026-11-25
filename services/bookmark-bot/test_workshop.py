@@ -26,7 +26,9 @@ class WorkshopTests(unittest.TestCase):
     def test_materials_opens_widget_for_public_user(self):
         self.click('workshop')
         self.assertEqual(self.telegram.calls[-1][0],'sendWidget')
-        self.assertNotIn('reply_markup',self.telegram.calls[-1][1])
+        buttons=self.telegram.calls[-1][1]['reply_markup']['inline_keyboard']
+        self.assertEqual(buttons[0][0]['text'],'Открыть в Figma')
+        self.assertFalse(any(b.get('callback_data')=='workshop_zip' for row in buttons for b in row))
     def test_fallback_preserves_all_links_across_pages(self):
         for section,g in enumerate(DATA['groups']):
             urls=[]
@@ -45,7 +47,7 @@ class WorkshopTests(unittest.TestCase):
     def test_zip_button_is_enabled_only_when_file_is_connected(self):
         self.bot.workshop_zip='telegram-file-id'
         self.click('workshop')
-        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][0][0]['text'],'Скачать ZIP')
+        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][-1][0]['text'],'Скачать ZIP')
         self.click('workshop_zip')
         self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id'}))
     def test_timeout_does_not_create_duplicate_fallback(self):
