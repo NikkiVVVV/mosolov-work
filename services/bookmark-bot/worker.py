@@ -10,7 +10,8 @@ import urllib.error
 from urllib.parse import quote
 from pathlib import Path
 from store import Store, search
-from workshop import DATA as WORKSHOP_DATA, widget_html, fallback as workshop_fallback
+from workshop import DATA as WORKSHOP_DATA, fallback as workshop_fallback
+from search_widget import PRESETS, search_html, pack_state
 
 MAX_IMAGE = 8 * 1024 * 1024
 
@@ -57,6 +58,22 @@ class Telegram:
             result=json.loads(response.read(65536))
         if not result.get('ok'):
             raise RuntimeError('Telegram export failed')
+    def send_file(self,chat,path):
+        data=Path(path).read_bytes()
+        if len(data)>50*1024*1024 or not data.startswith(b'PK'):
+            raise ValueError('Invalid workshop archive')
+        boundary='workshop-archive-boundary'
+        header=('--'+boundary+'\r\nContent-Disposition: form-data; name="chat_id"\r\n\r\n'+str(chat)+'\r\n'
+                '--'+boundary+'\r\nContent-Disposition: form-data; name="caption"\r\n\r\n'
+                'Интерфейс для работы с анимацией\r\n'
+                '--'+boundary+'\r\nContent-Disposition: form-data; name="document"; filename="Animation Player.zip"\r\n'
+                'Content-Type: application/zip\r\n\r\n').encode()
+        req=urllib.request.Request('https://api.telegram.org/bot'+self.token+'/sendDocument',
+            data=header+data+('\r\n--'+boundary+'--\r\n').encode(),
+            headers={'Content-Type':'multipart/form-data; boundary='+boundary})
+        with urllib.request.urlopen(req,timeout=35) as response:result=json.loads(response.read(65536))
+        if not result.get('ok'):raise TelegramAPIError(result.get('error_code',500))
+        return result['result']
     def image(self, file_id):
         info = self.call('getFile', {'file_id':file_id})
         path = info.get('file_path', '')
@@ -109,25 +126,109 @@ START_MENU = [
 ]
 
 class Bot:
-    def __init__(self, store, telegram, catalog, allowed, vision=None, workshop_zip=None):
+    def __init__(self, store, telegram, catalog, allowed, vision=None, workshop_zip=None, workshop_zip_path=None, events=None):
         self.store, self.telegram, self.catalog, self.allowed, self.vision = store, telegram, catalog, set(allowed), vision
         self.workshop_zip=workshop_zip
+        self.workshop_zip_path=workshop_zip_path
+        self.events=events
+    def event(self,kind,update=None,**details):
+        if self.events:
+            try:self.events.record(kind,update or {},details)
+            except Exception:logging.warning('Admin event could not be queued')
+    def zip_ready(self):
+        return bool(self.workshop_zip or self.workshop_zip_path)
+    def send_zip(self,actor):
+        if self.workshop_zip:
+            self.telegram.call('sendDocument',{'chat_id':actor,'document':self.workshop_zip,
+                'caption':'Интерфейс для работы с анимацией'})
+        elif self.workshop_zip_path:
+            self.telegram.send_file(actor,self.workshop_zip_path)
+        else:
+            self.telegram.send(actor,'Архив пока не добавлен')
+            return False
+        return True
+    def render_search(self, actor, context):
+        if context['scope']=='workshop':
+            groups=WORKSHOP_DATA['groups']
+            chosen=groups if context.get('group',-1)==-1 else [groups[context['group']]]
+            items=[{'title':i['title'],'url':i['url'],'ownerNote':i['note'],'tags':[g['name']]}
+                   for g in chosen for i in g['items']]
+            additions=[]
+        else:
+            items=sorted(self.catalog,key=lambda i:(i.get('priorityRank',100000),i.get('domain','')))
+            additions=self.store.items() if actor in self.allowed else []
+        query=context.get('query','')
+        # Widget links accept HTTPS only and at most 256 characters.
+        items=[i for i in items if i['url'].startswith('https://') and len(i['url'])<=256]
+        additions=[i for i in additions if i['url'].startswith('https://') and len(i['url'])<=256]
+        results=search(query,items,additions,limit=100) if query else [*items,*additions]
+        return pack_state(context['scope'],query,results,context.get('page',0),context.get('group',-1))
+    def open_search(self, actor, scope='archive', query=''):
+        context={'scope':scope,'query':query,'group':-1,'page':0}
+        packed=self.render_search(actor,context)
+        links=[[{'text':'Открыть в Figma','url':WORKSHOP_DATA['source']}]] if scope=='workshop' else [[{'text':'Открыть сайт','url':'https://links.mosolov.dev/'}]]
+        if scope=='workshop' and self.zip_ready():links.append([{'text':'Интерфейс для работы с анимацией','callback_data':'workshop_zip'}])
+        try:
+            message=self.telegram.call('sendWidget',{'chat_id':actor,'html':search_html(),'chat_data':packed,
+                'allow_queries':True,'width':0,'height':0,'caption':'Материалы с воркшопа' if scope=='workshop' else 'Поиск по закладкам',
+                'reply_markup':{'inline_keyboard':links}})
+        except TelegramAPIError as error:
+            if error.code not in (400,404):raise
+            return False
+        self.store.set_widget(actor,message['message_id'],context)
+        self.event('widget.sent',{'message':{'from':{'id':actor}}},scope=scope,results=json.loads(packed)['n'])
+        print('Search widget delivered',flush=True)
+        return True
+    def update_search(self, actor, message_id, context):
+        packed=self.render_search(actor,context)
+        self.telegram.call('editMessageWidgetData',{'chat_id':actor,'message_id':message_id,'chat_data':packed})
+        context['page']=json.loads(packed)['p']
+        self.store.set_widget(actor,message_id,context)
+        return packed
+    def widget_query(self, update):
+        query=update['widget_query'];actor=query.get('from',{}).get('id');chat=query.get('chat',{})
+        if not isinstance(actor,int) or chat.get('type')!='private' or chat.get('id')!=actor:return
+        if not isinstance(query.get('message_id'),int):return
+        session=self.store.widget(actor,query.get('message_id'))
+        def answer(data):
+            self.telegram.call('answerWidgetQuery',{'widget_query_id':query['id'],'data':data})
+        if not session:
+            answer(json.dumps({'error':'Открой поиск заново через /start'},ensure_ascii=False))
+            return
+        message_id,context=session;data=query.get('data','')
+        self.event('widget.selected',update,choice=data,scope=context['scope'])
+        if data=='ask':
+            answer('{}')
+            self.telegram.call('sendMessage',{'chat_id':actor,'text':'Что найти в закладках?',
+                'reply_markup':{'force_reply':True,'input_field_placeholder':'Например, анимация кнопок'}})
+            # Touch this card so the following text updates the card the user tapped.
+            self.store.set_widget(actor,message_id,context)
+            return
+        if not self.store.allow_search(actor):
+            answer(json.dumps({'error':'Попробуй через минуту'},ensure_ascii=False));return
+        if data.startswith('q:') and data[2:] in PRESETS:
+            context.update(query=PRESETS[data[2:]],page=0)
+        elif data in ('g:-1','g:0','g:1','g:2') and context['scope']=='workshop':
+            context.update(group=int(data[2:]),page=0)
+        elif re.fullmatch(r'page:[0-9]{1,3}',data):
+            context['page']=int(data[5:])
+        else:
+            answer(json.dumps({'error':'Неизвестное действие'},ensure_ascii=False));return
+        # Acknowledge promptly; the durable edit drives all copies of this message.
+        packed=self.render_search(actor,context)
+        answer(packed)
+        self.update_search(actor,message_id,context)
     def materials(self, chat_id, section=None, page=0):
         extra=[[{'text':'Открыть в Figma','url':WORKSHOP_DATA['source']}]]
-        if self.workshop_zip:extra.append([{'text':'Скачать ZIP','callback_data':'workshop_zip'}])
+        if self.zip_ready():extra.append([{'text':'Интерфейс для работы с анимацией','callback_data':'workshop_zip'}])
         if section is None:
-            payload={'chat_id':chat_id,'html':widget_html(),'width':0,'height':0,'allow_queries':False,
-                     'caption':'Материалы с воркшопа'}
-            if extra:payload['reply_markup']={'inline_keyboard':extra}
-            try:
-                self.telegram.call('sendWidget',payload)
-                print('Workshop widget delivered',flush=True)
-                return
-            except TelegramAPIError as error:
-                if error.code not in (400,404):raise
+            if self.open_search(chat_id,'workshop'):return
         text,keyboard=workshop_fallback(section or 0,page)
         self.telegram.send(chat_id,text,keyboard+(extra or []))
     def handle(self, update):
+        if 'widget_query' in update:
+            self.widget_query(update)
+            return
         callback = update.get('callback_query')
         message = callback.get('message', {}) if callback else update.get('message', {})
         actor = (callback or message).get('from', {}).get('id')
@@ -138,20 +239,28 @@ class Bot:
         chat_id = chat['id']
         if callback:
             data = callback.get('data', '')
-            if data == 'workshop' or re.fullmatch(r'workshop:[0-2]:[0-9]{1,2}',data):
+            self.event('menu.selected',update,choice=data)
+            if data == 'workshop':
                 self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
-                if data=='workshop':self.materials(chat_id)
+                buttons=[[{'text':'Ссылки с презентации','callback_data':'workshop_links'}]]
+                if self.zip_ready():buttons.append([{'text':'Интерфейс для работы с анимацией','callback_data':'workshop_zip'}])
+                self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
+                return
+            if data == 'workshop_links' or re.fullmatch(r'workshop:[0-2]:[0-9]{1,2}',data):
+                self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
+                if data=='workshop_links':self.materials(chat_id)
                 else:
                     _,section,page=data.split(':')
                     self.materials(chat_id,int(section),int(page))
                 return
             if data == 'workshop_zip':
                 self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
-                if self.workshop_zip:self.telegram.call('sendDocument',{'chat_id':chat_id,'document':self.workshop_zip})
+                if self.send_zip(chat_id):self.event('archive.sent',update)
                 return
             if data == 'find':
                 self.telegram.call('answerCallbackQuery', {'callback_query_id':callback['id']})
-                self.telegram.send(chat_id, 'Какие закладки найти? Например: «анимация кнопок», «шрифты» или «платёжный экран».')
+                if not self.open_search(chat_id):
+                    self.telegram.send(chat_id, 'Какие закладки найти? Например: «анимация кнопок», «шрифты» или «платёжный экран».')
                 return
             match = re.fullmatch(r'(save|cancel):([a-f0-9]{24})', data)
             if match:
@@ -165,6 +274,7 @@ class Bot:
             return
         text = message.get('text', '').strip()
         if text.startswith(('/start','/help')):
+            self.event('bot.started',update)
             self.telegram.send(chat_id, HELP + (OWNER_HELP if owner else ''), START_MENU)
             return
         if text == '/export':
@@ -210,6 +320,22 @@ class Bot:
             self.telegram.send(chat_id, 'Слишком много запросов. Попробуй через минуту.')
             return
         results = search(query, self.catalog, self.store.items() if owner else [])
+        session=self.store.widget(actor)
+        if session:
+            event_context={**session[1],'query':query,'page':0}
+            count=json.loads(self.render_search(actor,event_context))['n']
+        else:count=len(results)
+        self.event('search.requested',update,query=query,results=count,scope=session[1]['scope'] if session else 'archive')
+        if session:
+            message_id,context=session
+            context.update(query=query,page=0)
+            try:
+                self.update_search(actor,message_id,context)
+                return
+            except TelegramAPIError as error:
+                if error.code not in (400,404):raise
+        if self.open_search(actor,query=query):
+            return
         if not results:
             self.telegram.send(chat_id, 'Ничего не нашёл. Попробуй другое слово или название сайта')
             return
@@ -231,17 +357,25 @@ def main():
     vision = None
     if os.environ.get('BOT_VISION_API_KEY'):
         vision = Vision(os.environ.get('BOT_VISION_BASE_URL',''), os.environ['BOT_VISION_API_KEY'], os.environ.get('BOT_VISION_MODEL',''))
-    bot = Bot(store, telegram, catalog, allowed, vision,os.environ.get('WORKSHOP_ZIP_FILE_ID') or None)
+    archive=Path(__file__).with_name('Animation Player.zip')
+    from admin_events import AdminEvents
+    events=AdminEvents.from_environment(Path(mount)/'admin-events.sqlite3')
+    bot = Bot(store, telegram, catalog, allowed, vision,os.environ.get('WORKSHOP_ZIP_FILE_ID') or None,
+              archive if archive.is_file() else None,events)
+    if events:
+        events.record('service.started',{}, {'catalog':len(catalog)})
+        events.start()
     print('Bookmark bot started: catalog='+str(len(catalog))+', vision='+str(vision is not None), flush=True)
     while True:
         try:
-            updates = telegram.call('getUpdates', {'offset':store.offset(),'timeout':25,'limit':10,'allowed_updates':['message','callback_query']})
+            updates = telegram.call('getUpdates', {'offset':store.offset(),'timeout':25,'limit':10,'allowed_updates':['message','callback_query','widget_query']})
             for update in updates:
                 try:
                     bot.handle(update)
                 except Exception:
                     # Never log token-bearing URLs, screenshots, queries, or provider exception bodies.
                     logging.warning('Bot update could not be completed: id=%s', update.get('update_id'))
+                    bot.event('request.failed',update)
                     message = update.get('message', {})
                     actor = message.get('from',{}).get('id')
                     if isinstance(actor,int) and message.get('chat',{}).get('type') == 'private' and message.get('chat',{}).get('id') == actor:

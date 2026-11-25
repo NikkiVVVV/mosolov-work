@@ -17,6 +17,7 @@ class FakeTelegram:
         self.messages.append((chat,text,keyboard))
     def call(self, method, payload):
         self.calls.append((method,payload))
+        if method=='sendWidget':return {'message_id':len(self.calls)}
     def image(self, file_id):
         return b'fake-image','image/png'
     def export(self,chat,items):
@@ -43,7 +44,7 @@ class BotTests(unittest.TestCase):
         self.temp.cleanup()
     def test_public_user_can_search_but_group_is_ignored(self):
         self.bot.handle(update('font',actor=99))
-        self.assertIn('https://example.com',self.telegram.messages[0][1])
+        self.assertIn('https://example.com',self.telegram.calls[-1][1]['chat_data'])
         self.telegram.messages.clear()
         u=update('font');u['message']['chat']['type']='group';self.bot.handle(u)
         self.assertEqual(self.telegram.messages,[])
@@ -67,16 +68,16 @@ class BotTests(unittest.TestCase):
         token=self.store.preview(42,1,[{**ENTRY,'url':'https://draft.example.com','ownerNote':'privatewordxyz','noteEN':'privatewordxyz'}])
         self.store.confirm(token,42,True)
         self.bot.handle(update('privatewordxyz',actor=99))
-        self.assertIn('Ничего не нашёл',self.telegram.messages[-1][1])
+        self.assertEqual(json.loads(self.telegram.calls[-1][1]['chat_data'])['n'],0)
         self.bot.handle(update('privatewordxyz'))
-        self.assertIn('draft.example.com',self.telegram.messages[-1][1])
+        self.assertIn('draft.example.com',self.telegram.calls[-1][1]['chat_data'])
     def test_search_limit_is_per_user(self):
         self.assertTrue(self.store.allow_search(99,maximum=1))
         self.assertFalse(self.store.allow_search(99,maximum=1))
         self.assertTrue(self.store.allow_search(42,maximum=1))
     def test_archive_search_without_model_and_payment_synonyms(self):
         self.bot.vision=None;self.bot.handle(update('типографика'))
-        self.assertIn('https://example.com',self.telegram.messages[0][1])
+        self.assertIn('https://example.com',self.telegram.calls[-1][1]['chat_data'])
         payment=record({**ENTRY,'url':'https://pricing.example.com','ownerNote':'Примеры paywall и pricing'})
         self.assertEqual(search('платёжный экран',[payment],[]),[payment])
         self.assertEqual(search('qzxqzxqzx',[payment],[]),[])

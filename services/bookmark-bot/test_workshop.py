@@ -24,7 +24,7 @@ class WorkshopTests(unittest.TestCase):
         self.bot.handle({'callback_query':{'id':'cb','from':{'id':99},'data':data,
             'message':{'message_id':4,'chat':{'id':99,'type':'private'}}}})
     def test_materials_opens_widget_for_public_user(self):
-        self.click('workshop')
+        self.click('workshop_links')
         self.assertEqual(self.telegram.calls[-1][0],'sendWidget')
         buttons=self.telegram.calls[-1][1]['reply_markup']['inline_keyboard']
         self.assertEqual(buttons[0][0]['text'],'Открыть в Figma')
@@ -42,21 +42,21 @@ class WorkshopTests(unittest.TestCase):
             if method=='sendWidget':raise TelegramAPIError(404)
             return original(method,payload)
         self.telegram.call=fail
-        self.click('workshop')
+        self.click('workshop_links')
         self.assertIn('Материалы с воркшопа',self.telegram.messages[-1][1])
     def test_zip_button_is_enabled_only_when_file_is_connected(self):
         self.bot.workshop_zip='telegram-file-id'
-        self.click('workshop')
-        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][-1][0]['text'],'Скачать ZIP')
+        self.click('workshop_links')
+        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][-1][0]['text'],'Интерфейс для работы с анимацией')
         self.click('workshop_zip')
-        self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id'}))
+        self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id','caption':'Интерфейс для работы с анимацией'}))
     def test_timeout_does_not_create_duplicate_fallback(self):
         original=self.telegram.call
         def fail(method,payload):
             if method=='sendWidget':raise TimeoutError()
             return original(method,payload)
         self.telegram.call=fail
-        with self.assertRaises(TimeoutError):self.click('workshop')
+        with self.assertRaises(TimeoutError):self.click('workshop_links')
         self.assertEqual(self.telegram.messages,[])
 
 if __name__=='__main__':unittest.main()

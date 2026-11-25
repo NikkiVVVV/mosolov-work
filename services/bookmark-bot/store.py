@@ -57,6 +57,8 @@ class Store:
             CREATE TABLE IF NOT EXISTS limits (owner INTEGER NOT NULL, day TEXT NOT NULL, count INTEGER NOT NULL,
               PRIMARY KEY(owner,day));
             CREATE TABLE IF NOT EXISTS search_limits (owner INTEGER PRIMARY KEY, minute INTEGER NOT NULL, count INTEGER NOT NULL);
+            CREATE TABLE IF NOT EXISTS search_widgets (owner INTEGER NOT NULL, message INTEGER NOT NULL, state TEXT NOT NULL,
+              updated REAL NOT NULL, PRIMARY KEY(owner,message));
             """)
     @contextmanager
     def connect(self):
@@ -108,6 +110,19 @@ class Store:
             db.execute('INSERT INTO imports(token,owner,update_id,payload,created) VALUES(?,?,?,?,?)',
                        (token, owner, update_id, json.dumps(list(unique.values()), ensure_ascii=False), time.time()))
         return token
+    def set_widget(self, owner, message, state):
+        with self.connect() as db:
+            db.execute('INSERT INTO search_widgets VALUES(?,?,?,?) ON CONFLICT(owner,message) DO UPDATE SET '
+                       'state=excluded.state,updated=excluded.updated',
+                       (owner,message,json.dumps(state,ensure_ascii=False),time.time()))
+            db.execute('DELETE FROM search_widgets WHERE updated<?',(time.time()-30*86400,))
+    def widget(self, owner, message=None):
+        with self.connect() as db:
+            if message is None:
+                row=db.execute('SELECT message,state FROM search_widgets WHERE owner=? ORDER BY updated DESC LIMIT 1',(owner,)).fetchone()
+            else:
+                row=db.execute('SELECT message,state FROM search_widgets WHERE owner=? AND message=?',(owner,message)).fetchone()
+        return (row[0],json.loads(row[1])) if row else None
     def draft(self, token, owner):
         with self.connect() as db:
             row = db.execute('SELECT payload,state,created FROM imports WHERE token=? AND owner=?', (token, owner)).fetchone()
