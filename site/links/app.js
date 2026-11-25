@@ -1,9 +1,10 @@
+import {inWorkshop,workshopFromURL} from './workshop-filter.js';
 import { initSearchG2 } from './search-g2.js?v=20261016r';
-import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261124a';
+import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261125w';
 import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018l';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
-import { createTabGroup } from './tab-group.js';
+import { createTabGroup } from './tab-group.js?v=20261125w';
 import { chatS3 as replyOrb, initChatS3 } from './chat-s3.js?v=20261018b';
 import { siteCard, quickReplies } from './site-card.js?v=20261018l';
 import { initSearchMotion } from './search-motion.js?v=195';
@@ -17,7 +18,11 @@ const $ = selector => document.querySelector(selector);
 const list = $('#bookmark-list');
 const filters = $('#filters');
 const tabGroup = createTabGroup(filters, value => {
-  state.filter = value;
+  if (value === 'workshop') state.workshop = !state.workshop;
+  else { state.filter = value; if (value === 'all') state.workshop = false; }
+  const url = new URL(location.href);
+  if (state.workshop) url.searchParams.set('collection','workshop'); else url.searchParams.delete('collection');
+  history.replaceState(null,'',url);
   render();
 });
 const queryInput = $('#search');
@@ -26,7 +31,7 @@ initSearchDiscovery(form);
 const apiBase = document.documentElement.dataset.apiBase || '';
 const notifyBase = document.documentElement.dataset.notifyBase || '';
 const status = $('#list-status');
-const state = { items: [], icons: {}, filter: 'all', query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
+const state = { items: [], icons: {}, filter: 'all', workshop: workshopFromURL(location.href), query: '', loaded: false, chatting: false, aiEnabled: false, history: [] };
 let personalItems = null;
 let publicItems = [];
 let library = 'public';
@@ -121,8 +126,9 @@ function displayType(item) {
 
 function matchesFilter(item, filter = state.filter) {
   if (!isReady(item) || !isVisible(item)) return false;
+  if (library === 'public' && state.workshop && !inWorkshop(item)) return false;
   if (filter === 'all') return true;
-  return categoryLabel(item) === filter;
+  return categoryLabel(item) === filter || (state.workshop && (item.tags || []).includes(filter));
 }
 
 function searchScore(item, query) {
@@ -220,7 +226,7 @@ function showAnswer(answer, message, items, options = {}) {
 
 function showQuickReplies(answer,query) {
   const container=answer.querySelector('.chat-quick-replies');
-  for(const item of quickReplies(query).map(item=>({...item,query:`${query} ${item.query}`})).filter(item=>state.items.some(site=>isReady(site)&&isVisible(site)&&searchScore(site,item.query)>0))) {
+  for(const item of quickReplies(query).map(item=>({...item,query:`${query} ${item.query}`})).filter(item=>state.items.some(site=>matchesFilter(site)&&searchScore(site,item.query)>0))) {
     const button=document.createElement('button');button.type='button';button.textContent=item.label;
     button.addEventListener('click',()=>{queryInput.value=item.query;form.requestSubmit();});
     container.append(button);
@@ -274,7 +280,7 @@ async function answerQuery(query, answer, history, keyword, web = false) {
       if (pendingSearch !== job) return;
       if (!Array.isArray(data.ids) || typeof data.message !== 'string') throw new Error('Некорректный ответ поиска.');
       const itemsById = new Map(state.items.map(item => [item.id, item]));
-      const semantic = [...new Set(data.ids)].map(id => itemsById.get(id)).filter(item => item && isReady(item) && isVisible(item));
+      const semantic = [...new Set(data.ids)].map(id => itemsById.get(id)).filter(item => item && matchesFilter(item));
       const items = mergeResults(semantic, keyword);
       showAnswer(answer, getLanguage()==='en'?keywordSearchMessage(items.length):data.message, items);
       const external = (Array.isArray(data.external) ? data.external : []).filter(item => {
@@ -311,11 +317,14 @@ function renderForm() {
 
 function render() {
   renderForm();
-  const categories=[...new Set(state.items.filter(item=>isReady(item)&&isVisible(item)&&!(item.privacyHint==='personal'&&!item.aiCategory)).map(categoryLabel))];
+  const scoped=state.items.filter(item=>isReady(item)&&isVisible(item)&&!(item.privacyHint==='personal'&&!item.aiCategory)&&(!state.workshop||library!=='public'||inWorkshop(item)));
+  const categories=[...new Set(scoped.map(categoryLabel))];
   const categoryOrder = ['Анимация', 'Видео', 'Инструменты', 'Рефы', 'Интерактив', 'Контекст', 'Курсор', 'Медиа', 'AI', 'Наклон', 'Пасхалки', 'Подборки', 'Скролл'];
+  if (state.workshop && library==='public') for (const label of categoryOrder) { if (!categories.includes(label) && scoped.some(item=>(item.tags||[]).includes(label))) categories.push(label); }
+  if (!categories.includes(state.filter)) state.filter='all';
   const rank = label => categoryOrder.includes(label) ? categoryOrder.indexOf(label) : categoryOrder.length;
-  const filterOptions=[{id:'all',label:'Все'},...categories.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
-  tabGroup.render(filterOptions, state.filter);
+  const filterOptions=[{id:'all',label:'Все'},...(library==='public'?[{id:'workshop',label:'Воркшоп',featured:true}]:[]),...categories.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
+  tabGroup.render(filterOptions, state.workshop && library==='public' ? ['workshop',...(state.filter==='all'?[]:[state.filter])] : state.filter);
   const items = filteredItems();
   list.innerHTML = items.map(row).join('');
   status.textContent = items.length ? '' : 'Ничего не найдено. Попробуйте другое слово или фильтр.';
@@ -375,7 +384,7 @@ form.addEventListener('submit', event => {
   turn.innerHTML = `<p class="chat-question">${escapeHTML(query)}</p><div class="chat-answer" aria-busy="true"></div>`;
   chat.append(turn);
   const answer = turn.querySelector('.chat-answer');
-  const keyword = state.items.filter(item => isReady(item) && isVisible(item))
+  const keyword = state.items.filter(item => matchesFilter(item))
     .map(item => ({item, score: searchScore(item, query)})).filter(result => result.score > 0)
     .sort((a, b) => b.score - a.score || compareSiteNames(a.item, b.item)).map(result => result.item);
   const web=form.dataset.webSearch==='true';

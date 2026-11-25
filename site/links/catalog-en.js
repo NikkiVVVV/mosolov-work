@@ -1,5 +1,8 @@
 // Editorial translations of the public catalog, keyed by stable bookmark IDs.
 export const catalogEN = {
+  "927dc5858ab90f84": "Designers’ work, UI animation experiments, and short interaction demos.",
+  "81658ed309e9298c": "Designers’ work, short demos, and discussions of UI animation.",
+
   "51c7b475f51e9df9": "Animated dot loaders.",
   "3b37fc49daf4ccb9": "A collection of stretchy buttons and UI elements.",
   "4516d9fdc1ccc9fd": "A project card appears when you hover over the text.",

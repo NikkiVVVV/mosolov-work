@@ -227,12 +227,8 @@ class Bot:
         answer(packed)
         self.update_search(actor,message_id,context)
     def materials(self, chat_id, section=None, page=0):
-        extra=[[{'text':'Открыть в Figma','url':WORKSHOP_DATA['source']}]]
-        if self.zip_ready():extra.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
-        if section is None:
-            if self.open_search(chat_id,'workshop'):return
-        text,keyboard=workshop_fallback(section or 0,page)
-        self.telegram.send(chat_id,text,keyboard+(extra or []))
+        self.telegram.send(chat_id,'Ссылки с воркшопа — на сайте. Фильтр «Воркшоп» уже включён.',
+            [[{'text':'Ссылки с презентации','url':'https://links.mosolov.dev/?collection=workshop'}]])
     def handle(self, update):
         if 'widget_query' in update:
             self.widget_query(update)
@@ -254,7 +250,7 @@ class Bot:
                 return
             if data == 'workshop':
                 self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
-                buttons=[[{'text':'Ссылки с презентации','callback_data':'workshop_links'}]]
+                buttons=[[{'text':'Ссылки с презентации','url':'https://links.mosolov.dev/?collection=workshop'}]]
                 if self.zip_ready():buttons.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
                 self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
                 return
@@ -291,7 +287,7 @@ class Bot:
             if action=='find':
                 if not self.open_search(chat_id):self.telegram.send(chat_id,'Что найти в закладках?')
             elif action=='workshop':
-                buttons=[[{'text':'Ссылки с презентации','callback_data':'workshop_links'}]]
+                buttons=[[{'text':'Ссылки с презентации','url':'https://links.mosolov.dev/?collection=workshop'}]]
                 if self.zip_ready():buttons.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
                 self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
             else:self.telegram.send(chat_id,'Уютный ТГ',[[{'text':'Открыть канал','url':'https://t.me/nikir_public'}]])

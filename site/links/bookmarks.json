@@ -7406,6 +7406,54 @@
         "Инструменты",
         "Рефы"
       ]
+    },
+    {
+      "id": "927dc5858ab90f84",
+      "url": "https://x.com/explore",
+      "domain": "x.com",
+      "title": "Twitter / X",
+      "bookmarkTitles": [
+        "Twitter / X"
+      ],
+      "ownerNote": "Микроанимации, UI-эксперименты и работы дизайнеров.",
+      "description": "Designers’ work, UI animation experiments, and short interaction demos.",
+      "noteEN": "Designers’ work, UI animation experiments, and short interaction demos.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated"
+    },
+    {
+      "id": "81658ed309e9298c",
+      "url": "https://www.threads.com/",
+      "domain": "threads.com",
+      "title": "Threads",
+      "bookmarkTitles": [
+        "Threads"
+      ],
+      "ownerNote": "Работы дизайнеров, короткие демо и обсуждения UI-анимации.",
+      "description": "Designers’ work, short demos, and discussions of UI animation.",
+      "noteEN": "Designers’ work, short demos, and discussions of UI animation.",
+      "tags": [
+        "Рефы",
+        "Анимация",
+        "Микроанимации",
+        "Воркшоп"
+      ],
+      "folderPaths": [
+        "Рефы"
+      ],
+      "status": "kept",
+      "privacyHint": "public",
+      "reviewHint": "curated"
     }
   ]
 }

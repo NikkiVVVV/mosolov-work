@@ -36,7 +36,7 @@ class SearchWidgetTests(unittest.TestCase):
         self.request('q:payment')
         self.assertEqual(json.loads(self.telegram.calls[-1][1]['chat_data'])['n'],0)
     def test_workshop_group_paging_and_search_stay_in_scope(self):
-        self.callback('workshop_links')
+        self.bot.open_search(99,'workshop')
         self.assertEqual(json.loads(self.telegram.calls[-1][1]['chat_data'])['n'],66)
         self.request('g:2')
         self.assertEqual(json.loads(self.telegram.calls[-1][1]['chat_data'])['n'],13)
@@ -58,7 +58,7 @@ class SearchWidgetTests(unittest.TestCase):
         self.assertIn('error',json.loads(self.telegram.calls[-1][1]['data']))
         self.assertIsNone(self.store.widget(99))
     def test_widget_context_survives_restart(self):
-        self.callback('workshop_links')
+        self.bot.open_search(99,'workshop')
         message=self.store.widget(99)[0]
         self.assertEqual(Store(self.path).widget(99,message)[1]['scope'],'workshop')
     def test_data_and_html_fit_telegram_limits_even_with_long_unicode(self):

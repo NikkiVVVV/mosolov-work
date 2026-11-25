@@ -180,3 +180,11 @@ th:first-child,td:first-child{padding-right:16px}
 
 .channel-avatar{position:relative;display:block;align-self:flex-start;margin:0 auto 0 0;padding:0;border:0;border-radius:50%;overflow:visible;background:transparent;flex:0 0 36px}
 .channel-avatar img{position:absolute;left:50%;bottom:-1.5px;display:block;width:30.9px;height:30.9px;max-width:none;object-fit:cover;border-radius:50%;transform:translateX(-50%)}
+
+/* A collection toggle that can combine with a category. */
+.workshop-filter{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;isolation:isolate}
+.workshop-filter::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.18) 48%,transparent 70%);transform:translateX(-140%);animation:workshop-shine 7s ease-in-out 2}
+.filters .filter-button.workshop-filter[aria-pressed="true"]{background:#e2e7d4;color:#20251c}
+.workshop-spark{font-size:14px;line-height:16px;color:inherit}
+@keyframes workshop-shine{0%,65%{transform:translateX(-140%)}90%,100%{transform:translateX(140%)}}
+@media(prefers-reduced-motion:reduce){.workshop-filter::after{animation:none}}

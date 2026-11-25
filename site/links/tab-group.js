@@ -11,13 +11,17 @@ export function createTabGroup(element, onChange) {
   });
   return {
     render(options, selected) {
-      element.replaceChildren(...options.map(({ id, label }) => {
+      element.replaceChildren(...options.map(({ id, label, featured }) => {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'filter-button';
         button.dataset.filter = id;
         button.textContent = label;
-        button.setAttribute('aria-pressed', String(id === selected));
+        if (featured) {
+          button.classList.add('workshop-filter');
+          const star=document.createElement('span'); star.className='workshop-spark'; star.textContent='✦'; star.setAttribute('aria-hidden','true'); button.append(star);
+        }
+        button.setAttribute('aria-pressed', String(Array.isArray(selected) ? selected.includes(id) : id === selected));
         return button;
       }));
     }

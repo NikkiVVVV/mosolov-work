@@ -23,12 +23,10 @@ class WorkshopTests(unittest.TestCase):
     def click(self,data):
         self.bot.handle({'callback_query':{'id':'cb','from':{'id':99},'data':data,
             'message':{'message_id':4,'chat':{'id':99,'type':'private'}}}})
-    def test_materials_opens_widget_for_public_user(self):
+    def test_materials_opens_scoped_website(self):
         self.click('workshop_links')
-        self.assertEqual(self.telegram.calls[-1][0],'sendWidget')
-        buttons=self.telegram.calls[-1][1]['reply_markup']['inline_keyboard']
-        self.assertEqual(buttons[0][0]['text'],'Открыть в Figma')
-        self.assertFalse(any(b.get('callback_data')=='workshop_zip' for row in buttons for b in row))
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=workshop')
+        self.assertFalse(any(method=='sendWidget' for method,_ in self.telegram.calls))
     def test_fallback_preserves_all_links_across_pages(self):
         for section,g in enumerate(DATA['groups']):
             urls=[]
@@ -36,27 +34,11 @@ class WorkshopTests(unittest.TestCase):
                 _,keyboard=fallback(section,page)
                 urls += [button['url'] for row in keyboard for button in row if 'url' in button]
             self.assertEqual(urls,[i['url'] for i in g['items']])
-    def test_unsupported_api_falls_back_without_broken_message(self):
-        original=self.telegram.call
-        def fail(method,payload):
-            if method=='sendWidget':raise TelegramAPIError(404)
-            return original(method,payload)
-        self.telegram.call=fail
-        self.click('workshop_links')
-        self.assertIn('Материалы с воркшопа',self.telegram.messages[-1][1])
-    def test_zip_button_is_enabled_only_when_file_is_connected(self):
+    def test_materials_menu_uses_direct_url_and_zip_still_downloads(self):
         self.bot.workshop_zip='telegram-file-id'
-        self.click('workshop_links')
-        self.assertEqual(self.telegram.calls[-1][1]['reply_markup']['inline_keyboard'][-1][0]['text'],'Плеер анимации')
+        self.click('workshop')
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=workshop')
         self.click('workshop_zip')
         self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id','caption':'Плеер анимации'}))
-    def test_timeout_does_not_create_duplicate_fallback(self):
-        original=self.telegram.call
-        def fail(method,payload):
-            if method=='sendWidget':raise TimeoutError()
-            return original(method,payload)
-        self.telegram.call=fail
-        with self.assertRaises(TimeoutError):self.click('workshop_links')
-        self.assertEqual(self.telegram.messages,[])
 
 if __name__=='__main__':unittest.main()
