@@ -1,7 +1,7 @@
 import {catalogEN} from './catalog-en.js?v=20261125x';
 
 export const dictionary=new Map(Object.entries({
- 'Избранные':'Selected','закладки':'bookmarks','Материалы с митапа':'Meetup materials','Все':'All','Создать подборку':'Create a collection',
+ 'Избранные':'Selected','закладки':'bookmarks','Митап':'Meetup','Материалы с митапа':'Meetup materials','Все':'All','Создать подборку':'Create a collection',
  'Навожу порядок в закладках':'Organizing your bookmarks','Ищу в закладках…':'Searching your bookmarks…',
  'Сайт':'Site','Категория':'Category','Заметка':'Note','Описание':'Description',
  'Анимация':'Animation','Видео':'Video','Инструменты':'Tools','Рефы':'References','Интерактив':'Interactive',
