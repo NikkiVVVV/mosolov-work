@@ -27,7 +27,7 @@ def fallback(section=0, page=0):
     if page:nav.append({'text':'←','callback_data':f'workshop:{section}:{page-1}'})
     if (page+1)*size<len(group['items']):nav.append({'text':'→','callback_data':f'workshop:{section}:{page+1}'})
     if nav:rows.append(nav)
-    return 'Материалы с воркшопа\n'+group['name']+' · '+str(page+1)+'/'+str((len(group['items'])+size-1)//size),rows
+    return 'Материалы с митапа\n'+group['name']+' · '+str(page+1)+'/'+str((len(group['items'])+size-1)//size),rows
 
 TEMPLATE = r"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>
 body{margin:0;padding:16px;color:var(--tg-theme-text-color,#eeefeb);background:var(--tg-theme-bg-color,#191a1b);font-family:system-ui,sans-serif}
@@ -43,7 +43,7 @@ small{display:block;font-size:12px;line-height:16px;color:var(--tg-theme-hint-co
 footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:8px}
 #count{font-size:12px;color:var(--tg-theme-hint-color,#a6a8a2)}
 footer button{min-width:44px}a.source{display:block;font-size:13px;line-height:20px;margin-top:12px;color:var(--tg-theme-link-color,#a6a8a2)}
-</style></head><body><h1>Материалы<br>с воркшопа</h1>
+</style></head><body><h1>Материалы<br>с митапа</h1>
 <nav aria-label="Разделы"><button id="t0" onclick="tab(0)">Рефы</button><button id="t1" onclick="tab(1)">Код</button><button id="t2" onclick="tab(2)">Инструменты</button></nav>
 <ul id="list"></ul><footer><button id="prev" aria-label="Предыдущая страница" onclick="move(-1)">←</button><span id="count" aria-live="polite"></span><button id="next" aria-label="Следующая страница" onclick="move(1)">→</button></footer>
 <a class="source" href="__FIGMA__">Все материалы в Figma ↗</a>

@@ -12,6 +12,7 @@ test('all 89 workshop IDs exist exactly once in public catalog',()=>{
 });
 test('workshop deep link is opt-in',()=>{
  assert.equal(workshopFromURL('https://links.mosolov.dev/?collection=workshop'),true);
+ assert.equal(workshopFromURL('https://links.mosolov.dev/?collection=meetup'),true);
  assert.equal(workshopFromURL('https://links.mosolov.dev/'),false);
 });
 

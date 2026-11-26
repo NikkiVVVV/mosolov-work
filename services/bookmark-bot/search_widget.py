@@ -47,13 +47,13 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:8px;mar
 <button id="query" onclick="ask('ask')" aria-label="Изменить поисковый запрос">⌕ Что найти?</button>
 <p id="hint" aria-live="polite">Запрос можно отправить сообщением боту</p>
 <nav id="chips" aria-label="Быстрый поиск"><button onclick="ask('q:motion')">Анимация</button><button onclick="ask('q:fonts')">Шрифты</button><button onclick="ask('q:payment')">Оплата</button><button onclick="ask('q:ui')">UI-компоненты</button></nav>
-<nav id="groups" aria-label="Разделы воркшопа" hidden><button id="g-1" onclick="ask('g:-1')">Все</button><button id="g0" onclick="ask('g:0')">Рефы</button><button id="g1" onclick="ask('g:1')">Код</button><button id="g2" onclick="ask('g:2')">Инструменты</button></nav>
+<nav id="groups" aria-label="Разделы митапа" hidden><button id="g-1" onclick="ask('g:-1')">Все</button><button id="g0" onclick="ask('g:0')">Рефы</button><button id="g1" onclick="ask('g:1')">Код</button><button id="g2" onclick="ask('g:2')">Инструменты</button></nav>
 <ul id="list"></ul><p id="empty" hidden>Ничего не нашёл. Попробуй другое слово или название сайта.</p>
 <footer><button id="prev" aria-label="Предыдущие результаты" onclick="ask('page:'+(state.p-1))">←</button><span id="count"></span><button id="next" aria-label="Следующие результаты" onclick="ask('page:'+(state.p+1))">→</button></footer>
 <script>
 let state={s:'archive',q:'',p:0,n:0,g:-1,r:[]},busy=false;
 function readState(value){try{const next=JSON.parse(value||'{}');if(Array.isArray(next.r)){state=next;draw()}}catch(e){document.getElementById('hint').textContent='Не удалось обновить результаты'}}
-function draw(){document.getElementById('title').textContent=state.s==='workshop'?'Материалы с воркшопа':'Избранные закладки';document.getElementById('query').textContent='⌕ '+(state.q||'Что найти?');
+function draw(){document.getElementById('title').textContent=state.s==='workshop'?'Материалы с митапа':'Избранные закладки';document.getElementById('query').textContent='⌕ '+(state.q||'Что найти?');
 document.getElementById('groups').hidden=state.s!=='workshop';document.getElementById('chips').hidden=state.s==='workshop';
 for(let i=-1;i<3;i++)document.getElementById('g'+i).setAttribute('aria-pressed',String(state.g===i));
 const list=document.getElementById('list');while(list.firstChild)list.removeChild(list.firstChild);

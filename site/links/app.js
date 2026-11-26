@@ -1,6 +1,6 @@
-import {inWorkshop,workshopFromURL} from './workshop-filter.js?v=20261125x';
+import {inWorkshop,workshopFromURL} from './workshop-filter.js?v=20261126meetup';
 import { initSearchG2 } from './search-g2.js?v=20261016r';
-import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261125x';
+import {initI18n,registerCatalog,getLanguage} from './i18n.js?v=20261126meetup';
 import {conceptQuery,conceptTerms} from './search-concepts.js?v=20261018l';
 import { initPersonalLibrary } from './personal-library-v2.js?v=20261016b';
 import { initSearchDiscovery } from './search-discovery.js?v=20261018f';
@@ -21,7 +21,7 @@ const tabGroup = createTabGroup(filters, value => {
   if (value === 'workshop') state.workshop = !state.workshop;
   else { state.filter = value; if (value === 'all') state.workshop = false; }
   const url = new URL(location.href);
-  if (state.workshop) url.searchParams.set('collection','workshop'); else url.searchParams.delete('collection');
+  if (state.workshop) url.searchParams.set('collection','meetup'); else url.searchParams.delete('collection');
   history.replaceState(null,'',url);
   render();
 });
@@ -323,7 +323,7 @@ function render() {
   if (state.workshop && library==='public') for (const label of categoryOrder) { if (!categories.includes(label) && scoped.some(item=>(item.tags||[]).includes(label))) categories.push(label); }
   if (!categories.includes(state.filter)) state.filter='all';
   const rank = label => categoryOrder.includes(label) ? categoryOrder.indexOf(label) : categoryOrder.length;
-  const filterOptions=[{id:'all',label:'Все'},...(library==='public'?[{id:'workshop',label:'Воркшоп',featured:true}]:[]),...categories.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
+  const filterOptions=[{id:'all',label:'Все'},...(library==='public'?[{id:'workshop',label:'Материалы с митапа',featured:true}]:[]),...categories.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,'ru')).map(label=>({id:label,label}))];
   tabGroup.render(filterOptions, state.workshop && library==='public' ? ['workshop',...(state.filter==='all'?[]:[state.filter])] : state.filter);
   const items = filteredItems();
   list.innerHTML = items.map(row).join('');

@@ -17,13 +17,13 @@ class SearchWidgetTests(unittest.TestCase):
         self.bot.handle({'widget_query':{'id':'wq','from':{'id':actor},'chat':{'id':actor,'type':'private'},
                         'message_id':message,'data':data,'type':{'type':'data'}}})
     def test_search_button_opens_reactive_not_static_card(self):
-        self.callback('find')
+        self.bot.open_search(99)
         call=self.telegram.calls[-1]
         self.assertEqual(call[0],'sendWidget')
         self.assertTrue(call[1]['allow_queries'])
         self.assertEqual(json.loads(call[1]['chat_data'])['n'],1)
     def test_typed_query_edits_same_message_without_result_spam(self):
-        self.callback('find');message=self.store.widget(99)[0]
+        self.bot.open_search(99);message=self.store.widget(99)[0]
         self.bot.handle(test_bot.update('font',actor=99))
         method,payload=self.telegram.calls[-1]
         self.assertEqual(method,'editMessageWidgetData')
@@ -31,7 +31,7 @@ class SearchWidgetTests(unittest.TestCase):
         self.assertEqual(json.loads(payload['chat_data'])['q'],'font')
         self.assertEqual(self.telegram.messages,[])
     def test_preset_and_empty_state(self):
-        self.callback('find');self.request('q:fonts')
+        self.bot.open_search(99);self.request('q:fonts')
         self.assertEqual(json.loads(self.telegram.calls[-1][1]['chat_data'])['n'],1)
         self.request('q:payment')
         self.assertEqual(json.loads(self.telegram.calls[-1][1]['chat_data'])['n'],0)
@@ -47,12 +47,12 @@ class SearchWidgetTests(unittest.TestCase):
         self.assertEqual(packed['s'],'workshop');self.assertEqual(packed['n'],1)
         self.assertEqual(packed['r'][0][0],'Spline')
     def test_ask_uses_native_chat_keyboard(self):
-        self.callback('find');self.request('ask')
+        self.bot.open_search(99);self.request('ask')
         method,payload=self.telegram.calls[-1]
         self.assertEqual(method,'sendMessage')
         self.assertTrue(payload['reply_markup']['force_reply'])
     def test_cannot_edit_another_users_widget(self):
-        self.callback('find',42);message=self.store.widget(42)[0]
+        self.bot.open_search(42);message=self.store.widget(42)[0]
         self.request('q:fonts',actor=99,message=message)
         self.assertEqual(self.telegram.calls[-1][0],'answerWidgetQuery')
         self.assertIn('error',json.loads(self.telegram.calls[-1][1]['data']))
@@ -89,6 +89,6 @@ class PersistentMenuTests(unittest.TestCase):
         self.assertTrue(PERSISTENT_MENU['is_persistent'])
         self.assertFalse(PERSISTENT_MENU['one_time_keyboard'])
         self.bot.handle(test_bot.update('Найти закладки',actor=99))
-        self.assertEqual(self.telegram.calls[-1][0],'sendWidget')
+        self.assertIn('Введи тему',self.telegram.messages[-1][1])
         self.bot.handle(test_bot.update('Уютный ТГ',actor=99))
         self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://t.me/nikir_public')

@@ -14,7 +14,7 @@ LABELS={'service.started':'Сервис запущен','bot.started':'Поль�
         'menu.selected':'Выбран пункт меню','search.requested':'Поиск закладок',
         'widget.selected':'Действие в виджете','widget.sent':'Отправлен виджет',
         'archive.sent':'Отправлен архив','request.failed':'Ошибка обработки'}
-CHOICES={'find':'Найти закладки','workshop':'Материалы с воркшопа','workshop_links':'Ссылки с презентации',
+CHOICES={'find':'Найти закладки','workshop':'Материалы с митапа','workshop_links':'Материалы с митапа',
          'workshop_zip':'Плеер анимации','q:motion':'Анимация','q:fonts':'Шрифты',
          'q:payment':'Оплата','q:ui':'UI-компоненты','ask':'Новый запрос','g:-1':'Все разделы',
          'g:0':'Референсы','g:1':'Код и компоненты','g:2':'Инструменты','save':'Сохранить импорт','cancel':'Отменить импорт'}
@@ -52,7 +52,7 @@ class AdminEvents:
                 value=str(value)
                 if value.startswith(('save:','cancel:')):value=value.split(':')[0]
                 value=CHOICES.get(value,value)
-            if key=='scope':value={'archive':'Весь архив','workshop':'Воркшоп'}.get(value,value)
+            if key=='scope':value={'archive':'Весь архив','workshop':'Митап'}.get(value,value)
             parts.append(str(value)[:300])
         identity=str(update.get('update_id',uuid.uuid4()))+':'+kind
         with self.connect() as db:

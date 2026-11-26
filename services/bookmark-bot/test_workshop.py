@@ -25,7 +25,7 @@ class WorkshopTests(unittest.TestCase):
             'message':{'message_id':4,'chat':{'id':99,'type':'private'}}}})
     def test_materials_opens_scoped_website(self):
         self.click('workshop_links')
-        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=workshop')
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=meetup')
         self.assertFalse(any(method=='sendWidget' for method,_ in self.telegram.calls))
     def test_fallback_preserves_all_links_across_pages(self):
         for section,g in enumerate(DATA['groups']):
@@ -37,7 +37,7 @@ class WorkshopTests(unittest.TestCase):
     def test_materials_menu_uses_direct_url_and_zip_still_downloads(self):
         self.bot.workshop_zip='telegram-file-id'
         self.click('workshop')
-        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=workshop')
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=meetup')
         self.click('workshop_zip')
         self.assertEqual(self.telegram.calls[-1],('sendDocument',{'chat_id':99,'document':'telegram-file-id','caption':'Плеер анимации'}))
 

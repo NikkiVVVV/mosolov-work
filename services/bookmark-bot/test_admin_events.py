@@ -52,7 +52,7 @@ class ArchiveDeliveryTests(unittest.TestCase):
     def test_main_menu_opens_links_and_sends_zip_directly(self):
         self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
         self.bot.handle(test_bot.update('Ссылки',actor=99))
-        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=workshop')
+        self.assertEqual(self.telegram.messages[-1][2][0][0]['url'],'https://links.mosolov.dev/?collection=meetup')
         with patch.object(self.telegram,'send_file',create=True) as send:
             self.bot.handle(test_bot.update('Плеер анимации',actor=99))
             send.assert_called_once_with(99,self.bot.workshop_zip_path)
@@ -60,7 +60,7 @@ class ArchiveDeliveryTests(unittest.TestCase):
         self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
         self.click('workshop')
         labels=[r[0]['text'] for r in self.telegram.messages[-1][2]]
-        self.assertEqual(labels,['Ссылки с презентации','Плеер анимации'])
+        self.assertEqual(labels,['Материалы с митапа','Плеер анимации'])
     def test_zip_is_sent_only_after_selection(self):
         self.bot.workshop_zip_path=Path(__file__).with_name('Animation Player.zip')
         with patch.object(self.telegram,'send_file',create=True) as send:

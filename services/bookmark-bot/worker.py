@@ -122,16 +122,18 @@ class Vision:
         content = re.sub(r'^\s*```(?:json)?\s*|\s*```\s*$', '', content)
         return json.loads(content)['items']
 
+SEARCH_HELP = 'Введи тему или опиши, что хочешь найти. Например: «анимация кнопок», «шрифты» или «платёжный экран». Я поищу подходящие ссылки в закладках.'
+
 HELP = 'Помогу найти нужные сайты в закладках. Напиши, что ищешь, или выбери действие ниже.'
 OWNER_HELP = '\n\nТы также можешь прислать скриншот со ссылками для добавления. /export — выгрузить сохранённые ссылки.'
 START_MENU = [
     [{'text':'Найти закладки','callback_data':'find'}],
-    [{'text':'Ссылки','url':'https://links.mosolov.dev/?collection=workshop'}],
+    [{'text':'Материалы с митапа','url':'https://links.mosolov.dev/?collection=meetup'}],
     [{'text':'Плеер анимации','callback_data':'workshop_zip'}],
     [{'text':'Уютный ТГ','url':'https://t.me/nikir_public'}],
 ]
 
-PERSISTENT_MENU={'keyboard':[[{'text':'Найти закладки'},{'text':'Ссылки'}],[{'text':'Плеер анимации'},{'text':'Уютный ТГ'}]],'resize_keyboard':True,'is_persistent':True,'one_time_keyboard':False}
+PERSISTENT_MENU={'keyboard':[[{'text':'Найти закладки'},{'text':'Материалы с митапа'}],[{'text':'Плеер анимации'},{'text':'Уютный ТГ'}]],'resize_keyboard':True,'is_persistent':True,'one_time_keyboard':False}
 
 class Bot:
     def __init__(self, store, telegram, catalog, allowed, vision=None, workshop_zip=None, workshop_zip_path=None, events=None):
@@ -178,7 +180,7 @@ class Bot:
         if scope=='workshop' and self.zip_ready():links.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
         try:
             message=self.telegram.call('sendWidget',{'chat_id':actor,'html':search_html(),'chat_data':packed,
-                'allow_queries':True,'caption':'Материалы с воркшопа' if scope=='workshop' else 'Поиск по закладкам',
+                'allow_queries':True,'caption':'Материалы с митапа' if scope=='workshop' else 'Поиск по закладкам',
                 'reply_markup':{'inline_keyboard':links}})
         except TelegramAPIError as error:
             logging.warning('Widget rejected: %s %s',error.code,error.description)
@@ -208,7 +210,7 @@ class Bot:
         self.event('widget.selected',update,choice=data,scope=context['scope'])
         if data=='ask':
             answer('{}')
-            self.telegram.call('sendMessage',{'chat_id':actor,'text':'Что найти в закладках?',
+            self.telegram.call('sendMessage',{'chat_id':actor,'text':SEARCH_HELP,
                 'reply_markup':{'force_reply':True,'input_field_placeholder':'Например, анимация кнопок'}})
             # Touch this card so the following text updates the card the user tapped.
             self.store.set_widget(actor,message_id,context)
@@ -228,8 +230,8 @@ class Bot:
         answer(packed)
         self.update_search(actor,message_id,context)
     def materials(self, chat_id, section=None, page=0):
-        self.telegram.send(chat_id,'Ссылки с воркшопа — на сайте. Фильтр «Воркшоп» уже включён.',
-            [[{'text':'Ссылки с презентации','url':'https://links.mosolov.dev/?collection=workshop'}]])
+        self.telegram.send(chat_id,'Материалы с митапа — на сайте. Фильтр «Материалы с митапа» уже включён.',
+            [[{'text':'Материалы с митапа','url':'https://links.mosolov.dev/?collection=meetup'}]])
     def handle(self, update):
         if 'widget_query' in update:
             self.widget_query(update)
@@ -251,9 +253,9 @@ class Bot:
                 return
             if data == 'workshop':
                 self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
-                buttons=[[{'text':'Ссылки с презентации','url':'https://links.mosolov.dev/?collection=workshop'}]]
+                buttons=[[{'text':'Материалы с митапа','url':'https://links.mosolov.dev/?collection=meetup'}]]
                 if self.zip_ready():buttons.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
-                self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
+                self.telegram.send(chat_id,'Материалы с митапа',buttons)
                 return
             if data == 'workshop_links' or re.fullmatch(r'workshop:[0-2]:[0-9]{1,2}',data):
                 self.telegram.call('answerCallbackQuery',{'callback_query_id':callback['id']})
@@ -268,8 +270,7 @@ class Bot:
                 return
             if data == 'find':
                 self.telegram.call('answerCallbackQuery', {'callback_query_id':callback['id']})
-                if not self.open_search(chat_id):
-                    self.telegram.send(chat_id, 'Какие закладки найти? Например: «анимация кнопок», «шрифты» или «платёжный экран».')
+                self.telegram.send(chat_id,SEARCH_HELP)
                 return
             match = re.fullmatch(r'(save|cancel):([a-f0-9]{24})', data)
             if match:
@@ -282,19 +283,20 @@ class Bot:
                 self.telegram.send(chat_id, 'Сохранено ссылок: '+str(count) if count else 'Импорт отменён или уже обработан')
             return
         text = message.get('text', '').strip()
-        if text in ('Найти закладки','Ссылки','Плеер анимации','Материалы с воркшопа','Уютный ТГ'):
-            action={'Найти закладки':'find','Ссылки':'workshop_links','Плеер анимации':'workshop_zip','Материалы с воркшопа':'workshop','Уютный ТГ':'channel'}[text]
+        if text == 'Материалы с воркшопа':text='Материалы с митапа'
+        if text in ('Найти закладки','Ссылки','Плеер анимации','Материалы с митапа','Уютный ТГ'):
+            action={'Найти закладки':'find','Ссылки':'workshop_links','Плеер анимации':'workshop_zip','Материалы с митапа':'workshop_links','Уютный ТГ':'channel'}[text]
             self.event('menu.selected',update,choice=action)
             if action=='find':
-                if not self.open_search(chat_id):self.telegram.send(chat_id,'Что найти в закладках?')
+                self.telegram.send(chat_id,SEARCH_HELP)
             elif action=='workshop_links':
-                self.telegram.send(chat_id,'Ссылки с воркшопа',[[{'text':'Открыть закладки','url':'https://links.mosolov.dev/?collection=workshop'}]])
+                self.telegram.send(chat_id,'Материалы с митапа',[[{'text':'Открыть закладки','url':'https://links.mosolov.dev/?collection=meetup'}]])
             elif action=='workshop_zip':
                 if self.send_zip(chat_id):self.event('archive.sent',update)
             elif action=='workshop':
-                buttons=[[{'text':'Ссылки с презентации','url':'https://links.mosolov.dev/?collection=workshop'}]]
+                buttons=[[{'text':'Материалы с митапа','url':'https://links.mosolov.dev/?collection=meetup'}]]
                 if self.zip_ready():buttons.append([{'text':'Плеер анимации','callback_data':'workshop_zip'}])
-                self.telegram.send(chat_id,'Материалы с воркшопа',buttons)
+                self.telegram.send(chat_id,'Материалы с митапа',buttons)
             else:self.telegram.send(chat_id,'Уютный ТГ',[[{'text':'Открыть канал','url':'https://t.me/nikir_public'}]])
             return
         if text.startswith(('/start','/help','/menu')):
